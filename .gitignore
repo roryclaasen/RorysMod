@@ -1,12 +1,25 @@
-*.class
+# exclude all
+/*
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# include important folders
+# need gradle 
+!gradle/
+!gradlew
+!gradlew.bat
+!build.gradle
+!gradle.properties
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# include markdowns
+!README.md
+!LICENSE
+!CONTRIBUTING.md
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# include sourcecode
+!src/
+
+# include git important files
+!.gitmodules
+!.gitignore
+
+# code format to reduce noise in git commits
+!codeformat/
