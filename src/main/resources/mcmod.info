@@ -1,14 +1,13 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": rorysmod"name": "Rory's Mod",
+  "description": "A collecting random stuff that myself (and requests) have decied to  include.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/GOGO98901/RorysMod",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Rory Claasen"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
