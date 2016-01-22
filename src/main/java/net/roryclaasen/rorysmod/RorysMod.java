@@ -5,7 +5,6 @@ import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.proxy.ProxyCommon;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -57,9 +56,6 @@ public class RorysMod {
 
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
-
-		PlayerBedEventHandler playerEvent = new PlayerBedEventHandler();
-		FMLCommonHandler.instance().bus().register(playerEvent);
 
 		MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 	}

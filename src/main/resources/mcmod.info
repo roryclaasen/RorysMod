@@ -1,6 +1,7 @@
 [
 {
-  "modid": rorysmod"name": "Rory's Mod",
+  "modid": "rorysmod",
+  "name": "Rory's Mod",
   "description": "A collecting random stuff that myself (and requests) have decied to  include.",
   "version": "${version}",
   "mcversion": "${mcversion}",
