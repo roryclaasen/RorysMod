@@ -1,34 +1,60 @@
 package net.roryclaasen.rorysmod;
 
 import net.minecraftforge.common.MinecraftForge;
-
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
+import net.roryclaasen.rorysmod.block.BlockBedAdvanced;
+import net.roryclaasen.rorysmod.proxy.ProxyCommon;
+import net.roryclaasen.rorysmod.util.BlockRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = RorysMod.MODID, version = RorysMod.VERSION)
+@Mod(modid = RorysMod.MODID, version = RorysMod.VERSION, name = RorysMod.NAME)
 public class RorysMod {
 
+	@SidedProxy(clientSide = "net.roryclaasen.rorysmod.proxy.ProxyClient", serverSide = "net.roryclaasen.rorysmod.proxy.ProxyCommon")
+	public static ProxyCommon proxy;
+
 	public static final String MODID = "rorysmod";
+	public static final String NAME = "Rory's Mod";
 	public static final String VERSION = "1.0";
 
 	private Settings settings;
+
+	private BlockRegistry blocks;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		settings = new Settings(event);
 		settings.load(event);
+		
+		blocks = new BlockRegistry();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		FMLLog.log(RorysMod.MODID, Level.INFO, "Loading mod!");
+		RMLog.info("Loading mod!");
+		addBlocks();
+		registerEventHandlers();
+	}
+
+	@EventHandler
+	public void postinit(FMLPostInitializationEvent event) {}
+
+	private void addBlocks() {
+		//Block.blockRegistry.addObject(27, "bed", new BlockBedAdvanced());
+		blocks.register("minecraft:bed", new BlockBedAdvanced());
+	}
+
+	private void registerEventHandlers() {
+		RMLog.info("Registering events");
+
+		PlayerBedEventHandler playerEvent = new PlayerBedEventHandler();
+		FMLCommonHandler.instance().bus().register(playerEvent);
 
 		MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 	}
-
 }

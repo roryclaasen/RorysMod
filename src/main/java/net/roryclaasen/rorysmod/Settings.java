@@ -11,12 +11,12 @@ public class Settings {
 
 	private static boolean enableMobsNearByCheck;
 	private static boolean enableSleepInDay;
+	private static boolean enableStayInBed;
 
 	private Configuration config;
 
 	public Settings(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load();
 	}
 
 	/**
@@ -24,9 +24,12 @@ public class Settings {
 	 */
 	public void load(FMLPreInitializationEvent event) {
 		FMLLog.log(RorysMod.MODID, Level.INFO, "Loading Config");
+		config.load();
 
 		enableMobsNearByCheck = config.get("sleeping", "enableMobsNearByCheck", false).getBoolean(false);
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true).getBoolean(true);
+		enableStayInBed = config.get("sleeping", "stayInBed", true).getBoolean(true);
+
 		config.save();
 	}
 
@@ -36,5 +39,9 @@ public class Settings {
 
 	public static boolean isEnableSleepInDay() {
 		return enableSleepInDay;
+	}
+
+	public static boolean shouldStayInBed() {
+		return enableStayInBed;
 	}
 }

@@ -8,10 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
-
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerBedEventHandler {
@@ -19,17 +16,24 @@ public class PlayerBedEventHandler {
 	private int sleepRange = 10;
 
 	@SubscribeEvent
+	public void onWakeUpEvent(PlayerWakeUpEvent event) {
+		//RMLog.info("waking up");
+		if (Settings.shouldStayInBed()) {
+		//	RMLog.info("should stay in bed");
+		}
+	}
+
+	@SubscribeEvent
 	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event) {
-		FMLLog.log(RorysMod.MODID, Level.INFO, "PlayerSleepInBedEvent");
+		// RMLog.info("PlayerSleepInBedEvent");
 		List<EntityMob> list = getEntityMobFromPlayer(event.entityPlayer, sleepRange);
 
-		boolean mobs = (!Settings.isEnableMobsNearByCheck() || !list.isEmpty());
+		boolean mobs = (!Settings.isEnableMobsNearByCheck() || list.isEmpty());
 		boolean night = (Settings.isEnableSleepInDay() || !event.entityPlayer.worldObj.isDaytime());
-		FMLLog.log(RorysMod.MODID, Level.INFO, "mobs:" + mobs);
-		FMLLog.log(RorysMod.MODID, Level.INFO, "night:" + night);
+		// RMLog.info("mobs:" + mobs);
+		// RMLog.info("night:" + night);
 		if (mobs && night) {
-
-			FMLLog.log(RorysMod.MODID, Level.INFO, "test");
+			// RMLog.info("Sleep is allowed");
 			// TickHandler.playerRequesting = event.entityPlayer;
 			// TickHandler.nearbyMobList = list;
 		}
