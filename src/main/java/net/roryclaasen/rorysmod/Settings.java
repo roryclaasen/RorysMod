@@ -9,9 +9,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class Settings {
 
-	private static boolean enableMobsNearByCheck;
-	private static boolean enableSleepInDay;
-	private static boolean enableStayInBed;
+	public static boolean enableMobsNearByCheck;
+	public static boolean enableSleepInDay;
+	public static boolean enableStayInBed;
+	public static boolean bedText;
 
 	private Configuration config;
 
@@ -29,19 +30,8 @@ public class Settings {
 		enableMobsNearByCheck = config.get("sleeping", "enableMobsNearByCheck", false).getBoolean(false);
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true).getBoolean(true);
 		enableStayInBed = config.get("sleeping", "stayInBed", true).getBoolean(true);
+		bedText = config.get("sleeping", "whenAccessingBedShowNewText", false).getBoolean(false);
 
 		config.save();
-	}
-
-	public static boolean isEnableMobsNearByCheck() {
-		return enableMobsNearByCheck;
-	}
-
-	public static boolean isEnableSleepInDay() {
-		return enableSleepInDay;
-	}
-
-	public static boolean shouldStayInBed() {
-		return enableStayInBed;
 	}
 }
