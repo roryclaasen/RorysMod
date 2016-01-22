@@ -1,7 +1,6 @@
 package net.roryclaasen.rorysmod;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.roryclaasen.rorysmod.block.BlockBedAdvanced;
 import net.roryclaasen.rorysmod.proxy.ProxyCommon;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -24,30 +23,35 @@ public class RorysMod {
 
 	private Settings settings;
 
-	private BlockRegistry blocks;
+	public BlockRegistry blocks;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		settings = new Settings(event);
 		settings.load(event);
-		
+
 		blocks = new BlockRegistry();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		RMLog.info("Loading mod!");
+		RMLog.info("Initializing mod!");
+
+		addItems();
 		addBlocks();
 		registerEventHandlers();
+
+		addRecipes();
 	}
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {}
 
-	private void addBlocks() {
-		//Block.blockRegistry.addObject(27, "bed", new BlockBedAdvanced());
-		blocks.register("minecraft:bed", new BlockBedAdvanced());
-	}
+	private void addItems() {}
+
+	private void addRecipes() {}
+
+	private void addBlocks() {}
 
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
