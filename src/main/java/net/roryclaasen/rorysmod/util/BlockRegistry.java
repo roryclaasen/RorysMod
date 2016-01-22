@@ -16,7 +16,6 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ObjectIntIdentityMap;
 import net.minecraft.util.RegistryNamespaced;
 import net.minecraft.util.RegistrySimple;
-import net.roryclaasen.rorysmod.RMLog;
 
 @SuppressWarnings("unchecked")
 public final class BlockRegistry {

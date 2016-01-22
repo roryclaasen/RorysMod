@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod;
+package net.roryclaasen.rorysmod.event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
+import net.roryclaasen.rorysmod.Settings;
+import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerBedEventHandler {

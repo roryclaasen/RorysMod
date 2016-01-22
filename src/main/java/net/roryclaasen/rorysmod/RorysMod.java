@@ -1,8 +1,10 @@
 package net.roryclaasen.rorysmod;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.proxy.ProxyCommon;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
+import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;

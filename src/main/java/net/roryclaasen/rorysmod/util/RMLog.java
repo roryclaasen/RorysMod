@@ -1,4 +1,6 @@
-package net.roryclaasen.rorysmod;
+package net.roryclaasen.rorysmod.util;
+
+import net.roryclaasen.rorysmod.RorysMod;
 
 import org.apache.logging.log4j.Level;
 
