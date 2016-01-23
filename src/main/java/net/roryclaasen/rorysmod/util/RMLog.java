@@ -8,23 +8,40 @@ import cpw.mods.fml.common.FMLLog;
 
 public class RMLog {
 
-	public static void info(String string) {
-		log(Level.INFO, string);
+	public static void info(Object object) {
+		info(object, false);
 	}
 
-	public static void warn(String string) {
-		log(Level.WARN, string);
+	public static void info(Object object, boolean core) {
+		log(Level.INFO, object, core);
 	}
 
-	public static void error(String string) {
-		log(Level.ERROR, string);
+	public static void warn(Object object) {
+		warn(object, false);
 	}
 
-	public static void fatal(String string) {
-		log(Level.FATAL, string);
+	public static void warn(Object object, boolean core) {
+		log(Level.WARN, object, core);
 	}
 
-	public static void log(Level level, String string) {
-		FMLLog.log(RorysMod.MODID, level, string);
+	public static void error(Object object) {
+		error(object, false);
+	}
+
+	public static void error(Object object, boolean core) {
+		log(Level.ERROR, object, core);
+	}
+
+	public static void fatal(Object object) {
+		fatal(object, false);
+	}
+
+	public static void fatal(Object object, boolean core) {
+		log(Level.FATAL, object, core);
+	}
+
+	public static void log(Level level, Object object, boolean core) {
+		if (core) FMLLog.log(RorysMod.MODID + "core", level, object.toString());
+		else FMLLog.log(RorysMod.MODID, level, object.toString());
 	}
 }
