@@ -3,7 +3,6 @@ package net.roryclaasen.asm.rorysmodcore.transformer;
 import java.util.Iterator;
 
 import net.minecraft.launchwrapper.IClassTransformer;
-import net.roryclaasen.rorysmod.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
 
 import org.objectweb.asm.ClassReader;
@@ -18,22 +17,20 @@ public class WorldServerTransformer implements IClassTransformer {
 
 	@Override
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
-		if (Settings.isExperiment()) {
-			try {
-				if (arg0.equals("js")) {
-					RMLog.info("About to patch WorldServer [js]", true);
-					return patchClassASM(arg0, arg2, true);
-				}
-
-				if (arg0.equals("net.minecraft.world.WorldServer")) {
-					RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
-					return patchClassASM(arg0, arg2, false);
-				}
-			} catch (Exception e) {
-				RMLog.warn("Patch failed!", true);
-				e.printStackTrace();
+		try {
+			if (arg0.equals("js")) {
+				RMLog.info("About to patch WorldServer [js]", true);
+				return patchClassASM(arg0, arg2, true);
 			}
-		} else RMLog.info("Skipping transformer", true);
+
+			if (arg0.equals("net.minecraft.world.WorldServer")) {
+				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
+				return patchClassASM(arg0, arg2, false);
+			}
+		} catch (Exception e) {
+			RMLog.warn("Patch failed!", true);
+			e.printStackTrace();
+		}
 
 		return arg2;
 	}

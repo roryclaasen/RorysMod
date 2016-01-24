@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.proxy.ProxyCommon;
+import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.Mod;
@@ -71,7 +72,7 @@ public class RorysMod {
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
 
-		if (Settings.isExperiment()) {
+		if (Arguments.isExperiment()) {
 			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 		} else RMLog.info("Skiiping expiremntal Handlers");
 	}

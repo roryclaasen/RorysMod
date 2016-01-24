@@ -2,6 +2,9 @@ package net.roryclaasen.asm.rorysmodcore;
 
 import java.util.Arrays;
 
+import net.roryclaasen.rorysmod.util.Arguments;
+import net.roryclaasen.rorysmod.util.RMLog;
+
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -28,6 +31,12 @@ public class RorysModCore extends DummyModContainer {
 		meta.updateUrl = "";
 		meta.screenshots = new String[0];
 		meta.logoFile = "";
+
+		if (Arguments.isExperiment()) {
+			RMLog.info("Mod running in experimental mode", true);
+		} else {
+			RMLog.info("Mod not running in experimental mode", true);
+		}
 	}
 
 	@Override

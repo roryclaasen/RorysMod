@@ -22,9 +22,6 @@ public class Settings {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 	}
 
-	/**
-	 * @param event
-	 */
 	public void load(FMLPreInitializationEvent event) {
 		FMLLog.log(RorysMod.MODID, Level.INFO, "Loading Config");
 		config.load();
@@ -46,16 +43,5 @@ public class Settings {
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (RorysMod.MODID.equals(event.modID)) updateSettings();
-	}
-
-	public static boolean isExperiment() {
-		String var = System.getProperty("rorysModExperiment");
-		if (var == null) return false;
-		try {
-			if (Boolean.parseBoolean(var)) return true;
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
 	}
 }
