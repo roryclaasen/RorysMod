@@ -47,4 +47,15 @@ public class Settings {
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (RorysMod.MODID.equals(event.modID)) updateSettings();
 	}
+
+	public static boolean isExperiment() {
+		String var = System.getProperty("rorysModExperiment");
+		if (var == null) return false;
+		try {
+			if (Boolean.parseBoolean(var)) return true;
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

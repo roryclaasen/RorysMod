@@ -3,6 +3,7 @@ package net.roryclaasen.asm.rorysmodcore.transformer;
 import java.util.Iterator;
 
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.roryclaasen.rorysmod.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
 
 import org.objectweb.asm.ClassReader;
@@ -10,7 +11,6 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
@@ -18,20 +18,22 @@ public class WorldServerTransformer implements IClassTransformer {
 
 	@Override
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
-		try {
-			if (arg0.equals("js")) {
-				RMLog.info("About to patch WorldServer [js]", true);
-				return patchClassASM(arg0, arg2, true);
-			}
+		if (Settings.isExperiment()) {
+			try {
+				if (arg0.equals("js")) {
+					RMLog.info("About to patch WorldServer [js]", true);
+					return patchClassASM(arg0, arg2, true);
+				}
 
-			if (arg0.equals("net.minecraft.world.WorldServer")) {
-				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
-				return patchClassASM(arg0, arg2, false);
+				if (arg0.equals("net.minecraft.world.WorldServer")) {
+					RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
+					return patchClassASM(arg0, arg2, false);
+				}
+			} catch (Exception e) {
+				RMLog.warn("Patch failed!", true);
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			RMLog.warn("Patch failed!", true);
-			e.printStackTrace();
-		}
+		} else RMLog.info("Skipping transformer", true);
 
 		return arg2;
 	}
@@ -56,6 +58,7 @@ public class WorldServerTransformer implements IClassTransformer {
 			int invok_index = -1;
 			if ((method.name.equals(targetMethodName) && method.desc.equals("()V"))) {
 				AbstractInsnNode currentNode = null;
+				@SuppressWarnings("unused")
 				AbstractInsnNode targetNode = null;
 
 				Iterator<AbstractInsnNode> iter = method.instructions.iterator();

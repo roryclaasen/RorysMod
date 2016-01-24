@@ -57,6 +57,8 @@ public class RorysMod {
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
 
-		MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
+		if (Settings.isExperiment()) {
+			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
+		}
 	}
 }
