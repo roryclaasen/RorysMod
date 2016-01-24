@@ -1,5 +1,8 @@
 package net.roryclaasen.rorysmod;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.proxy.ProxyCommon;
@@ -25,6 +28,14 @@ public class RorysMod {
 	private Settings settings;
 
 	public BlockRegistry blocks;
+	
+	public static CreativeTabs tab = new CreativeTabs("rorysMobTab") {
+		
+		@Override
+		public Item getTabIconItem() {
+			return Items.book;
+		}
+	};
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -48,17 +59,20 @@ public class RorysMod {
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {}
 
-	private void addItems() {}
+	private void addItems() {
+		RMLog.info("Registering Items");}
 
-	private void addRecipes() {}
+	private void addRecipes() {
+		RMLog.info("Registering Recipes");}
 
-	private void addBlocks() {}
+	private void addBlocks() {
+		RMLog.info("Registering Blocks");}
 
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
 
 		if (Settings.isExperiment()) {
 			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
-		}
+		} else RMLog.info("Skiiping expiremntal Handlers");
 	}
 }
