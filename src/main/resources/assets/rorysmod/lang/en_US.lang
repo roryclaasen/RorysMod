@@ -21,3 +21,6 @@ tile.rorysmod_blockTest_14.name=Red Testing Wall
 tile.rorysmod_blockTest_15.name=Black Testing Wall 
 
 // ----------------{  Items  }----------------
+item.rorysmod_laserRifle.name=Laser Rifle
+item.rorysmod_laserBolt.name=Laser Bolt
+
