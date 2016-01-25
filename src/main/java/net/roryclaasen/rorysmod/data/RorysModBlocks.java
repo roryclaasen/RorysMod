@@ -11,7 +11,7 @@ import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class RorysModBlocks extends TypeGroup {
+public class RorysModBlocks implements TypeGroup {
 
 	public BlockRegistry registry = new BlockRegistry();
 
@@ -23,7 +23,7 @@ public class RorysModBlocks extends TypeGroup {
 
 		testingWall = new BlockTestingWall(Material.iron, "blockTest");
 
-		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, "blockTest");
+		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, testingWall.getUnlocalizedName());
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class RorysModBlocks extends TypeGroup {
 		for (int id = 0; id < ((BlockTestingWall) testingWall).getMaxMeta(); id++) {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
-			/*if (15 - id != 15)*/ GameRegistry.addShapedRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', Items.iron_ingot, 'd', dye});
+			/* if (15 - id != 15) */GameRegistry.addShapedRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', Items.iron_ingot, 'd', dye});
 		}
 	}
 }

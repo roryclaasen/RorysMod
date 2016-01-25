@@ -2,10 +2,9 @@ package net.roryclaasen.rorysmod.data;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 
+public interface TypeGroup {
 
-public abstract class TypeGroup {
+	public void init(FMLInitializationEvent event);
 
-	public abstract void init(FMLInitializationEvent event);
-	
-	public abstract void createRecipes();
+	public void createRecipes();
 }
