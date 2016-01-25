@@ -16,8 +16,6 @@ public class Settings {
 	public static boolean enableStayInBed;
 	public static boolean bedText;
 
-	public static int idBlockTestingWall;
-
 	private static Configuration config;
 
 	public Settings(FMLPreInitializationEvent event) {
@@ -37,10 +35,6 @@ public class Settings {
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true).getBoolean(true);
 		enableStayInBed = config.get("sleeping", "stayInBed", true).getBoolean(true);
 		bedText = config.get("sleeping", "whenAccessingBedShowNewText", false).getBoolean(false);
-
-		// blocks
-
-		idBlockTestingWall = Settings.getConfig().get("blocks", "blocktesting", 3200).getInt(3200);
 
 		if (config.hasChanged()) {
 			config.save();

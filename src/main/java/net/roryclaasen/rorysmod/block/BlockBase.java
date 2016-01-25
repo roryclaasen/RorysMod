@@ -6,17 +6,10 @@ import net.roryclaasen.rorysmod.RorysMod;
 
 public class BlockBase extends Block {
 
-	private final int id;
-
-	public BlockBase(Material material, int id, String unlocalizedName) {
+	public BlockBase(Material material, String unlocalizedName) {
 		super(material);
-		this.id = id;
 		this.setBlockName(RorysMod.MODID + "_" + unlocalizedName);
 		this.setBlockTextureName(RorysMod.MODID + ":" + unlocalizedName);
 		this.setCreativeTab(RorysMod.tab);
-	}
-
-	public int getId() {
-		return id;
 	}
 }

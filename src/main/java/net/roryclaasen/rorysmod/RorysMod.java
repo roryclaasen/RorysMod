@@ -1,7 +1,6 @@
 package net.roryclaasen.rorysmod;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.roryclaasen.rorysmod.data.RorysModBlocks;
@@ -28,14 +27,14 @@ public class RorysMod {
 
 	private Settings settings;
 	
-	public RorysModBlocks modBlocks = new RorysModBlocks();
-	public RorysModItems modItems = new RorysModItems();
+	public static RorysModBlocks blocks = new RorysModBlocks();
+	public static RorysModItems items = new RorysModItems();
 
 	public static CreativeTabs tab = new CreativeTabs("rorysMobTab") {
 
 		@Override
 		public Item getTabIconItem() {
-			return Items.book;
+			return Item.getItemFromBlock(RorysMod.blocks.testingWall);
 		}
 	};
 
@@ -47,8 +46,8 @@ public class RorysMod {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		modItems.init(event);
-		modBlocks.init(event);
+		blocks.init(event);
+		items.init(event);
 		
 		addRecipes();
 		registerEventHandlers();
@@ -59,8 +58,8 @@ public class RorysMod {
 
 	private void addRecipes() {
 		RMLog.info("Registering Recipes");
-		modItems.createRecipes();
-		modBlocks.createRecipes();
+		blocks.createRecipes();
+		items.createRecipes();
 	}
 
 

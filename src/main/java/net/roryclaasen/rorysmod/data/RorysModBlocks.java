@@ -2,7 +2,8 @@ package net.roryclaasen.rorysmod.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.roryclaasen.rorysmod.Settings;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
 import net.roryclaasen.rorysmod.block.MultiBlockHandler;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
@@ -20,13 +21,17 @@ public class RorysModBlocks extends TypeGroup {
 	public void init(FMLInitializationEvent event) {
 		RMLog.info("Registering Blocks");
 
-		testingWall = new BlockTestingWall(Material.iron, Settings.idBlockTestingWall, "blockTest");
+		testingWall = new BlockTestingWall(Material.iron, "blockTest");
 
 		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, "blockTest");
 	}
 
 	@Override
 	public void createRecipes() {
-
+		for (int id = 0; id < ((BlockTestingWall) testingWall).getMaxMeta(); id++) {
+			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
+			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
+			/*if (15 - id != 15)*/ GameRegistry.addShapedRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', Items.iron_ingot, 'd', dye});
+		}
 	}
 }

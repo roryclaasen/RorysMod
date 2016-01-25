@@ -15,8 +15,8 @@ public class BlockTestingWall extends BlockBase {
 
 	public IIcon[] icons = new IIcon[16];
 
-	public BlockTestingWall(Material material, int id, String unlocalizedName) {
-		super(material, id, unlocalizedName);
+	public BlockTestingWall(Material material, String unlocalizedName) {
+		super(material, unlocalizedName);
 		this.setStepSound(soundTypeMetal);
 		this.setResistance(15.0F);
 		this.setHardness(12.0F);
@@ -49,5 +49,9 @@ public class BlockTestingWall extends BlockBase {
 	@Override
 	public int damageDropped(int meta) {
 		return meta;
+	}
+	
+	public int getMaxMeta(){
+		return icons.length;
 	}
 }
