@@ -4,6 +4,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.roryclaasen.rorysmod.data.RorysModBlocks;
+import net.roryclaasen.rorysmod.data.RorysModItems;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.util.Arguments;
@@ -57,6 +59,8 @@ public class RorysMod {
 
 	private void addRecipes() {
 		RMLog.info("Registering Recipes");
+		modItems.createRecipes();
+		modBlocks.createRecipes();
 	}
 
 
