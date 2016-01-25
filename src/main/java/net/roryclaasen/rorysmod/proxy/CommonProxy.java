@@ -8,7 +8,9 @@ public class CommonProxy {
 
 	public void registerRenderThings() {}
 
-	public void preInit(FMLPreInitializationEvent e) {}
+	public void preInit(FMLPreInitializationEvent e) {
+		
+	}
 
 	public void init(FMLInitializationEvent e) {}
 

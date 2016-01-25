@@ -4,14 +4,19 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 
-public abstract class MultiBlockHander extends ItemBlockWithMetadata {
+public class MultiBlockHandler extends ItemBlockWithMetadata {
 
-	public MultiBlockHander(Block block) {
+	public MultiBlockHandler(Block block) {
 		super(block, block);
 	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {
 		return this.getUnlocalizedName() + "_" + itemstack.getItemDamage();
+	}
+
+	@Override
+	public int getMetadata(int meta) {
+		return meta;
 	}
 }

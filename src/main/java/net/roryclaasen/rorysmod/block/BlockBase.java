@@ -11,7 +11,7 @@ public class BlockBase extends Block {
 	public BlockBase(Material material, int id, String unlocalizedName) {
 		super(material);
 		this.id = id;
-		this.setBlockName(unlocalizedName);
+		this.setBlockName(RorysMod.MODID + "_" + unlocalizedName);
 		this.setBlockTextureName(RorysMod.MODID + ":" + unlocalizedName);
 		this.setCreativeTab(RorysMod.tab);
 	}

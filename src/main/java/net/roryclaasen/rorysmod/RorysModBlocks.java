@@ -3,6 +3,7 @@ package net.roryclaasen.rorysmod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
+import net.roryclaasen.rorysmod.block.MultiBlockHandler;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -19,6 +20,6 @@ public class RorysModBlocks {
 
 		testingWall = new BlockTestingWall(Material.iron, Settings.idBlockTestingWall, "blockTest");
 
-		GameRegistry.registerBlock(testingWall, /* MultiBlockHander.class, */"blockTest");
+		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, "blockTest");
 	}
 }

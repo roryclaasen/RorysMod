@@ -26,8 +26,8 @@ public class RorysMod {
 
 	private Settings settings;
 	
-	public RorysModBlocks modBlocks;
-	public RorysModItems modItems;
+	public RorysModBlocks modBlocks = new RorysModBlocks();
+	public RorysModItems modItems = new RorysModItems();
 
 	public static CreativeTabs tab = new CreativeTabs("rorysMobTab") {
 
@@ -41,20 +41,15 @@ public class RorysMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		settings = new Settings(event);
 		settings.load(event);
-
-		modBlocks = new RorysModBlocks();
-		modItems = new RorysModItems();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		RMLog.info("Initializing mod!");
-
 		modItems.init(event);
 		modBlocks.init(event);
+		
 		addRecipes();
 		registerEventHandlers();
-
 	}
 
 	@EventHandler
