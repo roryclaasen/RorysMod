@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
 # Rory's Mod
 A forge mod for Minecraft 1.7.10
 
