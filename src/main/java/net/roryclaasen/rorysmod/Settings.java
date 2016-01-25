@@ -16,7 +16,9 @@ public class Settings {
 	public static boolean enableStayInBed;
 	public static boolean bedText;
 
-	private Configuration config;
+	public static int idBlockTestingWall;
+
+	private static Configuration config;
 
 	public Settings(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
@@ -30,10 +32,15 @@ public class Settings {
 	}
 
 	public void updateSettings() {
+		// sleeping
 		enableMobsNearByCheck = config.get("sleeping", "enableMobsNearByCheck", false).getBoolean(false);
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true).getBoolean(true);
 		enableStayInBed = config.get("sleeping", "stayInBed", true).getBoolean(true);
 		bedText = config.get("sleeping", "whenAccessingBedShowNewText", false).getBoolean(false);
+
+		// blocks
+
+		idBlockTestingWall = Settings.getConfig().get("blocks", "blocktesting", 3200).getInt(3200);
 
 		if (config.hasChanged()) {
 			config.save();
@@ -43,5 +50,9 @@ public class Settings {
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (RorysMod.MODID.equals(event.modID)) updateSettings();
+	}
+
+	public static Configuration getConfig() {
+		return config;
 	}
 }

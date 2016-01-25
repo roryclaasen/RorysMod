@@ -5,9 +5,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
-import net.roryclaasen.rorysmod.proxy.ProxyCommon;
+import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.util.Arguments;
-import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -16,22 +15,22 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = RorysMod.MODID, version = RorysMod.VERSION, name = RorysMod.NAME)
+@Mod(modid = RorysMod.MODID, name = RorysMod.NAME)
 public class RorysMod {
 
-	@SidedProxy(clientSide = "net.roryclaasen.rorysmod.proxy.ProxyClient", serverSide = "net.roryclaasen.rorysmod.proxy.ProxyCommon")
-	public static ProxyCommon proxy;
+	@SidedProxy(clientSide = "net.roryclaasen.rorysmod.proxy.ClientProxy", serverSide = "net.roryclaasen.rorysmod.proxy.CommonProxy")
+	public static CommonProxy proxy;
 
 	public static final String MODID = "rorysmod";
 	public static final String NAME = "Rory's Mod";
-	public static final String VERSION = "1.0";
 
 	private Settings settings;
-
-	public BlockRegistry blocks;
 	
+	public RorysModBlocks modBlocks;
+	public RorysModItems modItems;
+
 	public static CreativeTabs tab = new CreativeTabs("rorysMobTab") {
-		
+
 		@Override
 		public Item getTabIconItem() {
 			return Items.book;
@@ -43,31 +42,28 @@ public class RorysMod {
 		settings = new Settings(event);
 		settings.load(event);
 
-		blocks = new BlockRegistry();
+		modBlocks = new RorysModBlocks();
+		modItems = new RorysModItems();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		RMLog.info("Initializing mod!");
 
-		addItems();
-		addBlocks();
+		modItems.init(event);
+		modBlocks.init(event);
+		addRecipes();
 		registerEventHandlers();
 
-		addRecipes();
 	}
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {}
 
-	private void addItems() {
-		RMLog.info("Registering Items");}
-
 	private void addRecipes() {
-		RMLog.info("Registering Recipes");}
+		RMLog.info("Registering Recipes");
+	}
 
-	private void addBlocks() {
-		RMLog.info("Registering Blocks");}
 
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
