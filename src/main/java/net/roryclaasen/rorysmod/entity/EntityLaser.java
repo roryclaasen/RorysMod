@@ -19,6 +19,7 @@ public class EntityLaser extends EntityThrowable {
 
 	public EntityLaser(World world, EntityLivingBase entity) {
 		super(world, entity);
+		this.posY += entity.height/2;
 	}
 
 	private void explode() {
@@ -49,13 +50,6 @@ public class EntityLaser extends EntityThrowable {
 		super.onUpdate();
 		if (ticksExisted > 20) {
 			explode();
-		}
-
-		for (int i = 0; i < 10; i++) {
-			double x = (double) (rand.nextInt(10) - 5) / 8.0D;
-			double y = (double) (rand.nextInt(10) - 5) / 8.0D;
-			double z = (double) (rand.nextInt(10) - 5) / 8.0D;
-			// worldObj.spawnParticle("fireworksSpark", posX, posY, posZ, x, y, z);
 		}
 	}
 

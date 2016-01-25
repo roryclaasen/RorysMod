@@ -19,7 +19,7 @@ public class ItemRifle extends ItemBase {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(RorysModItems.laserBolt)) {
-			player.swingItem();
+			// player.swingItem();
 			world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
 			if (!world.isRemote) {
 				world.spawnEntityInWorld(new EntityLaser(world, player));
