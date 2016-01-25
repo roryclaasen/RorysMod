@@ -3,21 +3,21 @@ itemGroup.rorysMobTab=Rory's Mod
 
 // ----------------{ Blocks  }----------------
 tile.rorysmod_blockTest.name=Testing Wall
-tile.rorysmod_blockTest_0.name=Testing Wall (White)
-tile.rorysmod_blockTest_1.name=Testing Wall (Orange)
-tile.rorysmod_blockTest_2.name=Testing Wall (Magenta)
-tile.rorysmod_blockTest_3.name=Testing Wall (Light Blue)
-tile.rorysmod_blockTest_4.name=Testing Wall (Yellow)
-tile.rorysmod_blockTest_5.name=Testing Wall (Light Green)
-tile.rorysmod_blockTest_6.name=Testing Wall (Pink)
-tile.rorysmod_blockTest_7.name=Testing Wall (Dark Gray)
-tile.rorysmod_blockTest_8.name=Testing Wall (Light Gray)
-tile.rorysmod_blockTest_9.name=Testing Wall (Cyan)
-tile.rorysmod_blockTest_10.name=Testing Wall (Purple)
-tile.rorysmod_blockTest_11.name=Testing Wall (Blue)
-tile.rorysmod_blockTest_12.name=Testing Wall (Brown)
-tile.rorysmod_blockTest_13.name=Testing Wall (Green)
-tile.rorysmod_blockTest_14.name=Testing Wall (Red)
-tile.rorysmod_blockTest_15.name=Testing Wall (Black)
+tile.rorysmod_blockTest_0.name=White Testing Wall
+tile.rorysmod_blockTest_1.name=Orange Testing Wall 
+tile.rorysmod_blockTest_2.name=Magenta Testing Wall 
+tile.rorysmod_blockTest_3.name=Light Blue Testing Wall 
+tile.rorysmod_blockTest_4.name=Yellow Testing Wall 
+tile.rorysmod_blockTest_5.name=Light Green Testing Wall 
+tile.rorysmod_blockTest_6.name=Pink Testing Wall 
+tile.rorysmod_blockTest_7.name=Dark Gray Testing Wall 
+tile.rorysmod_blockTest_8.name=Light Gray Testing Wall 
+tile.rorysmod_blockTest_9.name=Cyan Testing Wall 
+tile.rorysmod_blockTest_10.name=Purple Testing Wall 
+tile.rorysmod_blockTest_11.name=Blue Testing Wall
+tile.rorysmod_blockTest_12.name=Brown Testing Wall 
+tile.rorysmod_blockTest_13.name=Green Testing Wall 
+tile.rorysmod_blockTest_14.name=Red Testing Wall 
+tile.rorysmod_blockTest_15.name=Black Testing Wall 
 
 // ----------------{  Items  }----------------
