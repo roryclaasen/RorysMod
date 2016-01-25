@@ -13,11 +13,11 @@ public class ModelLaserBolt extends ModelBase {
 		textureHeight = 32;
 
 		Shape1 = new ModelRenderer(this, 0, 0);
-	      Shape1.addBox(0F, 0F, -8F, 1, 1, 16);
-	      Shape1.setRotationPoint(0F, 0F, 0F);
-	      Shape1.setTextureSize(64, 32);
-	      Shape1.mirror = true;
-	      setRotation(Shape1, 0F, 0F, 0F);
+		Shape1.addBox(-8F, 0F, 0, 16, 1, 1);
+		Shape1.setRotationPoint(0F, 0F, 0F);
+		Shape1.setTextureSize(64, 32);
+		Shape1.mirror = true;
+		setRotation(Shape1, 0F, 0F, 0F);
 	}
 
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
