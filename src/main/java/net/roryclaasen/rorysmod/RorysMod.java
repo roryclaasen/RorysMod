@@ -43,12 +43,7 @@ public class RorysMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		settings = new Settings(event);
 		settings.load(event);
-		blocks.preInit(event);
-		items.preInit(event);
-	}
-
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
+		
 		tab = new CreativeTabs("rorysMobTab") {
 
 			@Override
@@ -56,7 +51,13 @@ public class RorysMod {
 				return ModItems.rifle;
 			}
 		};
+		
+		blocks.preInit(event);
+		items.preInit(event);
+	}
 
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
 		blocks.register(event);
 		items.register(event);
 

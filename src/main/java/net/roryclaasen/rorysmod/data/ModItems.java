@@ -53,8 +53,8 @@ public class ModItems implements TypeGroup {
 
 	@Override
 	public void createRecipes() {
+		GameRegistry.addSmelting(new ItemStack(steelDust), new ItemStack(steelIngot), 0.1f);
 		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
 	}
-
 }
