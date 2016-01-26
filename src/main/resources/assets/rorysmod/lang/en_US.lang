@@ -21,7 +21,9 @@ tile.rorysmod_blockTest_14.name=Red Testing Wall
 tile.rorysmod_blockTest_15.name=Black Testing Wall 
 
 // ----------------{  Items  }----------------
+item.rorysmod_ingotSteel.name=Steel Ingot
+item.rorysmod_dustSteel.name=Steel Dust
+item.rorysmod_plateSteel.name=Steel Plate
 item.rorysmod_rifle.name=Laser Rifle
 item.rorysmod_laser.name=Laser Bolt
 item.rorysmod_rifleUpgrade.name=Laser Rifle Upgrade
-

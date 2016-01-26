@@ -27,7 +27,6 @@ minecraft {
 }
 
 dependencies {
-   
 
 }
 
@@ -49,7 +48,7 @@ jar {
     includeEmptyDirs = false
     //Append with minecraft version
     classifier = "("+minecraft.version+")"
-    archiveName = archivesBaseName + "-" + version + classifier+"."+extension
+    archiveName = archivesBaseName + "-" + version + classifier+".jar"
     // Add Coremod Manifest
     manifest {
         attributes 'FMLAT': "roysmodcore.cfg"
