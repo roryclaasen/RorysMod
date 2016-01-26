@@ -14,6 +14,7 @@ import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import net.roryclaasen.rorysmod.util.ItemRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModItems implements TypeGroup {
@@ -25,7 +26,7 @@ public class ModItems implements TypeGroup {
 	public static Item rifleUpgrade;
 
 	@Override
-	public void init(FMLInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		RMLog.info("Registering Items");
 
 		steelIngot = new ItemIngot("ingotSteel");
@@ -34,7 +35,10 @@ public class ModItems implements TypeGroup {
 		rifle = new ItemRifle("rifle");
 		laserBolt = new ItemBase("laser");
 		rifleUpgrade = new ItemRifleUpgrade("rifleUpgrade");
+	}
 
+	@Override
+	public void register(FMLInitializationEvent event) {
 		GameRegistry.registerItem(steelIngot, steelIngot.getUnlocalizedName());
 		GameRegistry.registerItem(steelDust, steelDust.getUnlocalizedName());
 		GameRegistry.registerItem(steelPlate, steelPlate.getUnlocalizedName());
@@ -52,4 +56,5 @@ public class ModItems implements TypeGroup {
 		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
 	}
+
 }

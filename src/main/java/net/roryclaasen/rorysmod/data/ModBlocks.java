@@ -9,6 +9,7 @@ import net.roryclaasen.rorysmod.block.MultiBlockHandler;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModBlocks implements TypeGroup {
@@ -18,11 +19,15 @@ public class ModBlocks implements TypeGroup {
 	public Block testingWall;
 
 	@Override
-	public void init(FMLInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		RMLog.info("Registering Blocks");
 
 		testingWall = new BlockTestingWall(Material.iron, "blockTest");
 
+	}
+
+	@Override
+	public void register(FMLInitializationEvent event) {
 		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, testingWall.getUnlocalizedName());
 	}
 

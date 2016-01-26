@@ -43,10 +43,12 @@ public class RorysMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		settings = new Settings(event);
 		settings.load(event);
+		blocks.preInit(event);
+		items.preInit(event);
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event) {		
+	public void init(FMLInitializationEvent event) {
 		tab = new CreativeTabs("rorysMobTab") {
 
 			@Override
@@ -54,28 +56,21 @@ public class RorysMod {
 				return ModItems.rifle;
 			}
 		};
-		
-		blocks.init(event);
-		items.init(event);
 
-		addRecipes();
-		register(event);
-	}
+		blocks.register(event);
+		items.register(event);
 
-	@EventHandler
-	public void postinit(FMLPostInitializationEvent event) {}
+		RMLog.info("Registering Recipes");
+		blocks.createRecipes();
+		items.createRecipes();
 
-	private void register(FMLInitializationEvent event) {
 		registerEventHandlers();
 		proxy.init(event);
 		EntityRegistry.registerModEntity(EntityLaser.class, "LASER", 0, this, 64, 10, true);
 	}
 
-	private void addRecipes() {
-		RMLog.info("Registering Recipes");
-		blocks.createRecipes();
-		items.createRecipes();
-	}
+	@EventHandler
+	public void postinit(FMLPostInitializationEvent event) {}
 
 	private void registerEventHandlers() {
 		RMLog.info("Registering events");
