@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.roryclaasen.rorysmod.data.RorysModBlocks;
 import net.roryclaasen.rorysmod.data.RorysModItems;
+import net.roryclaasen.rorysmod.data.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;

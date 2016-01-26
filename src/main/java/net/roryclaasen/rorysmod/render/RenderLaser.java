@@ -5,17 +5,17 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.roryclaasen.rorysmod.RorysMod;
-import net.roryclaasen.rorysmod.model.ModelLaserBolt;
+import net.roryclaasen.rorysmod.model.ModelLaser;
 
 import org.lwjgl.opengl.GL11;
 
-public class RenderLaserBolt extends Render {
+public class RenderLaser extends Render {
 
 	private static final ResourceLocation texture = new ResourceLocation(RorysMod.MODID, "textures/entity/bolt.png");
 	private ModelBase model;
 
-	public RenderLaserBolt() {
-		model = new ModelLaserBolt();
+	public RenderLaser() {
+		model = new ModelLaser();
 	}
 
 	@Override

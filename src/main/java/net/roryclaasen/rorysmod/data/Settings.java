@@ -1,6 +1,7 @@
-package net.roryclaasen.rorysmod;
+package net.roryclaasen.rorysmod.data;
 
 import net.minecraftforge.common.config.Configuration;
+import net.roryclaasen.rorysmod.RorysMod;
 
 import org.apache.logging.log4j.Level;
 

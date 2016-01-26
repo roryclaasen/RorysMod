@@ -10,16 +10,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.roryclaasen.rorysmod.RorysMod;
-import net.roryclaasen.rorysmod.model.ModelLaser;
+import net.roryclaasen.rorysmod.model.ModelRifle;
 
 import org.lwjgl.opengl.GL11;
 
-public class RenderLaserRifle implements IItemRenderer {
+public class RenderRifle implements IItemRenderer {
 
-	protected ModelLaser rifle;
+	protected ModelRifle rifle;
 
-	public RenderLaserRifle() {
-		rifle = new ModelLaser();
+	public RenderRifle() {
+		rifle = new ModelRifle();
 	}
 
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {

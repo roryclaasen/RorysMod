@@ -10,6 +10,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class RorysModItems implements TypeGroup {
 
 	public static Item rifle, laserBolt;
+	
+	public static Item rifleUpgrade;
 
 	@Override
 	public void init(FMLInitializationEvent event) {
