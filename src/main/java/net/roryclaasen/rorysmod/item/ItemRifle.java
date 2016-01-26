@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
-import net.roryclaasen.rorysmod.data.RorysModItems;
+import net.roryclaasen.rorysmod.data.ModItems;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 
 public class ItemRifle extends ItemBase {
@@ -18,7 +18,7 @@ public class ItemRifle extends ItemBase {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(RorysModItems.laserBolt)) {
+		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(ModItems.laserBolt)) {
 			// player.swingItem();
 			world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
 			if (!world.isRemote) {

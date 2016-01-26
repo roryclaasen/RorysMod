@@ -1,7 +1,7 @@
 package net.roryclaasen.rorysmod.proxy;
 
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.roryclaasen.rorysmod.data.RorysModItems;
+import net.roryclaasen.rorysmod.data.ModItems;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.render.RenderLaser;
 import net.roryclaasen.rorysmod.render.RenderRifle;
@@ -14,6 +14,6 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		RenderingRegistry.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
-		MinecraftForgeClient.registerItemRenderer(RorysModItems.rifle, new RenderRifle());
+		MinecraftForgeClient.registerItemRenderer(ModItems.rifle, new RenderRifle());
 	}
 }

@@ -3,8 +3,8 @@ package net.roryclaasen.rorysmod;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.roryclaasen.rorysmod.data.RorysModBlocks;
-import net.roryclaasen.rorysmod.data.RorysModItems;
+import net.roryclaasen.rorysmod.data.ModBlocks;
+import net.roryclaasen.rorysmod.data.ModItems;
 import net.roryclaasen.rorysmod.data.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
@@ -34,16 +34,10 @@ public class RorysMod {
 
 	private Settings settings;
 
-	public static RorysModBlocks blocks = new RorysModBlocks();
-	public static RorysModItems items = new RorysModItems();
+	public static ModBlocks blocks = new ModBlocks();
+	public static ModItems items = new ModItems();
 
-	public static CreativeTabs tab = new CreativeTabs("rorysMobTab") {
-
-		@Override
-		public Item getTabIconItem() {
-			return RorysModItems.rifle;
-		}
-	};
+	public static CreativeTabs tab;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -52,7 +46,15 @@ public class RorysMod {
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {		
+		tab = new CreativeTabs("rorysMobTab") {
+
+			@Override
+			public Item getTabIconItem() {
+				return ModItems.rifle;
+			}
+		};
+		
 		blocks.init(event);
 		items.init(event);
 
@@ -66,7 +68,7 @@ public class RorysMod {
 	private void register(FMLInitializationEvent event) {
 		registerEventHandlers();
 		proxy.init(event);
-		EntityRegistry.registerModEntity(EntityLaser.class, "BOLT", 0, this, 64, 10, true);
+		EntityRegistry.registerModEntity(EntityLaser.class, "LASER", 0, this, 64, 10, true);
 	}
 
 	private void addRecipes() {

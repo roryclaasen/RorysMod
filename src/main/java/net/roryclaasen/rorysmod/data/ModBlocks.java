@@ -11,7 +11,7 @@ import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class RorysModBlocks implements TypeGroup {
+public class ModBlocks implements TypeGroup {
 
 	public BlockRegistry registry = new BlockRegistry();
 
