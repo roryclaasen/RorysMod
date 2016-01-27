@@ -18,7 +18,7 @@ public class EntityLaser extends EntityThrowable {
 	}
 
 	public EntityLaser(World world, EntityLivingBase entity) {
-		super(world, entity);
+		super(world, entity); //SUPER! WOOOOOOORLD ENTITY!
 		this.posY += entity.height/2;
 	}
 
