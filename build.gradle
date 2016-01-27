@@ -17,9 +17,9 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0"
+version = "1.0.1"
 group= "net.roryclaasen.rorysmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "rorysmod"
+archivesBaseName = "RorysMod"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
@@ -27,7 +27,7 @@ minecraft {
 }
 
 dependencies {
-
+    compile files('libs/industrialcraft-2-2.2.811-experimental-api.jar')
 }
 
 processResources {
@@ -44,13 +44,10 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
 jar {
     includeEmptyDirs = false
     //Append with minecraft version
-    classifier = "("+minecraft.version+")"
-    archiveName = archivesBaseName + "-" + version + classifier+".jar"
-    // Add Coremod Manifest
-    manifest {
-        attributes 'FMLAT': "roysmodcore.cfg"
-    }
+    classifier = "-[" + minecraft.version + "]-"
+    archiveName = archivesBaseName + classifier + version + ".jar"
 }

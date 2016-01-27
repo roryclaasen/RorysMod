@@ -1,10 +1,12 @@
 package net.roryclaasen.rorysmod.data;
 
+import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.item.ItemBase;
 import net.roryclaasen.rorysmod.item.ItemDust;
 import net.roryclaasen.rorysmod.item.ItemIngot;
@@ -46,13 +48,14 @@ public class ModItems implements TypeGroup {
 		GameRegistry.registerItem(laserBolt, laserBolt.getUnlocalizedName());
 		GameRegistry.registerItem(rifleUpgrade, rifleUpgrade.getUnlocalizedName());
 
-		OreDictionary.registerOre(((ItemBase) steelIngot).getName(), steelIngot);
-		OreDictionary.registerOre(((ItemBase) steelDust).getName(), steelDust);
-		OreDictionary.registerOre(((ItemBase) steelPlate).getName(), steelPlate);
+		OreDictionary.registerOre("ingotSteel", steelIngot);
+		OreDictionary.registerOre("dustSteel", steelDust);
+		OreDictionary.registerOre("plateSteel", steelPlate);
 	}
 
 	@Override
 	public void createRecipes() {
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelDust), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), "dustIron"));
 		GameRegistry.addSmelting(new ItemStack(steelDust), new ItemStack(steelIngot), 0.1f);
 		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
