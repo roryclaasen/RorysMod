@@ -8,6 +8,7 @@ import net.roryclaasen.rorysmod.data.ModItems;
 import net.roryclaasen.rorysmod.data.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
+import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.RMLog;
@@ -18,6 +19,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME)
@@ -30,7 +32,25 @@ public class RorysMod {
 	public static final String NAME = "Rory's Mod";
 
 	@Instance(MODID)
-	private RorysMod instance;
+	public static RorysMod instance;
+
+	public static enum GUIS {
+		RILE_TABLE("rorysmod.gui.upgradeTable");
+
+		private String name;
+
+		GUIS(String name) {
+			this.name = name;
+		}
+
+		public int getId() {
+			return this.ordinal();
+		}
+
+		public String getName() {
+			return name;
+		}
+	}
 
 	private Settings settings;
 
@@ -43,7 +63,7 @@ public class RorysMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		settings = new Settings(event);
 		settings.load(event);
-		
+
 		tab = new CreativeTabs("rorysMobTab") {
 
 			@Override
@@ -51,7 +71,7 @@ public class RorysMod {
 				return ModItems.rifle;
 			}
 		};
-		
+
 		blocks.preInit(event);
 		items.preInit(event);
 	}
@@ -67,6 +87,7 @@ public class RorysMod {
 
 		registerEventHandlers();
 		proxy.init(event);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		EntityRegistry.registerModEntity(EntityLaser.class, "LASER", 0, this, 64, 10, true);
 	}
 

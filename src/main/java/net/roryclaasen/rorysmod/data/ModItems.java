@@ -1,5 +1,6 @@
 package net.roryclaasen.rorysmod.data;
 
+import codechicken.nei.api.API;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
@@ -15,6 +16,7 @@ import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import net.roryclaasen.rorysmod.util.ItemRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -33,14 +35,14 @@ public class ModItems implements TypeGroup {
 		steelDust = new ItemDust("dustSteel");
 		steelPlate = new ItemPlate("plateSteel");
 		rifle = new ItemRifle("rifle");
-		laserBolt = new ItemBase("laser");
+		laserBolt = new ItemBase("laser").setCreativeTab(null);
 		rifleUpgrade = new ItemRifleUpgrade("rifleUpgrade");
 	}
 
 	@Override
 	public void register(FMLInitializationEvent event) {
 		RMLog.info("Registering Items");
-		
+
 		GameRegistry.registerItem(steelIngot, steelIngot.getUnlocalizedName());
 		GameRegistry.registerItem(steelDust, steelDust.getUnlocalizedName());
 		GameRegistry.registerItem(steelPlate, steelPlate.getUnlocalizedName());
@@ -51,6 +53,10 @@ public class ModItems implements TypeGroup {
 		OreDictionary.registerOre("ingotSteel", steelIngot);
 		OreDictionary.registerOre("dustSteel", steelDust);
 		OreDictionary.registerOre("plateSteel", steelPlate);
+
+		if (Loader.isModLoaded("NotEnoughItems")) {
+			API.hideItem(new ItemStack(laserBolt));
+		}
 	}
 
 	@Override

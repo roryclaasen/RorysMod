@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
-import net.roryclaasen.rorysmod.block.BlockUpgradeTable;
+import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.MultiBlockHandler;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
@@ -23,7 +23,7 @@ public class ModBlocks implements TypeGroup {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		testingWall = new BlockTestingWall(Material.iron, "blockTest");
-		upgradeTable = new BlockUpgradeTable(Material.anvil, "tableUpgrade");
+		upgradeTable = new BlockRifleTable(Material.anvil, "tableUpgrade");
 	}
 
 	@Override
