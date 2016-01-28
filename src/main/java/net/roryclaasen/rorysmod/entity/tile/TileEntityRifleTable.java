@@ -5,13 +5,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.item.ItemRifle;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	private ItemStack[] inv;
 
 	public TileEntityRifleTable() {
-        inv = new ItemStack[9];
+		inv = new ItemStack[8];
 	}
 
 	@Override
@@ -55,6 +56,12 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
 		}
+	}
+
+	public boolean hasLaser(){
+		if(inv[0] == null)return false;
+		if(inv[0].getItem() == null)return false;
+		return (inv[0].getItem() instanceof ItemRifle);
 	}
 
 	@Override

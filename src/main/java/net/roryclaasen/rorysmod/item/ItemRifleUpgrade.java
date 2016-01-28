@@ -4,9 +4,11 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.roryclaasen.rorysmod.RorysMod;
 
 public class ItemRifleUpgrade extends ItemBase {
@@ -43,5 +45,11 @@ public class ItemRifleUpgrade extends ItemBase {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return this.getUnlocalizedName() + "_" + stack.getItemDamage();
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+		tooltip.add(StatCollector.translateToLocal(getUnlocalizedName(stack) + ".tooltip"));
 	}
 }

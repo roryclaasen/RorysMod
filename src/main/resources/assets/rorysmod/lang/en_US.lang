@@ -33,3 +33,13 @@ item.rorysmod_rifleUpgrade_2.name=Rifle Upgrade (Coolant)
 item.rorysmod_rifleUpgrade_3.name=Rifle Upgrade (Lens)
 item.rorysmod_rifleUpgrade_4.name=Rifle Upgrade (Phaser)
 item.rorysmod_rifleUpgrade_5.name=Rifle Upgrade (Overclock)
+item.rorysmod_rifleUpgrade_6.name=Rifle Upgrade (Explosion )
+
+// ----------------{  Tooltip  }----------------
+item.rorysmod_rifleUpgrade_0.tooltip=Nothing special
+item.rorysmod_rifleUpgrade_1.tooltip=Increases power capacity
+item.rorysmod_rifleUpgrade_2.tooltip=Decreases cool down time
+item.rorysmod_rifleUpgrade_3.tooltip=Allows you to color the laser
+item.rorysmod_rifleUpgrade_4.tooltip=Makes the laser to damage
+item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
+item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit

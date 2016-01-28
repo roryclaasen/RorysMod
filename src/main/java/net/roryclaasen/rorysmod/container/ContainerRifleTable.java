@@ -12,10 +12,26 @@ public class ContainerRifleTable extends Container {
 
 	protected TileEntityRifleTable tileEntity;
 
+	private final int NO_CUSTOM_SLOTS = 8;
+
 	public ContainerRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable te) {
 		tileEntity = te;
-		
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 17, 35).setAllowed(ModItems.rifle));
+
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItem(ModItems.rifle));
+		// Capacitors
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 1, 75, 63).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 1)));
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 2, 95, 63).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 1)));
+		// Coolant
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 3, 79, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 2)));
+		// Explosion (no item yet)
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 4, 100, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 0)));
+		// Phaser
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 5, 121, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 4)));
+		// Lens
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 6, 146, 45).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 3)));
+		// Overclock
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 7, 59, 12).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 5)));
+
 		bindPlayerInventory(inventoryPlayer);
 	}
 
@@ -25,15 +41,15 @@ public class ContainerRifleTable extends Container {
 	}
 
 	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
-		// Player Inventory, Slot 9-35, Slot IDs 9-35
+		// Player Inventory, Slot 9-35, Slot IDs 8-34
 		for (int y = 0; y < 3; ++y) {
 			for (int x = 0; x < 9; ++x) {
-				this.addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
+				this.addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + NO_CUSTOM_SLOTS, 8 + x * 18, 84 + y * 18));
 			}
 		}
-		// Player Inventory, Slot 0-8, Slot IDs 36-44
+		// Player Inventory, Slot 0-8, Slot IDs 35-43
 		for (int x = 0; x < 9; ++x) {
-			this.addSlotToContainer(new Slot(inventoryPlayer, x, 8 + x * 18, 142));
+			this.addSlotToContainer(new Slot(inventoryPlayer, x, NO_CUSTOM_SLOTS + x * 18, 142));
 		}
 	}
 
@@ -61,5 +77,12 @@ public class ContainerRifleTable extends Container {
 			slotObject.onPickupFromSlot(player, stackInSlot);
 		}
 		return stack;
+	}
+
+	public boolean hasLaser() {
+		Slot slotObject = (Slot) inventorySlots.get(0);
+		if (slotObject == null) return false;
+		if (slotObject.getHasStack()) return true;
+		return false;
 	}
 }

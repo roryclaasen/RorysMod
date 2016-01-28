@@ -9,39 +9,53 @@ import net.minecraft.item.ItemStack;
 
 public class RestrictedSlot extends Slot {
 
-	private List<Item> allowedList;
-	private Item allowed;
+	private List<ItemStack> allowedList;
+	private ItemStack allowed;
 
 	public RestrictedSlot(IInventory inventory, int par2, int par3, int par4) {
 		super(inventory, par2, par3, par4);
 	}
 
-	public RestrictedSlot(IInventory inventory, int par2, int par3, int par4, List<Item> items) {
+	public RestrictedSlot(IInventory inventory, int par2, int par3, int par4, List<ItemStack> items) {
 		this(inventory, par2, par3, par4);
-		setAllowed(items);
+		setAllowedItemStack(items);
 	}
 
-	public RestrictedSlot(IInventory inventory, int par2, int par3, int par4, Item item) {
+	public RestrictedSlot(IInventory inventory, int par2, int par3, int par4, ItemStack item) {
 		super(inventory, par2, par3, par4);
-		setAllowed(item);
+		setAllowedItemStack(item);
 	}
 
-	public RestrictedSlot setAllowed(Item item) {
+	public RestrictedSlot setAllowedItemStack(ItemStack item) {
 		this.allowed = item;
 		return this;
 	}
 
-	public RestrictedSlot setAllowed(List<Item> items) {
+	public RestrictedSlot setAllowedItemStack(List<ItemStack> items) {
 		this.allowedList = items;
+		return this;
+	}
+
+	public RestrictedSlot setAllowedItem(Item item) {
+		this.allowed = new ItemStack(item);
+		return this;
+	}
+
+	public RestrictedSlot setAllowedItem(List<Item> items) {
+		this.allowedList.clear();
+		for (Item item : items) {
+			this.allowedList.add(new ItemStack(item));
+		}
 		return this;
 	}
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
-		if (allowed != null) return itemstack.isItemEqual(new ItemStack(allowed));
+		if (allowed != null) return allowed.isItemEqual(itemstack);
+		if (allowed != null) return ItemStack.areItemStackTagsEqual(itemstack, allowed);
 		if (allowedList != null) {
-			for (Item item : allowedList) {
-				if (itemstack.isItemEqual(new ItemStack(item))) return true;
+			for (ItemStack item : allowedList) {
+				if (ItemStack.areItemStackTagsEqual(itemstack, item)) return true;
 			}
 			return false;
 		}
