@@ -11,6 +11,7 @@ public class EntityLaser extends EntityThrowable {
 	public static final float explosionPower = 0.75F;
 	public static final int empRadius = 4;
 	
+	@SuppressWarnings("unused")
 	private NBTTagCompound nbtTagCompound;
 
 	public EntityLaser(World world) {

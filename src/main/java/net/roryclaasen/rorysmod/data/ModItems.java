@@ -29,8 +29,6 @@ public class ModItems implements TypeGroup {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		RMLog.info("Registering Items");
-
 		steelIngot = new ItemIngot("ingotSteel");
 		steelDust = new ItemDust("dustSteel");
 		steelPlate = new ItemPlate("plateSteel");
@@ -41,6 +39,8 @@ public class ModItems implements TypeGroup {
 
 	@Override
 	public void register(FMLInitializationEvent event) {
+		RMLog.info("Registering Items");
+		
 		GameRegistry.registerItem(steelIngot, steelIngot.getUnlocalizedName());
 		GameRegistry.registerItem(steelDust, steelDust.getUnlocalizedName());
 		GameRegistry.registerItem(steelPlate, steelPlate.getUnlocalizedName());

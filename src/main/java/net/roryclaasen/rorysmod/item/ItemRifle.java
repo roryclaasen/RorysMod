@@ -55,10 +55,10 @@ public class ItemRifle extends ItemBaseElectric {
 	}
 
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "unused", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		NBTTagCompound nbtTagCompound = stack.getTagCompound();
-		tooltip.add("Laser yeah");
+		tooltip.add("Power:");
 	}
 }
