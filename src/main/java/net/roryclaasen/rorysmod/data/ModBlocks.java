@@ -17,8 +17,8 @@ public class ModBlocks implements TypeGroup {
 
 	public BlockRegistry registry = new BlockRegistry();
 
-	public Block testingWall;
-	public Block upgradeTable;
+	public static Block testingWall;
+	public static Block upgradeTable;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
