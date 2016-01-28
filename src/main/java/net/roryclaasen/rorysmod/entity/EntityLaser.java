@@ -2,6 +2,7 @@ package net.roryclaasen.rorysmod.entity;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -9,14 +10,17 @@ public class EntityLaser extends EntityThrowable {
 
 	public static final float explosionPower = 0.75F;
 	public static final int empRadius = 4;
+	
+	private NBTTagCompound nbtTagCompound;
 
 	public EntityLaser(World world) {
 		super(world);
 	}
 
-	public EntityLaser(World world, EntityLivingBase entity) {
+	public EntityLaser(World world, EntityLivingBase entity, NBTTagCompound nbtTagCompound) {
 		super(world, entity); // SUPER! WOOOOOOORLD ENTITY!
 		this.posY += entity.height / 2;
+		this.nbtTagCompound = nbtTagCompound;
 	}
 
 	private void explode() {

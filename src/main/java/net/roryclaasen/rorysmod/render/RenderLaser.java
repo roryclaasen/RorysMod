@@ -1,18 +1,23 @@
 package net.roryclaasen.rorysmod.render;
 
+import java.awt.Color;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.model.ModelLaser;
+import net.roryclaasen.rorysmod.util.ColorTexture;
 
 import org.lwjgl.opengl.GL11;
 
 public class RenderLaser extends Render {
 
-	private static final ResourceLocation texture = new ResourceLocation(RorysMod.MODID, "textures/entity/bolt.png");
+	private static ResourceLocation backup = new ResourceLocation(RorysMod.MODID, "textures/entity/bolt.png");
 	private ModelBase model;
+
+	private int textureId = -1;
 
 	public RenderLaser() {
 		model = new ModelLaser();
@@ -20,17 +25,23 @@ public class RenderLaser extends Render {
 
 	@Override
 	public ResourceLocation getEntityTexture(Entity entity) {
-		return texture;
+		return backup;
 	}
 
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTick) {
 		GL11.glPushMatrix();
-		bindTexture(texture);
 		GL11.glTranslated(x, y - 1.25D, z);
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTick - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTick, 0.0F, 0.0F, 1.0F);
+
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(entity));
 		model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
+	}
+
+	public int getTexture(Entity entity) {
+		if (textureId == -1) textureId = ColorTexture.loadTextureFromColour(Color.PINK, 64, 32);
+		return textureId;
 	}
 }
