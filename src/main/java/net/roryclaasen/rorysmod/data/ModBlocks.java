@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
+import net.roryclaasen.rorysmod.block.BlockUpgradeTable;
 import net.roryclaasen.rorysmod.block.MultiBlockHandler;
 import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
@@ -17,18 +18,19 @@ public class ModBlocks implements TypeGroup {
 	public BlockRegistry registry = new BlockRegistry();
 
 	public Block testingWall;
+	public Block upgradeTable;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		RMLog.info("Registering Blocks");
-
 		testingWall = new BlockTestingWall(Material.iron, "blockTest");
-
+		upgradeTable = new BlockUpgradeTable(Material.anvil, "tableUpgrade");
 	}
 
 	@Override
 	public void register(FMLInitializationEvent event) {
+		RMLog.info("Registering Blocks");
 		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, testingWall.getUnlocalizedName());
+		GameRegistry.registerBlock(upgradeTable, upgradeTable.getUnlocalizedName());
 	}
 
 	@Override
