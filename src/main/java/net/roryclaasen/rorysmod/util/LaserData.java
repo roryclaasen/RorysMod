@@ -22,9 +22,10 @@ public class LaserData {
 	}
 
 	public int getInteger(String key) {
-		if (this.stackTagCompound.hasKey(key)) return this.stackTagCompound.getInteger(key);
+		if (stackTagCompound.hasKey(key)) return stackTagCompound.getInteger(key);
 		else {
 			RMLog.fatal("There is no key called " + key);
+			setInteger(key, 0);
 			return 0;
 		}
 	}
@@ -62,7 +63,7 @@ public class LaserData {
 	}
 
 	public void setInteger(String key, int value) {
-		this.stackTagCompound.setInteger(key, value);
+		stackTagCompound.setInteger(key, value);
 	}
 
 	public void setColor(Color color) {
@@ -87,11 +88,11 @@ public class LaserData {
 	}
 
 	public void setData(int capacitor, int coolant, int overclock, int lens, int phaser, int explosion, Color color) {
-		this.setData(this.getTier(), capacitor, coolant, overclock, lens, phaser, explosion, color);
+		setData(this.getTier(), capacitor, coolant, overclock, lens, phaser, explosion, color);
 	}
 
 	public void setData(int capacitor, int coolant, int overclock, int lens, int phaser, int explosion) {
-		this.setData(this.getTier(), capacitor, coolant, overclock, lens, phaser, explosion, null);
+		setData(this.getTier(), capacitor, coolant, overclock, lens, phaser, explosion, null);
 	}
 
 	public void setNBT(NBTTagCompound stackTagCompound) {

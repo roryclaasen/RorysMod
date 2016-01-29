@@ -13,7 +13,7 @@ import net.roryclaasen.rorysmod.RorysMod;
 
 public class ItemRifleUpgrade extends ItemBase {
 
-	public IIcon[] icons = new IIcon[6];
+	public IIcon[] icons = new IIcon[7];
 
 	public ItemRifleUpgrade(String unlocalizedName) {
 		super(unlocalizedName);

@@ -38,7 +38,7 @@ item.rorysmod_rifleUpgrade_5.name=Rifle Upgrade (Overclock)
 item.rorysmod_rifleUpgrade_6.name=Rifle Upgrade (Explosion)
 
 // ----------------{  Tooltip  }----------------
-item.rorysmod_rifleUpgrade_0.tooltip=Nothing special
+item.rorysmod_rifleUpgrade_0.tooltip=A blank upgrade
 item.rorysmod_rifleUpgrade_1.tooltip=Increases power capacity
 item.rorysmod_rifleUpgrade_2.tooltip=Decreases cool down time
 item.rorysmod_rifleUpgrade_3.tooltip=Allows you to color the laser

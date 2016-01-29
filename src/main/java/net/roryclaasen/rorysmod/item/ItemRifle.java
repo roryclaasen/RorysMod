@@ -16,8 +16,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRifle extends ItemBaseElectric {
 
-	private LaserData data;
-
 	public ItemRifle(String unlocalizedName) {
 		super(unlocalizedName, 0, 0, 0, 0);
 		this.setMaxStackSize(1);
@@ -27,9 +25,8 @@ public class ItemRifle extends ItemBaseElectric {
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-		data = new LaserData();
-		itemStack.stackTagCompound = data.getNBT();
-		updateLaserData();
+		itemStack.stackTagCompound = (new LaserData()).getNBT();
+		updateLaserData(itemStack);
 	}
 
 	@Override
@@ -41,29 +38,31 @@ public class ItemRifle extends ItemBaseElectric {
 	}
 
 	public void updateNBT(ItemStack itemStack) {
-		itemStack.stackTagCompound = data.getNBT();
-		updateLaserData();
+		updateLaserData(itemStack);
 
 		double currentCharge = ElectricItem.manager.getCharge(itemStack);
 		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, this.maxCharge - currentCharge, this.tier, true, false, false);
 	}
 
-	public void updateLaserData() {
-		this.tier = data.getTier();
+	public void updateLaserData(ItemStack itemStack) {
+		LaserData data = new LaserData(itemStack.stackTagCompound);
+		if (data != null) {
+			this.tier = data.getTier();
 
-		this.transferLimit = (10 * data.getTier()) + (1.75 * data.getCapacitor()) + (1.25 * data.getCoolant()) - (1.1 * data.getOverclock());
+			this.transferLimit = (10 * data.getTier()) + (1.75 * data.getCapacitor()) + (1.25 * data.getCoolant()) - (1.1 * data.getOverclock());
 
-		this.maxCharge = 100 + 200 * (data.getCapacitor() + (((double) data.getOverclock()) / 0.5));
+			this.maxCharge = 100 + 200 * (data.getCapacitor() + (((double) data.getOverclock()) / 0.5));
 
-		this.usage = 10 + (11.75 * data.getOverclock()) + (4.25 * data.getCapacitor()) - (3.5 * data.getCoolant());
-		if (data.getExplosion() > 0 || data.getPhaser() > 0) this.usage += 20;
+			this.usage = 10 + (11.75 * data.getOverclock()) + (4.25 * data.getCapacitor()) - (3.5 * data.getCoolant());
+			if (data.getExplosion() > 0 || data.getPhaser() > 0) this.usage += 20;
+		}
 	}
 
 	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
 		// player.swingItem();
 		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
 		if (!world.isRemote) {
-			world.spawnEntityInWorld(new EntityLaser(world, player, data));
+			world.spawnEntityInWorld(new EntityLaser(world, player, new LaserData(itemStack.stackTagCompound)));
 		}
 	}
 
@@ -72,13 +71,16 @@ public class ItemRifle extends ItemBaseElectric {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		if (Settings.laserTooltip) {
-			tooltip.add("Tier " + data.getTier());
-			if (data.getCapacitor() >= 1) tooltip.add(data.getCapacitor() + " Capacitor(s)");
-			if (data.getCoolant() >= 1) tooltip.add(data.getCoolant() + " Coolant(s)");
-			if (data.getLens() >= 1) tooltip.add(data.getLens() + " Lens(s)");
-			if (data.getOverclock() >= 1) tooltip.add(data.getOverclock() + " Overclock(s)");
-			if (data.getExplosion() >= 1) tooltip.add(data.getExplosion() + " Explosion(s)");
-			if (data.getPhaser() >= 1) tooltip.add(data.getPhaser() + " Phaser(s)");
+			LaserData data = new LaserData(stack.stackTagCompound);
+			if (data != null) {
+				tooltip.add("Tier " + data.getTier());
+				if (data.getCapacitor() >= 1) tooltip.add(data.getCapacitor() + " Capacitor(s)");
+				if (data.getCoolant() >= 1) tooltip.add(data.getCoolant() + " Coolant(s)");
+				if (data.getLens() >= 1) tooltip.add(data.getLens() + " Lens(s)");
+				if (data.getOverclock() >= 1) tooltip.add(data.getOverclock() + " Overclock(s)");
+				if (data.getExplosion() >= 1) tooltip.add(data.getExplosion() + " Explosion(s)");
+				if (data.getPhaser() >= 1) tooltip.add(data.getPhaser() + " Phaser(s)");
+			}
 		}
 	}
 }

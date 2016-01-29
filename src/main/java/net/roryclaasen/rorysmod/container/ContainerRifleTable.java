@@ -23,8 +23,8 @@ public class ContainerRifleTable extends Container {
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 2, 95, 63).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 1)));
 		// Coolant
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 3, 79, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 2)));
-		// Explosion (no item yet)
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 4, 100, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 0)));
+		// Explosion
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 4, 100, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 6)));
 		// Phaser
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 5, 121, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 4)));
 		// Lens
