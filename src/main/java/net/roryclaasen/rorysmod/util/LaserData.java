@@ -8,8 +8,13 @@ public class LaserData {
 
 	private NBTTagCompound stackTagCompound;
 
+	public static final Color DEFULT_COLOR = Color.RED;
+
 	public LaserData(NBTTagCompound stackTagCompound) {
-		this.stackTagCompound = stackTagCompound;
+		if (stackTagCompound == null) {
+			this.stackTagCompound = new NBTTagCompound();
+			reset();
+		} else this.stackTagCompound = stackTagCompound;
 	}
 
 	public LaserData() {
@@ -67,9 +72,8 @@ public class LaserData {
 	}
 
 	public void setColor(Color color) {
-		if (color == null) {
-			color = Color.RED;
-		}
+		if (color == null) color = DEFULT_COLOR;
+
 		setInteger("color_r", color.getRed());
 		setInteger("color_g", color.getGreen());
 		setInteger("color_b", color.getBlue());
@@ -88,11 +92,11 @@ public class LaserData {
 	}
 
 	public void setData(int capacitor, int coolant, int overclock, int lens, int phaser, int explosion, Color color) {
-		setData(this.getTier(), capacitor, coolant, overclock, lens, phaser, explosion, color);
+		setData(getTier(), capacitor, coolant, overclock, lens, phaser, explosion, color);
 	}
 
 	public void setData(int capacitor, int coolant, int overclock, int lens, int phaser, int explosion) {
-		setData(this.getTier(), capacitor, coolant, overclock, lens, phaser, explosion, null);
+		setData(getTier(), capacitor, coolant, overclock, lens, phaser, explosion, null);
 	}
 
 	public void setNBT(NBTTagCompound stackTagCompound) {
@@ -101,5 +105,33 @@ public class LaserData {
 
 	public NBTTagCompound getNBT() {
 		return stackTagCompound;
+	}
+
+	public static boolean hasAllKeys(NBTTagCompound stackTag) {
+		if (!stackTag.hasKey("tier")) return false;
+		if (!stackTag.hasKey("capacitor")) return false;
+		if (!stackTag.hasKey("coolant")) return false;
+		if (!stackTag.hasKey("overclock")) return false;
+		if (!stackTag.hasKey("lens")) return false;
+		if (!stackTag.hasKey("phaser")) return false;
+		if (!stackTag.hasKey("explosion")) return false;
+		return true;
+	}
+
+	public static NBTTagCompound getNewStackTagCompound() {
+		NBTTagCompound stackTag = new NBTTagCompound();
+
+		stackTag.setInteger("tier", 1);
+		stackTag.setInteger("capacitor", 0);
+		stackTag.setInteger("coolant", 0);
+		stackTag.setInteger("overclock", 0);
+		stackTag.setInteger("lens", 0);
+		stackTag.setInteger("phaser", 0);
+		stackTag.setInteger("explosion", 0);
+
+		stackTag.setInteger("color_r", DEFULT_COLOR.getRed());
+		stackTag.setInteger("color_g", DEFULT_COLOR.getGreen());
+		stackTag.setInteger("color_b", DEFULT_COLOR.getBlue());
+		return stackTag;
 	}
 }

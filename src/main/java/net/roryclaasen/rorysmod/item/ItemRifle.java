@@ -21,16 +21,18 @@ public class ItemRifle extends ItemBaseElectric {
 		this.setMaxStackSize(1);
 		this.setMaxDamage(0);
 		this.setFull3D();
+		this.maxCharge = 100;
 	}
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-		itemStack.stackTagCompound = (new LaserData()).getNBT();
+		checkNbt(itemStack);
 		updateLaserData(itemStack);
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+		if (!LaserData.hasAllKeys(itemStack.stackTagCompound)) onCreated(itemStack, world, player);
 		updateNBT(itemStack);
 		if (player.capabilities.isCreativeMode) fireRifle(itemStack, world, player);
 		else if (ElectricItem.manager.use(itemStack, usage, player)) fireRifle(itemStack, world, player);
@@ -45,6 +47,7 @@ public class ItemRifle extends ItemBaseElectric {
 	}
 
 	public void updateLaserData(ItemStack itemStack) {
+		checkNbt(itemStack);
 		LaserData data = new LaserData(itemStack.stackTagCompound);
 		if (data != null) {
 			this.tier = data.getTier();
@@ -62,24 +65,29 @@ public class ItemRifle extends ItemBaseElectric {
 		// player.swingItem();
 		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
 		if (!world.isRemote) {
-			world.spawnEntityInWorld(new EntityLaser(world, player, new LaserData(itemStack.stackTagCompound)));
+			world.spawnEntityInWorld(new EntityLaser(world, player, itemStack));
 		}
+	}
+
+	private void checkNbt(ItemStack stack) {
+		if (stack.stackTagCompound == null) stack.stackTagCompound = LaserData.getNewStackTagCompound();
 	}
 
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+		if (!LaserData.hasAllKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
 		if (Settings.laserTooltip) {
 			LaserData data = new LaserData(stack.stackTagCompound);
 			if (data != null) {
-				tooltip.add("Tier " + data.getTier());
-				if (data.getCapacitor() >= 1) tooltip.add(data.getCapacitor() + " Capacitor(s)");
-				if (data.getCoolant() >= 1) tooltip.add(data.getCoolant() + " Coolant(s)");
-				if (data.getLens() >= 1) tooltip.add(data.getLens() + " Lens(s)");
-				if (data.getOverclock() >= 1) tooltip.add(data.getOverclock() + " Overclock(s)");
-				if (data.getExplosion() >= 1) tooltip.add(data.getExplosion() + " Explosion(s)");
-				if (data.getPhaser() >= 1) tooltip.add(data.getPhaser() + " Phaser(s)");
+				tooltip.add("Tier " + (data.getTier() == 0 ? 1 : data.getTier()));
+				if (data.getCapacitor() > 0) tooltip.add(data.getCapacitor() + " Capacitor(s)");
+				if (data.getCoolant() > 0) tooltip.add(data.getCoolant() + " Coolant(s)");
+				if (data.getLens() > 0) tooltip.add(data.getLens() + " Lens(s)");
+				if (data.getOverclock() > 0) tooltip.add(data.getOverclock() + " Overclock(s)");
+				if (data.getExplosion() > 0) tooltip.add(data.getExplosion() + " Explosion(s)");
+				if (data.getPhaser() > 0) tooltip.add(data.getPhaser() + " Phaser(s)");
 			}
 		}
 	}

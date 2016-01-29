@@ -20,7 +20,6 @@ import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.registry.ItemRegistry;
 import codechicken.nei.api.API;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -46,7 +45,7 @@ public class ModItems implements TypeGroup {
 	}
 
 	@Override
-	public void register(FMLInitializationEvent event) {
+	public void register(FMLPreInitializationEvent event) {
 		RMLog.info("Registering Items");
 
 		GameRegistry.registerItem(steelIngot, steelIngot.getUnlocalizedName());
@@ -72,7 +71,8 @@ public class ModItems implements TypeGroup {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(carbonIngot), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), "ingotIron"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelDust, 2), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), "dustIron"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelPlate), "ingotSteel", IC2Items.getItem("ForgeHammer")));
-
+		GameRegistry.addShapelessRecipe(new ItemStack(rifle), Blocks.dirt);
+		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradePlate, 2), new Object[]{"rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade), new Object[]{"iii", "iui", "iii", 'u', new ItemStack(upgradePlate), 'i', Blocks.iron_bars}));
 

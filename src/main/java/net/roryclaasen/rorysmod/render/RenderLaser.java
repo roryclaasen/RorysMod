@@ -39,7 +39,7 @@ public class RenderLaser extends Render {
 		bindTexture(backup);
 		if (entity instanceof EntityLaser) {
 			EntityLaser laser = (EntityLaser) entity;
-			if (Settings.coloredLaser) {
+			if (Settings.coloredLaser && laser.getLaserData() != null) {
 				if (laser.getLaserData().getLens() > 0) GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(laser.getLaserData().getColor()));
 			}
 		}

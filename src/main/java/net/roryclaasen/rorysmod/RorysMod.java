@@ -61,6 +61,7 @@ public class RorysMod {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		instance = this;
 		settings = new Settings(event);
 		settings.load(event);
 
@@ -74,13 +75,13 @@ public class RorysMod {
 
 		blocks.preInit(event);
 		items.preInit(event);
+		
+		blocks.register(event);
+		items.register(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		blocks.register(event);
-		items.register(event);
-
 		RMLog.info("Registering Recipes");
 		blocks.createRecipes();
 		items.createRecipes();
@@ -88,7 +89,7 @@ public class RorysMod {
 		registerEventHandlers();
 		proxy.init(event);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		EntityRegistry.registerModEntity(EntityLaser.class, "LASER", 0, this, 64, 10, true);
+		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, this, 64, 10, true);
 	}
 
 	@EventHandler

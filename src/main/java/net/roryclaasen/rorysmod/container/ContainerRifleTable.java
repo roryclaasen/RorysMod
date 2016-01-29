@@ -12,7 +12,7 @@ public class ContainerRifleTable extends Container {
 
 	protected TileEntityRifleTable tileEntity;
 
-	private final int NO_CUSTOM_SLOTS = 8;
+	private final int NO_CUSTOM_SLOTS = 9;
 
 	public ContainerRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable te) {
 		tileEntity = te;
@@ -49,7 +49,7 @@ public class ContainerRifleTable extends Container {
 		}
 		// Player Inventory, Slot 0-8, Slot IDs 35-43
 		for (int x = 0; x < 9; ++x) {
-			this.addSlotToContainer(new Slot(inventoryPlayer, x, NO_CUSTOM_SLOTS + x * 18, 142));
+			this.addSlotToContainer(new Slot(inventoryPlayer, x, 8 + x * 18, 142));
 		}
 	}
 
