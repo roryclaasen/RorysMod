@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod.data;
+package net.roryclaasen.rorysmod.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
 import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.MultiBlockHandler;
-import net.roryclaasen.rorysmod.util.BlockRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
+import net.roryclaasen.rorysmod.util.registry.BlockRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;

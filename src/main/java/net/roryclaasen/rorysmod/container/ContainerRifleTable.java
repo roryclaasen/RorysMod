@@ -5,7 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.roryclaasen.rorysmod.data.ModItems;
+import net.roryclaasen.rorysmod.core.ModItems;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 
 public class ContainerRifleTable extends Container {

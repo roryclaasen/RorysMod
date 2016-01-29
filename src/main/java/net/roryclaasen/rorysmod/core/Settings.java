@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod.data;
+package net.roryclaasen.rorysmod.core;
 
 import net.minecraftforge.common.config.Configuration;
 import net.roryclaasen.rorysmod.RorysMod;

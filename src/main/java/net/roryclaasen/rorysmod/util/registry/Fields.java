@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod.util;
+package net.roryclaasen.rorysmod.util.registry;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

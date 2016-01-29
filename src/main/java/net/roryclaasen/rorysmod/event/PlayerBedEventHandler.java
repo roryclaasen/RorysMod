@@ -12,7 +12,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
-import net.roryclaasen.rorysmod.data.Settings;
+import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 

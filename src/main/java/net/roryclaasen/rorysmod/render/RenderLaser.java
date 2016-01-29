@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.roryclaasen.rorysmod.RorysMod;
-import net.roryclaasen.rorysmod.data.Settings;
+import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.model.ModelLaser;
 import net.roryclaasen.rorysmod.util.ColorTexture;

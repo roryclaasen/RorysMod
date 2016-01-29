@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
-import net.roryclaasen.rorysmod.data.Settings;
+import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.util.LaserData;
 import cpw.mods.fml.relauncher.Side;
@@ -29,6 +29,7 @@ public class ItemRifle extends ItemBaseElectric {
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
 		data = new LaserData();
 		itemStack.stackTagCompound = data.getNBT();
+		updateLaserData();
 	}
 
 	@Override
@@ -41,7 +42,21 @@ public class ItemRifle extends ItemBaseElectric {
 
 	public void updateNBT(ItemStack itemStack) {
 		itemStack.stackTagCompound = data.getNBT();
+		updateLaserData();
+
+		double currentCharge = ElectricItem.manager.getCharge(itemStack);
+		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, this.maxCharge - currentCharge, this.tier, true, false, false);
+	}
+
+	public void updateLaserData() {
 		this.tier = data.getTier();
+
+		this.transferLimit = (10 * data.getTier()) + (1.75 * data.getCapacitor()) + (1.25 * data.getCoolant()) - (1.1 * data.getOverclock());
+
+		this.maxCharge = 100 + 200 * (data.getCapacitor() + (((double) data.getOverclock()) / 0.5));
+
+		this.usage = 10 + (11.75 * data.getOverclock()) + (4.25 * data.getCapacitor()) - (3.5 * data.getCoolant());
+		if (data.getExplosion() > 0 || data.getPhaser() > 0) this.usage += 20;
 	}
 
 	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {

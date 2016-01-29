@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod.data;
+package net.roryclaasen.rorysmod.core;
 
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
@@ -16,8 +16,8 @@ import net.roryclaasen.rorysmod.item.ItemIngot;
 import net.roryclaasen.rorysmod.item.ItemPlate;
 import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
-import net.roryclaasen.rorysmod.util.ItemRegistry;
 import net.roryclaasen.rorysmod.util.RMLog;
+import net.roryclaasen.rorysmod.util.registry.ItemRegistry;
 import codechicken.nei.api.API;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;

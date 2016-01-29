@@ -1,6 +1,6 @@
 package net.roryclaasen.asm.rorysmodcore.transformer;
 
-import net.roryclaasen.rorysmod.data.Settings;
+import net.roryclaasen.rorysmod.core.Settings;
 
 public class StaticClass {
 

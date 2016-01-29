@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod.data;
+package net.roryclaasen.rorysmod.core;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

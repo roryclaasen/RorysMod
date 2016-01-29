@@ -1,7 +1,7 @@
 package net.roryclaasen.rorysmod.proxy;
 
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.roryclaasen.rorysmod.data.ModItems;
+import net.roryclaasen.rorysmod.core.ModItems;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.render.RenderLaser;
 import net.roryclaasen.rorysmod.render.RenderRifle;

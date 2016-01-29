@@ -1,4 +1,4 @@
-package net.roryclaasen.rorysmod.util;
+package net.roryclaasen.rorysmod.util.registry;
 
 
 import java.lang.reflect.Field;
@@ -7,26 +7,29 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.stats.StatCrafting;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ObjectIntIdentityMap;
 import net.minecraft.util.RegistryNamespaced;
 import net.minecraft.util.RegistrySimple;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 @SuppressWarnings("unchecked")
-public final class ItemRegistry {
+public final class BlockRegistry {
 
 	/**
-	 * Registers a new item and overrides the old one if present.
+	 * Registers a new block and overrides the old one if present.
 	 * 
 	 * @param id the id
-	 * @param item the item
+	 * @param block the block
 	 */
-	public void register(String id, Item item) {
+	public void register(String id, Block block) {
 		if (!id.startsWith("minecraft:")) {
-			GameRegistry.registerItem(item, id);
+			GameRegistry.registerBlock(block, id);
 		} else {
 			/**
 			 * Currently is the {@link GameRegistry#addSubstitutionAlias(...)} not working. :/
@@ -34,17 +37,17 @@ public final class ItemRegistry {
 
 			/**
 			try {
-				GameRegistry.addSubstitutionAlias(id, Type.Item, item);
+				GameRegistry.addSubstitutionAlias(id, Type.Block, item);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			*/
 
-			RegistryNamespaced registry = Item.itemRegistry;
+			RegistryNamespaced registry = Block.blockRegistry;
 
 			try {
-				Item item0 = (Item) registry.getObject(id);
-				Integer id0 = registry.getIDForObject(item0);
+				Block block0 = (Block) registry.getObject(id);
+				Integer id0 = registry.getIDForObject(block0);
 
 				Map<Object, Object> map0 = null;
 				ObjectIntIdentityMap map1 = null;
@@ -59,25 +62,25 @@ public final class ItemRegistry {
 				map1 = (ObjectIntIdentityMap) field1.get(registry);
 
 				map0.remove(id);
-				map0.put(id, item);
-				map0.put("removed:" + id.replace("minecraft:", ""), item0);
-				map1.func_148746_a(item, id0);
+				map0.put(id, block);
+				map0.put("removed:" + id.replace("minecraft:", ""), block0);
+				map1.func_148746_a(block, id0);
 
 				
-				item0.setCreativeTab(null);
+				block0.setCreativeTab(null);
 
-				for (Field field : Item.class.getFields()) {
+				for (Field field : Blocks.class.getFields()) {
 					int modifiers = field.getModifiers();
 
 					if (Modifier.isStatic(modifiers)) {
 						try {
-							if (field.get(null).equals(item0)) {
+							if (field.get(null).equals(block0)) {
 								Field field2 = Field.class.getDeclaredField("modifiers");
 								field2.setAccessible(true);
 								field2.set(field, modifiers & ~Modifier.FINAL);
 
 								field.setAccessible(true);
-								field.set(null, item);
+								field.set(null, block);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -94,16 +97,16 @@ public final class ItemRegistry {
 				while (it.hasNext()) {
 					StatCrafting stat = it.next();
 
-					if (field2.get(stat) == item0) {
+					if (field2.get(stat) == block0) {
 						Field field3 = Field.class.getDeclaredField("modifiers");
 						field3.setAccessible(true);
 						field3.set(field2, field2.getModifiers() & ~Modifier.FINAL);
 
 						field2.setAccessible(true);
-						field2.set(stat, item);
+						field2.set(stat, block);
 					}
 				}
-				RMLog.info("Replaced Item '" + id + "' with " + item);
+				RMLog.info("Replaced block '" + id + "' with " + block);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
