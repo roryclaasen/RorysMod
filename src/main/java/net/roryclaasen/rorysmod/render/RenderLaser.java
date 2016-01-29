@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.data.Settings;
+import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.model.ModelLaser;
 import net.roryclaasen.rorysmod.util.ColorTexture;
 
@@ -34,14 +36,20 @@ public class RenderLaser extends Render {
 		GL11.glTranslated(x, y - 1.25D, z);
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTick - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTick, 0.0F, 0.0F, 1.0F);
+		bindTexture(backup);
+		if (entity instanceof EntityLaser) {
+			EntityLaser laser = (EntityLaser) entity;
+			if (Settings.coloredLaser) {
+				if (laser.getLaserData().getLens() > 0) GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(laser.getLaserData().getColor()));
+			}
+		}
 
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(entity));
 		model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
 	}
 
-	public int getTexture(Entity entity) {
-		if (textureId == -1) textureId = ColorTexture.loadTextureFromColour(Color.PINK, 64, 32);
+	public int getTexture(Color color) {
+		if (textureId == -1) textureId = ColorTexture.loadTextureFromColour(color, 64, 32);
 		return textureId;
 	}
 }

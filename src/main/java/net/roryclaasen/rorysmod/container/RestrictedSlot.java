@@ -11,6 +11,7 @@ public class RestrictedSlot extends Slot {
 
 	private List<ItemStack> allowedList;
 	private ItemStack allowed;
+	private int limit = 64;
 
 	public RestrictedSlot(IInventory inventory, int par2, int par3, int par4) {
 		super(inventory, par2, par3, par4);
@@ -28,6 +29,7 @@ public class RestrictedSlot extends Slot {
 
 	public RestrictedSlot setAllowedItemStack(ItemStack item) {
 		this.allowed = item;
+		this.limit = item.getMaxStackSize();
 		return this;
 	}
 
@@ -38,6 +40,7 @@ public class RestrictedSlot extends Slot {
 
 	public RestrictedSlot setAllowedItem(Item item) {
 		this.allowed = new ItemStack(item);
+		this.limit = this.allowed.getMaxStackSize();
 		return this;
 	}
 
@@ -46,6 +49,11 @@ public class RestrictedSlot extends Slot {
 		for (Item item : items) {
 			this.allowedList.add(new ItemStack(item));
 		}
+		return this;
+	}
+	
+	public RestrictedSlot setLimit(int limit){
+		this.limit = limit;
 		return this;
 	}
 
@@ -64,6 +72,6 @@ public class RestrictedSlot extends Slot {
 
 	@Override
 	public int getSlotStackLimit() {
-		return 1;
+		return limit;
 	}
 }

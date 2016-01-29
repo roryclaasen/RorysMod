@@ -28,7 +28,7 @@ public class ContainerRifleTable extends Container {
 		// Phaser
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 5, 121, 5).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 4)));
 		// Lens
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 6, 146, 45).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 3)));
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 6, 146, 45).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 3)).setLimit(1));
 		// Overclock
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 7, 59, 12).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 0, 5)));
 

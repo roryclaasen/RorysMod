@@ -17,6 +17,9 @@ public class Settings {
 	public static boolean enableStayInBed;
 	public static boolean bedText;
 
+	public static boolean coloredLaser;
+	public static boolean laserTooltip;
+
 	private static Configuration config;
 
 	public Settings(FMLPreInitializationEvent event) {
@@ -36,6 +39,10 @@ public class Settings {
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true).getBoolean(true);
 		enableStayInBed = config.get("sleeping", "stayInBed", true).getBoolean(true);
 		bedText = config.get("sleeping", "whenAccessingBedShowNewText", false).getBoolean(false);
+
+		// modular lasers
+		coloredLaser = config.get("modular-lasers", "allowColouredLasers", true).getBoolean(true);
+		laserTooltip = config.get("modular-lasers", "showLaserModualsl", true).getBoolean(true);
 
 		if (config.hasChanged()) {
 			config.save();
