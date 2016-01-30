@@ -24,7 +24,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = RorysMod.MODID, name = RorysMod.NAME)
+@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "after:IC2")
 public class RorysMod {
 
 	@SidedProxy(clientSide = "net.roryclaasen.rorysmod.proxy.ClientProxy", serverSide = "net.roryclaasen.rorysmod.proxy.CommonProxy")
@@ -77,7 +77,7 @@ public class RorysMod {
 
 		blocks.preInit(event);
 		items.preInit(event);
-		
+
 		blocks.register(event);
 		items.register(event);
 	}
@@ -89,11 +89,11 @@ public class RorysMod {
 		items.createRecipes();
 
 		registerEventHandlers();
-		
+
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		
+
 		proxy.init(event);
-		
+
 		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "RifleTable");
 		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, RorysMod.instance, 64, 10, true);
 	}
