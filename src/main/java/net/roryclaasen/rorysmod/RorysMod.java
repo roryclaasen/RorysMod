@@ -87,9 +87,11 @@ public class RorysMod {
 		items.createRecipes();
 
 		registerEventHandlers();
-		proxy.init(event);
+		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, this, 64, 10, true);
+		proxy.init(event);
+		
+		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, RorysMod.instance, 64, 10, true);
 	}
 
 	@EventHandler

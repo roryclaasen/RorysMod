@@ -34,8 +34,10 @@ public class ItemRifle extends ItemBaseElectric {
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		if (!LaserData.hasAllKeys(itemStack.stackTagCompound)) onCreated(itemStack, world, player);
 		updateNBT(itemStack);
-		if (player.capabilities.isCreativeMode) fireRifle(itemStack, world, player);
-		else if (ElectricItem.manager.use(itemStack, usage, player)) fireRifle(itemStack, world, player);
+		if (!world.isRemote) {
+			if (player.capabilities.isCreativeMode) fireRifle(itemStack, world, player);
+			else if (ElectricItem.manager.use(itemStack, usage, player)) fireRifle(itemStack, world, player);
+		}
 		return itemStack;
 	}
 
@@ -64,9 +66,7 @@ public class ItemRifle extends ItemBaseElectric {
 	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
 		// player.swingItem();
 		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
-		if (!world.isRemote) {
-			world.spawnEntityInWorld(new EntityLaser(world, player, itemStack));
-		}
+		world.spawnEntityInWorld(new EntityLaser(world, player, itemStack));
 	}
 
 	private void checkNbt(ItemStack stack) {

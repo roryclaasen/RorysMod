@@ -1,6 +1,7 @@
 package net.roryclaasen.rorysmod.entity;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -16,32 +17,9 @@ public class EntityLaser extends EntityThrowable {
 		super(world);
 	}
 
-	public EntityLaser(World world, EntityLivingBase entity) {
-		this(world, entity, entity.getHeldItem());
-	}
-
 	public EntityLaser(World world, EntityLivingBase entity, ItemStack itemStack) {
 		super(world, entity);
-		posY += entity.height / 2;
 		this.data = new LaserData(itemStack.stackTagCompound);
-	}
-
-	private float getDamage() {
-		if (data.getPhaser() == 0) return 0F;
-		float perP = 1.12F;
-		float perO = 1.2F;
-		float total = (perP * (perO * data.getOverclock())) * data.getPhaser();
-		return total;
-	}
-
-	private void explode() {
-		if (data != null) {
-			if (data.getExplosion() > 0) {
-				float expl = 0.325F * data.getExplosion();
-				worldObj.createExplosion(this, posX, posY, posZ, expl, true);
-			}
-		}
-		setDead();
 	}
 
 	@Override
@@ -58,11 +36,37 @@ public class EntityLaser extends EntityThrowable {
 	}
 
 	@Override
-	public void onImpact(MovingObjectPosition movingObjectPosition) {
+	protected void onImpact(MovingObjectPosition movingObjectPosition) {
 		if (movingObjectPosition.entityHit != null) {
 			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
 		}
 		explode();
+		if (!worldObj.isRemote) setDead();
+	}
+
+	@Override
+	public void onCollideWithPlayer(EntityPlayer player) {
+		if (inGround && !worldObj.isRemote) {
+			player.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
+			setDead();
+		}
+	}
+
+	private float getDamage() {
+		if (data.getPhaser() == 0) return 0F;
+		float perP = 1.12F;
+		float perO = 1.2F;
+		float total = (perP * (perO * data.getOverclock())) * data.getPhaser();
+		return total;
+	}
+
+	private void explode() {
+		if (data != null) {
+			if (data.getExplosion() > 0) {
+				float expl = 0.325F * data.getExplosion() + 1F;
+				worldObj.createExplosion(this, posX, posY, posZ, expl, true);
+			}
+		}
 	}
 
 	public LaserData getLaserData() {

@@ -33,7 +33,7 @@ public class RenderLaser extends Render {
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTick) {
 		GL11.glPushMatrix();
-		GL11.glTranslated(x, y - 1.25D, z);
+		GL11.glTranslated(x, y, z);
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTick - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTick, 0.0F, 0.0F, 1.0F);
 		bindTexture(backup);
@@ -43,7 +43,6 @@ public class RenderLaser extends Render {
 				if (laser.getLaserData().getLens() > 0) GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(laser.getLaserData().getColor()));
 			}
 		}
-
 		model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
 	}
