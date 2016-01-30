@@ -64,8 +64,10 @@ public class ModItems implements TypeGroup {
 		OreDictionary.registerOre("ingotSteel", steelIngot);
 		OreDictionary.registerOre("dustSteel", steelDust);
 		OreDictionary.registerOre("plateSteel", steelPlate);
+		
 		OreDictionary.registerOre("circuit", circuit);
 		OreDictionary.registerOre("circuitTier00", circuit);
+		OreDictionary.registerOre("circuitBasic", circuit);
 
 		if (Loader.isModLoaded("NotEnoughItems")) {
 			API.hideItem(new ItemStack(laserBolt));
