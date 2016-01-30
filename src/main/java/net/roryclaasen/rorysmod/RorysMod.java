@@ -87,6 +87,7 @@ public class RorysMod {
 		RMLog.info("Registering Recipes");
 		blocks.createRecipes();
 		items.createRecipes();
+		RMLog.info("Registering everything else");
 
 		registerEventHandlers();
 
@@ -102,8 +103,6 @@ public class RorysMod {
 	public void postinit(FMLPostInitializationEvent event) {}
 
 	private void registerEventHandlers() {
-		RMLog.info("Registering events");
-
 		if (Arguments.isExperiment()) {
 			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 		} else RMLog.info("Skiping expiremntal Handlers");

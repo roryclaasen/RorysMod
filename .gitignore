@@ -2,7 +2,8 @@
 /*
 
 # include important folders
-# need gradle 
+!build.bat
+# need gradle
 !gradle/
 !gradlew
 !gradlew.bat
