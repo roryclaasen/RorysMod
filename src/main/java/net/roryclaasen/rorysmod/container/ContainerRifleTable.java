@@ -65,7 +65,9 @@ public class ContainerRifleTable extends Container {
 				if (!this.mergeItemStack(stackInSlot, tileEntity.getSizeInventory(), 36 + tileEntity.getSizeInventory(), true)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(stackInSlot, 0, tileEntity.getSizeInventory(), false)) {
+			} else {
+				if (!this.mergeItemStack(stackInSlot, 0, tileEntity.getSizeInventory(), false)) {
+				}
 				return null;
 			}
 

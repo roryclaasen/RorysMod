@@ -110,6 +110,11 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				writeToLaser();
 			}
 		}
+		if (!hasLaser()) {
+			for (int i = 0; i < inv.length; i++) {
+				inv[i] = null;
+			}
+		}
 	}
 
 	public void writeToLaser() {
@@ -122,9 +127,10 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 			int lens = (inv[6] != null) ? inv[6].stackSize : 0;
 			int phaser = (inv[5] != null) ? inv[5].stackSize : 0;
 			int explosion = (inv[4] != null) ? inv[4].stackSize : 0;
+			
 			data.setData(capacitor, coolant, overclock, lens, phaser, explosion);
 			inv[0].stackTagCompound = data.getNBT();
-			((ItemRifle)inv[0].getItem()).updateNBT(inv[0]);
+			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
 		}
 	}
 
@@ -162,7 +168,9 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return true;
+		if (hasLaser()) return true;
+		if (slot == 0) return true;
+		return false;
 	}
 
 	@Override

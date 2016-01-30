@@ -7,6 +7,7 @@ import net.roryclaasen.rorysmod.core.ModBlocks;
 import net.roryclaasen.rorysmod.core.ModItems;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
+import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
@@ -21,6 +22,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME)
 public class RorysMod {
@@ -89,8 +91,10 @@ public class RorysMod {
 		registerEventHandlers();
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		
 		proxy.init(event);
 		
+		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "RifleTable");
 		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, RorysMod.instance, 64, 10, true);
 	}
 

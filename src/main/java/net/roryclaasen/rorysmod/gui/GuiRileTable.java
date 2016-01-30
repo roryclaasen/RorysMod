@@ -23,7 +23,7 @@ public class GuiRileTable extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-
+		//TODO Add custom text
 	}
 
 	@Override
