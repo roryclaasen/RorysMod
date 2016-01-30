@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0.1"
+version = "1.2"
 group= "net.roryclaasen.rorysmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RorysMod"
 
@@ -49,7 +49,7 @@ processResources {
 jar {
     includeEmptyDirs = false
     //Append with minecraft version
-    classifier = "-[" + minecraft.version + "]-"
+    classifier = "-" + minecraft.version + "-"
     archiveName = archivesBaseName + classifier + version + ".jar"
     manifest {
         attributes 'FMLAT': 'rorysmods_at.cfg'
