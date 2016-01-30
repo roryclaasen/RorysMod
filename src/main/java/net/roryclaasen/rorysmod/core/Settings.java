@@ -19,6 +19,11 @@ public class Settings {
 
 	public static boolean coloredLaser;
 	public static boolean laserTooltip;
+	public static int rifleTier1 = 8;
+	public static int rifleTier2 = 16;
+	public static int rifleTier3 = 24;
+	public static int rifleTier4 = 32;
+	public static int rifleTier5 = 40;
 
 	private static Configuration config;
 

@@ -20,6 +20,7 @@ tile.rorysmod_blockTest_13.name=Green Testing Wall
 tile.rorysmod_blockTest_14.name=Red Testing Wall 
 tile.rorysmod_blockTest_15.name=Black Testing Wall 
 tile.rorysmod_tableUpgrade.name=Rifle Table
+tile.rorysmod_blockSteel.name=Steel Block
 
 // ----------------{  Items  }----------------
 item.rorysmod_ingotSteel.name=Steel Ingot

@@ -23,7 +23,7 @@ public class ItemRifleUpgrade extends ItemBase {
 
 	@Override
 	public void registerIcons(IIconRegister reg) {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < icons.length; i++) {
 			this.icons[i] = reg.registerIcon(RorysMod.MODID + ":" + getName() + "_" + i);
 		}
 	}
@@ -31,7 +31,7 @@ public class ItemRifleUpgrade extends ItemBase {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < icons.length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}

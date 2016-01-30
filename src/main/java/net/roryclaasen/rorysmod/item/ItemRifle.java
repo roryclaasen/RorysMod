@@ -36,7 +36,16 @@ public class ItemRifle extends ItemBaseElectric {
 		updateNBT(itemStack);
 		if (!world.isRemote) {
 			if (player.capabilities.isCreativeMode) fireRifle(itemStack, world, player);
-			else if (ElectricItem.manager.use(itemStack, usage, player)) fireRifle(itemStack, world, player);
+			else {
+				LaserData data = new LaserData(itemStack.stackTagCompound);
+				if (data.canFire()) {
+					if (ElectricItem.manager.use(itemStack, usage, player)) {
+						fireRifle(itemStack, world, player);
+					}
+				} else {
+					// TODO Sound broken/jammed
+				}
+			}
 		}
 		return itemStack;
 	}

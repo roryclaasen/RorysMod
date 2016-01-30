@@ -31,6 +31,7 @@ public class ModItems implements TypeGroup {
 	public static Item carbonIngot;
 	public static Item rifle, laserBolt;
 	public static Item rifleUpgrade, upgradePlate;
+	public static Item circuit;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -42,6 +43,7 @@ public class ModItems implements TypeGroup {
 		laserBolt = new ItemBase("laser").setCreativeTab(null);
 		rifleUpgrade = new ItemRifleUpgrade("rifleUpgrade");
 		upgradePlate = new ItemPlate("plateUpgrade");
+		circuit = new ItemBase("circuit");
 	}
 
 	@Override
@@ -57,9 +59,13 @@ public class ModItems implements TypeGroup {
 		GameRegistry.registerItem(rifleUpgrade, rifleUpgrade.getUnlocalizedName());
 		GameRegistry.registerItem(upgradePlate, upgradePlate.getUnlocalizedName());
 
+		GameRegistry.registerItem(circuit, circuit.getUnlocalizedName());
+
 		OreDictionary.registerOre("ingotSteel", steelIngot);
 		OreDictionary.registerOre("dustSteel", steelDust);
 		OreDictionary.registerOre("plateSteel", steelPlate);
+		OreDictionary.registerOre("circuit", circuit);
+		OreDictionary.registerOre("circuitTier00", circuit);
 
 		if (Loader.isModLoaded("NotEnoughItems")) {
 			API.hideItem(new ItemStack(laserBolt));
@@ -68,13 +74,21 @@ public class ModItems implements TypeGroup {
 
 	@Override
 	public void createRecipes() {
+		ItemStack forgeHammer = IC2Items.getItem("ForgeHammer").copy();
+		forgeHammer.setItemDamage(OreDictionary.WILDCARD_VALUE);
+
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(carbonIngot), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), "ingotIron"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelDust, 2), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), IC2Items.getItem("carbonFiber"), "dustIron"));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelPlate), "ingotSteel", IC2Items.getItem("ForgeHammer")));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelPlate), "ingotSteel", forgeHammer));
+		
 		GameRegistry.addShapelessRecipe(new ItemStack(rifle), Blocks.dirt);
 		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(steelIngot, 9), "blockSteel"));
+
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradePlate, 2), new Object[]{"rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade), new Object[]{"iii", "iui", "iii", 'u', new ItemStack(upgradePlate), 'i', Blocks.iron_bars}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade), new Object[]{" i ", "iui", " i ", 'u', new ItemStack(upgradePlate), 'i', Blocks.iron_bars}));
+
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(circuit), new Object[]{" r ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget}));
 
 		GameRegistry.addSmelting(new ItemStack(steelDust), new ItemStack(steelIngot), 0.1f);
 		GameRegistry.addSmelting(new ItemStack(carbonIngot), new ItemStack(steelIngot), 0.1f);

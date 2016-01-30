@@ -3,6 +3,7 @@ package net.roryclaasen.rorysmod.util;
 import java.awt.Color;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.roryclaasen.rorysmod.core.Settings;
 
 public class LaserData {
 
@@ -107,7 +108,30 @@ public class LaserData {
 		return stackTagCompound;
 	}
 
+	public int getWeight() {
+		return getCapacitor() + getCoolant() + getOverclock() + getLens() + getPhaser() + getExplosion();
+	}
+
+	public boolean canFire() {
+		int weight = getWeight();
+		int maxWeight = Settings.rifleTier1;
+		switch (getTier()) {
+			case 1 :
+				maxWeight = Settings.rifleTier1;
+			case 2 :
+				maxWeight = Settings.rifleTier2;
+			case 3 :
+				maxWeight = Settings.rifleTier3;
+			case 4 :
+				maxWeight = Settings.rifleTier4;
+			case 5 :
+				maxWeight = Settings.rifleTier5;
+		}
+		return weight <= maxWeight;
+	}
+
 	public static boolean hasAllKeys(NBTTagCompound stackTag) {
+		if (stackTag == null) return false;
 		if (!stackTag.hasKey("tier")) return false;
 		if (!stackTag.hasKey("capacitor")) return false;
 		if (!stackTag.hasKey("coolant")) return false;
