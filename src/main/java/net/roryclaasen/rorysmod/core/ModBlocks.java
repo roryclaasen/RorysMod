@@ -2,6 +2,7 @@ package net.roryclaasen.rorysmod.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -46,7 +47,8 @@ public class ModBlocks implements TypeGroup {
 		for (int id = 0; id < ((BlockTestingWall) testingWall).getMaxMeta(); id++) {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
-			/* if (15 - id != 15) */GameRegistry.addShapedRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', Items.iron_ingot, 'd', dye});
+			/* if (15 - id != 15) */GameRegistry.addRecipe(new ShapedOreRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye}));
 		}
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table}));
 	}
 }

@@ -116,7 +116,7 @@ public class ModItems implements TypeGroup {
 		// Rifle
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleBarrel), new Object[]{"sss", "   ", "sss", 's', "ingotSteel"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleTrigger), new Object[]{" ss", " s ", "  s", 's', "ingotSteel"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitBasic", 't', new ItemStack(rifleTrigger)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "cpu", 't', new ItemStack(rifleTrigger)}));
 
 		// Rifle upgrade
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradePlate, 2), new Object[]{"rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel"}));
