@@ -3,6 +3,7 @@
 
 # include important folders
 !build.bat
+!change.log.md
 # need gradle
 !gradle/
 !gradlew
