@@ -2,6 +2,7 @@
 ## What will be in the next release
 ```
 + Added a recipe for the Rifle Table
++ Added laser fail sound
 - Changed Recipe for all Testing Wall
 - Changed values for firing the Laser Rifle
 - Changed Gray to Grey
@@ -49,6 +50,7 @@
 + Added Circuit
 + Added Filament
 + Added Central Processing Unit
++ Added laser sound
 
 + Added a model to Rifle
 + Added a model to the Laser blot

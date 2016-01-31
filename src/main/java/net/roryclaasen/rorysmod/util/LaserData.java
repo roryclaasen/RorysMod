@@ -114,20 +114,24 @@ public class LaserData {
 
 	public boolean canFire() {
 		int weight = getWeight();
-		int maxWeight = Settings.rifleTier1;
+		int maxWeight = getMaxWeight();
+		return weight <= maxWeight;
+	}
+	
+	public int getMaxWeight(){
 		switch (getTier()) {
 			case 1 :
-				maxWeight = Settings.rifleTier1;
+				return Settings.rifleTier1;
 			case 2 :
-				maxWeight = Settings.rifleTier2;
+				return Settings.rifleTier2;
 			case 3 :
-				maxWeight = Settings.rifleTier3;
+				return Settings.rifleTier3;
 			case 4 :
-				maxWeight = Settings.rifleTier4;
+				return Settings.rifleTier4;
 			case 5 :
-				maxWeight = Settings.rifleTier5;
+				return Settings.rifleTier5;
 		}
-		return weight <= maxWeight;
+		return Settings.rifleTier1;
 	}
 
 	public static boolean hasAllKeys(NBTTagCompound stackTag) {
@@ -156,6 +160,21 @@ public class LaserData {
 		stackTag.setInteger("color_r", DEFULT_COLOR.getRed());
 		stackTag.setInteger("color_g", DEFULT_COLOR.getGreen());
 		stackTag.setInteger("color_b", DEFULT_COLOR.getBlue());
+		return stackTag;
+	}
+
+	public NBTTagCompound addToNBTTagCompound(NBTTagCompound stackTag) {
+		stackTag.setInteger("tier", getTier());
+		stackTag.setInteger("capacitor", getCapacitor());
+		stackTag.setInteger("coolant", getCoolant());
+		stackTag.setInteger("overclock", getOverclock());
+		stackTag.setInteger("lens", getLens());
+		stackTag.setInteger("phaser", getPhaser());
+		stackTag.setInteger("explosion", getExplosion());
+
+		stackTag.setInteger("color_r", getColor().getRed());
+		stackTag.setInteger("color_g", getColor().getGreen());
+		stackTag.setInteger("color_b", getColor().getBlue());
 		return stackTag;
 	}
 }

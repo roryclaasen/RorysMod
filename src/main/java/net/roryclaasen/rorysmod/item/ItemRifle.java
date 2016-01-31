@@ -6,6 +6,8 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.Settings;
@@ -43,7 +45,8 @@ public class ItemRifle extends ItemBaseElectric {
 						fireRifle(itemStack, world, player);
 					}
 				} else {
-					// TODO Sound broken/jammed
+					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal(RorysMod.MODID + "_rifle.state.jammed.message")));
+					world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun_fail", 0.5F, 1.0F);
 				}
 			}
 		}
@@ -93,10 +96,11 @@ public class ItemRifle extends ItemBaseElectric {
 				tooltip.add("Tier " + (data.getTier() == 0 ? 1 : data.getTier()));
 				if (data.getCapacitor() > 0) tooltip.add(data.getCapacitor() + " Capacitor(s)");
 				if (data.getCoolant() > 0) tooltip.add(data.getCoolant() + " Coolant(s)");
-				if (data.getLens() > 0) tooltip.add(data.getLens() + " Lens(s)");
+				if (data.getLens() > 0) tooltip.add(data.getLens() + " Lens");
 				if (data.getOverclock() > 0) tooltip.add(data.getOverclock() + " Overclock(s)");
 				if (data.getExplosion() > 0) tooltip.add(data.getExplosion() + " Explosion(s)");
 				if (data.getPhaser() > 0) tooltip.add(data.getPhaser() + " Phaser(s)");
+				tooltip.add("Weight " + data.getWeight() + "/" + data.getMaxWeight());
 			}
 		}
 	}

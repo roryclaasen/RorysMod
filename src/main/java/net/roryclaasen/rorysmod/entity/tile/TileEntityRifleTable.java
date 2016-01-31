@@ -129,7 +129,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 			int explosion = (inv[4] != null) ? inv[4].stackSize : 0;
 			
 			data.setData(capacitor, coolant, overclock, lens, phaser, explosion);
-			inv[0].stackTagCompound = data.getNBT();
+			inv[0].stackTagCompound = data.addToNBTTagCompound(inv[0].stackTagCompound);
 			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
 		}
 	}

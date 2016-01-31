@@ -52,3 +52,6 @@ item.rorysmod_rifleUpgrade_3.tooltip=Allows you to color the laser
 item.rorysmod_rifleUpgrade_4.tooltip=Makes the laser to damage
 item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
 item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit
+
+// ----------------{  Message  }----------------
+rorysmod_rifle.state.jammed.message=Your rifle is jammed and can not fire. Remove some modules
