@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.2"
+version = "1.2.1"
 group= "net.roryclaasen.rorysmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RorysMod"
 
@@ -28,7 +28,7 @@ minecraft {
 
 dependencies {
     compile files('libs/industrialcraft-2-2.2.811-experimental-api.jar')
-	compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
+	 compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
 }
 
 processResources {
@@ -37,10 +37,10 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
