@@ -19,7 +19,7 @@ That being said to use this features you must pass this VM argument
 - [Industrial Craft 2](http://www.industrial-craft.net/) (minimum `2.2.811`)
 
 #### To install:
-- Download the [latest release](https://github.com/GOGO98901/RorysMod/releases/latest)
+- Download the [latest release](https://github.com/GOGO98901/RorysMod/releases/latest) or any [pre release](https://github.com/GOGO98901/RorysMod/releases)
 - Save file in Mods folder
 - And run
 
