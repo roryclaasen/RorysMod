@@ -3,9 +3,9 @@
 ```
 + Added a recipe for the Rifle Table
 + Added laser fail sound
-- Changed Recipe for all Testing Wall
-- Changed values for firing the Laser Rifle
-- Changed Gray to Grey
+* Changed Recipe for all Testing Wall
+* Changed values for firing the Laser Rifle
+* Changed Gray to Grey
 ```
 
 ## Version 1.0.1
