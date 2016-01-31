@@ -1,4 +1,11 @@
 # Change log
+##### Key
+```java
++ Usally mean an addition
+* Represents a change
+- Indicates a removal 
+? Broken or not sure about it
+```
 ## What will be in the next release
 ```
 + Added a recipe for the Rifle Table
