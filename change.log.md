@@ -1,11 +1,18 @@
 # Change log
+##### Key
+```java
++ Usally mean an addition
+* Represents a change
+- Indicates a removal 
+? Broken or not sure about it
+```
 ## What will be in the next release
 ```
 + Added a recipe for the Rifle Table
 + Added laser fail sound
-- Changed Recipe for all Testing Wall
-- Changed values for firing the Laser Rifle
-- Changed Gray to Grey
+* Changed Recipe for all Testing Wall
+* Changed values for firing the Laser Rifle
+* Changed Gray to Grey
 ```
 
 ## Version 1.0.1

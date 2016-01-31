@@ -3,7 +3,9 @@ A forge mod for Minecraft 1.7.10
 
 The wiki can be found here on github [rorysMod/wiki](https://github.com/GOGO98901/RorysMod/wiki), but please not that the information and recipes may not be up to date so always check in game!
 
-Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/issues/new) to submit a new issue
+Please view the change log [here](https://github.com/GOGO98901/RorysMod/blob/master/change.log.md#change-log) before posting an issue to check if it had been changed!
+
+Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/issues/new) to submit a new issue.
 
 ## Experimental Features
 If you would like to use experimental features please be aware that I am or this mod responsible for any corrupt world
@@ -17,7 +19,7 @@ That being said to use this features you must pass this VM argument
 - [Industrial Craft 2](http://www.industrial-craft.net/) (minimum `2.2.811`)
 
 #### To install:
-- Download the [latest release](https://github.com/GOGO98901/RorysMod/releases/latest)
+- Download the [latest release](https://github.com/GOGO98901/RorysMod/releases/latest) or any [pre release](https://github.com/GOGO98901/RorysMod/releases)
 - Save file in Mods folder
 - And run
 
