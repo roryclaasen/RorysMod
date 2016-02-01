@@ -2,6 +2,7 @@ package net.roryclaasen.rorysmod.gui;
 
 import java.awt.Color;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.config.GuiSlider;
 
-public class GuiRileTable extends GuiContainer {
+public class GuiRifleTable extends GuiContainer {
 
 	private TileEntityRifleTable tileEntity;
 
@@ -24,9 +25,10 @@ public class GuiRileTable extends GuiContainer {
 
 	private GuiSlider colorR, colorG, colorB;
 
-	public GuiRileTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable tileEntity) {
+	public GuiRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable tileEntity) {
 		super(new ContainerRifleTable(inventoryPlayer, tileEntity));
 		this.tileEntity = tileEntity;
+		this.tileEntity.setGuiRifleTable(this);
 
 		colorR = new GuiSlider(1, -100, 0, 100, 20, "Red: ", "", 0, 255, 255, true, true);
 		colorG = new GuiSlider(2, -100, 30, 100, 20, "Green: ", "", 0, 255, 0, true, true);
@@ -45,18 +47,7 @@ public class GuiRileTable extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-
-		colorR.xPosition = x - (colorR.width + 10);
-		colorG.xPosition = x - (colorG.width + 10);
-		colorB.xPosition = x - (colorB.width + 10);
-
-		colorR.yPosition = y + ((ySize + (colorR.height * 3)) / 5) - 20;
-		colorG.yPosition = colorR.yPosition + colorR.height + 10;
-		colorB.yPosition = colorG.yPosition + colorG.height + 10;
-
-		if(slidersEnabled())fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
+		if (slidersEnabled()) fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
 		else fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(Color.GRAY));
 	}
 
@@ -78,6 +69,37 @@ public class GuiRileTable extends GuiContainer {
 
 	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
+	}
+
+	@Override
+	public void updateScreen() {
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+
+		colorR.xPosition = x - (colorR.width + 10);
+		colorG.xPosition = x - (colorG.width + 10);
+		colorB.xPosition = x - (colorB.width + 10);
+
+		colorR.yPosition = y + ((ySize + (colorR.height * 3)) / 5) - 20;
+		colorG.yPosition = colorR.yPosition + colorR.height + 10;
+		colorB.yPosition = colorG.yPosition + colorG.height + 10;
+
+		setSlidersEnabled(tileEntity.hasLens());
+		super.updateScreen();
+	}
+
+	public void actionPerformed(GuiButton button) {
+		switch (button.id) {
+			case 1 :
+				tileEntity.setColor(getColorFromSlider());
+			case 2 :
+				tileEntity.setColor(getColorFromSlider());
+			case 3 :
+				tileEntity.setColor(getColorFromSlider());
+				break;
+			default :
+				break;
+		}
 	}
 
 	public boolean slidersEnabled() {

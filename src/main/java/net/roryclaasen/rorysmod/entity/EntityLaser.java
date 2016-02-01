@@ -27,7 +27,7 @@ public class EntityLaser extends EntityThrowable {
 	public void onUpdate() {
 		super.onUpdate();
 		if (ticksExisted > 20) {
-			explode();
+			setDead();
 		}
 	}
 

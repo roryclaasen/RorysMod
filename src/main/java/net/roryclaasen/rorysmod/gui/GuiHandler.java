@@ -26,7 +26,7 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (ID == RorysMod.GUIS.RILE_TABLE.getId()) {
 			if (tileEntity instanceof TileEntityRifleTable) {
-				return new GuiRileTable(player.inventory, (TileEntityRifleTable) tileEntity);
+				return new GuiRifleTable(player.inventory, (TileEntityRifleTable) tileEntity);
 			}
 		}
 		return null;

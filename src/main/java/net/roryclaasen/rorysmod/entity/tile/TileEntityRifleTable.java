@@ -1,5 +1,7 @@
 package net.roryclaasen.rorysmod.entity.tile;
 
+import java.awt.Color;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -8,6 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.ModItems;
+import net.roryclaasen.rorysmod.gui.GuiRifleTable;
 import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.util.LaserData;
 
@@ -15,8 +18,14 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	private ItemStack[] inv;
 
+	private GuiRifleTable gui;
+
 	public TileEntityRifleTable() {
 		inv = new ItemStack[8];
+	}
+
+	public void setGuiRifleTable(GuiRifleTable gui) {
+		this.gui = gui;
 	}
 
 	@Override
@@ -105,6 +114,11 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 					if (explosion > 0) {
 						inv[4] = new ItemStack(ModItems.rifleUpgrade, explosion, 6);
 					}
+				}// Color
+				{
+					if (gui != null) {
+						gui.setColorSlider(data.getColor());
+					}
 				}
 			} else if (hasLaser()) {
 				writeToLaser();
@@ -127,8 +141,9 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 			int lens = (inv[6] != null) ? inv[6].stackSize : 0;
 			int phaser = (inv[5] != null) ? inv[5].stackSize : 0;
 			int explosion = (inv[4] != null) ? inv[4].stackSize : 0;
-			
-			data.setData(capacitor, coolant, overclock, lens, phaser, explosion);
+
+			Color color = gui.getColorFromSlider();
+			data.setData(capacitor, coolant, overclock, lens, phaser, explosion, color);
 			inv[0].stackTagCompound = data.addToNBTTagCompound(inv[0].stackTagCompound);
 			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
 		}
@@ -202,5 +217,16 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 			}
 		}
 		tagCompound.setTag("Inventory", itemList);
+	}
+
+	public boolean hasLens() {
+		if (!hasLaser()) return false;
+		return (inv[6] != null) ? true : false;
+	}
+
+	public void setColor(Color colorFromSlider) {
+		if (hasLens()) {
+			writeToLaser();
+		}
 	}
 }

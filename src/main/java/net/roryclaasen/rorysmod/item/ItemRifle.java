@@ -28,7 +28,6 @@ public class ItemRifle extends ItemBaseElectric {
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-		checkNbt(itemStack);
 		updateLaserData(itemStack);
 	}
 
@@ -96,7 +95,7 @@ public class ItemRifle extends ItemBaseElectric {
 				tooltip.add("Tier " + (data.getTier() == 0 ? 1 : data.getTier()));
 				if (data.getCapacitor() > 0) tooltip.add(data.getCapacitor() + " Capacitor(s)");
 				if (data.getCoolant() > 0) tooltip.add(data.getCoolant() + " Coolant(s)");
-				if (data.getLens() > 0) tooltip.add(data.getLens() + " Lens");
+				if (data.getLens() > 0) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
 				if (data.getOverclock() > 0) tooltip.add(data.getOverclock() + " Overclock(s)");
 				if (data.getExplosion() > 0) tooltip.add(data.getExplosion() + " Explosion(s)");
 				if (data.getPhaser() > 0) tooltip.add(data.getPhaser() + " Phaser(s)");

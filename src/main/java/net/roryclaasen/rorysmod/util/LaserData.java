@@ -20,11 +20,10 @@ public class LaserData {
 
 	public LaserData() {
 		this(new NBTTagCompound());
-		this.reset();
 	}
 
 	public void reset() {
-		this.setData(1, 0, 0, 0, 0, 0, 0, null);
+		this.setData(1, 0, 0, 0, 0, 0, 0, DEFULT_COLOR);
 	}
 
 	public int getInteger(String key) {
@@ -74,7 +73,6 @@ public class LaserData {
 
 	public void setColor(Color color) {
 		if (color == null) color = DEFULT_COLOR;
-
 		setInteger("color_r", color.getRed());
 		setInteger("color_g", color.getGreen());
 		setInteger("color_b", color.getBlue());
@@ -117,8 +115,8 @@ public class LaserData {
 		int maxWeight = getMaxWeight();
 		return weight <= maxWeight;
 	}
-	
-	public int getMaxWeight(){
+
+	public int getMaxWeight() {
 		switch (getTier()) {
 			case 1 :
 				return Settings.rifleTier1;
@@ -143,6 +141,9 @@ public class LaserData {
 		if (!stackTag.hasKey("lens")) return false;
 		if (!stackTag.hasKey("phaser")) return false;
 		if (!stackTag.hasKey("explosion")) return false;
+		if (!stackTag.hasKey("color_r")) return false;
+		if (!stackTag.hasKey("color_g")) return false;
+		if (!stackTag.hasKey("color_b")) return false;
 		return true;
 	}
 
