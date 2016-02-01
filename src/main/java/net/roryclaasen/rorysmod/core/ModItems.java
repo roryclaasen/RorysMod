@@ -31,7 +31,7 @@ public class ModItems implements TypeGroup {
 	public static Item carbonIngot;
 	public static Item rifle, laserBolt, rifleBarrel, rifleTrigger;
 	public static Item rifleUpgrade, upgradePlate;
-	public static Item circuit;
+	public static Item circuit, advancedCircuit;
 	public static Item lens, filament, cpu;
 
 	@Override
@@ -47,6 +47,7 @@ public class ModItems implements TypeGroup {
 		rifleUpgrade = new ItemRifleUpgrade("rifleUpgrade");
 		upgradePlate = new ItemPlate("plateUpgrade");
 		circuit = new ItemBase("circuit");
+		advancedCircuit = new ItemBase("advancedCircuit");
 		lens = new ItemBase("lens");
 		filament = new ItemBase("filament");
 		cpu = new ItemBase("cpu");
@@ -67,6 +68,7 @@ public class ModItems implements TypeGroup {
 		GameRegistry.registerItem(rifleUpgrade, rifleUpgrade.getUnlocalizedName());
 		GameRegistry.registerItem(upgradePlate, upgradePlate.getUnlocalizedName());
 		GameRegistry.registerItem(circuit, circuit.getUnlocalizedName());
+		GameRegistry.registerItem(advancedCircuit, advancedCircuit.getUnlocalizedName());
 		GameRegistry.registerItem(lens, lens.getUnlocalizedName());
 		GameRegistry.registerItem(filament, filament.getUnlocalizedName());
 		GameRegistry.registerItem(cpu, cpu.getUnlocalizedName());
@@ -76,6 +78,7 @@ public class ModItems implements TypeGroup {
 		OreDictionary.registerOre("plateSteel", steelPlate);
 		OreDictionary.registerOre("ingotCarbon", carbonIngot);
 		OreDictionary.registerOre("circuitBasic", circuit);
+		OreDictionary.registerOre("circuitAdvanced", advancedCircuit);
 		OreDictionary.registerOre("lens", lens);
 		OreDictionary.registerOre("filament", filament);
 		OreDictionary.registerOre("cpu", cpu);
@@ -104,6 +107,8 @@ public class ModItems implements TypeGroup {
 
 		// Circuit
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(circuit), new Object[]{" r ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(advancedCircuit), new Object[]{"lrg", "cpc", "grl", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'p', "cpu", 'c', "circuitBasic"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(advancedCircuit), new Object[]{"grl", "cpc", "lrg", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'p', "cpu", 'c', "circuitBasic"}));
 
 		// Lens
 		GameRegistry.addShapedRecipe(new ItemStack(lens, 4), new Object[]{" g ", "g g", " g ", 'g', Blocks.glass});
@@ -116,7 +121,7 @@ public class ModItems implements TypeGroup {
 		// Rifle
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleBarrel), new Object[]{"sss", "   ", "sss", 's', "ingotSteel"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleTrigger), new Object[]{" ss", " s ", "  s", 's', "ingotSteel"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "cpu", 't', new ItemStack(rifleTrigger)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitAdvanced", 't', new ItemStack(rifleTrigger)}));
 
 		// Rifle upgrade
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradePlate, 2), new Object[]{"rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel"}));
@@ -127,6 +132,5 @@ public class ModItems implements TypeGroup {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 4), new Object[]{"f", "b", 'b', new ItemStack(rifleUpgrade), 'f', filament}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 5), new Object[]{"c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 6), new Object[]{"t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt}));
-
 	}
 }
