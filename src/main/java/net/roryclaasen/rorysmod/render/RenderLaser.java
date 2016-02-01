@@ -10,7 +10,7 @@ import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.model.ModelLaser;
-import net.roryclaasen.rorysmod.util.ColorTexture;
+import net.roryclaasen.rorysmod.util.ColorUtils;
 
 import org.lwjgl.opengl.GL11;
 
@@ -48,7 +48,7 @@ public class RenderLaser extends Render {
 	}
 
 	public int getTexture(Color color) {
-		if (textureId == -1) textureId = ColorTexture.loadTextureFromColour(color, 64, 32);
+		if (textureId == -1) textureId = ColorUtils.loadTextureFromColour(color, 64, 32);
 		return textureId;
 	}
 }

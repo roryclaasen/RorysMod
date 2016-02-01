@@ -22,7 +22,21 @@ import java.nio.ByteBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL12;
 
-public class ColorTexture {
+public class ColorUtils {
+
+	private ColorUtils() {}
+
+	public static int getIntFromColor(Color color) {
+		return getIntFromColor(color.getRed(), color.getGreen(), color.getBlue());
+	}
+
+	public static int getIntFromColor(int Red, int Green, int Blue) {
+		Red = (Red << 16) & 0x00FF0000;
+		Green = (Green << 8) & 0x0000FF00;
+		Blue = Blue & 0x000000FF;
+
+		return 0xFF000000 | Red | Green | Blue;
+	}
 
 	private static final int BYTES_PER_PIXEL = 4;
 

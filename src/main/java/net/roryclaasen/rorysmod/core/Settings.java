@@ -16,6 +16,7 @@ public class Settings {
 	public static boolean enableSleepInDay;
 	public static boolean enableStayInBed;
 	public static boolean bedText;
+	public static boolean showColorBox;
 
 	public static boolean coloredLaser;
 	public static boolean laserTooltip;
@@ -48,6 +49,9 @@ public class Settings {
 		// modular lasers
 		coloredLaser = config.get("modular-lasers", "allowColouredLasers", true).getBoolean(true);
 		laserTooltip = config.get("modular-lasers", "showLaserModualsl", true).getBoolean(true);
+
+		// GUI
+		showColorBox = config.get("gui", "showColorBox", false).getBoolean(false);
 
 		if (config.hasChanged()) {
 			config.save();
