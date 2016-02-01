@@ -9,6 +9,7 @@ import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
+import net.roryclaasen.rorysmod.event.PlayerHoldingRifle;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.util.Arguments;
@@ -89,20 +90,28 @@ public class RorysMod {
 		items.createRecipes();
 		RMLog.info("Registering everything else");
 
-		registerEventHandlers();
-
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		
+		registerEventHandlers();
+		registerTileEntities();
+		registerModEntities();
 
 		proxy.init(event);
-
-		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "RifleTable");
-		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, RorysMod.instance, 64, 10, true);
 	}
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {}
 
+	private void registerTileEntities() {
+		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "RifleTable");
+	}
+
+	private void registerModEntities() {
+		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, RorysMod.instance, 64, 10, true);
+	}
+
 	private void registerEventHandlers() {
+		MinecraftForge.EVENT_BUS.register(new PlayerHoldingRifle());
 		if (Arguments.isExperiment()) {
 			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 		} else RMLog.info("Skiping expiremntal Handlers");

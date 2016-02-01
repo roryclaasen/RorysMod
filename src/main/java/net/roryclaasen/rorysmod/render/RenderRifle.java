@@ -73,7 +73,9 @@ public class RenderRifle implements IItemRenderer {
 			GL11.glRotatef(5.5F, 0.0F, 1.0F, 0.0F);
 			GL11.glTranslatef(-0.50F, 0.2F, -0.5F);
 		} else {
-			GL11.glTranslatef(-0.35F, 0.6F, 0.3F);
+			GL11.glRotatef(85F,1F, 0.0F, 0.0F);
+			GL11.glRotatef(-10F,0, 0.0F, 1F);
+			GL11.glTranslatef(-0.45F, 0.0F, 0.15F);
 		}
 		float scale = 1.4F;
 		GL11.glScaled(scale, scale, scale);

@@ -1,5 +1,6 @@
 package net.roryclaasen.rorysmod.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -38,7 +39,7 @@ public class EntityLaser extends EntityThrowable {
 	@Override
 	protected void onImpact(MovingObjectPosition movingObjectPosition) {
 		if (movingObjectPosition.entityHit != null) {
-			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
+			doDamage(movingObjectPosition.entityHit);
 		}
 		explode();
 		if (!worldObj.isRemote) setDead();
@@ -47,8 +48,14 @@ public class EntityLaser extends EntityThrowable {
 	@Override
 	public void onCollideWithPlayer(EntityPlayer player) {
 		if (inGround && !worldObj.isRemote) {
-			player.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
+			doDamage(player);
 			setDead();
+		}
+	}
+
+	private void doDamage(Entity entity) {
+		if (data != null) {
+			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
 		}
 	}
 
