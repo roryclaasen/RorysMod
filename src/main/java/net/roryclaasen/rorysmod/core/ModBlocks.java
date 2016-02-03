@@ -10,6 +10,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.roryclaasen.rorysmod.block.BlockIngot;
 import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
+import net.roryclaasen.rorysmod.block.BlockBlueprint;
 import net.roryclaasen.rorysmod.block.MultiBlockHandler;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.registry.BlockRegistry;
@@ -23,12 +24,14 @@ public class ModBlocks implements TypeGroup {
 	public static Block testingWall;
 	public static Block upgradeTable;
 	public static Block steelBlock;
+	public static Block bluePrint;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		testingWall = new BlockTestingWall(Material.iron, "blockTest");
 		upgradeTable = new BlockRifleTable(Material.anvil, "tableUpgrade");
 		steelBlock = new BlockIngot(Material.iron, "blockSteel");
+		bluePrint = new BlockBlueprint(Material.iron, "blockBluePrint");
 	}
 
 	@Override
@@ -37,6 +40,7 @@ public class ModBlocks implements TypeGroup {
 		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, testingWall.getUnlocalizedName());
 		GameRegistry.registerBlock(upgradeTable, upgradeTable.getUnlocalizedName());
 		GameRegistry.registerBlock(steelBlock, steelBlock.getUnlocalizedName());
+		GameRegistry.registerBlock(bluePrint, MultiBlockHandler.class, bluePrint.getUnlocalizedName());
 
 		OreDictionary.registerOre("blockSteel", steelBlock);
 	}
