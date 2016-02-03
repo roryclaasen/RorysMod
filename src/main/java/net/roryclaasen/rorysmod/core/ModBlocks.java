@@ -62,7 +62,7 @@ public class ModBlocks implements TypeGroup {
 			GameRegistry.addRecipe(new ShapelessOreRecipe(currentBlock, new Object[]{"testingWall", dye, dye, dye}));
 		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'l', "testingWall", new ItemStack(Items.dye, 1, 4)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 1), new Object[]{" d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 2), new Object[]{"  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
