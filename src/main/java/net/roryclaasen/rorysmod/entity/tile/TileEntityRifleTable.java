@@ -15,6 +15,7 @@ import net.roryclaasen.rorysmod.gui.GuiRifleTable;
 import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import net.roryclaasen.rorysmod.util.NBTLaser;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
@@ -75,10 +76,14 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 			}
 			if (stack.getItem() instanceof ItemRifle) {
 				NBTLaser data = new NBTLaser(stack.stackTagCompound);
-				if (data.hasLens()) inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
+				if (data.hasLens()) {
+					inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
+				}
+				RMLog.info("add" + data.getColor());
+				if (gui != null) gui.setColorSlider(data.getColor());
 				for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 					int[] cont = data.getSlot(i - 3);
-					if (cont[0] != -1) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0]);
+					if (cont[0] > 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0]);
 				}
 			}
 			if (hasLaser()) {
@@ -96,13 +101,16 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		if (hasLaser()) {
 			NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
 			data.setLens(inv[1] != null);
+			if (gui != null) {
+				data.setColor(gui.getColorFromSlider());
+			}
 			for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 				ItemStack stack = inv[i];
 				if (stack != null) {
 					if (stack.getItem() instanceof ItemRifleUpgrade) {
-						data.setSlot(3 - i, stack.getItemDamage(), stack.stackSize);
+						data.setSlot(i - 3, stack.getItemDamage(), stack.stackSize);
 					}
-				} else data.setSlot(3 - i, -1, 0);
+				} else data.setSlot(i - 3, -1, 0);
 			}
 			inv[0].stackTagCompound = data.getTag();
 			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);

@@ -18,7 +18,8 @@ public class ContainerRifleTable extends Container {
 		tileEntity = te;
 
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItem(ModItems.rifle));
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 1, 8, 134).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 1, 3)).useTags());
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 1, 134, 7).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 1, 3)).useTags());
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 2, 152, 7));
 		// cords on image 134 25
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 2; x++) {

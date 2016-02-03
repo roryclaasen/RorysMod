@@ -51,10 +51,12 @@ public class NBTLaser {
 	}
 
 	public void setColor(Color color) {
+		if (color == null) color = Color.RED;
 		setColor(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
 	public void setColor(int red, int green, int blue) {
+		RMLog.info("set" + red + "," + green + "," + blue);
 		tag.setInteger("color_r", red);
 		tag.setInteger("color_g", green);
 		tag.setInteger("color_b", blue);
@@ -117,6 +119,7 @@ public class NBTLaser {
 		for (int i = 0; i < NO_SLOTS; i++) {
 			weight += getSlotQuantity(i);
 		}
+		if (hasLens()) weight += 1;
 		return weight;
 	}
 
@@ -125,6 +128,9 @@ public class NBTLaser {
 	}
 
 	public static boolean hasKeys(NBTTagCompound ntbTag) {
+		// TODO Fix function
+		// example NBT from console
+		// {slotQu_0:0,slotQu_-4:0,slotQu_-5:0,lens:1b,slotQu_-2:0,slotQu_-3:0,color_r:0,slotQu_-1:0,color_g:0,slotId_-5:-1,slotId_-3:-1,slotId_-4:-1,slotId_-1:-1,slotId_0:-1,slotId_-2:-1,color_b:255}
 		if (ntbTag == null) return false;
 		if (ntbTag.hasNoTags()) return false;
 		for (int i = 0; i < NO_SLOTS; i++) {
@@ -134,6 +140,7 @@ public class NBTLaser {
 		if (!ntbTag.hasKey("color_r")) return false;
 		if (!ntbTag.hasKey("color_g")) return false;
 		if (!ntbTag.hasKey("color_b")) return false;
+		if (!ntbTag.hasKey("lens")) return false;
 		return true;
 	}
 
@@ -143,7 +150,7 @@ public class NBTLaser {
 		if (tier == 3) return Settings.rifleTier3;
 		if (tier == 4) return Settings.rifleTier4;
 		if (tier == 5) return Settings.rifleTier5;
-		RMLog.warn("Unknown rifle tier");
+		// RMLog.warn("Unknown rifle tier");
 		return Settings.rifleTier1;
 	}
 }

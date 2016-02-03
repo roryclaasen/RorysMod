@@ -39,18 +39,6 @@ public class RenderRifle implements IItemRenderer {
 
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		render(type, item, data);
-		/*
-		 * switch (type) {
-		 * case EQUIPPED: {
-		 * render(type, item, data);
-		 * }
-		 * case EQUIPPED_FIRST_PERSON: {
-		 * render(type, item, data);
-		 * }
-		 * default:
-		 * break;
-		 * }
-		 */
 	}
 
 	private void render(ItemRenderType type, ItemStack item, Object... data) {

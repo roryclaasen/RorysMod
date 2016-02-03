@@ -19,11 +19,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemRifle extends ItemBaseElectric {
 
 	public ItemRifle(String unlocalizedName) {
-		super(unlocalizedName, 0, 0, 0, 0);
+		super(unlocalizedName, 100, 10, 10, 1);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(0);
 		this.setFull3D();
-		this.maxCharge = 100;
 	}
 
 	@Override
@@ -84,13 +83,13 @@ public class ItemRifle extends ItemBaseElectric {
 				tooltip.add("Tier " + this.tier);
 				int capacitor = data.getItemCount(NBTLaser.Items.Capacitor);
 				int coolant = data.getItemCount(NBTLaser.Items.Coolant);
-				int lens = data.getItemCount(NBTLaser.Items.Lens);
+				boolean lens = data.hasLens();
 				int phaser = data.getItemCount(NBTLaser.Items.Phaser);
 				int overclock = data.getItemCount(NBTLaser.Items.Overclock);
 				int explosion = data.getItemCount(NBTLaser.Items.Explosion);
 				if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 				if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
-				if (lens > 0) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
+				if (lens) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
 				if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 				if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
 				if (phaser > 0) tooltip.add(phaser + " Phaser(s)");

@@ -48,7 +48,7 @@ public class GuiRifleTable extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
 		if (slidersEnabled()) fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
-		else fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(Color.GRAY));
+		// else fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(Color.GRAY));
 	}
 
 	@Override
@@ -110,6 +110,10 @@ public class GuiRifleTable extends GuiContainer {
 		colorR.enabled = enable;
 		colorG.enabled = enable;
 		colorB.enabled = enable;
+
+		colorR.visible = enable;
+		colorG.visible = enable;
+		colorB.visible = enable;
 	}
 
 	public Color getColorFromSlider() {
@@ -120,5 +124,8 @@ public class GuiRifleTable extends GuiContainer {
 		colorR.setValue(color.getRed());
 		colorG.setValue(color.getGreen());
 		colorB.setValue(color.getBlue());
+		colorR.displayString = colorR.dispString + colorR.getValueInt();
+		colorG.displayString = colorG.dispString + colorG.getValueInt();
+		colorB.displayString = colorB.dispString + colorB.getValueInt();
 	}
 }
