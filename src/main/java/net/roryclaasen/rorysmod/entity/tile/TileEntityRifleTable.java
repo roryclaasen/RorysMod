@@ -102,7 +102,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 					if (stack.getItem() instanceof ItemRifleUpgrade) {
 						data.setSlot(3 - i, stack.getItemDamage(), stack.stackSize);
 					}
-				}
+				} else data.setSlot(3 - i, -1, 0);
 			}
 			inv[0].stackTagCompound = data.getTag();
 			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
