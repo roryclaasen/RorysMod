@@ -77,7 +77,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				NBTLaser data = new NBTLaser(stack.stackTagCompound);
 				if (data.hasLens()) inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
 				for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
-					int[] cont = data.getSlot(i);
+					int[] cont = data.getSlot(i - 3);
 					if (cont[0] != -1) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0]);
 				}
 			}
