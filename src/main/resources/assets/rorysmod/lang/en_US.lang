@@ -21,6 +21,12 @@ tile.rorysmod_blockTest_14.name=Red Testing Wall
 tile.rorysmod_blockTest_15.name=Black Testing Wall
 tile.rorysmod_tableUpgrade.name=Rifle Table
 tile.rorysmod_blockSteel.name=Steel Block
+tile.rorysmod_blockBluePrint_0.name=Blueprint Block
+tile.rorysmod_blockBluePrint_1.name=Blueprint Block
+tile.rorysmod_blockBluePrint_2.name=Blueprint Block
+tile.rorysmod_blockBluePrint_3.name=Blueprint Block
+tile.rorysmod_blockBluePrint_4.name=Blueprint Block
+tile.rorysmod_blockBluePrint_5.name=Blueprint Block
 
 // ----------------{  Items  }----------------
 item.rorysmod_ingotSteel.name=Steel Ingot

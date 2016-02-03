@@ -2,6 +2,7 @@ package net.roryclaasen.rorysmod.util;
 
 import java.awt.Color;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.roryclaasen.rorysmod.core.Settings;
 
@@ -13,17 +14,26 @@ public class NBTLaser {
 
 	private NBTTagCompound tag;
 
-	public static final int NO_SLOTS = 8;
+	public static final int NO_SLOTS = 6;
+
+	public NBTLaser(ItemStack stack) {
+		this(stack.stackTagCompound);
+	}
 
 	public NBTLaser(NBTTagCompound tag) {
+		if (tag == null) {
+			tag = new NBTTagCompound();
+			setUp();
+		}
 		this.tag = tag;
 	}
 
 	public void setUp() {
 		for (int i = 0; i < NO_SLOTS; i++) {
-			tag.setInteger("slotId_" + i, 0);
+			tag.setInteger("slotId_" + i, -1);
 			tag.setInteger("slotQu_" + i, 0);
 		}
+		tag.setBoolean("lens", false);;
 		tag.setInteger("color_r", 255);
 		tag.setInteger("color_g", 0);
 		tag.setInteger("color_b", 0);
@@ -50,9 +60,17 @@ public class NBTLaser {
 		tag.setInteger("color_b", blue);
 	}
 
+	public void setLens(boolean hasLens) {
+		tag.setBoolean("lens", hasLens);
+	}
+
 	public void setSlot(int slot, int item, int quanity) {
 		tag.setInteger("slotId_" + slot, item);
 		tag.setInteger("slotQu_" + slot, quanity);
+	}
+
+	public boolean hasLens() {
+		return tag.getBoolean("lens");
 	}
 
 	public int[][] getSlots() {
@@ -69,7 +87,7 @@ public class NBTLaser {
 	}
 
 	private int getSlotId(int slot) {
-		if (slot < 0 || slot >= NO_SLOTS) return 0;
+		if (slot < 0 || slot >= NO_SLOTS) return -1;
 		return tag.getInteger("slotId_" + slot);
 	}
 
@@ -101,8 +119,8 @@ public class NBTLaser {
 		}
 		return weight;
 	}
-	
-	public boolean canFire(int tier){
+
+	public boolean canFire(int tier) {
 		return getWeight() <= getMaxWeight(tier);
 	}
 

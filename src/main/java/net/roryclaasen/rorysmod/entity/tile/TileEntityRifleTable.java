@@ -10,8 +10,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.container.ContainerRifleTable;
+import net.roryclaasen.rorysmod.core.ModItems;
 import net.roryclaasen.rorysmod.gui.GuiRifleTable;
 import net.roryclaasen.rorysmod.item.ItemRifle;
+import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
+import net.roryclaasen.rorysmod.util.NBTLaser;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
@@ -71,56 +74,14 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				stack.stackSize = getInventoryStackLimit();
 			}
 			if (stack.getItem() instanceof ItemRifle) {
-				/*
-				 * {// Capacitor
-				 * int capacitor = data.getCapacitor();
-				 * if (capacitor > 0) {
-				 * int extra = 0;
-				 * if (capacitor > 16) {
-				 * extra = capacitor - 16;
-				 * capacitor = 16;
-				 * }
-				 * inv[1] = new ItemStack(ModItems.rifleUpgrade, capacitor, 1);
-				 * if (extra > 0) inv[2] = new ItemStack(ModItems.rifleUpgrade, 1, extra);
-				 * }
-				 * }
-				 * {// Coolant
-				 * int coolant = data.getCoolant();
-				 * if (coolant > 0) {
-				 * inv[3] = new ItemStack(ModItems.rifleUpgrade, coolant, 2);
-				 * }
-				 * }
-				 * {// Lens
-				 * int lens = data.getLens();
-				 * if (lens > 0) {
-				 * inv[6] = new ItemStack(ModItems.rifleUpgrade, lens, 3);
-				 * }
-				 * }
-				 * {// Phaser
-				 * int phaser = data.getPhaser();
-				 * if (phaser > 0) {
-				 * inv[5] = new ItemStack(ModItems.rifleUpgrade, phaser, 4);
-				 * }
-				 * }
-				 * {// Overclock
-				 * int overclock = data.getOverclock();
-				 * if (overclock > 0) {
-				 * inv[7] = new ItemStack(ModItems.rifleUpgrade, overclock, 5);
-				 * }
-				 * }
-				 * {// Explosion
-				 * int explosion = data.getExplosion();
-				 * if (explosion > 0) {
-				 * inv[4] = new ItemStack(ModItems.rifleUpgrade, explosion, 6);
-				 * }
-				 * }// Color
-				 * {
-				 * if (gui != null) {
-				 * gui.setColorSlider(data.getColor());
-				 * }
-				 * }
-				 */
-			} else if (hasLaser()) {
+				NBTLaser data = new NBTLaser(stack.stackTagCompound);
+				if (data.hasLens()) inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
+				for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
+					int[] cont = data.getSlot(i);
+					if (cont[0] != -1) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0]);
+				}
+			}
+			if (hasLaser()) {
 				writeToLaser();
 			}
 		}
@@ -133,7 +94,18 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	public void writeToLaser() {
 		if (hasLaser()) {
-			
+			NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
+			data.setLens(inv[1] != null);
+			for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
+				ItemStack stack = inv[i];
+				if (stack != null) {
+					if (stack.getItem() instanceof ItemRifleUpgrade) {
+						data.setSlot(3 - i, stack.getItemDamage(), stack.stackSize);
+					}
+				}
+			}
+			inv[0].stackTagCompound = data.getTag();
+			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
 		}
 	}
 
@@ -209,7 +181,8 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	public boolean hasLens() {
 		if (!hasLaser()) return false;
-		return (inv[6] != null) ? true : false;
+		NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
+		return data.hasLens();
 	}
 
 	public void setColor(Color colorFromSlider) {

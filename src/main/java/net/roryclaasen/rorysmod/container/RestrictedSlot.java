@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 
 public class RestrictedSlot extends Slot {
 
-	private List<ItemStack> allowedList;
-	private ItemStack allowed;
+	private List<ItemStack> allowedList, excludeList;
+	private ItemStack allowed, exclude;
 	private int limit = 64;
 	private boolean tags = false;
 
@@ -68,8 +68,19 @@ public class RestrictedSlot extends Slot {
 		return this;
 	}
 
+	public RestrictedSlot exclude(ItemStack itemstack) {
+		this.exclude = itemstack;
+		return this;
+	}
+
+	public RestrictedSlot excludeList(List<ItemStack> itemstacks) {
+		this.excludeList = itemstacks;
+		return this;
+	}
+
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
+		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) return allowed.isItemEqual(itemstack);
 		if (allowed != null) {
 			if (tags) return ItemStack.areItemStackTagsEqual(itemstack, allowed);
@@ -86,6 +97,18 @@ public class RestrictedSlot extends Slot {
 			return false;
 		}
 		return true;
+	}
+
+	private boolean isOnExcludeList(ItemStack stack) {
+		if (exclude != null) {
+			if (ItemStack.areItemStackTagsEqual(stack, exclude)) return true;
+		}
+		if (excludeList != null) {
+			for (ItemStack item : excludeList) {
+				if (ItemStack.areItemStackTagsEqual(item, exclude)) return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

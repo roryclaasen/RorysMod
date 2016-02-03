@@ -6,7 +6,6 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -29,7 +28,7 @@ public class ItemRifle extends ItemBaseElectric {
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-		updateLaserData(itemStack);
+		updateNBT(itemStack);
 	}
 
 	@Override
@@ -54,14 +53,6 @@ public class ItemRifle extends ItemBaseElectric {
 	}
 
 	public void updateNBT(ItemStack itemStack) {
-		updateLaserData(itemStack);
-
-		double currentCharge = ElectricItem.manager.getCharge(itemStack);
-		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, this.maxCharge - currentCharge, this.tier, true, false, false);
-	}
-
-	public void updateLaserData(ItemStack itemStack) {
-		checkNbt(itemStack);
 		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
 		if (data != null) {
 			this.transferLimit = (10 * this.tier) + (1.75 * data.getItemCount(NBTLaser.Items.Capacitor)) + (1.25 * data.getItemCount(NBTLaser.Items.Coolant)) - (1.1 * data.getItemCount(NBTLaser.Items.Overclock));
@@ -72,20 +63,14 @@ public class ItemRifle extends ItemBaseElectric {
 			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Explosion);
 			if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Phaser);
 		}
+
+		double currentCharge = ElectricItem.manager.getCharge(itemStack);
+		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, this.maxCharge - currentCharge, this.tier, true, false, false);
 	}
 
 	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
-		// player.swingItem();
 		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
 		world.spawnEntityInWorld(new EntityLaser(world, player, itemStack));
-	}
-
-	private void checkNbt(ItemStack stack) {
-		if (stack.stackTagCompound == null) {
-			NBTLaser laser = new NBTLaser(new NBTTagCompound());
-			laser.setUp();
-			stack.stackTagCompound = laser.getTag();
-		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -106,7 +91,7 @@ public class ItemRifle extends ItemBaseElectric {
 				if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 				if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
 				if (lens > 0) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
-				if (overclock> 0) tooltip.add(overclock + " Overclock(s)");
+				if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 				if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
 				if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
 				tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
