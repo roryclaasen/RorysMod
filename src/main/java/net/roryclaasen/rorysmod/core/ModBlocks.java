@@ -54,5 +54,6 @@ public class ModBlocks implements TypeGroup {
 			/* if (15 - id != 15) */GameRegistry.addRecipe(new ShapedOreRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye}));
 		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(bluePrint), new Object[]{new ItemStack(testingWall, 1, 4)}));
 	}
 }
