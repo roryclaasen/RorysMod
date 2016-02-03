@@ -12,7 +12,6 @@ import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.container.ContainerRifleTable;
 import net.roryclaasen.rorysmod.gui.GuiRifleTable;
 import net.roryclaasen.rorysmod.item.ItemRifle;
-import net.roryclaasen.rorysmod.util.LaserData;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
@@ -72,7 +71,6 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				stack.stackSize = getInventoryStackLimit();
 			}
 			if (stack.getItem() instanceof ItemRifle) {
-				LaserData data = new LaserData(stack.stackTagCompound);
 				/*
 				 * {// Capacitor
 				 * int capacitor = data.getCapacitor();
@@ -135,18 +133,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	public void writeToLaser() {
 		if (hasLaser()) {
-			LaserData data = new LaserData();
-			int capacitor = 0;
-			int coolant = 0;
-			int overclock = 0;
-			int lens = 0;
-			int phaser = 0;
-			int explosion = 0;
-
-			Color color = (gui != null) ? gui.getColorFromSlider() : Color.RED;
-			data.setData(capacitor, coolant, overclock, lens, phaser, explosion, color);
-			inv[0].stackTagCompound = data.addToNBTTagCompound(inv[0].stackTagCompound);
-			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
+			
 		}
 	}
 
