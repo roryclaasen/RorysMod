@@ -6,13 +6,14 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
-import net.roryclaasen.rorysmod.util.LaserData;
+import net.roryclaasen.rorysmod.util.NBTLaser;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -33,13 +34,13 @@ public class ItemRifle extends ItemBaseElectric {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-		if (!LaserData.hasAllKeys(itemStack.stackTagCompound)) onCreated(itemStack, world, player);
+		if (!NBTLaser.hasKeys(itemStack.stackTagCompound)) onCreated(itemStack, world, player);
 		updateNBT(itemStack);
 		if (!world.isRemote) {
 			if (player.capabilities.isCreativeMode) fireRifle(itemStack, world, player);
 			else {
-				LaserData data = new LaserData(itemStack.stackTagCompound);
-				if (data.canFire()) {
+				NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
+				if (data.canFire(this.tier)) {
 					if (ElectricItem.manager.use(itemStack, usage, player)) {
 						fireRifle(itemStack, world, player);
 					}
@@ -61,16 +62,15 @@ public class ItemRifle extends ItemBaseElectric {
 
 	public void updateLaserData(ItemStack itemStack) {
 		checkNbt(itemStack);
-		LaserData data = new LaserData(itemStack.stackTagCompound);
+		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
 		if (data != null) {
-			this.tier = data.getTier();
+			this.transferLimit = (10 * this.tier) + (1.75 * data.getItemCount(NBTLaser.Items.Capacitor)) + (1.25 * data.getItemCount(NBTLaser.Items.Coolant)) - (1.1 * data.getItemCount(NBTLaser.Items.Overclock));
 
-			this.transferLimit = (10 * data.getTier()) + (1.75 * data.getCapacitor()) + (1.25 * data.getCoolant()) - (1.1 * data.getOverclock());
+			this.maxCharge = 100 + 200 * (data.getItemCount(NBTLaser.Items.Capacitor) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) / 0.5));
 
-			this.maxCharge = 100 + 200 * (data.getCapacitor() + (((double) data.getOverclock()) / 0.5));
-
-			this.usage = 10 + (11.75 * data.getOverclock()) + (4.25 * data.getCapacitor()) - (3.5 * data.getCoolant());
-			if (data.getExplosion() > 0 || data.getPhaser() > 0) this.usage += 20;
+			this.usage = 10 + (11.75 * data.getItemCount(NBTLaser.Items.Overclock)) + (4.25 * data.getItemCount(NBTLaser.Items.Capacitor)) - (3.5 * data.getItemCount(NBTLaser.Items.Coolant));
+			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Explosion);
+			if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Phaser);
 		}
 	}
 
@@ -81,25 +81,35 @@ public class ItemRifle extends ItemBaseElectric {
 	}
 
 	private void checkNbt(ItemStack stack) {
-		if (stack.stackTagCompound == null) stack.stackTagCompound = LaserData.getNewStackTagCompound();
+		if (stack.stackTagCompound == null) {
+			NBTLaser laser = new NBTLaser(new NBTTagCompound());
+			laser.setUp();
+			stack.stackTagCompound = laser.getTag();
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		if (!LaserData.hasAllKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
+		if (!NBTLaser.hasKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
 		if (Settings.laserTooltip) {
-			LaserData data = new LaserData(stack.stackTagCompound);
+			NBTLaser data = new NBTLaser(stack.stackTagCompound);
 			if (data != null) {
-				tooltip.add("Tier " + (data.getTier() == 0 ? 1 : data.getTier()));
-				if (data.getCapacitor() > 0) tooltip.add(data.getCapacitor() + " Capacitor(s)");
-				if (data.getCoolant() > 0) tooltip.add(data.getCoolant() + " Coolant(s)");
-				if (data.getLens() > 0) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
-				if (data.getOverclock() > 0) tooltip.add(data.getOverclock() + " Overclock(s)");
-				if (data.getExplosion() > 0) tooltip.add(data.getExplosion() + " Explosion(s)");
-				if (data.getPhaser() > 0) tooltip.add(data.getPhaser() + " Phaser(s)");
-				tooltip.add("Weight " + data.getWeight() + "/" + data.getMaxWeight());
+				tooltip.add("Tier " + this.tier);
+				int capacitor = data.getItemCount(NBTLaser.Items.Capacitor);
+				int coolant = data.getItemCount(NBTLaser.Items.Coolant);
+				int lens = data.getItemCount(NBTLaser.Items.Lens);
+				int phaser = data.getItemCount(NBTLaser.Items.Phaser);
+				int overclock = data.getItemCount(NBTLaser.Items.Overclock);
+				int explosion = data.getItemCount(NBTLaser.Items.Explosion);
+				if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
+				if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
+				if (lens > 0) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
+				if (overclock> 0) tooltip.add(overclock + " Overclock(s)");
+				if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
+				if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
+				tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
 			}
 		}
 	}

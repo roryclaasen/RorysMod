@@ -3,8 +3,13 @@ package net.roryclaasen.rorysmod.util;
 import java.awt.Color;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.roryclaasen.rorysmod.core.Settings;
 
 public class NBTLaser {
+
+	public enum Items {
+		Capacitor, Coolant, Lens, Phaser, Overclock, Explosion
+	}
 
 	private NBTTagCompound tag;
 
@@ -73,11 +78,54 @@ public class NBTLaser {
 		return tag.getInteger("slotQu_" + slot);
 	}
 
+	public int getItemCount(Items item) {
+		int count = 0;
+		for (int[] slot : getSlots()) {
+			if (slot[0] == item.ordinal()) count += slot[1];
+		}
+		return count;
+	}
+
 	public int getItemCount(int item) {
 		int count = 0;
 		for (int[] slot : getSlots()) {
 			if (slot[0] == item) count += slot[1];
 		}
 		return count;
+	}
+
+	public int getWeight() {
+		int weight = 0;
+		for (int i = 0; i < NO_SLOTS; i++) {
+			weight += getSlotQuantity(i);
+		}
+		return weight;
+	}
+	
+	public boolean canFire(int tier){
+		return getWeight() <= getMaxWeight(tier);
+	}
+
+	public static boolean hasKeys(NBTTagCompound ntbTag) {
+		if (ntbTag == null) return false;
+		if (ntbTag.hasNoTags()) return false;
+		for (int i = 0; i < NO_SLOTS; i++) {
+			if (!ntbTag.hasKey("slotId_" + i)) return false;
+			if (!ntbTag.hasKey("slotQu_" + i)) return false;
+		}
+		if (!ntbTag.hasKey("color_r")) return false;
+		if (!ntbTag.hasKey("color_g")) return false;
+		if (!ntbTag.hasKey("color_b")) return false;
+		return true;
+	}
+
+	public static int getMaxWeight(int tier) {
+		if (tier == 1) return Settings.rifleTier1;
+		if (tier == 2) return Settings.rifleTier2;
+		if (tier == 3) return Settings.rifleTier3;
+		if (tier == 4) return Settings.rifleTier4;
+		if (tier == 5) return Settings.rifleTier5;
+		RMLog.warn("Unknown rifle tier");
+		return Settings.rifleTier1;
 	}
 }
