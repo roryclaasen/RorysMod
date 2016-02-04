@@ -68,17 +68,23 @@ public class RestrictedSlot extends Slot {
 		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) {
 			if (tags) {
-				if (!ItemStack.areItemStackTagsEqual(itemstack, allowed)) return false;
+				if (!ItemStack.areItemStackTagsEqual(itemstack, allowed)) {
+					// As I'm only using this slot for the rifle table, this may not work for anything else
+					if (itemstack.getItemDamage() == allowed.getItemDamage()) return false;
+				}
 			} else {
-				if (!allowed.isItemEqual(itemstack)) return false;
+				if (allowed.getItem() != itemstack.getItem()) return false;
 			}
 		}
 		if (allowedList != null) {
-			for (ItemStack item : allowedList) {
+			for (ItemStack allowedItem : allowedList) {
 				if (tags) {
-					if (!ItemStack.areItemStackTagsEqual(itemstack, item)) return false;
+					if (!ItemStack.areItemStackTagsEqual(itemstack, allowedItem)) {
+						// As I'm only using this slot for the rifle table, this may not work for anything else
+						if (itemstack.getItemDamage() == allowedItem.getItemDamage()) return false;
+					}
 				} else {
-					if (!item.isItemEqual(itemstack)) return false;
+					if (allowedItem.getItem() != itemstack.getItem()) return false;
 				}
 			}
 		}
@@ -87,11 +93,21 @@ public class RestrictedSlot extends Slot {
 
 	private boolean isOnExcludeList(ItemStack stack) {
 		if (exclude != null) {
-			if (ItemStack.areItemStackTagsEqual(stack, exclude)) return true;
+			if (ItemStack.areItemStackTagsEqual(stack, exclude)) {
+				// As I'm only using this slot for the rifle table, this may not work for anything else
+				if (stack.getItemDamage() != exclude.getItemDamage()) {
+					return true;
+				}
+			}
 		}
 		if (excludeList != null) {
 			for (ItemStack item : excludeList) {
-				if (ItemStack.areItemStackTagsEqual(item, exclude)) return true;
+				if (ItemStack.areItemStackTagsEqual(item, exclude)) {
+					// As I'm only using this slot for the rifle table, this may not work for anything else
+					if (stack.getItemDamage() != exclude.getItemDamage()) {
+						return true;
+					}
+				}
 			}
 		}
 		return false;
