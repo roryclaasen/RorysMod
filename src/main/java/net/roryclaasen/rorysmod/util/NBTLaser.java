@@ -56,7 +56,6 @@ public class NBTLaser {
 	}
 
 	public void setColor(int red, int green, int blue) {
-		RMLog.info("set" + red + "," + green + "," + blue);
 		tag.setInteger("color_r", red);
 		tag.setInteger("color_g", green);
 		tag.setInteger("color_b", blue);

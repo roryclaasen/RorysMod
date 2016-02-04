@@ -6,11 +6,14 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.container.ContainerRifleTable;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
+import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.util.ColorUtils;
+import net.roryclaasen.rorysmod.util.NBTLaser;
 
 import org.lwjgl.opengl.GL11;
 
@@ -47,8 +50,12 @@ public class GuiRifleTable extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-		if (slidersEnabled()) fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
-		// else fontRendererObj.drawString("Laser Color", -colorR.width + 10, 10, ColorUtils.getIntFromColor(Color.GRAY));
+		fontRendererObj.drawString(StatCollector.translateToLocal((RorysMod.GUIS.RILE_TABLE.getName() + ".title")), 30, 8, 4210752);
+		if (slidersEnabled()) fontRendererObj.drawString((StatCollector.translateToLocal(RorysMod.GUIS.RILE_TABLE.getName() + ".color")), -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
+		if (tileEntity.hasLaser()) {
+			NBTLaser nbt = new NBTLaser(tileEntity.getLaser());
+			fontRendererObj.drawString("Weight: " + nbt.getWeight() + "/" + NBTLaser.getMaxWeight(((ItemRifle) tileEntity.getLaser().getItem()).getTier(tileEntity.getLaser())), 8, ySize - 96 + 2, 4210752);
+		}
 	}
 
 	@Override

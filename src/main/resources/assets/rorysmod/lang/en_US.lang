@@ -62,3 +62,7 @@ item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hi
 
 // ----------------{  Message  }----------------
 rorysmod_rifle.state.jammed.message=Your rifle is jammed and can not fire. Remove some modules
+
+// -------------------{ GUI }-------------------
+rorysmod.gui.upgradeTable.title=Rifle Upgrade Table
+rorysmod.gui.upgradeTable.color=Laser Color

@@ -123,6 +123,11 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		return inv[0].getItem() instanceof ItemRifle;
 	}
 
+	public ItemStack getLaser() {
+		if (!hasLaser()) return null;
+		return inv[0];
+	}
+
 	@Override
 	public String getInventoryName() {
 		return RorysMod.GUIS.RILE_TABLE.getName();
