@@ -28,3 +28,7 @@ That being said to use this features you must pass this VM argument
 ### Issues
 [![Issues in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
 [![Issues in Progress](https://badge.waffle.io/GOGO98901/RorysMod.png?label=in%20progress&title=In%20Progress)](https://waffle.io/GOGO98901/RorysMod)
+### Build Status
+|Branch| Status|
+|:----:|:-----:|
+|Master|[![Build Status](https://travis-ci.org/GOGO98901/RorysMod.svg?branch=master)](https://travis-ci.org/GOGO98901/RorysMod)|
