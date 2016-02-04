@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class RestrictedSlot extends Slot {
@@ -39,20 +38,6 @@ public class RestrictedSlot extends Slot {
 		return this;
 	}
 
-	public RestrictedSlot setAllowedItem(Item item) {
-		this.allowed = new ItemStack(item);
-		this.limit = this.allowed.getMaxStackSize();
-		return this;
-	}
-
-	public RestrictedSlot setAllowedItem(List<Item> items) {
-		this.allowedList.clear();
-		for (Item item : items) {
-			this.allowedList.add(new ItemStack(item));
-		}
-		return this;
-	}
-
 	public RestrictedSlot setLimit(int limit) {
 		this.limit = limit;
 		return this;
@@ -81,20 +66,21 @@ public class RestrictedSlot extends Slot {
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
 		if (isOnExcludeList(itemstack)) return false;
-		if (allowed != null) return allowed.isItemEqual(itemstack);
 		if (allowed != null) {
-			if (tags) return ItemStack.areItemStackTagsEqual(itemstack, allowed);
-			else return allowed.isItemEqual(itemstack);
+			if (tags) {
+				if (!ItemStack.areItemStackTagsEqual(itemstack, allowed)) return false;
+			} else {
+				if (!allowed.isItemEqual(itemstack)) return false;
+			}
 		}
 		if (allowedList != null) {
 			for (ItemStack item : allowedList) {
 				if (tags) {
-					if (ItemStack.areItemStackTagsEqual(itemstack, item)) return true;
+					if (!ItemStack.areItemStackTagsEqual(itemstack, item)) return false;
 				} else {
-					if (item.isItemEqual(itemstack)) return true;
+					if (!item.isItemEqual(itemstack)) return false;
 				}
 			}
-			return false;
 		}
 		return true;
 	}

@@ -17,13 +17,16 @@ public class ContainerRifleTable extends Container {
 	public ContainerRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable te) {
 		tileEntity = te;
 
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItem(ModItems.rifle));
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItemStack(new ItemStack(ModItems.rifle)));
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 1, 134, 7).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 1, 3)).useTags());
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 2, 152, 7));
 		// cords on image 134 25
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 2; x++) {
-				this.addSlotToContainer(new RestrictedSlot(tileEntity, 3 + (x + y * 2), 134 + (18 * x), 25 + (18 * y)).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade)).exclude(new ItemStack(ModItems.rifleUpgrade, 1, 3)));
+				RestrictedSlot slot = new RestrictedSlot(tileEntity, 3 + (x + y * 2), 134 + (18 * x), 25 + (18 * y));
+				slot.setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade));
+				slot.exclude(new ItemStack(ModItems.rifleUpgrade, 1, 3));
+				this.addSlotToContainer(slot);
 			}
 		}
 		bindPlayerInventory(inventoryPlayer);
