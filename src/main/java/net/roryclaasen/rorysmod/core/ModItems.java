@@ -128,7 +128,7 @@ public class ModItems implements TypeGroup {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade), new Object[]{"cuc", 'u', new ItemStack(upgradePlate), 'c', "circuitBasic"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 1), new Object[]{"c", "b", 'b', new ItemStack(rifleUpgrade), 'c', IC2Items.getItem("reBattery")}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 2), new Object[]{"w", "b", 'b', new ItemStack(rifleUpgrade), 'w', IC2Items.getItem("waterCell")}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 3), new Object[]{"l", "b", 'b', new ItemStack(rifleUpgrade), 'l', "lens"}));
+		// GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 3), new Object[]{"l", "b", 'b', new ItemStack(rifleUpgrade), 'l', "lens"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 4), new Object[]{"f", "b", 'b', new ItemStack(rifleUpgrade), 'f', filament}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 5), new Object[]{"c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 6), new Object[]{"t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt}));

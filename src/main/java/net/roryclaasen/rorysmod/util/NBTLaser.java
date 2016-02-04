@@ -33,10 +33,8 @@ public class NBTLaser {
 			tag.setInteger("slotId_" + i, -1);
 			tag.setInteger("slotQu_" + i, 0);
 		}
-		tag.setBoolean("lens", false);;
-		tag.setInteger("color_r", 255);
-		tag.setInteger("color_g", 0);
-		tag.setInteger("color_b", 0);
+		tag.setBoolean("lens", false);
+		setColor(null);
 	}
 
 	public NBTTagCompound getTag() {
@@ -44,21 +42,17 @@ public class NBTLaser {
 	}
 
 	public Color getColor() {
-		int r = tag.getInteger("color_r");
-		int g = tag.getInteger("color_g");
-		int b = tag.getInteger("color_b");
-		return new Color(r, g, b);
+		int color = tag.getInteger("color");
+		return new Color(color);
 	}
 
 	public void setColor(Color color) {
 		if (color == null) color = Color.RED;
-		setColor(color.getRed(), color.getGreen(), color.getBlue());
+		setColor(ColorUtils.getIntFromColor(color));
 	}
 
-	public void setColor(int red, int green, int blue) {
-		tag.setInteger("color_r", red);
-		tag.setInteger("color_g", green);
-		tag.setInteger("color_b", blue);
+	public void setColor(int color) {
+		tag.setInteger("color", color);
 	}
 
 	public void setLens(boolean hasLens) {
