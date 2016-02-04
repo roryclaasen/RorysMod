@@ -68,9 +68,9 @@ public class RestrictedSlot extends Slot {
 		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) {
 			if (tags) {
-				if (!ItemStack.areItemStackTagsEqual(itemstack, allowed)) {
-					// As I'm only using this slot for the rifle table, this may not work for anything else
-					if (itemstack.getItemDamage() == allowed.getItemDamage()) return false;
+				// As I'm only using this slot for the rifle table, this may not work for anything else
+				if (itemstack.getIconIndex().getIconName() != allowed.getIconIndex().getIconName()) {
+					return false;
 				}
 			} else {
 				if (allowed.getItem() != itemstack.getItem()) return false;
@@ -79,9 +79,9 @@ public class RestrictedSlot extends Slot {
 		if (allowedList != null) {
 			for (ItemStack allowedItem : allowedList) {
 				if (tags) {
-					if (!ItemStack.areItemStackTagsEqual(itemstack, allowedItem)) {
-						// As I'm only using this slot for the rifle table, this may not work for anything else
-						if (itemstack.getItemDamage() == allowedItem.getItemDamage()) return false;
+					// As I'm only using this slot for the rifle table, this may not work for anything else
+					if (itemstack.getIconIndex().getIconName() != allowedItem.getIconIndex().getIconName()) {
+						return false;
 					}
 				} else {
 					if (allowedItem.getItem() != itemstack.getItem()) return false;
@@ -95,16 +95,16 @@ public class RestrictedSlot extends Slot {
 		if (exclude != null) {
 			if (ItemStack.areItemStackTagsEqual(stack, exclude)) {
 				// As I'm only using this slot for the rifle table, this may not work for anything else
-				if (stack.getItemDamage() != exclude.getItemDamage()) {
+				if (stack.getIconIndex().getIconName() == exclude.getIconIndex().getIconName()) {
 					return true;
 				}
 			}
 		}
 		if (excludeList != null) {
-			for (ItemStack item : excludeList) {
-				if (ItemStack.areItemStackTagsEqual(item, exclude)) {
+			for (ItemStack excludeItem : excludeList) {
+				if (ItemStack.areItemStackTagsEqual(excludeItem, exclude)) {
 					// As I'm only using this slot for the rifle table, this may not work for anything else
-					if (stack.getItemDamage() != exclude.getItemDamage()) {
+					if (stack.getIconIndex().getIconName() == excludeItem.getIconIndex().getIconName()) {
 						return true;
 					}
 				}
