@@ -6,6 +6,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+/**
+ * As I'm only using this slot for the rifle table, this may not work for anything else
+ */
 public class RestrictedSlot extends Slot {
 
 	private List<ItemStack> allowedList, excludeList;
@@ -68,7 +71,6 @@ public class RestrictedSlot extends Slot {
 		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) {
 			if (tags) {
-				// As I'm only using this slot for the rifle table, this may not work for anything else
 				if (itemstack.getIconIndex().getIconName() != allowed.getIconIndex().getIconName()) {
 					return false;
 				}
@@ -79,7 +81,6 @@ public class RestrictedSlot extends Slot {
 		if (allowedList != null) {
 			for (ItemStack allowedItem : allowedList) {
 				if (tags) {
-					// As I'm only using this slot for the rifle table, this may not work for anything else
 					if (itemstack.getIconIndex().getIconName() != allowedItem.getIconIndex().getIconName()) {
 						return false;
 					}
@@ -94,7 +95,6 @@ public class RestrictedSlot extends Slot {
 	private boolean isOnExcludeList(ItemStack stack) {
 		if (exclude != null) {
 			if (ItemStack.areItemStackTagsEqual(stack, exclude)) {
-				// As I'm only using this slot for the rifle table, this may not work for anything else
 				if (stack.getIconIndex().getIconName() == exclude.getIconIndex().getIconName()) {
 					return true;
 				}
@@ -103,7 +103,6 @@ public class RestrictedSlot extends Slot {
 		if (excludeList != null) {
 			for (ItemStack excludeItem : excludeList) {
 				if (ItemStack.areItemStackTagsEqual(excludeItem, exclude)) {
-					// As I'm only using this slot for the rifle table, this may not work for anything else
 					if (stack.getIconIndex().getIconName() == excludeItem.getIconIndex().getIconName()) {
 						return true;
 					}
