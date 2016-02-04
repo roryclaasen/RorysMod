@@ -15,7 +15,7 @@ public class BlockBlueprint extends BlockBase {
 
 	public IIcon[] icons = new IIcon[5];
 
-	public BlockTestingWall(Material material, String unlocalizedName) {
+	public BlockBlueprint(Material material, String unlocalizedName) {
 		super(material, unlocalizedName);
 		this.setStepSound(soundTypeMetal);
 		this.setResistance(15.0F);

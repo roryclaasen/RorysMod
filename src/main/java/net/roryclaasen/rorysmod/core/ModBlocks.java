@@ -7,6 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.block.BlockIngot;
 import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
@@ -43,7 +44,12 @@ public class ModBlocks implements TypeGroup {
 		GameRegistry.registerBlock(bluePrint, MultiBlockHandler.class, bluePrint.getUnlocalizedName());
 
 		OreDictionary.registerOre("blockSteel", steelBlock);
-		OreDictionary.registerOre("bluePrint", bluePrint);
+		for (int i = 0; i < ((BlockTestingWall) testingWall).icons.length; i++) {
+			OreDictionary.registerOre("testingWall", new ItemStack(testingWall, 1, i));
+		}
+		for (int i = 0; i < ((BlockBlueprint) bluePrint).icons.length; i++) {
+			OreDictionary.registerOre("bluePrint", new ItemStack(bluePrint, 1, i));
+		}
 	}
 
 	@Override
@@ -52,14 +58,15 @@ public class ModBlocks implements TypeGroup {
 		for (int id = 0; id < ((BlockTestingWall) testingWall).getMaxMeta(); id++) {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
-			/* if (15 - id != 15) */GameRegistry.addRecipe(new ShapedOreRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye}));
+			GameRegistry.addRecipe(new ShapedOreRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye}));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(currentBlock, new Object[]{"testingWall", dye, dye, dye}));
 		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(bluePrint, 1 ,0), new Object[]{new ItemStack(testingWall, 1, 4), new ItemStack(Items.dye, 1, 15}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 1), new Object[]{" d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 2), new Object[]{"  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 4), new Object[]{"   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{"d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 1), new Object[]{" d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 2), new Object[]{"  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 4), new Object[]{"   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{"d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
 	}
 }

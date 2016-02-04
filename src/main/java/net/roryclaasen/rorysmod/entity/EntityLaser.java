@@ -8,11 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.roryclaasen.rorysmod.util.LaserData;
+import net.roryclaasen.rorysmod.util.NBTLaser;
 
 public class EntityLaser extends EntityThrowable {
 
-	private LaserData data;
+	private NBTLaser data;
 
 	public EntityLaser(World world) {
 		super(world);
@@ -20,7 +20,7 @@ public class EntityLaser extends EntityThrowable {
 
 	public EntityLaser(World world, EntityLivingBase entity, ItemStack itemStack) {
 		super(world, entity);
-		this.data = new LaserData(itemStack.stackTagCompound);
+		this.data = new NBTLaser(itemStack.stackTagCompound);
 	}
 
 	@Override
@@ -60,23 +60,23 @@ public class EntityLaser extends EntityThrowable {
 	}
 
 	private float getDamage() {
-		if (data.getPhaser() == 0) return 0F;
+		if (data.getItemCount(NBTLaser.Items.Phaser) == 0) return 0F;
 		float perP = 1.12F;
 		float perO = 1.2F;
-		float total = (perP * (perO * data.getOverclock())) * data.getPhaser();
+		float total = 1F + (perP * (perO * data.getItemCount(NBTLaser.Items.Overclock)) * data.getItemCount(NBTLaser.Items.Phaser));
 		return total;
 	}
 
 	private void explode() {
 		if (data != null) {
-			if (data.getExplosion() > 0) {
-				float expl = 0.325F * data.getExplosion() + 1F;
+			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) {
+				float expl = 0.325F * data.getItemCount(NBTLaser.Items.Explosion) + 1F;
 				worldObj.createExplosion(this, posX, posY, posZ, expl, true);
 			}
 		}
 	}
 
-	public LaserData getLaserData() {
+	public NBTLaser getNBT() {
 		return data;
 	}
 }

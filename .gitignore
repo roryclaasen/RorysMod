@@ -5,6 +5,7 @@
 !build.bat
 !change.log.md
 # need gradle
+!libs/
 !gradle/
 !gradlew
 !gradlew.bat

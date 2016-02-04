@@ -11,6 +11,7 @@ import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.model.ModelLaser;
 import net.roryclaasen.rorysmod.util.ColorUtils;
+import net.roryclaasen.rorysmod.util.NBTLaser;
 
 import org.lwjgl.opengl.GL11;
 
@@ -40,9 +41,9 @@ public class RenderLaser extends Render {
 		if (entity instanceof EntityLaser) {
 			EntityLaser laser = (EntityLaser) entity;
 			if (Settings.coloredLaser) {
-				if (laser.getLaserData() != null) {
-					if (laser.getLaserData().getLens() > 0) {
-						GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(laser.getLaserData().getColor()));
+				if (laser.getNBT() != null) {
+					if (laser.getNBT().getItemCount(NBTLaser.Items.Lens) > 0) {
+						GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(laser.getNBT().getColor()));
 					}
 				}
 			}
