@@ -72,7 +72,7 @@ public class RorysMod {
 
 			@Override
 			public Item getTabIconItem() {
-				return ModItems.rifle;
+				return ModItems.rifle1;
 			}
 		};
 

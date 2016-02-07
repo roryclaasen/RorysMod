@@ -29,8 +29,8 @@ public class ModItems implements TypeGroup {
 
 	public static Item steelIngot, steelDust, steelPlate;
 	public static Item carbonIngot;
-	public static Item rifle, laserBolt, rifleBarrel, rifleTrigger;
-	public static Item rifle2, rifle3, rifle4, rifle5;
+	public static Item rifle1, rifle2, rifle3, rifle4, rifle5;
+	public static Item laserBolt, rifleBarrel, rifleTrigger;
 	public static Item rifleUpgrade, upgradePlate;
 	public static Item circuit, advancedCircuit;
 	public static Item lens, filament, cpu;
@@ -41,7 +41,7 @@ public class ModItems implements TypeGroup {
 		steelDust = new ItemDust("dustSteel");
 		steelPlate = new ItemPlate("plateSteel");
 		carbonIngot = new ItemIngot("ingotCarbon");
-		rifle = new ItemRifle("rifle", 1);
+		rifle1 = new ItemRifle("rifle1", 1);
 		rifle2 = new ItemRifle("rifle2", 2);
 		rifle3 = new ItemRifle("rifle3", 3);
 		rifle4 = new ItemRifle("rifle4", 4);
@@ -66,7 +66,7 @@ public class ModItems implements TypeGroup {
 		GameRegistry.registerItem(steelDust, steelDust.getUnlocalizedName());
 		GameRegistry.registerItem(steelPlate, steelPlate.getUnlocalizedName());
 		GameRegistry.registerItem(carbonIngot, carbonIngot.getUnlocalizedName());
-		GameRegistry.registerItem(rifle, rifle.getUnlocalizedName());
+		GameRegistry.registerItem(rifle1, rifle1.getUnlocalizedName());
 		GameRegistry.registerItem(rifle2, rifle2.getUnlocalizedName());
 		GameRegistry.registerItem(rifle3, rifle3.getUnlocalizedName());
 		GameRegistry.registerItem(rifle4, rifle4.getUnlocalizedName());
@@ -130,7 +130,7 @@ public class ModItems implements TypeGroup {
 		// Rifle
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleBarrel), new Object[]{"sss", "   ", "sss", 's', "ingotSteel"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleTrigger), new Object[]{" ss", " s ", "  s", 's', "ingotSteel"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitAdvanced", 't', new ItemStack(rifleTrigger)}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifle1), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitAdvanced", 't', new ItemStack(rifleTrigger)}));
 
 		// Rifle upgrade
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradePlate, 2), new Object[]{"rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel"}));

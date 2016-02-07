@@ -20,7 +20,7 @@ public class PlayerHoldingRifle {
 			if (item == null) return;
 
 			RenderPlayer rp;
-			if (item.getItem() == ModItems.rifle) {
+			if (item.getItem() == ModItems.rifle1) {
 				rp = (RenderPlayer) event.renderer;
 				rp.modelArmorChestplate.heldItemRight = rp.modelArmor.heldItemRight = rp.modelBipedMain.heldItemRight = 5;
 			} else {

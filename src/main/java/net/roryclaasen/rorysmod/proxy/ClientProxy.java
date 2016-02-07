@@ -21,7 +21,7 @@ public class ClientProxy extends CommonProxy {
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
 		
-		MinecraftForgeClient.registerItemRenderer(ModItems.rifle, new RenderRifle());
+		MinecraftForgeClient.registerItemRenderer(ModItems.rifle1, new RenderRifle());
 		
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRifleTable.class, new RenderRifleTable());
 	}

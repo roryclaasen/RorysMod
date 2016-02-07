@@ -20,7 +20,7 @@ public class ContainerRifleTable extends Container {
 	public ContainerRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable te) {
 		tileEntity = te;
 		List<ItemStack> rifles = new ArrayList<ItemStack>();
-		rifles.add(new ItemStack(ModItems.rifle));
+		rifles.add(new ItemStack(ModItems.rifle1));
 		rifles.add(new ItemStack(ModItems.rifle2));
 		rifles.add(new ItemStack(ModItems.rifle3));
 		rifles.add(new ItemStack(ModItems.rifle4));
