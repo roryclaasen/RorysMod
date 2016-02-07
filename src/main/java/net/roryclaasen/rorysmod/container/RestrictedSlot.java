@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 /**
  * As I'm only using this slot for the rifle table, this may not work for anything else
@@ -71,25 +72,22 @@ public class RestrictedSlot extends Slot {
 		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) {
 			if (tags) {
-				if (itemstack.getIconIndex().getIconName() != allowed.getIconIndex().getIconName()) {
-					return false;
-				}
+				if (itemstack.getIconIndex().getIconName() == allowed.getIconIndex().getIconName()) return true;
 			} else {
-				if (allowed.getItem() != itemstack.getItem()) return false;
+				if (allowed.getItem() == itemstack.getItem()) return true;
 			}
 		}
 		if (allowedList != null) {
 			for (ItemStack allowedItem : allowedList) {
 				if (tags) {
-					if (itemstack.getIconIndex().getIconName() != allowedItem.getIconIndex().getIconName()) {
-						return false;
-					}
+					if (itemstack.getIconIndex().getIconName() == allowedItem.getIconIndex().getIconName()) return true;
 				} else {
-					if (allowedItem.getItem() != itemstack.getItem()) return false;
+					RMLog.info(allowedItem.getItem() != itemstack.getItem());
+					if (allowedItem.getItem() == itemstack.getItem()) return true;
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	private boolean isOnExcludeList(ItemStack stack) {

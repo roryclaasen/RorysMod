@@ -1,5 +1,8 @@
 package net.roryclaasen.rorysmod.container;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -16,8 +19,13 @@ public class ContainerRifleTable extends Container {
 
 	public ContainerRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable te) {
 		tileEntity = te;
-
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItemStack(new ItemStack(ModItems.rifle)));
+		List<ItemStack> rifles = new ArrayList<ItemStack>();
+		rifles.add(new ItemStack(ModItems.rifle));
+		rifles.add(new ItemStack(ModItems.rifle2));
+		rifles.add(new ItemStack(ModItems.rifle3));
+		rifles.add(new ItemStack(ModItems.rifle4));
+		rifles.add(new ItemStack(ModItems.rifle5));
+		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItemStack(rifles));
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 1, 134, 7).setAllowedItemStack(new ItemStack(ModItems.rifleUpgrade, 1, 3)).useTags());
 		this.addSlotToContainer(new RestrictedSlot(tileEntity, 2, 152, 7));
 		// cords on image 134 25
