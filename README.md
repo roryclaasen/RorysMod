@@ -1,8 +1,6 @@
 # Rory's Mod
 A forge mod for Minecraft 1.7.10
 
-The wiki can be found here on github [rorysMod/wiki](https://github.com/GOGO98901/RorysMod/wiki), but please note that the information and recipes may not be up to date so always check in game!
-
 Please view the change log [here](https://github.com/GOGO98901/RorysMod/blob/master/change.log.md#change-log) before posting an issue to check if it has been changed!
 
 Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/issues/new) to submit a new issue.
