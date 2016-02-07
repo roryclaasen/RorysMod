@@ -8,13 +8,19 @@
 ```
 ## What will be in the next release
 ```
+* Changed values for firing the Laser Rifle (again)
+```
+## Version 1.2.2
+(30/01/2016) RorysMod-1.7.10-1.2.2.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.2)
+```
 + Added cooldown to the laser (only surival)
 + Added the ability to spawn in the diffrent tiers
 * Changed values for firing the Laser Rifle
 ```
 
 ## Version 1.2.1
-(30/01/2016) RorysMod-1.7.10-1.2.1.jar<br>
+(06/02/2016) RorysMod-1.7.10-1.2.1.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.1)
 ```
 + Added a recipe for the Rifle Table
