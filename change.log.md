@@ -8,6 +8,7 @@
 ```
 ## What will be in the next release
 ```
++ Added cooldown to the laser (only surival)
 * Changed values for firing the Laser Rifle
 ```
 
