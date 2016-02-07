@@ -83,7 +83,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				if (gui != null) gui.setColorSlider(data.getColor());
 				for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 					int[] cont = data.getSlot(i - 3);
-					if (cont[0] > 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0]);
+					if (cont[0] + 1 > 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0] + 1);
 				}
 			}
 			if (hasLaser()) {
@@ -108,7 +108,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				ItemStack stack = inv[i];
 				if (stack != null) {
 					if (stack.getItem() instanceof ItemRifleUpgrade) {
-						data.setSlot(i - 3, stack.getItemDamage(), stack.stackSize);
+						data.setSlot(i - 3, stack.getItemDamage() - 1, stack.stackSize);
 					}
 				} else data.setSlot(i - 3, -1, 0);
 			}

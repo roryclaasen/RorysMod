@@ -14,14 +14,13 @@ import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.util.NBTLaser;
-import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRifle extends ItemBaseElectric {
 
-	public ItemRifle(String unlocalizedName) {
-		super(unlocalizedName, 100, 10, 10, 1);
+	public ItemRifle(String unlocalizedName, int tier) {
+		super(unlocalizedName, 100, 10, 10, tier);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(0);
 		this.setFull3D();
@@ -30,6 +29,7 @@ public class ItemRifle extends ItemBaseElectric {
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
 		updateNBT(itemStack);
+		this.tier = 5;
 	}
 
 	@Override
@@ -47,7 +47,6 @@ public class ItemRifle extends ItemBaseElectric {
 							fireRifle(itemStack, world, player);
 							data.setCooldown(data.getMaxCooldown());
 							itemStack.stackTagCompound = data.getTag();
-							RMLog.info(data.getMaxCooldown());
 						}
 					} else {
 						// TODO Overheating
@@ -75,19 +74,19 @@ public class ItemRifle extends ItemBaseElectric {
 		if (data != null) {
 			this.transferLimit = (10 * this.tier) + (1.75 * data.getItemCount(NBTLaser.Items.Capacitor)) + (1.25 * data.getItemCount(NBTLaser.Items.Coolant)) - (1.1 * data.getItemCount(NBTLaser.Items.Overclock));
 
-			this.maxCharge = 100 + 200 * (data.getItemCount(NBTLaser.Items.Capacitor) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) / 0.5));
+			this.maxCharge = 1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5));
 
-			this.usage = 10 + (11.75 * data.getItemCount(NBTLaser.Items.Overclock)) + (4.25 * data.getItemCount(NBTLaser.Items.Capacitor)) - (3.5 * data.getItemCount(NBTLaser.Items.Coolant));
-			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Explosion);
-			if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Phaser);
-			
+			this.usage = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
+			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Explosion);
+			if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Phaser);
+
 			data.setMaxCooldown(100);
-			
+
 			itemStack.stackTagCompound = data.getTag();
 		}
-		
+
 		double currentCharge = ElectricItem.manager.getCharge(itemStack);
-		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, this.maxCharge - currentCharge, this.tier, true, false, false);
+		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, currentCharge - this.maxCharge, this.tier, true, true, false);
 	}
 
 	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {

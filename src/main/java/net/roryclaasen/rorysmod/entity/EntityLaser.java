@@ -9,6 +9,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.util.NBTLaser;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 public class EntityLaser extends EntityThrowable {
 
@@ -55,15 +56,16 @@ public class EntityLaser extends EntityThrowable {
 
 	private void doDamage(Entity entity) {
 		if (data != null) {
+			RMLog.info(getDamage());
 			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
 		}
 	}
 
 	private float getDamage() {
 		if (data.getItemCount(NBTLaser.Items.Phaser) == 0) return 0F;
-		float perP = 1.12F;
+		float perP = 1.5F;
 		float perO = 1.2F;
-		float total = 1F + (perP * (perO * data.getItemCount(NBTLaser.Items.Overclock)) * data.getItemCount(NBTLaser.Items.Phaser));
+		float total = 1F + (perP * (data.getItemCount(NBTLaser.Items.Phaser) * ((perO * (data.getItemCount(NBTLaser.Items.Overclock) + 1)))));
 		return total;
 	}
 

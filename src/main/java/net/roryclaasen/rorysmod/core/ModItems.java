@@ -30,6 +30,7 @@ public class ModItems implements TypeGroup {
 	public static Item steelIngot, steelDust, steelPlate;
 	public static Item carbonIngot;
 	public static Item rifle, laserBolt, rifleBarrel, rifleTrigger;
+	public static Item rifle2, rifle3, rifle4, rifle5;
 	public static Item rifleUpgrade, upgradePlate;
 	public static Item circuit, advancedCircuit;
 	public static Item lens, filament, cpu;
@@ -40,7 +41,11 @@ public class ModItems implements TypeGroup {
 		steelDust = new ItemDust("dustSteel");
 		steelPlate = new ItemPlate("plateSteel");
 		carbonIngot = new ItemIngot("ingotCarbon");
-		rifle = new ItemRifle("rifle");
+		rifle = new ItemRifle("rifle", 1);
+		rifle2 = new ItemRifle("rifle2", 2);
+		rifle3 = new ItemRifle("rifle3", 3);
+		rifle4 = new ItemRifle("rifle4", 4);
+		rifle5 = new ItemRifle("rifle5", 5);
 		rifleBarrel = new ItemBase("rifleBarrel");
 		rifleTrigger = new ItemBase("rifleTrigger");
 		laserBolt = new ItemBase("laser").setCreativeTab(null);
@@ -62,6 +67,10 @@ public class ModItems implements TypeGroup {
 		GameRegistry.registerItem(steelPlate, steelPlate.getUnlocalizedName());
 		GameRegistry.registerItem(carbonIngot, carbonIngot.getUnlocalizedName());
 		GameRegistry.registerItem(rifle, rifle.getUnlocalizedName());
+		GameRegistry.registerItem(rifle2, rifle2.getUnlocalizedName());
+		GameRegistry.registerItem(rifle3, rifle3.getUnlocalizedName());
+		GameRegistry.registerItem(rifle4, rifle4.getUnlocalizedName());
+		GameRegistry.registerItem(rifle5, rifle5.getUnlocalizedName());
 		GameRegistry.registerItem(rifleBarrel, rifleBarrel.getUnlocalizedName());
 		GameRegistry.registerItem(rifleTrigger, rifleTrigger.getUnlocalizedName());
 		GameRegistry.registerItem(laserBolt, laserBolt.getUnlocalizedName());
