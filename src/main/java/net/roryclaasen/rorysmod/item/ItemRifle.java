@@ -4,6 +4,7 @@ import ic2.api.item.ElectricItem;
 
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
@@ -13,6 +14,7 @@ import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.util.NBTLaser;
+import net.roryclaasen.rorysmod.util.RMLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -34,13 +36,21 @@ public class ItemRifle extends ItemBaseElectric {
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		if (!NBTLaser.hasKeys(itemStack.stackTagCompound)) onCreated(itemStack, world, player);
 		updateNBT(itemStack);
+
 		if (!world.isRemote) {
 			if (player.capabilities.isCreativeMode) fireRifle(itemStack, world, player);
 			else {
 				NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
-				if (data.canFire(this.tier)) {
-					if (ElectricItem.manager.use(itemStack, usage, player)) {
-						fireRifle(itemStack, world, player);
+				if (data.checkWeight(this.tier)) {
+					if (!data.overheating()) {
+						if (ElectricItem.manager.use(itemStack, usage, player)) {
+							fireRifle(itemStack, world, player);
+							data.setCooldown(data.getMaxCooldown());
+							itemStack.stackTagCompound = data.getTag();
+							RMLog.info(data.getMaxCooldown());
+						}
+					} else {
+						// TODO Overheating
 					}
 				} else {
 					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal(RorysMod.MODID + "_rifle.state.jammed.message")));
@@ -49,6 +59,15 @@ public class ItemRifle extends ItemBaseElectric {
 			}
 		}
 		return itemStack;
+	}
+
+	@Override
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int par4, boolean par5) {
+		NBTLaser data = new NBTLaser(itemstack.stackTagCompound);
+		if (data.getCooldown() > 0) {
+			data.setCooldown(data.getCooldown() - 1);
+		}
+		itemstack.stackTagCompound = data.getTag();
 	}
 
 	public void updateNBT(ItemStack itemStack) {
@@ -61,8 +80,12 @@ public class ItemRifle extends ItemBaseElectric {
 			this.usage = 10 + (11.75 * data.getItemCount(NBTLaser.Items.Overclock)) + (4.25 * data.getItemCount(NBTLaser.Items.Capacitor)) - (3.5 * data.getItemCount(NBTLaser.Items.Coolant));
 			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Explosion);
 			if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 20 * data.getItemCount(NBTLaser.Items.Phaser);
+			
+			data.setMaxCooldown(100);
+			
+			itemStack.stackTagCompound = data.getTag();
 		}
-
+		
 		double currentCharge = ElectricItem.manager.getCharge(itemStack);
 		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, this.maxCharge - currentCharge, this.tier, true, false, false);
 	}
@@ -93,6 +116,7 @@ public class ItemRifle extends ItemBaseElectric {
 				if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 				if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
 				if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
+				tooltip.add("Heat " + data.getCooldown());
 				tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
 			}
 		}

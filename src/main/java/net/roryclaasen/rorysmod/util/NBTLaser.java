@@ -35,6 +35,8 @@ public class NBTLaser {
 		}
 		tag.setBoolean("lens", false);
 		setColor(null);
+		tag.setInteger("cooldown", 0);
+		tag.setInteger("cooldownMax", 100);
 	}
 
 	public NBTTagCompound getTag() {
@@ -107,6 +109,22 @@ public class NBTLaser {
 		return count;
 	}
 
+	public int getCooldown() {
+		return tag.getInteger("cooldown");
+	}
+
+	public int getMaxCooldown() {
+		return tag.getInteger("cooldownMax");
+	}
+
+	public void setCooldown(int cooldown) {
+		tag.setInteger("cooldown", cooldown);
+	}
+
+	public void setMaxCooldown(int maxCooldown) {
+		tag.setInteger("cooldownMax", maxCooldown);
+	}
+
 	public int getWeight() {
 		int weight = 0;
 		for (int i = 0; i < NO_SLOTS; i++) {
@@ -116,14 +134,16 @@ public class NBTLaser {
 		return weight;
 	}
 
-	public boolean canFire(int tier) {
+	public boolean overheating() {
+		return getCooldown() > 0;
+	}
+
+	public boolean checkWeight(int tier) {
 		return getWeight() <= getMaxWeight(tier);
 	}
 
 	public static boolean hasKeys(NBTTagCompound ntbTag) {
 		// TODO Fix function
-		// example NBT from console
-		// {slotQu_0:0,slotQu_-4:0,slotQu_-5:0,lens:1b,slotQu_-2:0,slotQu_-3:0,color_r:0,slotQu_-1:0,color_g:0,slotId_-5:-1,slotId_-3:-1,slotId_-4:-1,slotId_-1:-1,slotId_0:-1,slotId_-2:-1,color_b:255}
 		if (ntbTag == null) return false;
 		if (ntbTag.hasNoTags()) return false;
 		for (int i = 0; i < NO_SLOTS; i++) {
@@ -134,6 +154,8 @@ public class NBTLaser {
 		if (!ntbTag.hasKey("color_g")) return false;
 		if (!ntbTag.hasKey("color_b")) return false;
 		if (!ntbTag.hasKey("lens")) return false;
+		if (!ntbTag.hasKey("cooldown")) return false;
+		if (!ntbTag.hasKey("cooldownMax")) return false;
 		return true;
 	}
 
