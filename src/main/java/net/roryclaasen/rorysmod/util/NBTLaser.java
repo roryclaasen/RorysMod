@@ -22,7 +22,7 @@ public class NBTLaser {
 
 	public NBTLaser(NBTTagCompound tag) {
 		if (tag == null) {
-			tag = new NBTTagCompound();
+			this.tag = new NBTTagCompound();
 			setUp();
 		}
 		this.tag = tag;
