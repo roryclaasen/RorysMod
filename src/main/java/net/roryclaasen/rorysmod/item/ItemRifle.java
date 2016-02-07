@@ -29,7 +29,6 @@ public class ItemRifle extends ItemBaseElectric {
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
 		updateNBT(itemStack);
-		this.tier = 5;
 	}
 
 	@Override

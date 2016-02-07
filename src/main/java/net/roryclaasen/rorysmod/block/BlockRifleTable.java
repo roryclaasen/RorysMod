@@ -19,6 +19,24 @@ public class BlockRifleTable extends BlockBaseContainer {
 
 	public BlockRifleTable(Material material, String unlocalizedName) {
 		super(material, unlocalizedName);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.875F, 1.0F);
+        this.setHardness(10F);
+        this.setResistance(5.0F);
+	}
+
+	@Override
+	public int getRenderType() {
+		return -1;
+	}
+
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
 	}
 
 	@Override
