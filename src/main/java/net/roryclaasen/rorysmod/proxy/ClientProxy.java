@@ -6,7 +6,7 @@ import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.roryclaasen.rorysmod.render.RenderLaser;
 import net.roryclaasen.rorysmod.render.RenderRifle;
-import net.roryclaasen.rorysmod.render.TileEntityRenderRifleTable;
+import net.roryclaasen.rorysmod.render.RenderRifleTable;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -23,6 +23,6 @@ public class ClientProxy extends CommonProxy {
 		
 		MinecraftForgeClient.registerItemRenderer(ModItems.rifle, new RenderRifle());
 		
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRifleTable.class, new TileEntityRenderRifleTable());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRifleTable.class, new RenderRifleTable());
 	}
 }

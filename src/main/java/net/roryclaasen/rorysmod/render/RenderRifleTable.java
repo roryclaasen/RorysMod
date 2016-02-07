@@ -8,13 +8,13 @@ import net.roryclaasen.rorysmod.model.ModelRifleTable;
 
 import org.lwjgl.opengl.GL11;
 
-public class TileEntityRenderRifleTable extends TileEntitySpecialRenderer {
+public class RenderRifleTable extends TileEntitySpecialRenderer {
 
 	private ResourceLocation texture = new ResourceLocation(RorysMod.MODID + ":textures/models/table.png");
 
 	private ModelRifleTable model;
 
-	public TileEntityRenderRifleTable() {
+	public RenderRifleTable() {
 		model = new ModelRifleTable();
 	}
 
