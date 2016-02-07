@@ -11,7 +11,7 @@
 * Changed values for firing the Laser Rifle (again)
 ```
 ## Version 1.2.2
-(30/01/2016) RorysMod-1.7.10-1.2.2.jar<br>
+(07/02/2016) RorysMod-1.7.10-1.2.2.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.2)
 ```
 + Added cooldown to the laser (only surival)
