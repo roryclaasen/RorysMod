@@ -9,6 +9,7 @@
 ## What will be in the next release
 ```
 + Added cooldown to the laser (only surival)
++ Added the ability to spawn in the diffrent tiers
 * Changed values for firing the Laser Rifle
 ```
 
