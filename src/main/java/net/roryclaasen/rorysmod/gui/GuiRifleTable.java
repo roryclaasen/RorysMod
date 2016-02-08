@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.roryclaasen.rorysmod.RorysMod;
@@ -54,7 +55,9 @@ public class GuiRifleTable extends GuiContainer {
 		if (slidersEnabled()) fontRendererObj.drawString((StatCollector.translateToLocal(RorysMod.GUIS.RILE_TABLE.getName() + ".color")), -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
 		if (tileEntity.hasLaser()) {
 			NBTLaser nbt = new NBTLaser(tileEntity.getLaser());
-			fontRendererObj.drawString("Weight: " + nbt.getWeight() + "/" + NBTLaser.getMaxWeight(((ItemRifle) tileEntity.getLaser().getItem()).getTier()), 8, ySize - 96 + 2, 4210752);
+			EnumChatFormatting color = EnumChatFormatting.DARK_GREEN;
+			if (nbt.getWeight() > NBTLaser.getMaxWeight(((ItemRifle) tileEntity.getLaser().getItem()).getTier())) color = EnumChatFormatting.DARK_RED;
+			fontRendererObj.drawString(StatCollector.translateToLocal("message.rorysmod.weight") + ": " + color + nbt.getWeight() + "/" + NBTLaser.getMaxWeight(((ItemRifle) tileEntity.getLaser().getItem()).getTier()), 8, ySize - 96 + 2, 4210752);
 		}
 	}
 

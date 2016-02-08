@@ -64,14 +64,19 @@ item.rorysmod_rifleUpgrade_4.tooltip=Makes the laser to damage
 item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
 item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit
 
+// ----------------{  Message  }----------------
+rorysmod_rifle.state.jammed.message=Your rifle is jammed and can not fire. Remove some modules
+
+
 message.rorysmod.rifle.discription=Fires a laser bolt 
+
+message.rorysmod.weight=Weight
+message.rorysmod.heat=Heat
+message.rorysmod.charge=Charge
 
 message.rorysmod.holdShift1=Hold
 message.rorysmod.holdShift2=Shift
 message.rorysmod.holdShift3=for Details
-
-// ----------------{  Message  }----------------
-rorysmod_rifle.state.jammed.message=Your rifle is jammed and can not fire. Remove some modules
 
 // -------------------{ GUI }-------------------
 rorysmod.gui.upgradeTable.title=Rifle Upgrade Table

@@ -75,7 +75,8 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 		this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
-		this.maxExtract = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
+		this.maxExtract = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (1 * data.getItemCount(NBTLaser.Items.Coolant));
+		if (this.maxExtract < 10) this.maxExtract = 10;
 		if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.maxExtract += 100 * data.getItemCount(NBTLaser.Items.Explosion);
 		if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.maxExtract += 100 * data.getItemCount(NBTLaser.Items.Phaser);
 
@@ -109,13 +110,14 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 						if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
 						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
-					} else tooltip.add("Heat " + data.getCooldown());
-					tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
+					} else tooltip.add(StatCollector.translateToLocal("message.rorysmod.heat") + " " + data.getCooldown());
+					if (data.getWeight() > NBTLaser.getMaxWeight(this.tier)) tooltip.add(EnumChatFormatting.RED + "Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
+					else tooltip.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("message.rorysmod.weight") + " " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
 				}
 			} else tooltip.add(StatCollector.translateToLocal("message.rorysmod.holdShift1") + " " + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("message.rorysmod.holdShift2") + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + " " + StatCollector.translateToLocal("message.rorysmod.holdShift3"));
 			int energy = 0;
 			if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
-			tooltip.add("Charge: " + energy + " / " + this.capacity + "RF");
+			tooltip.add(StatCollector.translateToLocal("message.rorysmod.charge") + ": " + energy + " / " + this.capacity + " RF");
 		}
 	}
 }

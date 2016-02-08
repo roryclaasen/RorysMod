@@ -84,6 +84,7 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
 		int energy = container.stackTagCompound.getInteger("Energy");
 		int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+		
 		if (!simulate) {
 			energy -= energyExtracted;
 			container.stackTagCompound.setInteger("Energy", energy);
