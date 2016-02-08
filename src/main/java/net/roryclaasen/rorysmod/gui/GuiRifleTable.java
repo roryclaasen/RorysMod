@@ -54,7 +54,7 @@ public class GuiRifleTable extends GuiContainer {
 		if (slidersEnabled()) fontRendererObj.drawString((StatCollector.translateToLocal(RorysMod.GUIS.RILE_TABLE.getName() + ".color")), -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
 		if (tileEntity.hasLaser()) {
 			NBTLaser nbt = new NBTLaser(tileEntity.getLaser());
-			fontRendererObj.drawString("Weight: " + nbt.getWeight() + "/" + NBTLaser.getMaxWeight(((ItemRifle) tileEntity.getLaser().getItem()).getTier(tileEntity.getLaser())), 8, ySize - 96 + 2, 4210752);
+			fontRendererObj.drawString("Weight: " + nbt.getWeight() + "/" + NBTLaser.getMaxWeight(((ItemRifle) tileEntity.getLaser().getItem()).getTier()), 8, ySize - 96 + 2, 4210752);
 		}
 	}
 
