@@ -107,7 +107,23 @@ public class ModelRifle extends ModelBase {
 
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
-		setRotationAngles(f, f1, f2, f3, f4, f5,entity);
+		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		gunMainBody.render(f5);
+		gunBodySegment.render(f5);
+		gunPad.render(f5);
+		armSupport1.render(f5);
+		armSupport2.render(f5);
+		armSupport3.render(f5);
+		armSupport4.render(f5);
+		barrel.render(f5);
+		prong.render(f5);
+		asthethic1.render(f5);
+		aesthetic2.render(f5);
+		toothThing.render(f5);
+		Shape1.render(f5);
+	}
+
+	public void render(float f5) {
 		gunMainBody.render(f5);
 		gunBodySegment.render(f5);
 		gunPad.render(f5);
