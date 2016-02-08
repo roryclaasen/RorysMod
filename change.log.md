@@ -1,23 +1,24 @@
 # Change log
 ##### Key
 ```java
-+ Usally mean an addition
++ Usually mean an addition
 * Represents a change
 - Indicates a removal 
 ? Broken or not sure about it
 ```
 ## What will be in the next release
 ```
++ The laser entity will emit light (there is a setting for it)
 * Changed values for firing the Laser Rifle (again)
+* Changing laser power from EU (ic2) to RF (CoFH)
 ```
 ## Version 1.2.2
 (07/02/2016) RorysMod-1.7.10-1.2.2.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.2)
 ```
-+ Added cooldown to the laser (only surival)
-+ Added the ability to spawn in the diffrent tiers
++ Added cooldown to the laser (only survival)
++ Added the ability to spawn in the different tiers
 * Changed values for firing the Laser Rifle
-* Changing laser power from EU (ic2) to RF (CoFH)
 ```
 
 ## Version 1.2.1
