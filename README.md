@@ -13,6 +13,11 @@ That being said to use these features you must pass this VM argument
 -DrorysModExperiment=true
 ```
 ## Installation
+Backup your world! Especially if you are installing a development build or a pre release.
+Delete any old versions of the mod from your .minecraft/mods folder.
+Install Minecraft Forge if you haven't already.
+Download and drop the mod's .jar file into your .minecraft/mods folder.
+
 #### To install you will need:
 - [Industrial Craft 2](http://www.industrial-craft.net/) (minimum `2.2.811`)
 - [CoFH Core](http://www.teamcofh.com) (for minecraft `1.7.10`)
