@@ -8,6 +8,11 @@
 ```
 ## What will be in the next release
 ```
+```
+## Version 1.2.3
+(08/02/2016) RorysMod-1.7.10-1.2.3.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.3)
+```
 + Added more stuff in the lang file
 * Changed tooltips to be better
 + The laser entity will emit light (there is a setting for it)
