@@ -147,9 +147,7 @@ public class NBTLaser {
 			if (!ntbTag.hasKey("slotId_" + i)) return false;
 			if (!ntbTag.hasKey("slotQu_" + i)) return false;
 		}
-		if (!ntbTag.hasKey("color_r")) return false;
-		if (!ntbTag.hasKey("color_g")) return false;
-		if (!ntbTag.hasKey("color_b")) return false;
+		if (!ntbTag.hasKey("color")) return false;
 		if (!ntbTag.hasKey("lens")) return false;
 		if (!ntbTag.hasKey("cooldown")) return false;
 		if (!ntbTag.hasKey("cooldownMax")) return false;

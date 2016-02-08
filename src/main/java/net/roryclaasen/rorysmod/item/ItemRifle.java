@@ -92,6 +92,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+		if(!NBTLaser.hasKeys(stack.stackTagCompound))onCreated(stack, playerIn.worldObj, playerIn);
 		NBTLaser data = new NBTLaser(stack.stackTagCompound);
 		if (Settings.laserTooltip) {
 			// tooltip.add("Tier " + this.tier);
