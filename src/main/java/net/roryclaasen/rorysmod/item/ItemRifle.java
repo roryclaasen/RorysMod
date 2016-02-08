@@ -1,7 +1,5 @@
 package net.roryclaasen.rorysmod.item;
 
-import ic2.api.item.ElectricItem;
-
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -22,7 +20,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	public ItemRifle(String unlocalizedName, int tier) {
 		super(unlocalizedName, 1000, 10);
 		this.setMaxStackSize(1);
-		this.setMaxDamage(0);
+		this.setMaxDamage(100);
 		this.setFull3D();
 		this.setTier(tier);
 	}
@@ -43,9 +41,10 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 				NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
 				if (data.checkWeight(this.tier)) {
 					if (!data.overheating()) {
-						if (ElectricItem.manager.use(itemStack, usage, player)) {
+						if (this.use(itemStack, usage, false)) {
 							fireRifle(itemStack, world, player);
 							data.setCooldown(data.getMaxCooldown());
+							setItemDamage(itemStack);
 							itemStack.stackTagCompound = data.getTag();
 						}
 					} else {
@@ -71,22 +70,18 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 	public void updateNBT(ItemStack itemStack) {
 		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
-		if (data != null) {
-			this.maxReceive = 10 * this.tier;
+		this.maxReceive = 10 * this.tier;
 
-			this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
+		this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
-			this.usage = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
-			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Explosion);
-			if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Phaser);
+		this.usage = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
+		if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Explosion);
+		if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Phaser);
 
-			data.setMaxCooldown(100);
-
-			itemStack.stackTagCompound = data.getTag();
-		}
+		itemStack.stackTagCompound = data.getTag();
 	}
 
-	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
+	private void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
 		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
 		world.spawnEntityInWorld(new EntityLaser(world, player, itemStack));
 	}
@@ -95,25 +90,29 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		if (!NBTLaser.hasKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
+		NBTLaser data = new NBTLaser(stack.stackTagCompound);
 		if (Settings.laserTooltip) {
-			NBTLaser data = new NBTLaser(stack.stackTagCompound);
+			// tooltip.add("Tier " + this.tier);
 			if (data != null) {
-				tooltip.add("Tier " + this.tier);
-				int capacitor = data.getItemCount(NBTLaser.Items.Capacitor);
-				int coolant = data.getItemCount(NBTLaser.Items.Coolant);
-				boolean lens = data.hasLens();
-				int phaser = data.getItemCount(NBTLaser.Items.Phaser);
-				int overclock = data.getItemCount(NBTLaser.Items.Overclock);
-				int explosion = data.getItemCount(NBTLaser.Items.Explosion);
-				if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
-				if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
-				if (lens) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
-				if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
-				if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
-				if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
-				tooltip.add("Heat " + data.getCooldown());
+				if (data.getCooldown() == 0) {
+					int capacitor = data.getItemCount(NBTLaser.Items.Capacitor);
+					int coolant = data.getItemCount(NBTLaser.Items.Coolant);
+					int phaser = data.getItemCount(NBTLaser.Items.Phaser);
+					int overclock = data.getItemCount(NBTLaser.Items.Overclock);
+					int explosion = data.getItemCount(NBTLaser.Items.Explosion);
+					if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
+					if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
+					if (data.hasLens()) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
+					if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
+					if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
+					if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
+				} else tooltip.add("Heat " + data.getCooldown());
 				tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
+
+				if (stack.stackTagCompound.hasKey("Energy")) {
+					int energy = stack.stackTagCompound.getInteger("Energy");
+					tooltip.add(energy + "/" + this.capacity + "RF");
+				}
 			}
 		}
 	}

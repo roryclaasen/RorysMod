@@ -21,22 +21,20 @@ public class NBTLaser {
 	}
 
 	public NBTLaser(NBTTagCompound tag) {
-		if (tag == null) {
-			this.tag = new NBTTagCompound();
-			setUp();
-		}
+		if (tag == null) tag = new NBTTagCompound();
 		this.tag = tag;
+		setUp();
 	}
 
 	public void setUp() {
 		for (int i = 0; i < NO_SLOTS; i++) {
-			tag.setInteger("slotId_" + i, -1);
-			tag.setInteger("slotQu_" + i, 0);
+			if (!tag.hasKey("slotId_" + i)) tag.setInteger("slotId_" + i, -1);
+			if (!tag.hasKey("slotQu_" + i)) tag.setInteger("slotQu_" + i, 0);
 		}
-		tag.setBoolean("lens", false);
-		setColor(null);
-		tag.setInteger("cooldown", 0);
-		tag.setInteger("cooldownMax", 100);
+		if (!tag.hasKey("lens")) tag.setBoolean("lens", false);
+		if (!tag.hasKey("color")) setColor(null);
+		if (!tag.hasKey("cooldown")) tag.setInteger("cooldown", 0);
+		if (!tag.hasKey("cooldownMax")) tag.setInteger("cooldownMax", 100);
 	}
 
 	public NBTTagCompound getTag() {
@@ -143,7 +141,6 @@ public class NBTLaser {
 	}
 
 	public static boolean hasKeys(NBTTagCompound ntbTag) {
-		// TODO Fix function
 		if (ntbTag == null) return false;
 		if (ntbTag.hasNoTags()) return false;
 		for (int i = 0; i < NO_SLOTS; i++) {

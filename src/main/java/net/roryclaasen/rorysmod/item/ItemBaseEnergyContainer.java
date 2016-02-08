@@ -1,8 +1,13 @@
 package net.roryclaasen.rorysmod.item;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContainerItem {
 
@@ -63,6 +68,14 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		this.maxExtract = maxExtract;
 	}
 
+	public boolean use(ItemStack container, int maxExtract, boolean simulate) {
+		return extractEnergy(container, maxExtract, simulate) != 0;
+	}
+
+	public boolean use(ItemStack container, boolean sitmulate) {
+		return use(container, this.maxExtract, sitmulate);
+	}
+
 	@Override
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 		if (container.stackTagCompound == null) container.stackTagCompound = new NBTTagCompound();
@@ -96,5 +109,23 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {
 		return capacity;
+	}
+
+	public void setItemDamage(ItemStack itemtack) {
+		if (itemtack.stackTagCompound.hasKey("Energy")) {
+			int energy = itemtack.stackTagCompound.getInteger("Energy");
+			int percentage = (int) (((double) energy / (double) this.capacity) * (double) 100);
+			itemtack.setItemDamage(getMaxDamage() - percentage);
+		}
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+		if (stack.stackTagCompound.hasKey("Energy")) {
+			int energy = stack.stackTagCompound.getInteger("Energy");
+			tooltip.add(energy + "/" + this.capacity + "RF");
+		}
 	}
 }
