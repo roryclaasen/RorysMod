@@ -11,6 +11,7 @@
 + Added cooldown to the laser (only surival)
 + Added the ability to spawn in the diffrent tiers
 * Changed values for firing the Laser Rifle
+* Changing laser power from EU (ic2) to RF (CoFH)
 ```
 
 ## Version 1.2.1
