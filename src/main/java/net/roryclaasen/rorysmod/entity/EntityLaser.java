@@ -7,7 +7,9 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.NBTLaser;
 import net.roryclaasen.rorysmod.util.RMLog;
 
@@ -27,9 +29,16 @@ public class EntityLaser extends EntityThrowable {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if (ticksExisted > 20) {
+		if (Settings.laserEmitsLight) addLight();
+		if (ticksExisted > 60) {
 			setDead();
 		}
+	}
+
+	@Override
+	public void setDead() {
+		if (Settings.laserEmitsLight) this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ);
+		super.setDead();
 	}
 
 	@Override
@@ -43,7 +52,7 @@ public class EntityLaser extends EntityThrowable {
 			doDamage(movingObjectPosition.entityHit);
 		}
 		explode();
-		if (!worldObj.isRemote) setDead();
+		/* if (!worldObj.isRemote) */setDead();
 	}
 
 	@Override
@@ -80,5 +89,17 @@ public class EntityLaser extends EntityThrowable {
 
 	public NBTLaser getNBT() {
 		return data;
+	}
+
+	private void addLight() {
+		this.worldObj.setLightValue(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ, 5);
+		this.worldObj.markBlockRangeForRenderUpdate((int) this.posX, (int) this.posY, (int) this.posX, 12, 12, 12);
+		this.worldObj.markBlockForUpdate((int) this.posX, (int) this.posY, (int) this.posZ);
+		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY + 1, (int) this.posZ);
+		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY - 1, (int) this.posZ);
+		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX + 1, (int) this.posY, (int) this.posZ);
+		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX - 1, (int) this.posY, (int) this.posZ);
+		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ + 1);
+		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ - 1);
 	}
 }

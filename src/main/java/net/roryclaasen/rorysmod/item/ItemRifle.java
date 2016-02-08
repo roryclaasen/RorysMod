@@ -28,6 +28,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
 		updateNBT(itemStack);
+		setItemDamage(itemStack);
 	}
 
 	@Override
