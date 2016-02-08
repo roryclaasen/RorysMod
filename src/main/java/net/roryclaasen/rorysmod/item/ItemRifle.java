@@ -28,7 +28,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
 		updateNBT(itemStack);
-		setItemDamage(itemStack);
+		updateItemDamage(itemStack);
 	}
 
 	@Override
@@ -42,10 +42,10 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 				NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
 				if (data.checkWeight(this.tier)) {
 					if (!data.overheating()) {
-						if (this.use(itemStack, usage, false)) {
+						if (this.use(itemStack, false)) {
 							fireRifle(itemStack, world, player);
 							data.setCooldown(data.getMaxCooldown());
-							setItemDamage(itemStack);
+							updateItemDamage(itemStack);
 							itemStack.stackTagCompound = data.getTag();
 						}
 					} else {
@@ -75,9 +75,9 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 		this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
-		this.usage = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
-		if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Explosion);
-		if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Phaser);
+		this.maxExtract = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
+		if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.maxExtract += 100 * data.getItemCount(NBTLaser.Items.Explosion);
+		if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.maxExtract += 100 * data.getItemCount(NBTLaser.Items.Phaser);
 
 		itemStack.stackTagCompound = data.getTag();
 	}

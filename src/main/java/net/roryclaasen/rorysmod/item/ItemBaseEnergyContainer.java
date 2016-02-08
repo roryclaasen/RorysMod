@@ -14,7 +14,6 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 	protected int capacity;
 	protected int maxReceive;
 	protected int maxExtract;
-	protected int usage = 1;
 	protected int tier = 1;
 
 	public ItemBaseEnergyContainer(String unlocalizedName, int capacity, int maxReceive, int maxExtract) {
@@ -44,15 +43,6 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 
 	public int getTier() {
 		return this.tier;
-	}
-
-	public ItemBaseEnergyContainer setUsage(int usage) {
-		this.usage = usage;
-		return this;
-	}
-
-	public int getUsage() {
-		return usage;
 	}
 
 	public void setMaxTransfer(int maxTransfer) {
@@ -111,7 +101,7 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		return capacity;
 	}
 
-	public void setItemDamage(ItemStack itemtack) {
+	public void updateItemDamage(ItemStack itemtack) {
 		if (itemtack.stackTagCompound.hasKey("Energy")) {
 			int energy = itemtack.stackTagCompound.getInteger("Energy");
 			int percentage = (int) (((double) energy / (double) this.capacity) * (double) 100);
