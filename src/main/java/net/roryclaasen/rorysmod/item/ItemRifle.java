@@ -17,13 +17,14 @@ import net.roryclaasen.rorysmod.util.NBTLaser;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemRifle extends ItemBaseElectric {
+public class ItemRifle extends ItemBaseEnergyContainer {
 
 	public ItemRifle(String unlocalizedName, int tier) {
-		super(unlocalizedName, 100, 10, 10, tier);
+		super(unlocalizedName, 1000, 10);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(0);
 		this.setFull3D();
+		this.setTier(tier);
 	}
 
 	@Override
@@ -71,9 +72,9 @@ public class ItemRifle extends ItemBaseElectric {
 	public void updateNBT(ItemStack itemStack) {
 		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
 		if (data != null) {
-			this.transferLimit = (10 * this.tier) + (1.75 * data.getItemCount(NBTLaser.Items.Capacitor)) + (1.25 * data.getItemCount(NBTLaser.Items.Coolant)) - (1.1 * data.getItemCount(NBTLaser.Items.Overclock));
+			this.maxReceive = 10 * this.tier;
 
-			this.maxCharge = 1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5));
+			this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
 			this.usage = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (80 * data.getItemCount(NBTLaser.Items.Coolant));
 			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.usage += 100 * data.getItemCount(NBTLaser.Items.Explosion);
@@ -83,9 +84,6 @@ public class ItemRifle extends ItemBaseElectric {
 
 			itemStack.stackTagCompound = data.getTag();
 		}
-
-		double currentCharge = ElectricItem.manager.getCharge(itemStack);
-		if (currentCharge >= this.maxCharge) ElectricItem.manager.discharge(itemStack, currentCharge - this.maxCharge, this.tier, true, true, false);
 	}
 
 	public void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
