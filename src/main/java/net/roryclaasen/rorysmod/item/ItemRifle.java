@@ -49,10 +49,10 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 							itemStack.stackTagCompound = data.getTag();
 						}
 					} else {
-						// TODO Overheating
+						// player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.rifle.state.overheat")));
 					}
 				} else {
-					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal(RorysMod.MODID + "_rifle.state.jammed.message")));
+					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.rifle.state.jammed")));
 					world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun_fail", 0.5F, 1.0F);
 				}
 			}
@@ -92,7 +92,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		if(!NBTLaser.hasKeys(stack.stackTagCompound))onCreated(stack, playerIn.worldObj, playerIn);
+		if (!NBTLaser.hasKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
 		NBTLaser data = new NBTLaser(stack.stackTagCompound);
 		if (Settings.laserTooltip) {
 			// tooltip.add("Tier " + this.tier);

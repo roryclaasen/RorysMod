@@ -65,10 +65,9 @@ item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
 item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit
 
 // ----------------{  Message  }----------------
-rorysmod_rifle.state.jammed.message=Your rifle is jammed and can not fire. Remove some modules
-
-
 message.rorysmod.rifle.discription=Fires a laser bolt 
+message.rorysmod.rifle.state.jammed=Your rifle is jammed and can not fire. Remove some modules
+message.rorysmod.rifle.state.overheat=Your rifle has overheated. Wait for it too cool down
 
 message.rorysmod.weight=Weight
 message.rorysmod.heat=Heat
