@@ -28,7 +28,8 @@ minecraft {
 
 dependencies {
     compile files('libs/industrialcraft-2-2.2.811-experimental-api.jar')
-	 compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
+	compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
+	compile files('libs/CoFHLib-[1.7.10]1.1.1-181.jar')
 }
 
 processResources {
