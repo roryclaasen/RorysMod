@@ -8,6 +8,8 @@
 ```
 ## What will be in the next release
 ```
++ Added more stuff in the lang file
+* Changed tooltips to be better
 + The laser entity will emit light (there is a setting for it)
 * Changed values for firing the Laser Rifle (again)
 * Changing laser power from EU (ic2) to RF (CoFH)
