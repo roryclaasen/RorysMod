@@ -2,10 +2,12 @@ package net.roryclaasen.rorysmod.item;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
@@ -28,7 +30,6 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
 		updateNBT(itemStack);
-		updateItemDamage(itemStack);
 	}
 
 	@Override
@@ -45,7 +46,6 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						if (this.use(itemStack, false)) {
 							fireRifle(itemStack, world, player);
 							data.setCooldown(data.getMaxCooldown());
-							updateItemDamage(itemStack);
 							itemStack.stackTagCompound = data.getTag();
 						}
 					} else {
@@ -94,27 +94,28 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 		NBTLaser data = new NBTLaser(stack.stackTagCompound);
 		if (Settings.laserTooltip) {
 			// tooltip.add("Tier " + this.tier);
-			if (data != null) {
-				if (data.getCooldown() == 0) {
-					int capacitor = data.getItemCount(NBTLaser.Items.Capacitor);
-					int coolant = data.getItemCount(NBTLaser.Items.Coolant);
-					int phaser = data.getItemCount(NBTLaser.Items.Phaser);
-					int overclock = data.getItemCount(NBTLaser.Items.Overclock);
-					int explosion = data.getItemCount(NBTLaser.Items.Explosion);
-					if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
-					if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
-					if (data.hasLens()) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
-					if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
-					if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
-					if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
-				} else tooltip.add("Heat " + data.getCooldown());
-				tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
-
-				if (stack.stackTagCompound.hasKey("Energy")) {
-					int energy = stack.stackTagCompound.getInteger("Energy");
-					tooltip.add(energy + "/" + this.capacity + "RF");
+			if (GuiScreen.isShiftKeyDown()) {
+				tooltip.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("message.rorysmod.rifle.discription"));
+				if (data != null) {
+					if (data.getCooldown() == 0) {
+						int capacitor = data.getItemCount(NBTLaser.Items.Capacitor);
+						int coolant = data.getItemCount(NBTLaser.Items.Coolant);
+						int phaser = data.getItemCount(NBTLaser.Items.Phaser);
+						int overclock = data.getItemCount(NBTLaser.Items.Overclock);
+						int explosion = data.getItemCount(NBTLaser.Items.Explosion);
+						if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
+						if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
+						if (data.hasLens()) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
+						if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
+						if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
+						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
+					} else tooltip.add("Heat " + data.getCooldown());
+					tooltip.add("Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
 				}
-			}
+			} else tooltip.add(StatCollector.translateToLocal("message.rorysmod.holdShift1") + " " + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("message.rorysmod.holdShift2") + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + " " + StatCollector.translateToLocal("message.rorysmod.holdShift3"));
+			int energy = 0;
+			if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
+			tooltip.add("Charge: " + energy + " / " + this.capacity + "RF");
 		}
 	}
 }

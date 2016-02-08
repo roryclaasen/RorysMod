@@ -74,6 +74,7 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		if (!simulate) {
 			energy += energyRecived;
 			container.stackTagCompound.setInteger("Energy", energy);
+			updateItemDamage(container);
 		}
 		return energyRecived;
 	}
@@ -86,6 +87,7 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		if (!simulate) {
 			energy -= energyExtracted;
 			container.stackTagCompound.setInteger("Energy", energy);
+			updateItemDamage(container);
 		}
 		return energyExtracted;
 	}
@@ -101,7 +103,7 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		return capacity;
 	}
 
-	public void updateItemDamage(ItemStack itemtack) {
+	private void updateItemDamage(ItemStack itemtack) {
 		if (itemtack.stackTagCompound.hasKey("Energy")) {
 			int energy = itemtack.stackTagCompound.getInteger("Energy");
 			int percentage = (int) (((double) energy / (double) this.capacity) * (double) 100);
@@ -113,9 +115,8 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		if (stack.stackTagCompound.hasKey("Energy")) {
-			int energy = stack.stackTagCompound.getInteger("Energy");
-			tooltip.add(energy + "/" + this.capacity + "RF");
-		}
+		int energy = 0;
+		if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
+		tooltip.add(energy + "/" + this.capacity + "RF");
 	}
 }
