@@ -58,7 +58,7 @@ end if
 ```
 #### Damage
 ```
-1 + (1.5 x (number of phasers x (1.2 x (number of overclockers + 1))))
+1 + (1.5 x (number of phasers + (1.2 x (number of overclockers + 1))))
 ```
 ### Explosion size
 ```

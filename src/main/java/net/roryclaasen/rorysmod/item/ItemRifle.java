@@ -90,11 +90,9 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 		this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
-		this.maxExtract = 10 + (111 * data.getItemCount(NBTLaser.Items.Overclock)) + (75 * data.getItemCount(NBTLaser.Items.Capacitor)) - (1 * data.getItemCount(NBTLaser.Items.Coolant));
+		this.maxExtract = 10 + (75 * data.getItemCount(NBTLaser.Items.Overclock)) + (13 * data.getItemCount(NBTLaser.Items.Capacitor)) - data.getItemCount(NBTLaser.Items.Coolant) + (60 * data.getItemCount(NBTLaser.Items.Explosion))+ (60 * data.getItemCount(NBTLaser.Items.Phaser));
 		if (this.maxExtract < 10) this.maxExtract = 10;
-		if (data.getItemCount(NBTLaser.Items.Explosion) > 0) this.maxExtract += 100 * data.getItemCount(NBTLaser.Items.Explosion);
-		if (data.getItemCount(NBTLaser.Items.Phaser) > 0) this.maxExtract += 100 * data.getItemCount(NBTLaser.Items.Phaser);
-
+		
 		itemStack.stackTagCompound = data.getTag();
 	}
 

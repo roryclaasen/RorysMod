@@ -74,6 +74,7 @@ public class EntityLaser extends EntityThrowable {
 	public void onCollideWithPlayer(EntityPlayer player) {
 		if (inGround && !worldObj.isRemote) {
 			doDamage(player);
+			explode();
 			setDead();
 		}
 	}
@@ -89,14 +90,14 @@ public class EntityLaser extends EntityThrowable {
 		if (data.getItemCount(NBTLaser.Items.Phaser) == 0) return 0F;
 		float perP = 1.5F;
 		float perO = 1.2F;
-		float total = 1F + (perP * (data.getItemCount(NBTLaser.Items.Phaser) * ((perO * (data.getItemCount(NBTLaser.Items.Overclock) + 1)))));
+		float total = 1F + perP * ((float) data.getItemCount(NBTLaser.Items.Phaser) + (perO * ((float) data.getItemCount(NBTLaser.Items.Overclock) + 1F)));
 		return total;
 	}
 
 	private void explode() {
 		if (data != null) {
 			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) {
-				float expl = 0.325F * data.getItemCount(NBTLaser.Items.Explosion) + 1F;
+				float expl = 1F + (0.325F * (float) data.getItemCount(NBTLaser.Items.Explosion)) + (0.1F * (float) data.getItemCount(NBTLaser.Items.Overclock));
 				worldObj.createExplosion(this, posX, posY, posZ, expl, true);
 			}
 		}
