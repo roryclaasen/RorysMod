@@ -38,7 +38,7 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 |Master|[![Build Status](https://travis-ci.org/GOGO98901/RorysMod.svg?branch=master)](https://travis-ci.org/GOGO98901/RorysMod)|
 
 # License
-See full license file [[LICENSE]]
+See full license file [LICENSE](https://github.com/GOGO98901/RorysMod/blob/master/LICENSE)
 ```
 Copyright 2016 Rory Claasen
 
