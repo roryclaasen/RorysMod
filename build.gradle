@@ -45,11 +45,14 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+    
+    from('./') {
+    	include 'LICENSE'
+    }
 }
 
 jar {
     includeEmptyDirs = false
-    //Append with minecraft version
     classifier = "-" + minecraft.version + "-"
     archiveName = archivesBaseName + classifier + version + ".jar"
     manifest {
