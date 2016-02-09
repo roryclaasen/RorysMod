@@ -22,7 +22,7 @@ NOTE: I may not add the module, but I probably will.
 9. [Planned Modules](#Planned Modules)
 
 ## Base Modules
-Each Module can stack up to 16, and will change the rifles stats depending on which ones are added. See each module for more information.
+Each Module can stack up to 16, and will change the rifles statistics depending on which ones are added. See each module for more information.
 
 ## Capacitor Module
 The capacitor module allows the rifle to hold more power capacity, however it also increases power usage slightly.
@@ -52,7 +52,7 @@ The bellow formulas are what the mod will be using in the next release. These ar
 ```
 10 + (75 x number of overclockers) + (13 x number of capacitors) - number of coolant + (60 x number of phasers) + (60 x number of explosion modules)
 
-if usage less than 10 then
+if usage is less than 10 then
 	usage equals 10
 end if
 ```
