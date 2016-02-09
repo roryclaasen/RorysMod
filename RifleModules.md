@@ -28,7 +28,7 @@ Each Module can stack up to 16, and will change the rifles statistics depending 
 The capacitor module allows the rifle to hold more power capacity, however it also increases power usage slightly.
 
 ## Coolant Module
-This module will decrease the cool down time that it takes to fire a new laser but will also in some case reduce the power usage. Almost like an onsite [overclocker](#Overclock Module).
+This module will decrease the cool down time that it takes to fire a new laser but will also in some case reduce the power usage. Almost like an [overclocker](#Overclock Module).
 
 ## Lens Module
 This module allows the laser to change color. This feature does and does not not work currently and so this item can only be spawned in.
