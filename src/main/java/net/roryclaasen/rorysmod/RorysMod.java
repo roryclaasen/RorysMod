@@ -40,7 +40,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "before:IC2,after:COFHCore")
+@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "before:IC2;required-after:CoFHCore")
 public class RorysMod {
 
 	@SidedProxy(clientSide = "net.roryclaasen.rorysmod.proxy.ClientProxy", serverSide = "net.roryclaasen.rorysmod.proxy.CommonProxy")
