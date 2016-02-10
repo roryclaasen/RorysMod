@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["Rory Claasen"],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "assets/rorysmod/textures/logo.png",
   "screenshots": [],
   "dependencies": ["MinecraftForge", "IC2", "CoFHCore"]
 }
