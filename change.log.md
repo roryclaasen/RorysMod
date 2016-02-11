@@ -9,6 +9,16 @@
 ## What will be in the next release
 ```
 ```
+## Version 1.2.4
+(08/02/2016) RorysMod-1.7.10-1.2.4.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.4)
+```
++ Added mod logo!
++ Added new module with recipie (no texture)
+* These vaules now are what it will say in the RifleModules.md file
+* The rilfe table now has a 3D texture when droped and in the inventory
+* General bug fixes and work
+```
 ## Version 1.2.3
 (08/02/2016) RorysMod-1.7.10-1.2.3.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.3)
