@@ -118,12 +118,15 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						int phaser = data.getItemCount(NBTLaser.Items.Phaser);
 						int overclock = data.getItemCount(NBTLaser.Items.Overclock);
 						int explosion = data.getItemCount(NBTLaser.Items.Explosion);
+						int igniter = data.getItemCount(NBTLaser.Items.Igniter);
 						if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 						if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
 						if (data.hasLens()) tooltip.add("RGB: " + data.getColor().getRed() + "," + data.getColor().getGreen() + "," + data.getColor().getBlue());
 						if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 						if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
 						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
+						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
+						if (igniter > 0) tooltip.add(igniter + " Igniter(s)");
 					} else tooltip.add(StatCollector.translateToLocal("message.rorysmod.heat") + " " + data.getCooldown());
 					if (data.getWeight() > NBTLaser.getMaxWeight(this.tier)) tooltip.add(EnumChatFormatting.RED + "Weight " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
 					else tooltip.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("message.rorysmod.weight") + " " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));

@@ -156,5 +156,6 @@ public class ModItems implements TypeGroup {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 4), new Object[]{"f", "b", 'b', new ItemStack(rifleUpgrade), 'f', filament}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 5), new Object[]{"c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 6), new Object[]{"t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rifleUpgrade, 1, 7), new Object[]{"f", "b", 'b', new ItemStack(rifleUpgrade), 'f', Items.flint_and_steel}));
 	}
 }
