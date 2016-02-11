@@ -73,26 +73,25 @@ public class EntityLaser extends EntityThrowable {
 						fire = false;
 					}
 					case 0 : {
-						y--;
+						--y;
 						fire = false;
 					}
 					case 1 : {
-						y++;
+						++y;
 					}
 					case 2 : {
-						z--;
+						--z;
 					}
 					case 3 : {
-						z++;
+						++z;
 					}
 					case 4 : {
-						x--;
+						--x;
 					}
 					case 5 : {
-						x++;
+						++x;
 					}
 				}
-				// TODO Not working in tests for some reason
 				if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
 				RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
 			} else if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
