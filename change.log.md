@@ -10,7 +10,7 @@
 ```
 ```
 ## Version 1.2.4
-(08/02/2016) RorysMod-1.7.10-1.2.4.jar<br>
+(11/02/2016) RorysMod-1.7.10-1.2.4.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.4)
 ```
 + Added mod logo!
