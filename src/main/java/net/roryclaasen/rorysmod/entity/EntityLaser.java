@@ -17,7 +17,6 @@ package net.roryclaasen.rorysmod.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -78,13 +77,13 @@ public class EntityLaser extends EntityThrowable {
 						y++;
 					}
 					case 2 : {
-						 z--;
+						z--;
 					}
 					case 3 : {
-						 z++;
+						z++;
 					}
 					case 4 : {
-						 x--;
+						x--;
 					}
 					case 5 : {
 						x++;
@@ -102,18 +101,6 @@ public class EntityLaser extends EntityThrowable {
 			explode();
 			setDead();
 		}
-	}
-
-	@Override
-	public void onCollideWithPlayer(EntityPlayer player) {
-		/*
-		 * if (!worldObj.isRemote) {
-		 * doDamage(player);
-		 * setFire(player);
-		 * explode();
-		 * setDead();
-		 * }
-		 */
 	}
 
 	private void setFire(Entity entity) {
