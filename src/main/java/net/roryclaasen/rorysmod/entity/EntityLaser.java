@@ -26,7 +26,6 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.NBTLaser;
-import net.roryclaasen.rorysmod.util.RMLog;
 
 public class EntityLaser extends EntityThrowable {
 
@@ -65,35 +64,37 @@ public class EntityLaser extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition movingObjectPosition) {
 		if (!worldObj.isRemote) {
 			if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
-				boolean fire = true;
-				RMLog.info(movingObjectPosition.sideHit);
-				switch (movingObjectPosition.sideHit) {
-					case -1 : {
-						fire = false;
+				if (Settings.setFireToBlocks) {
+					int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
+					boolean fire = true;
+					// RMLog.info(movingObjectPosition.sideHit);
+					switch (movingObjectPosition.sideHit) {
+						case -1 : {
+							fire = false;
+						}
+						case 0 : {
+							--y;
+							fire = false;
+						}
+						case 1 : {
+							++y;
+						}
+						case 2 : {
+							--z;
+						}
+						case 3 : {
+							++z;
+						}
+						case 4 : {
+							--x;
+						}
+						case 5 : {
+							++x;
+						}
 					}
-					case 0 : {
-						--y;
-						fire = false;
-					}
-					case 1 : {
-						++y;
-					}
-					case 2 : {
-						--z;
-					}
-					case 3 : {
-						++z;
-					}
-					case 4 : {
-						--x;
-					}
-					case 5 : {
-						++x;
-					}
+					if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
+					// RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
 				}
-				if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
-				RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
 			} else if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 				if (movingObjectPosition.entityHit != null) {
 					doDamage(movingObjectPosition.entityHit);

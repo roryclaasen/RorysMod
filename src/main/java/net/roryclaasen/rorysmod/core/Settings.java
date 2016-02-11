@@ -41,6 +41,7 @@ public class Settings {
 	public static int rifleTier3 = 24;
 	public static int rifleTier4 = 32;
 	public static int rifleTier5 = 40;
+	public static boolean setFireToBlocks;
 
 	private static Configuration config;
 
@@ -66,6 +67,7 @@ public class Settings {
 		coloredLaser = config.get("modular-lasers", "allowColouredLasers", true).getBoolean(true);
 		laserTooltip = config.get("modular-lasers", "showLaserModualsl", true).getBoolean(true);
 		laserEmitsLight = config.get("modular-lasers", "laserEmitsLight", true).getBoolean(true);
+		setFireToBlocks = config.get("modular-lasers", "setFireToBlocks", false).getBoolean(false);
 
 		// GUI
 		showColorBox = config.get("gui", "showColorBox", false).getBoolean(false);
