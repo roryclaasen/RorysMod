@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.roryclaasen.rorysmod.block.BlockBaseMeta;
 import net.roryclaasen.rorysmod.block.BlockIngot;
 import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
@@ -59,10 +60,10 @@ public class ModBlocks implements TypeGroup {
 		GameRegistry.registerBlock(bluePrint, MultiBlockHandler.class, bluePrint.getUnlocalizedName());
 
 		OreDictionary.registerOre("blockSteel", steelBlock);
-		for (int i = 0; i < ((BlockTestingWall) testingWall).icons.length; i++) {
+		for (int i = 0; i < ((BlockBaseMeta) testingWall).getMetaSize(); i++) {
 			OreDictionary.registerOre("testingWall", new ItemStack(testingWall, 1, i));
 		}
-		for (int i = 0; i < ((BlockBlueprint) bluePrint).icons.length; i++) {
+		for (int i = 0; i < ((BlockBaseMeta) bluePrint).getMetaSize(); i++) {
 			OreDictionary.registerOre("bluePrint", new ItemStack(bluePrint, 1, i));
 		}
 	}
@@ -70,7 +71,7 @@ public class ModBlocks implements TypeGroup {
 	@Override
 	public void createRecipes() {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(steelBlock), new Object[]{"sss", "sss", "sss", 's', "ingotSteel"}));
-		for (int id = 0; id < ((BlockTestingWall) testingWall).getMaxMeta(); id++) {
+		for (int id = 0; id < ((BlockBaseMeta) testingWall).getMetaSize(); id++) {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
 			GameRegistry.addRecipe(new ShapedOreRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye}));
