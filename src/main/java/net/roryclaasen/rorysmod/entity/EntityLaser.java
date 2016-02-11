@@ -69,6 +69,9 @@ public class EntityLaser extends EntityThrowable {
 				boolean fire = true;
 				RMLog.info(movingObjectPosition.sideHit);
 				switch (movingObjectPosition.sideHit) {
+					case -1 : {
+						fire = false;
+					}
 					case 0 : {
 						y--;
 						fire = false;
