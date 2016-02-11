@@ -24,7 +24,7 @@ import net.minecraft.util.StatCollector;
 public class ItemRifleUpgrade extends ItemBaseMeta {
 
 	public ItemRifleUpgrade(String unlocalizedName) {
-		super(unlocalizedName, 7);
+		super(unlocalizedName, 8);
 		this.setMaxStackSize(16);
 	}
 

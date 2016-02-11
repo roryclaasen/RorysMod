@@ -24,7 +24,7 @@ import net.roryclaasen.rorysmod.core.Settings;
 public class NBTLaser {
 
 	public enum Items {
-		Capacitor, Coolant, Lens, Phaser, Overclock, Explosion
+		Capacitor, Coolant, Lens, Phaser, Overclock, Explosion, Igniter
 	}
 
 	private NBTTagCompound tag;

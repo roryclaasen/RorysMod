@@ -49,6 +49,7 @@ item.rorysmod_rifleUpgrade_3.name=Rifle Upgrade (Lens)
 item.rorysmod_rifleUpgrade_4.name=Rifle Upgrade (Phaser)
 item.rorysmod_rifleUpgrade_5.name=Rifle Upgrade (Overclock)
 item.rorysmod_rifleUpgrade_6.name=Rifle Upgrade (Explosion)
+item.rorysmod_rifleUpgrade_7.name=Rifle Upgrade (Igniter)
 item.rorysmod_lens.name=Lens
 item.rorysmod_circuit.name=Circuit
 item.rorysmod_advancedCircuit.name=Advanced Circuit
@@ -63,6 +64,7 @@ item.rorysmod_rifleUpgrade_3.tooltip=Allows you to color the laser
 item.rorysmod_rifleUpgrade_4.tooltip=Makes the laser to damage
 item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
 item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit
+item.rorysmod_rifleUpgrade_7.tooltip=Sets fire to entities or blocks when hit
 
 // ----------------{  Message  }----------------
 message.rorysmod.rifle.discription=Fires a laser bolt 

@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -63,25 +64,68 @@ public class EntityLaser extends EntityThrowable {
 
 	@Override
 	protected void onImpact(MovingObjectPosition movingObjectPosition) {
-		if (movingObjectPosition.entityHit != null) {
-			doDamage(movingObjectPosition.entityHit);
-		}
-		explode();
-		/* if (!worldObj.isRemote) */setDead();
-	}
-
-	@Override
-	public void onCollideWithPlayer(EntityPlayer player) {
-		if (inGround && !worldObj.isRemote) {
-			doDamage(player);
+		if (!worldObj.isRemote) {
+			if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+				int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
+				boolean fire = true;
+				RMLog.info(movingObjectPosition.sideHit);
+				switch (movingObjectPosition.sideHit) {
+					default : {
+						fire = false;
+					}
+					case 1 : {
+						y += 1;
+					}
+					case 2 : {
+						 x -= 1;
+					}
+					case 3 : {
+						 x -= 1;
+					}
+					case 4 : {
+						// TODO Not working in tests for some reason
+						 z += 1;
+					}
+					case 5 : {
+						// TODO Not working in tests for some reason
+						z += 1;
+					}
+				}
+				if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
+				RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
+			} else if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+				if (movingObjectPosition.entityHit != null) {
+					doDamage(movingObjectPosition.entityHit);
+					setFire(movingObjectPosition.entityHit);
+				}
+			}
 			explode();
 			setDead();
 		}
 	}
 
+	@Override
+	public void onCollideWithPlayer(EntityPlayer player) {
+		/*
+		 * if (!worldObj.isRemote) {
+		 * doDamage(player);
+		 * setFire(player);
+		 * explode();
+		 * setDead();
+		 * }
+		 */
+	}
+
+	private void setFire(Entity entity) {
+		if (data != null) {
+			if (data.getItemCount(NBTLaser.Items.Igniter) > 0) {
+				entity.setFire((int) Math.ceil((double) data.getItemCount(NBTLaser.Items.Igniter) * 1.5));
+			}
+		}
+	}
+
 	private void doDamage(Entity entity) {
 		if (data != null) {
-			RMLog.info(getDamage());
 			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), getDamage());
 		}
 	}

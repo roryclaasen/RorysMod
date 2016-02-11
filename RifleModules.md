@@ -18,8 +18,9 @@ NOTE: I may not add the module, but I probably will.
 5. [Phaser Module](#phaser-module)
 6. [Overclock Module](#overclock-module)
 7. [Explosion Module](#explosion-module)
-8. [Formula](#formula)
-9. [Planned Modules](#planned-modules)
+8. [Igniter Module](#igniter-module)
+9. [Formula](#formula)
+10. [Planned Modules](#planned-modules)
 
 ## Base Modules
 Each Module can stack up to 16, and will change the rifles statistics depending on which ones are added. See each module for more information.
@@ -34,7 +35,7 @@ This module will decrease the cool down time that it takes to fire a new laser b
 This module allows the laser to change color. This feature does and does not not work currently and so this item can only be spawned in.
 
 ## Phaser Module
-This module changes the amount of damage that is given to an entity when hit. With out this module the laser will do no damage no matter what the [formula](#damage) says.
+This module changes the amount of damage that is given to an entity when hit. With out this module the laser will do no damage no matter what the [formula](#damage-given) says.
 
 ## Overclock Module
 This module makes other module more power full with the cost of using more power when used
@@ -42,13 +43,16 @@ This module makes other module more power full with the cost of using more power
 ## Explosion Module
 This module allows the laser to create an explosion when the it hits either the block or an entity. If no explosion modules are present then it ill not create an explosion no matter of what the [formula](#explosion-size) says.
 
+## Igniter Module
+This module sets the block/entity hit on fire
+
 ## Formula
 The bellow formulas are what the mod will be using in the next release. These are subject to change
-#### Capacity
+#### Capacity Size
 ```
 1000 + (1000 x number of capacitors) + (100 x number of overclockers)
 ```
-#### Usage
+#### Power Usage
 ```
 10 + (75 x number of overclockers) + (13 x number of capacitors) - number of coolant + (60 x number of phasers) + (60 x number of explosion modules)
 
@@ -56,7 +60,7 @@ if usage is less than 10 then
 	usage equals 10
 end if
 ```
-#### Damage
+#### Damage Given
 ```
 1 + (1.5 x (number of phasers + (1.2 x (number of overclockers + 1))))
 ```
@@ -64,6 +68,10 @@ end if
 ```
 1 + (0.325 * number of explosion modules) + (0.1 * number of overclockers)
 ```
+### Fire time
+```
+round up to whole number (number of igniter modules x 1.5)
+```
 # Planned Modules
 Currently these are the modules I will be implementing in the future
-- [ ] Igniter Module (set block/entity on fire when hit)
+- [x] Igniter Module (set block/entity on fire when hit)
