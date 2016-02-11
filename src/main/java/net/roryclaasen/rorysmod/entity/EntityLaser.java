@@ -26,6 +26,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.NBTLaser;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 public class EntityLaser extends EntityThrowable {
 
@@ -67,7 +68,7 @@ public class EntityLaser extends EntityThrowable {
 				if (Settings.setFireToBlocks) {
 					int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
 					boolean fire = true;
-					// RMLog.info(movingObjectPosition.sideHit);
+					RMLog.info(movingObjectPosition.sideHit);
 					switch (movingObjectPosition.sideHit) {
 						case -1 : {
 							fire = false;
@@ -93,7 +94,7 @@ public class EntityLaser extends EntityThrowable {
 						}
 					}
 					if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
-					// RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
+					RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
 				}
 			} else if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 				if (movingObjectPosition.entityHit != null) {
