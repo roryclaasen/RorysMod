@@ -5,13 +5,7 @@ Please view the change log [here](https://github.com/GOGO98901/RorysMod/blob/mas
 
 Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/issues/new) to submit a new issue.
 
-## Experimental Features
-If you would like to use experimental features please be aware that I am not responsible for any corrupt world
-or game breaking error.<br>
-That being said to use these features you must pass this VM argument
-```
--DrorysModExperiment=true
-```
+
 ## Installation
 Backup your world! Especially if you are installing a development build or a pre release.<br>
 Delete any old versions of the mod from your .minecraft/mods folder.<br>
@@ -28,6 +22,13 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 - And run
 
 ## Developer stuff
+### Experimental Features
+If you would like to use experimental features please be aware that I am not responsible for any corrupt world
+or game breaking error.<br>
+That being said to use these features you must pass this VM argument
+```
+-DrorysModExperiment=true
+```
 [![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics)
 ### Issues
 [![Issues in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
