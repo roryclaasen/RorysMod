@@ -21,6 +21,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -32,6 +33,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPoweredChest extends BlockBaseContainer {
 
@@ -233,5 +236,10 @@ public class BlockPoweredChest extends BlockBaseContainer {
 
 	public TileEntity createNewTileEntity(World world, int par2) {
 		return new TileEntityPoweredChest();
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
+		this.blockIcon = p_149651_1_.registerIcon("planks_oak");
 	}
 }
