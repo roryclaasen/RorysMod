@@ -21,12 +21,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.roryclaasen.rorysmod.RorysMod;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
-	private ItemStack[] items = new ItemStack[15];
+	private ItemStack[] items = new ItemStack[27];
 
 	public int getSizeInventory() {
 		return items.length;
@@ -39,7 +41,6 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 	public ItemStack decrStackSize(int slot, int amount) {
 		if (items[slot] != null) {
 			ItemStack itemstack;
-
 			if (items[slot].stackSize == amount) {
 				itemstack = items[slot];
 				items[slot] = null;
@@ -87,8 +88,8 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		NBTTagList list = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		items = new ItemStack[getSizeInventory()];
 
+		items = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < list.tagCount(); ++i) {
 			NBTTagCompound comp = list.getCompoundTagAt(i);
 			int j = comp.getByte("Slot") & 255;
@@ -120,7 +121,18 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 	}
 
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
+		if (worldObj.getTileEntity(xCoord, yCoord, zCoord) == this) {
+			if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
+				if (player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D) {
+					return true;
+				}
+			} else {
+				if(worldObj.isRemote){
+					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.chest.state.locked")));
+				}
+			}
+		}
+		return false;
 	}
 
 	public void openInventory() {}

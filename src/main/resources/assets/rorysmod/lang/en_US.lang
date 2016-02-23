@@ -27,6 +27,7 @@ tile.rorysmod_blockBluePrint_2.name=Blueprint Block
 tile.rorysmod_blockBluePrint_3.name=Blueprint Block
 tile.rorysmod_blockBluePrint_4.name=Blueprint Block
 tile.rorysmod_blockBluePrint_5.name=Blueprint Block
+tile.rorysmod_blockChestPowered.name=Powerable Chest
 
 // ----------------{  Items  }----------------
 item.rorysmod_ingotSteel.name=Steel Ingot
@@ -71,6 +72,8 @@ message.rorysmod.rifle.discription=Fires a laser bolt
 message.rorysmod.rifle.state.jammed=Your rifle is jammed and can not fire. Remove some modules
 message.rorysmod.rifle.state.overheat=Your rifle has overheated. Wait for it too cool down
 
+message.rorysmod.chest.state.locked=This chest is locked, it needs to be powered to be opened
+
 message.rorysmod.weight=Weight
 message.rorysmod.heat=Heat
 message.rorysmod.charge=Charge
@@ -82,3 +85,4 @@ message.rorysmod.holdShift3=for Details
 // -------------------{ GUI }-------------------
 rorysmod.gui.upgradeTable.title=Rifle Upgrade Table
 rorysmod.gui.upgradeTable.color=Laser Color
+rorysmod.gui.poweredchest=Powerable Chest
