@@ -22,6 +22,7 @@ import net.roryclaasen.rorysmod.core.ModBlocks;
 import net.roryclaasen.rorysmod.core.ModItems;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
+import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.event.PlayerHoldingRifle;
@@ -119,6 +120,7 @@ public class RorysMod {
 
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "RifleTable");
+		GameRegistry.registerTileEntity(TileEntityPoweredChest.class, "PoweredChest");
 	}
 
 	private void registerModEntities() {

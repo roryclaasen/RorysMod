@@ -15,6 +15,7 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.entity.tile;
 
+import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,12 @@ import net.minecraftforge.common.util.Constants;
 import net.roryclaasen.rorysmod.RorysMod;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
+
+	public float lidAngle;
+	public float prevLidAngle;
+	public int numPlayersUsing;
+	@SuppressWarnings("unused")
+	private int ticksSinceSync;
 
 	private ItemStack[] items = new ItemStack[27];
 
@@ -127,7 +134,7 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 					return true;
 				}
 			} else {
-				if(worldObj.isRemote){
+				if (worldObj.isRemote) {
 					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.chest.state.locked")));
 				}
 			}
@@ -135,11 +142,76 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 		return false;
 	}
 
-	public void openInventory() {}
+	@Override
+	public boolean receiveClientEvent(int p_145842_1_, int p_145842_2_) {
+		if (p_145842_1_ == 1) {
+			this.numPlayersUsing = p_145842_2_;
+			return true;
+		} else {
+			return super.receiveClientEvent(p_145842_1_, p_145842_2_);
+		}
+	}
 
-	public void closeInventory() {}
+	public void openInventory() {
+		if (this.numPlayersUsing < 0) {
+			this.numPlayersUsing = 0;
+		}
+
+		++this.numPlayersUsing;
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
+	}
+
+	public void closeInventory() {
+		if (this.getBlockType() instanceof BlockChest) {
+			--this.numPlayersUsing;
+			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
+			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
+		}
+	}
 
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		++this.ticksSinceSync;
+		float f;
+
+		this.prevLidAngle = this.lidAngle;
+		f = 0.1F;
+		double d2;
+
+		if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
+			double d1 = (double) this.xCoord + 0.5D;
+			d2 = (double) this.zCoord + 0.5D;
+			this.worldObj.playSoundEffect(d1, (double) this.yCoord + 0.5D, d2, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		}
+
+		if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
+			float f1 = this.lidAngle;
+			if (this.numPlayersUsing > 0) {
+				this.lidAngle += f;
+			} else {
+				this.lidAngle -= f;
+			}
+			if (this.lidAngle > 1.0F) {
+				this.lidAngle = 1.0F;
+			}
+			float f2 = 0.5F;
+			if (this.lidAngle < f2 && f1 >= f2) {
+				d2 = (double) this.xCoord + 0.5D;
+				double d0 = (double) this.zCoord + 0.5D;
+
+				this.worldObj.playSoundEffect(d2, (double) this.yCoord + 0.5D, d0, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			}
+			if (this.lidAngle < 0.0F) {
+				this.lidAngle = 0.0F;
+			}
+		}
 	}
 }
