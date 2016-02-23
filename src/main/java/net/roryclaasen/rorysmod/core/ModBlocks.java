@@ -25,6 +25,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.block.BlockBaseMeta;
 import net.roryclaasen.rorysmod.block.BlockIngot;
+import net.roryclaasen.rorysmod.block.BlockPoweredChest;
 import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
 import net.roryclaasen.rorysmod.block.BlockBlueprint;
@@ -43,12 +44,16 @@ public class ModBlocks implements TypeGroup {
 	public static Block steelBlock;
 	public static Block bluePrint;
 
+	public static Block poweredChest;
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		testingWall = new BlockTestingWall(Material.iron, "blockTest");
 		upgradeTable = new BlockRifleTable(Material.anvil, "tableUpgrade");
 		steelBlock = new BlockIngot(Material.iron, "blockSteel");
 		bluePrint = new BlockBlueprint(Material.iron, "blockBluePrint");
+
+		poweredChest = new BlockPoweredChest(Material.wood, "blockChestPowered");
 	}
 
 	@Override
@@ -66,6 +71,8 @@ public class ModBlocks implements TypeGroup {
 		for (int i = 0; i < ((BlockBaseMeta) bluePrint).getMetaSize(); i++) {
 			OreDictionary.registerOre("bluePrint", new ItemStack(bluePrint, 1, i));
 		}
+
+		GameRegistry.registerBlock(poweredChest, poweredChest.getUnlocalizedName());
 	}
 
 	@Override

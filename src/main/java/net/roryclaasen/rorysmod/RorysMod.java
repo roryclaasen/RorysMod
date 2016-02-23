@@ -53,7 +53,7 @@ public class RorysMod {
 	public static RorysMod instance;
 
 	public static enum GUIS {
-		RILE_TABLE("rorysmod.gui.upgradeTable");
+		RILE_TABLE("rorysmod.gui.upgradeTable"), CHEST_POWERED("rorysmod.gui.poweredchest");
 
 		private String name;
 
@@ -106,7 +106,7 @@ public class RorysMod {
 		RMLog.info("Registering everything else");
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		
+
 		registerEventHandlers();
 		registerTileEntities();
 		registerModEntities();

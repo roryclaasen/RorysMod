@@ -19,7 +19,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.container.ContainerPoweredChest;
 import net.roryclaasen.rorysmod.container.ContainerRifleTable;
+import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -33,6 +35,11 @@ public class GuiHandler implements IGuiHandler {
 				return new ContainerRifleTable(player.inventory, (TileEntityRifleTable) tileEntity);
 			}
 		}
+		if (ID == RorysMod.GUIS.CHEST_POWERED.getId()) {
+			if (tileEntity instanceof TileEntityPoweredChest) {
+				return new ContainerPoweredChest((TileEntityPoweredChest) tileEntity, player);
+			}
+		}
 		return null;
 	}
 
@@ -42,6 +49,11 @@ public class GuiHandler implements IGuiHandler {
 		if (ID == RorysMod.GUIS.RILE_TABLE.getId()) {
 			if (tileEntity instanceof TileEntityRifleTable) {
 				return new GuiRifleTable(player.inventory, (TileEntityRifleTable) tileEntity);
+			}
+		}
+		if (ID == RorysMod.GUIS.CHEST_POWERED.getId()) {
+			if (tileEntity instanceof TileEntityPoweredChest) {
+				return new GuiPoweredChest((TileEntityPoweredChest) tileEntity, player);
 			}
 		}
 		return null;
