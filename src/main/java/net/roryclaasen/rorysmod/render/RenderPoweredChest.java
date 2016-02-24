@@ -35,11 +35,13 @@ public class RenderPoweredChest extends TileEntitySpecialRenderer {
 		model = new ModelChest();
 	}
 
-	public void renderTileEntityAt(TileEntityPoweredChest te, double x, double y, double z, float scale) {
-		int i = 0;
-		if (te.hasWorldObj()) {
-			i = te.getBlockMetadata();
+	public void renderTileEntityAt(TileEntityPoweredChest tile, double x, double y, double z, float partialTick) {
+		if (tile == null) return;
+		int facing = 3;
+		if (tile.hasWorldObj()) {
+			facing = tile.getFacing();
 		}
+		
 		this.bindTexture(texture);
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -47,28 +49,28 @@ public class RenderPoweredChest extends TileEntitySpecialRenderer {
 		GL11.glTranslatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
 		GL11.glScalef(1.0F, -1.0F, -1.0F);
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-		short short1 = 0;
-		if (i == 2) {
-			short1 = 180;
-		}
-		if (i == 3) {
-			short1 = 0;
-		}
-		if (i == 4) {
-			short1 = 90;
-		}
-		if (i == 5) {
-			short1 = -90;
-		}
-		GL11.glRotatef((float) short1, 0.0F, 1.0F, 0.0F);
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);float f1 = te.field_145975_i + (te.field_145972_a - te.field_145975_i) * scale;
-		f1 = 1.0F - f1;
-		f1 = 1.0F - f1 * f1 * f1;
-		this.model.chestLid.rotateAngleX = -(f1 * (float) Math.PI / 2.0F);
-		this.model.renderAll();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		
+		int k = 0;
+        if (facing == 2) {
+            k = 180;
+        }
+        if (facing == 3) {
+            k = 0;
+        }
+        if (facing == 4) {
+            k = 90;
+        }
+        if (facing == 5) {
+            k = -90;
+        }
+        GL11.glRotatef(k, 0.0F, 1.0F, 0.0F);
+        GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+        float lidangle = tile.prevLidAngle + (tile.lidAngle - tile.prevLidAngle) * partialTick;
+        lidangle = 1.0F - lidangle;
+        lidangle = 1.0F - lidangle * lidangle * lidangle;
+        model.chestLid.rotateAngleX = -((lidangle * 3.141593F) / 2.0F);
+        model.renderAll();
+        GL11.glPopMatrix();
 	}
 
 	@Override

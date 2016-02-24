@@ -15,26 +15,37 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.entity.tile;
 
+import java.util.List;
+
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.container.ContainerPoweredChest;
 import net.roryclaasen.rorysmod.core.ModBlocks;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
-	public float field_145972_a;
-	public float field_145975_i;
-	public int field_145973_j;
-	private int field_145974_k;
+	private int ticksSinceSync = -1;
+	public float prevLidAngle;
+	public float lidAngle;
+	private int numUsingPlayers;
+	private byte facing;
 
 	private ItemStack[] items = new ItemStack[27];
+
+	public int getFacing() {
+		return this.facing;
+	}
 
 	public int getSizeInventory() {
 		return items.length;
@@ -141,82 +152,100 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	public void updateEntity() {
-		super.updateEntity();
-		if (++this.field_145974_k % 20 * 4 == 0) {
-			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.poweredChest, 1, this.field_145973_j);
+		if (worldObj != null && !this.worldObj.isRemote && this.numUsingPlayers != 0 && (this.ticksSinceSync + xCoord + yCoord + zCoord) % 200 == 0) {
+			this.numUsingPlayers = 0;
+			float var1 = 5.0F;
+			List<EntityPlayer> var2 = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - var1, yCoord - var1, zCoord - var1, xCoord + 1 + var1, yCoord + 1 + var1, zCoord + 1 + var1));
+
+			for (EntityPlayer var4 : var2) {
+				if (var4.openContainer instanceof ContainerPoweredChest) {
+					++this.numUsingPlayers;
+				}
+			}
 		}
-		this.field_145975_i = this.field_145972_a;
+
+		if (worldObj != null && !worldObj.isRemote && ticksSinceSync < 0) {
+			worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 3, ((numUsingPlayers << 3) & 0xF8) | (facing & 0x7));
+		}
+
+		this.ticksSinceSync++;
+		prevLidAngle = lidAngle;
 		float f = 0.1F;
-		double d1;
-		if (this.field_145973_j > 0 && this.field_145972_a == 0.0F) {
-			double d0 = (double) this.xCoord + 0.5D;
-			d1 = (double) this.zCoord + 0.5D;
-			this.worldObj.playSoundEffect(d0, (double) this.yCoord + 0.5D, d1, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		if (numUsingPlayers > 0 && lidAngle == 0.0F) {
+			double d = xCoord + 0.5D;
+			double d1 = zCoord + 0.5D;
+			worldObj.playSoundEffect(d, yCoord + 0.5D, d1, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 		}
-		if (this.field_145973_j == 0 && this.field_145972_a > 0.0F || this.field_145973_j > 0 && this.field_145972_a < 1.0F) {
-			float f2 = this.field_145972_a;
-			if (this.field_145973_j > 0) {
-				this.field_145972_a += f;
+		if (numUsingPlayers == 0 && lidAngle > 0.0F || numUsingPlayers > 0 && lidAngle < 1.0F) {
+			float f1 = lidAngle;
+			if (numUsingPlayers > 0) {
+				lidAngle += f;
 			} else {
-				this.field_145972_a -= f;
+				lidAngle -= f;
 			}
-			if (this.field_145972_a > 1.0F) {
-				this.field_145972_a = 1.0F;
+			if (lidAngle > 1.0F) {
+				lidAngle = 1.0F;
 			}
-			float f1 = 0.5F;
-			if (this.field_145972_a < f1 && f2 >= f1) {
-				d1 = (double) this.xCoord + 0.5D;
-				double d2 = (double) this.zCoord + 0.5D;
-				this.worldObj.playSoundEffect(d1, (double) this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			float f2 = 0.5F;
+			if (lidAngle < f2 && f1 >= f2) {
+				double d2 = xCoord + 0.5D;
+				double d3 = zCoord + 0.5D;
+				worldObj.playSoundEffect(d2, yCoord + 0.5D, d3, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			}
-			if (this.field_145972_a < 0.0F) {
-				this.field_145972_a = 0.0F;
+			if (lidAngle < 0.0F) {
+				lidAngle = 0.0F;
 			}
 		}
 	}
 
-	/**
-	 * Called when a client event is received with the event number and argument, see World.sendClientEvent
-	 */
-	public boolean receiveClientEvent(int p_145842_1_, int p_145842_2_) {
-		if (p_145842_1_ == 1) {
-			this.field_145973_j = p_145842_2_;
-			return true;
-		} else {
-			return super.receiveClientEvent(p_145842_1_, p_145842_2_);
+	@Override
+	public boolean receiveClientEvent(int i, int j) {
+		if (i == 1) {
+			numUsingPlayers = j;
+		} else if (i == 2) {
+			facing = (byte) j;
+		} else if (i == 3) {
+			facing = (byte) (j & 0x7);
+			numUsingPlayers = (j & 0xF8) >> 3;
 		}
-	}
-
-	/**
-	 * invalidates a tile entity
-	 */
-	public void invalidate() {
-		this.updateContainingBlockInfo();
-		super.invalidate();
-	}
-
-	public void func_145969_a() {
-		++this.field_145973_j;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.poweredChest, 1, this.field_145973_j);
-	}
-
-	public void func_145970_b() {
-		--this.field_145973_j;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.poweredChest, 1, this.field_145973_j);
-	}
-
-	public boolean func_145971_a(EntityPlayer player) {
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : player.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
+		return true;
 	}
 
 	@Override
 	public void openInventory() {
+		if (worldObj == null) {
+			return;
+		}
+		numUsingPlayers++;
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 1, numUsingPlayers);
 	}
 
 	@Override
 	public void closeInventory() {
+		if (worldObj == null) {
+			return;
+		}
+		numUsingPlayers--;
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 1, numUsingPlayers);
 	}
+
+	public void setFacing(byte facing2) {
+		this.facing = facing2;
+	}
+
+	public void rotateAround() {
+		facing++;
+		if (facing > ForgeDirection.EAST.ordinal()) {
+			facing = (byte) ForgeDirection.NORTH.ordinal();
+		}
+		setFacing(facing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 2, facing);
+	}
+
+	public void wasPlaced(EntityLivingBase entityliving, ItemStack itemStack) {}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack item) {

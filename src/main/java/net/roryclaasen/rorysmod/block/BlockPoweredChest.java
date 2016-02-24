@@ -16,21 +16,22 @@ limitations under the License.
 package net.roryclaasen.rorysmod.block;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
+import cofh.lib.util.position.BlockPosition;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import cpw.mods.fml.relauncher.Side;
@@ -60,158 +61,48 @@ public class BlockPoweredChest extends BlockBaseContainer {
 		return 22;
 	}
 
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
-		if (p_149719_1_.getBlock(p_149719_2_, p_149719_3_, p_149719_4_ - 1) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
-		} else if (p_149719_1_.getBlock(p_149719_2_, p_149719_3_, p_149719_4_ + 1) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F);
-		} else if (p_149719_1_.getBlock(p_149719_2_ - 1, p_149719_3_, p_149719_4_) == this) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
-		} else if (p_149719_1_.getBlock(p_149719_2_ + 1, p_149719_3_, p_149719_4_) == this) {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F);
-		} else {
-			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
-		}
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		super.onBlockAdded(world, x, y, z);
+		world.markBlockForUpdate(x, y, z);
 	}
 
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
-		this.func_149954_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
-		Block block = p_149726_1_.getBlock(p_149726_2_, p_149726_3_, p_149726_4_ - 1);
-		Block block1 = p_149726_1_.getBlock(p_149726_2_, p_149726_3_, p_149726_4_ + 1);
-		Block block2 = p_149726_1_.getBlock(p_149726_2_ - 1, p_149726_3_, p_149726_4_);
-		Block block3 = p_149726_1_.getBlock(p_149726_2_ + 1, p_149726_3_, p_149726_4_);
-
-		if (block == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_ - 1);
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack itemStack) {
+		byte chestFacing = 0;
+		int facing = MathHelper.floor_double((entityliving.rotationYaw * 4F) / 360F + 0.5D) & 3;
+		if (facing == 0) {
+			chestFacing = 2;
 		}
-
-		if (block1 == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_ + 1);
+		if (facing == 1) {
+			chestFacing = 5;
 		}
-
-		if (block2 == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_ - 1, p_149726_3_, p_149726_4_);
+		if (facing == 2) {
+			chestFacing = 3;
 		}
-
-		if (block3 == this) {
-			this.func_149954_e(p_149726_1_, p_149726_2_ + 1, p_149726_3_, p_149726_4_);
+		if (facing == 3) {
+			chestFacing = 4;
 		}
-	}
-
-	@SuppressWarnings({"unused", "rawtypes"})
-	private static boolean func_149953_o(World p_149953_0_, int p_149953_1_, int p_149953_2_, int p_149953_3_) {
-		Iterator iterator = p_149953_0_.getEntitiesWithinAABB(EntityOcelot.class, AxisAlignedBB.getBoundingBox((double) p_149953_1_, (double) (p_149953_2_ + 1), (double) p_149953_3_, (double) (p_149953_1_ + 1), (double) (p_149953_2_ + 2), (double) (p_149953_3_ + 1))).iterator();
-		EntityOcelot entityocelot;
-		do {
-			if (!iterator.hasNext()) {
-				return false;
-			}
-			Entity entity = (Entity) iterator.next();
-			entityocelot = (EntityOcelot) entity;
-		} while (!entityocelot.isSitting());
-		return true;
-	}
-
-	@SuppressWarnings("unused")
-	public void func_149954_e(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
-		if (!p_149954_1_.isRemote) {
-			Block block = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ - 1);
-			Block block1 = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ + 1);
-			Block block2 = p_149954_1_.getBlock(p_149954_2_ - 1, p_149954_3_, p_149954_4_);
-			Block block3 = p_149954_1_.getBlock(p_149954_2_ + 1, p_149954_3_, p_149954_4_);
-			boolean flag = true;
-			int l;
-			Block block4;
-			int i1;
-			Block block5;
-			boolean flag1;
-			byte b0;
-			int j1;
-
-			if (block != this && block1 != this) {
-				if (block2 != this && block3 != this) {
-					b0 = 3;
-
-					if (block.func_149730_j() && !block1.func_149730_j()) {
-						b0 = 3;
-					}
-
-					if (block1.func_149730_j() && !block.func_149730_j()) {
-						b0 = 2;
-					}
-
-					if (block2.func_149730_j() && !block3.func_149730_j()) {
-						b0 = 5;
-					}
-
-					if (block3.func_149730_j() && !block2.func_149730_j()) {
-						b0 = 4;
-					}
-				} else {
-					l = block2 == this ? p_149954_2_ - 1 : p_149954_2_ + 1;
-					block4 = p_149954_1_.getBlock(l, p_149954_3_, p_149954_4_ - 1);
-					i1 = block2 == this ? p_149954_2_ - 1 : p_149954_2_ + 1;
-					block5 = p_149954_1_.getBlock(i1, p_149954_3_, p_149954_4_ + 1);
-					b0 = 3;
-					flag1 = true;
-
-					if (block2 == this) {
-						j1 = p_149954_1_.getBlockMetadata(p_149954_2_ - 1, p_149954_3_, p_149954_4_);
-					} else {
-						j1 = p_149954_1_.getBlockMetadata(p_149954_2_ + 1, p_149954_3_, p_149954_4_);
-					}
-
-					if (j1 == 2) {
-						b0 = 2;
-					}
-
-					if ((block.func_149730_j() || block4.func_149730_j()) && !block1.func_149730_j() && !block5.func_149730_j()) {
-						b0 = 3;
-					}
-
-					if ((block1.func_149730_j() || block5.func_149730_j()) && !block.func_149730_j() && !block4.func_149730_j()) {
-						b0 = 2;
-					}
-				}
-			} else {
-				l = block == this ? p_149954_4_ - 1 : p_149954_4_ + 1;
-				block4 = p_149954_1_.getBlock(p_149954_2_ - 1, p_149954_3_, l);
-				i1 = block == this ? p_149954_4_ - 1 : p_149954_4_ + 1;
-				block5 = p_149954_1_.getBlock(p_149954_2_ + 1, p_149954_3_, i1);
-				b0 = 5;
-				flag1 = true;
-
-				if (block == this) {
-					j1 = p_149954_1_.getBlockMetadata(p_149954_2_, p_149954_3_, p_149954_4_ - 1);
-				} else {
-					j1 = p_149954_1_.getBlockMetadata(p_149954_2_, p_149954_3_, p_149954_4_ + 1);
-				}
-				if (j1 == 4) {
-					b0 = 4;
-				}
-				if ((block2.func_149730_j() || block4.func_149730_j()) && !block3.func_149730_j() && !block5.func_149730_j()) {
-					b0 = 5;
-				}
-				if ((block3.func_149730_j() || block5.func_149730_j()) && !block2.func_149730_j() && !block4.func_149730_j()) {
-					b0 = 4;
-				}
-			}
-
-			p_149954_1_.setBlockMetadataWithNotify(p_149954_2_, p_149954_3_, p_149954_4_, b0, 3);
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te != null && te instanceof TileEntityPoweredChest) {
+			TileEntityPoweredChest teic = (TileEntityPoweredChest) te;
+			teic.wasPlaced(entityliving, itemStack);
+			teic.setFacing(chestFacing);
+			world.markBlockForUpdate(x, y, z);
 		}
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float lx, float ly, float lz) {
 		if (world.isRemote) return true;
+		if (world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) return true;
 
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te != null && te instanceof TileEntityPoweredChest) {
 			player.openGui(RorysMod.instance, RorysMod.GUIS.CHEST_POWERED.getId(), world, x, y, z);
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
