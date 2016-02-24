@@ -18,7 +18,6 @@ package net.roryclaasen.rorysmod.block;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cofh.lib.util.position.BlockPosition;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,9 +26,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.roryclaasen.rorysmod.RorysMod;
@@ -71,18 +68,12 @@ public class BlockPoweredChest extends BlockBaseContainer {
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack itemStack) {
 		byte chestFacing = 0;
 		int facing = MathHelper.floor_double((entityliving.rotationYaw * 4F) / 360F + 0.5D) & 3;
-		if (facing == 0) {
-			chestFacing = 2;
-		}
-		if (facing == 1) {
-			chestFacing = 5;
-		}
-		if (facing == 2) {
-			chestFacing = 3;
-		}
-		if (facing == 3) {
-			chestFacing = 4;
-		}
+
+		if (facing == 0) chestFacing = 2;
+		if (facing == 1) chestFacing = 5;
+		if (facing == 2) chestFacing = 3;
+		if (facing == 3) chestFacing = 4;
+
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te != null && te instanceof TileEntityPoweredChest) {
 			TileEntityPoweredChest teic = (TileEntityPoweredChest) te;
