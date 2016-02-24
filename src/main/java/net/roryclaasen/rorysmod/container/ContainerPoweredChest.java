@@ -23,12 +23,12 @@ import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 
 public class ContainerPoweredChest extends Container {
 
-	private TileEntityPoweredChest te;
+	private TileEntityPoweredChest tile;
 
 	private int slotID = 0;
 
 	public ContainerPoweredChest(TileEntityPoweredChest te, EntityPlayer player) {
-		this.te = te;
+		this.tile = te;
 		// Custom Storage
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -71,7 +71,17 @@ public class ContainerPoweredChest extends Container {
 	}
 
 	@Override
+	public void onContainerClosed(EntityPlayer player) {
+		tile.closeInventory();
+
+		if (!tile.getWorldObj().isRemote) {
+			tile.getWorldObj().playSoundEffect(tile.xCoord, tile.yCoord, tile.zCoord, "random.chestclosed", 0.5F, tile.getWorldObj().rand.nextFloat() * 0.1F + 0.9F);
+		}
+		super.onContainerClosed(player);
+	}
+
+	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return te.isUseableByPlayer(player);
+		return tile.isUseableByPlayer(player);
 	}
 }

@@ -31,7 +31,6 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.ModBlocks;
-import net.roryclaasen.rorysmod.util.RMLog;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
@@ -224,7 +223,6 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
 	@Override
 	public void closeInventory() {
-		RMLog.info("close");
 		--this.numUsingPlayers;
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numUsingPlayers);
 		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
