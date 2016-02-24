@@ -20,17 +20,18 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.NBTLaser;
-import net.roryclaasen.rorysmod.util.RMLog;
 
 public class EntityLaser extends EntityThrowable {
 
 	private NBTLaser data;
+	private NBTTagCompound stackTag;
 
 	public EntityLaser(World world) {
 		super(world);
@@ -39,6 +40,7 @@ public class EntityLaser extends EntityThrowable {
 	public EntityLaser(World world, EntityLivingBase entity, ItemStack itemStack) {
 		super(world, entity);
 		this.data = new NBTLaser(itemStack.stackTagCompound);
+		this.stackTag = this.data.getTag();
 	}
 
 	@Override
@@ -66,35 +68,35 @@ public class EntityLaser extends EntityThrowable {
 		if (!worldObj.isRemote) {
 			if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 				if (Settings.setFireToBlocks) {
-					int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
-					boolean fire = true;
-					RMLog.info(movingObjectPosition.sideHit);
-					switch (movingObjectPosition.sideHit) {
-						case -1 : {
-							fire = false;
+					if (data.getItemCount(NBTLaser.Items.Igniter) > 0) {
+						int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
+						boolean fire = true;
+						switch (movingObjectPosition.sideHit) {
+							case -1 : {
+								fire = false;
+							}
+							case 0 : {
+								--y;
+								fire = false;
+							}
+							case 1 : {
+								++y;
+							}
+							case 2 : {
+								--z;
+							}
+							case 3 : {
+								++z;
+							}
+							case 4 : {
+								--x;
+							}
+							case 5 : {
+								++x;
+							}
 						}
-						case 0 : {
-							--y;
-							fire = false;
-						}
-						case 1 : {
-							++y;
-						}
-						case 2 : {
-							--z;
-						}
-						case 3 : {
-							++z;
-						}
-						case 4 : {
-							--x;
-						}
-						case 5 : {
-							++x;
-						}
+						if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
 					}
-					if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
-					RMLog.info(worldObj.getBlock(x, y, z).toString().replace("net.minecraft.block.", ""));
 				}
 			} else if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 				if (movingObjectPosition.entityHit != null) {
@@ -138,8 +140,12 @@ public class EntityLaser extends EntityThrowable {
 		}
 	}
 
-	public NBTLaser getNBT() {
+	public NBTLaser getLaserData() {
 		return data;
+	}
+
+	public NBTTagCompound getNBT() {
+		return stackTag;
 	}
 
 	private void addLight() {

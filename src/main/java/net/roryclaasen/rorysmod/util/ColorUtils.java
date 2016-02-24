@@ -41,6 +41,18 @@ public class ColorUtils {
 
 	private ColorUtils() {}
 
+	public static Color getColorFromInt(int color) {
+		return new Color(color);
+	}
+
+	public static Color getColorFromIntArray(int[] color) {
+		return new Color(getIntColorFromIntArray(color));
+	}
+
+	public static int getIntColorFromIntArray(int[] color) {
+		return getIntFromColor(color[0], color[1], color[2]);
+	}
+
 	public static int getIntFromColor(Color color) {
 		return getIntFromColor(color.getRed(), color.getGreen(), color.getBlue());
 	}
@@ -51,6 +63,22 @@ public class ColorUtils {
 		Blue = Blue & 0x000000FF;
 
 		return 0xFF000000 | Red | Green | Blue;
+	}
+
+	public static int[] getIntArrayFromColor(int red, int green, int blue) {
+		return getIntArrayFromColor(red, green, blue, 255);
+	}
+
+	public static int[] getIntArrayFromColor(int red, int green, int blue, int alpha) {
+		return new int[]{red, green, blue};
+	}
+
+	public static int[] getIntArrayFromColor(Color color) {
+		return getIntArrayFromColor(color.getRed(), color.getBlue(), color.getGreen());
+	}
+
+	public static int[] getIntArrayFromColorWithAlpha(Color color) {
+		return getIntArrayFromColor(color.getRed(), color.getBlue(), color.getGreen(), color.getAlpha());
 	}
 
 	private static final int BYTES_PER_PIXEL = 4;

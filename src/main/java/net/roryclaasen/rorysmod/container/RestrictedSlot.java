@@ -20,7 +20,6 @@ import java.util.List;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.roryclaasen.rorysmod.util.RMLog;
 
 /**
  * As I'm only using this slot for the rifle table, this may not work for anything else
@@ -97,7 +96,6 @@ public class RestrictedSlot extends Slot {
 				if (tags) {
 					if (itemstack.getIconIndex().getIconName() == allowedItem.getIconIndex().getIconName()) return true;
 				} else {
-					RMLog.info(allowedItem.getItem() != itemstack.getItem());
 					if (allowedItem.getItem() == itemstack.getItem()) return true;
 				}
 			}

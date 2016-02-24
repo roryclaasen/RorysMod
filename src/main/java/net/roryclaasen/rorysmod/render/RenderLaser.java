@@ -57,14 +57,22 @@ public class RenderLaser extends Render {
 			EntityLaser laser = (EntityLaser) entity;
 			if (Settings.coloredLaser) {
 				if (laser.getNBT() != null) {
-					if (laser.getNBT().getItemCount(NBTLaser.Items.Lens) > 0) {
-						GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(laser.getNBT().getColor()));
+					if (laser.getLaserData().getItemCount(NBTLaser.Items.Lens) > 0) {
+						int color = ColorUtils.getIntFromColor(Color.RED);
+						if(laser.getNBT().hasKey("color")){
+							color = ColorUtils.getIntColorFromIntArray(laser.getNBT().getIntArray("color"));
+						}
+						GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(color));
 					}
 				}
 			}
 		}
 		model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 		GL11.glPopMatrix();
+	}
+
+	public int getTexture(int color) {
+		return getTexture(new Color(color));
 	}
 
 	public int getTexture(Color color) {

@@ -15,8 +15,6 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.util;
 
-import java.awt.Color;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.roryclaasen.rorysmod.core.Settings;
@@ -47,27 +45,12 @@ public class NBTLaser {
 			if (!tag.hasKey("slotQu_" + i)) tag.setInteger("slotQu_" + i, 0);
 		}
 		if (!tag.hasKey("lens")) tag.setBoolean("lens", false);
-		if (!tag.hasKey("color")) setColor(null);
 		if (!tag.hasKey("cooldown")) tag.setInteger("cooldown", 0);
 		if (!tag.hasKey("cooldownMax")) tag.setInteger("cooldownMax", 100);
 	}
 
 	public NBTTagCompound getTag() {
 		return tag;
-	}
-
-	public Color getColor() {
-		int color = tag.getInteger("color");
-		return new Color(color);
-	}
-
-	public void setColor(Color color) {
-		if (color == null) color = Color.RED;
-		setColor(ColorUtils.getIntFromColor(color));
-	}
-
-	public void setColor(int color) {
-		tag.setInteger("color", color);
 	}
 
 	public void setLens(boolean hasLens) {
@@ -155,6 +138,10 @@ public class NBTLaser {
 		return getWeight() <= getMaxWeight(tier);
 	}
 
+	public Object getKey(String key) {
+		return tag.getTag(key);
+	}
+
 	public static boolean hasKeys(NBTTagCompound ntbTag) {
 		if (ntbTag == null) return false;
 		if (ntbTag.hasNoTags()) return false;
@@ -162,7 +149,6 @@ public class NBTLaser {
 			if (!ntbTag.hasKey("slotId_" + i)) return false;
 			if (!ntbTag.hasKey("slotQu_" + i)) return false;
 		}
-		if (!ntbTag.hasKey("color")) return false;
 		if (!ntbTag.hasKey("lens")) return false;
 		if (!ntbTag.hasKey("cooldown")) return false;
 		if (!ntbTag.hasKey("cooldownMax")) return false;

@@ -43,6 +43,7 @@ public class GuiRifleTable extends GuiContainer {
 	private ResourceLocation table = new ResourceLocation(RorysMod.MODID, "textures/gui/table.png");
 
 	private GuiSlider colorR, colorG, colorB;
+	private GuiButton save;
 
 	public GuiRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable tileEntity) {
 		super(new ContainerRifleTable(inventoryPlayer, tileEntity));
@@ -52,6 +53,7 @@ public class GuiRifleTable extends GuiContainer {
 		colorR = new GuiSlider(1, -100, 0, 100, 20, "Red: ", "", 0, 255, 255, true, true);
 		colorG = new GuiSlider(2, -100, 30, 100, 20, "Green: ", "", 0, 255, 0, true, true);
 		colorB = new GuiSlider(3, -100, 60, 100, 20, "Blue: ", "", 0, 255, 0, true, true);
+		save = new GuiButton(4, -100, 90, 100, 20, "Save");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -62,6 +64,7 @@ public class GuiRifleTable extends GuiContainer {
 		buttonList.add(colorR);
 		buttonList.add(colorG);
 		buttonList.add(colorB);
+		buttonList.add(save);
 	}
 
 	@Override
@@ -104,10 +107,12 @@ public class GuiRifleTable extends GuiContainer {
 		colorR.xPosition = x - (colorR.width + 10);
 		colorG.xPosition = x - (colorG.width + 10);
 		colorB.xPosition = x - (colorB.width + 10);
+		save.xPosition = x - (save.width + 10);
 
 		colorR.yPosition = y + ((ySize + (colorR.height * 3)) / 5) - 20;
 		colorG.yPosition = colorR.yPosition + colorR.height + 10;
 		colorB.yPosition = colorG.yPosition + colorG.height + 10;
+		save.yPosition = colorB.yPosition + colorB.height + 10;
 
 		setSlidersEnabled(tileEntity.hasLens());
 		super.updateScreen();
@@ -116,10 +121,15 @@ public class GuiRifleTable extends GuiContainer {
 	public void actionPerformed(GuiButton button) {
 		switch (button.id) {
 			case 1 :
-				tileEntity.setColor(getColorFromSlider());
+				// tileEntity.setColor(getColorFromSlider());
+				break;
 			case 2 :
-				tileEntity.setColor(getColorFromSlider());
+				// tileEntity.setColor(getColorFromSlider());
+				break;
 			case 3 :
+				// tileEntity.setColor(getColorFromSlider());
+				break;
+			case 4 :
 				tileEntity.setColor(getColorFromSlider());
 				break;
 			default :
@@ -135,10 +145,12 @@ public class GuiRifleTable extends GuiContainer {
 		colorR.enabled = enable;
 		colorG.enabled = enable;
 		colorB.enabled = enable;
+		save.enabled = enable;
 
 		colorR.visible = enable;
 		colorG.visible = enable;
 		colorB.visible = enable;
+		save.visible = enable;
 	}
 
 	public Color getColorFromSlider() {

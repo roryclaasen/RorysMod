@@ -23,12 +23,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.Constants;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.container.ContainerRifleTable;
 import net.roryclaasen.rorysmod.core.ModItems;
 import net.roryclaasen.rorysmod.gui.GuiRifleTable;
 import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
+import net.roryclaasen.rorysmod.util.ColorUtils;
 import net.roryclaasen.rorysmod.util.NBTLaser;
 import net.roryclaasen.rorysmod.util.RMLog;
 
@@ -93,9 +95,12 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				NBTLaser data = new NBTLaser(stack.stackTagCompound);
 				if (data.hasLens()) {
 					inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
+					if (gui != null) {
+						Color color = Color.RED;
+						if (stack.stackTagCompound.hasKey("colour")) color = new Color((int) stack.stackTagCompound.getLong("colour"));
+						gui.setColorSlider(color);
+					}
 				}
-				RMLog.info("add" + data.getColor());
-				if (gui != null) gui.setColorSlider(data.getColor());
 				for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 					int[] cont = data.getSlot(i - 3);
 					if (cont[0] > 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0] + 1);
@@ -116,9 +121,6 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		if (hasLaser()) {
 			NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
 			data.setLens(inv[1] != null);
-			if (gui != null) {
-				data.setColor(gui.getColorFromSlider());
-			}
 			for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 				ItemStack stack = inv[i];
 				if (stack != null) {
@@ -177,34 +179,34 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		NBTTagList list = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 
-		NBTTagList tagList = tagCompound.getTagList("Inventory", 0);
-		for (int i = 0; i < tagList.tagCount(); i++) {
-			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
-			byte slot = tag.getByte("Slot");
-			if (slot >= 0 && slot < inv.length) {
-				inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+		inv = new ItemStack[getSizeInventory()];
+		for (int i = 0; i < list.tagCount(); ++i) {
+			NBTTagCompound comp = list.getCompoundTagAt(i);
+			int j = comp.getByte("Slot") & 255;
+			if (j >= 0 && j < inv.length) {
+				inv[j] = ItemStack.loadItemStackFromNBT(comp);
 			}
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-
-		NBTTagList itemList = new NBTTagList();
-		for (int i = 0; i < inv.length; i++) {
-			ItemStack stack = inv[i];
-			if (stack != null) {
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setByte("Slot", (byte) i);
-				stack.writeToNBT(tag);
-				itemList.appendTag(tag);
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		NBTTagList list = new NBTTagList();
+		for (int i = 0; i < inv.length; ++i) {
+			if (inv[i] != null) {
+				NBTTagCompound comp = new NBTTagCompound();
+				comp.setByte("Slot", (byte) i);
+				inv[i].writeToNBT(comp);
+				list.appendTag(comp);
 			}
 		}
-		tagCompound.setTag("Inventory", itemList);
+
+		nbt.setTag("Items", list);
 	}
 
 	public boolean hasLens() {
@@ -213,9 +215,10 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		return data.hasLens();
 	}
 
-	public void setColor(Color colorFromSlider) {
+	public void setColor(Color color) {
 		if (hasLens()) {
-			writeToLaser();
+			RMLog.info(ColorUtils.getIntFromColor(color));
+			inv[0].stackTagCompound.setIntArray("color", ColorUtils.getIntArrayFromColor(color));
 		}
 	}
 }
