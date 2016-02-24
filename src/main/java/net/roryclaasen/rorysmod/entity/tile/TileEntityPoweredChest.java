@@ -32,8 +32,7 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 	public float lidAngle;
 	public float prevLidAngle;
 	public int numPlayersUsing;
-	@SuppressWarnings("unused")
-	private int ticksSinceSync;
+	public int ticksSinceSync;
 
 	private ItemStack[] items = new ItemStack[27];
 
