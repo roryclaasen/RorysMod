@@ -35,7 +35,7 @@ import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockPoweredChest extends BlockBaseContainer implements ITileEntityProvider{
+public class BlockPoweredChest extends BlockBaseContainer implements ITileEntityProvider {
 
 	private final Random random = new Random();
 
@@ -91,10 +91,11 @@ public class BlockPoweredChest extends BlockBaseContainer implements ITileEntity
 		if (world.isRemote) return true;
 		if (world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) return true;
 
-		TileEntity te = world.getTileEntity(x, y, z);
-		if (te != null && te instanceof TileEntityPoweredChest) {
-            world.playSoundEffect(x, y, z, "random.chestopen", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if (tile != null && tile instanceof TileEntityPoweredChest) {
+			world.playSoundEffect(x, y, z, "random.chestopen", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 			player.openGui(RorysMod.instance, RorysMod.GUIS.CHEST_POWERED.getId(), world, x, y, z);
+			((TileEntityPoweredChest) tile).openInventory();
 			return true;
 		}
 		return true;
