@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
+import net.roryclaasen.rorysmod.util.ColorUtils;
 import net.roryclaasen.rorysmod.util.NBTLaser;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -90,9 +91,9 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 		this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
-		this.maxExtract = 10 + (75 * data.getItemCount(NBTLaser.Items.Overclock)) + (13 * data.getItemCount(NBTLaser.Items.Capacitor)) - data.getItemCount(NBTLaser.Items.Coolant) + (60 * data.getItemCount(NBTLaser.Items.Explosion))+ (60 * data.getItemCount(NBTLaser.Items.Phaser));
+		this.maxExtract = 10 + (75 * data.getItemCount(NBTLaser.Items.Overclock)) + (13 * data.getItemCount(NBTLaser.Items.Capacitor)) - data.getItemCount(NBTLaser.Items.Coolant) + (60 * data.getItemCount(NBTLaser.Items.Explosion)) + (60 * data.getItemCount(NBTLaser.Items.Phaser));
 		if (this.maxExtract < 10) this.maxExtract = 10;
-		
+
 		itemStack.stackTagCompound = data.getTag();
 	}
 
@@ -121,8 +122,8 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						int igniter = data.getItemCount(NBTLaser.Items.Igniter);
 						if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 						if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
-						if (data.hasLens()){
-							tooltip.add("Color: " + stack.stackTagCompound.getIntArray("color"));
+						if (data.hasLens() && stack.stackTagCompound.hasKey("color")) {
+							tooltip.add("Color: " + ColorUtils.getIntColorFromIntArray(stack.stackTagCompound.getIntArray("color")));
 						}
 						if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 						if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
