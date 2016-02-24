@@ -15,7 +15,6 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.entity.tile;
 
-import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -26,13 +25,14 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.ModBlocks;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
-	public float lidAngle;
-	public float prevLidAngle;
-	public int numPlayersUsing;
-	public int ticksSinceSync;
+	public float field_145972_a;
+	public float field_145975_i;
+	public int field_145973_j;
+	private int field_145974_k;
 
 	private ItemStack[] items = new ItemStack[27];
 
@@ -141,76 +141,85 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 		return false;
 	}
 
-	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		if (++this.field_145974_k % 20 * 4 == 0) {
+			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.poweredChest, 1, this.field_145973_j);
+		}
+		this.field_145975_i = this.field_145972_a;
+		float f = 0.1F;
+		double d1;
+		if (this.field_145973_j > 0 && this.field_145972_a == 0.0F) {
+			double d0 = (double) this.xCoord + 0.5D;
+			d1 = (double) this.zCoord + 0.5D;
+			this.worldObj.playSoundEffect(d0, (double) this.yCoord + 0.5D, d1, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		}
+		if (this.field_145973_j == 0 && this.field_145972_a > 0.0F || this.field_145973_j > 0 && this.field_145972_a < 1.0F) {
+			float f2 = this.field_145972_a;
+			if (this.field_145973_j > 0) {
+				this.field_145972_a += f;
+			} else {
+				this.field_145972_a -= f;
+			}
+			if (this.field_145972_a > 1.0F) {
+				this.field_145972_a = 1.0F;
+			}
+			float f1 = 0.5F;
+			if (this.field_145972_a < f1 && f2 >= f1) {
+				d1 = (double) this.xCoord + 0.5D;
+				double d2 = (double) this.zCoord + 0.5D;
+				this.worldObj.playSoundEffect(d1, (double) this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			}
+			if (this.field_145972_a < 0.0F) {
+				this.field_145972_a = 0.0F;
+			}
+		}
+	}
+
+	/**
+	 * Called when a client event is received with the event number and argument, see World.sendClientEvent
+	 */
 	public boolean receiveClientEvent(int p_145842_1_, int p_145842_2_) {
 		if (p_145842_1_ == 1) {
-			this.numPlayersUsing = p_145842_2_;
+			this.field_145973_j = p_145842_2_;
 			return true;
 		} else {
 			return super.receiveClientEvent(p_145842_1_, p_145842_2_);
 		}
 	}
 
-	public void openInventory() {
-		if (this.numPlayersUsing < 0) {
-			this.numPlayersUsing = 0;
-		}
-
-		++this.numPlayersUsing;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
-		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
-		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
+	/**
+	 * invalidates a tile entity
+	 */
+	public void invalidate() {
+		this.updateContainingBlockInfo();
+		super.invalidate();
 	}
 
-	public void closeInventory() {
-		if (this.getBlockType() instanceof BlockChest) {
-			--this.numPlayersUsing;
-			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
-			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
-			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
-		}
+	public void func_145969_a() {
+		++this.field_145973_j;
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.poweredChest, 1, this.field_145973_j);
 	}
 
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return true;
+	public void func_145970_b() {
+		--this.field_145973_j;
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.poweredChest, 1, this.field_145973_j);
+	}
+
+	public boolean func_145971_a(EntityPlayer player) {
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : player.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-		++this.ticksSinceSync;
-		float f;
+	public void openInventory() {
+	}
 
-		this.prevLidAngle = this.lidAngle;
-		f = 0.1F;
-		double d2;
+	@Override
+	public void closeInventory() {
+	}
 
-		if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
-			double d1 = (double) this.xCoord + 0.5D;
-			d2 = (double) this.zCoord + 0.5D;
-			this.worldObj.playSoundEffect(d1, (double) this.yCoord + 0.5D, d2, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-		}
-
-		if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
-			float f1 = this.lidAngle;
-			if (this.numPlayersUsing > 0) {
-				this.lidAngle += f;
-			} else {
-				this.lidAngle -= f;
-			}
-			if (this.lidAngle > 1.0F) {
-				this.lidAngle = 1.0F;
-			}
-			float f2 = 0.5F;
-			if (this.lidAngle < f2 && f1 >= f2) {
-				d2 = (double) this.xCoord + 0.5D;
-				double d0 = (double) this.zCoord + 0.5D;
-
-				this.worldObj.playSoundEffect(d2, (double) this.yCoord + 0.5D, d0, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-			}
-			if (this.lidAngle < 0.0F) {
-				this.lidAngle = 0.0F;
-			}
-		}
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack item) {
+		return false;
 	}
 }
