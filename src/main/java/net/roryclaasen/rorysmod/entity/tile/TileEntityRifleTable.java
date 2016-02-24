@@ -32,7 +32,6 @@ import net.roryclaasen.rorysmod.item.ItemRifle;
 import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import net.roryclaasen.rorysmod.util.ColorUtils;
 import net.roryclaasen.rorysmod.util.NBTLaser;
-import net.roryclaasen.rorysmod.util.RMLog;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
@@ -97,7 +96,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 					inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
 					if (gui != null) {
 						Color color = Color.RED;
-						if (stack.stackTagCompound.hasKey("colour")) color = new Color((int) stack.stackTagCompound.getLong("colour"));
+						if (stack.stackTagCompound.hasKey("color")) color = ColorUtils.getColorFromIntArray(stack.stackTagCompound.getIntArray("color"));
 						gui.setColorSlider(color);
 					}
 				}
@@ -143,6 +142,18 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 	public ItemStack getLaser() {
 		if (!hasLaser()) return null;
 		return inv[0];
+	}
+
+	public boolean hasLens() {
+		if (!hasLaser()) return false;
+		NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
+		return data.hasLens();
+	}
+
+	public void setColor(Color color) {
+		if (hasLens()) {
+			inv[0].stackTagCompound.setIntArray("color", ColorUtils.getIntArrayFromColor(color));
+		}
 	}
 
 	@Override
@@ -207,18 +218,5 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		}
 
 		nbt.setTag("Items", list);
-	}
-
-	public boolean hasLens() {
-		if (!hasLaser()) return false;
-		NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
-		return data.hasLens();
-	}
-
-	public void setColor(Color color) {
-		if (hasLens()) {
-			RMLog.info(ColorUtils.getIntFromColor(color));
-			inv[0].stackTagCompound.setIntArray("color", ColorUtils.getIntArrayFromColor(color));
-		}
 	}
 }

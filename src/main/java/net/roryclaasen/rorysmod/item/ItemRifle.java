@@ -121,7 +121,9 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						int igniter = data.getItemCount(NBTLaser.Items.Igniter);
 						if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 						if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
-						if (data.hasLens()) tooltip.add("Color: " + data.getKey("colour"));
+						if (data.hasLens()){
+							tooltip.add("Color: " + stack.stackTagCompound.getIntArray("color"));
+						}
 						if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 						if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
 						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
