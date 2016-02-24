@@ -91,5 +91,7 @@ public class ModBlocks implements TypeGroup {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 4), new Object[]{"   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{"d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
+
+		GameRegistry.addShapedRecipe(new ItemStack(poweredChest), new Object[]{"c", "r", 'c', Blocks.chest, 'r', Items.redstone});
 	}
 }
