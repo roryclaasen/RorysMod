@@ -119,8 +119,8 @@ public class RorysMod {
 	public void postinit(FMLPostInitializationEvent event) {}
 
 	private void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "RifleTable");
-		GameRegistry.registerTileEntity(TileEntityPoweredChest.class, "PoweredChest");
+		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "tableUpgrade");
+		GameRegistry.registerTileEntity(TileEntityPoweredChest.class, "blockChestPowered");
 	}
 
 	private void registerModEntities() {

@@ -50,6 +50,5 @@ public class ClientProxy extends CommonProxy {
 
 		render = new RenderPoweredChest();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPoweredChest.class, render);
-		// MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.upgradeTable), new ItemRender(render, new TileEntityRifleTable()));
 	}
 }

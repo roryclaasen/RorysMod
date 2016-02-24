@@ -15,30 +15,30 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.entity.tile;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.roryclaasen.rorysmod.RorysMod;
-import net.roryclaasen.rorysmod.container.ContainerPoweredChest;
 import net.roryclaasen.rorysmod.core.ModBlocks;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
-	private int ticksSinceSync = -1;
 	public float prevLidAngle;
 	public float lidAngle;
-	private int numUsingPlayers;
+	public int numUsingPlayers;
+	
 	private byte facing;
 
 	private ItemStack[] items = new ItemStack[27];
@@ -133,6 +133,18 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 		nbt.setTag("Items", list);
 	}
 
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound tag = new NBTTagCompound();
+		writeToNBT(tag);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, blockMetadata, tag);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
+	}
+
 	public int getInventoryStackLimit() {
 		return 64;
 	}
@@ -144,7 +156,7 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 					return true;
 				}
 			} else {
-				if (worldObj.isRemote) {
+				if (!worldObj.isRemote) {
 					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.chest.state.locked")));
 				}
 			}
@@ -152,84 +164,71 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unused")
 	@Override
 	public void updateEntity() {
-		if (worldObj != null && !this.worldObj.isRemote && this.numUsingPlayers != 0 && (this.ticksSinceSync + xCoord + yCoord + zCoord) % 200 == 0) {
-			this.numUsingPlayers = 0;
-			float var1 = 5.0F;
-			List<EntityPlayer> var2 = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - var1, yCoord - var1, zCoord - var1, xCoord + 1 + var1, yCoord + 1 + var1, zCoord + 1 + var1));
+		this.prevLidAngle = this.lidAngle;
+		float f = 0.15F;
+		double d2;
 
-			for (EntityPlayer var4 : var2) {
-				if (var4.openContainer instanceof ContainerPoweredChest) {
-					++this.numUsingPlayers;
-				}
-			}
+		if (this.numUsingPlayers > 0 && this.lidAngle == 0.0F) {
+			this.worldObj.playSoundEffect(xCoord + 0.5f, yCoord + 0.5f, zCoord + 0.5f, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
-		if (worldObj != null && !worldObj.isRemote && ticksSinceSync < 0) {
-			worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 3, ((numUsingPlayers << 3) & 0xF8) | (facing & 0x7));
-		}
+		if (this.numUsingPlayers == 0 && this.lidAngle > 0.0F || this.numUsingPlayers > 0 && this.lidAngle < 1.6f) {
+			float f1 = this.lidAngle;
 
-		this.ticksSinceSync++;
-		prevLidAngle = lidAngle;
-		float f = 0.1F;
-		if (numUsingPlayers > 0 && lidAngle == 0.0F) {
-			double d = xCoord + 0.5D;
-			double d1 = zCoord + 0.5D;
-			worldObj.playSoundEffect(d, yCoord + 0.5D, d1, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
-		}
-		if (numUsingPlayers == 0 && lidAngle > 0.0F || numUsingPlayers > 0 && lidAngle < 1.0F) {
-			float f1 = lidAngle;
-			if (numUsingPlayers > 0) {
-				lidAngle += f;
+			if (this.numUsingPlayers > 0) {
+				this.lidAngle += f;
 			} else {
-				lidAngle -= f;
+				this.lidAngle -= f;
 			}
-			if (lidAngle > 1.0F) {
-				lidAngle = 1.0F;
+
+			if (this.lidAngle > 1.6F) {
+				this.lidAngle = 1.6F;
 			}
+
 			float f2 = 0.5F;
-			if (lidAngle < f2 && f1 >= f2) {
-				double d2 = xCoord + 0.5D;
-				double d3 = zCoord + 0.5D;
-				worldObj.playSoundEffect(d2, yCoord + 0.5D, d3, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+
+			if (this.lidAngle < f2 && f1 >= f2) {
+				this.worldObj.playSoundEffect(xCoord + 0.5f, yCoord + 0.5f, zCoord + 0.5f, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			}
-			if (lidAngle < 0.0F) {
-				lidAngle = 0.0F;
+
+			if (this.lidAngle < 0.0F) {
+				this.lidAngle = 0.0F;
 			}
 		}
 	}
 
 	@Override
-	public boolean receiveClientEvent(int i, int j) {
-		if (i == 1) {
-			numUsingPlayers = j;
-		} else if (i == 2) {
-			facing = (byte) j;
-		} else if (i == 3) {
-			facing = (byte) (j & 0x7);
-			numUsingPlayers = (j & 0xF8) >> 3;
+	public boolean receiveClientEvent(int id, int data) {
+		if (id == 1) {
+			this.numUsingPlayers = data;
+			return true;
+		} else {
+			return super.receiveClientEvent(id, data);
 		}
-		return true;
 	}
 
 	@Override
 	public void openInventory() {
-		if (worldObj == null) {
-			return;
+		if (this.numUsingPlayers < 0) {
+			this.numUsingPlayers = 0;
 		}
-		numUsingPlayers++;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 1, numUsingPlayers);
+
+		++this.numUsingPlayers;
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numUsingPlayers);
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
 	}
 
 	@Override
 	public void closeInventory() {
-		if (worldObj == null) {
-			return;
-		}
-		numUsingPlayers--;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 1, numUsingPlayers);
+		RMLog.info("close");
+		--this.numUsingPlayers;
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numUsingPlayers);
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
 	}
 
 	public void setFacing(byte facing2) {
