@@ -5,10 +5,10 @@ Modules are items that allow the rifle to be changed, from damage to color to th
 #### Any errors or issues with the modules?
 Please let me know by [clicking here](https://github.com/GOGO98901/RorysMod/issues/new) to submit an issue.
 #### Want a new module?
-Check if I'm not about to add it already by looking at this [list](#planned-modules) then do one of the following bellow.<br>
+Check if I'm not about to add it already by looking at this [list](#planned-modules) then do one of the following below.<br>
 NOTE: I may not add the module, but I probably will.
 - Create a [pull request](https://github.com/GOGO98901/RorysMod/compare) with the new module implemented (the texture does not have to be added at this point)
-- Create a [new issue](https://github.com/GOGO98901/RorysMod/issues/new) that says what should be added, remember to add the idea lable
+- Create a [new issue](https://github.com/GOGO98901/RorysMod/issues/new) that says what should be added, remember to add the idea label
 
 ### Contents
 1. [Base Modules](#base-modules)
@@ -23,7 +23,7 @@ NOTE: I may not add the module, but I probably will.
 10. [Planned Modules](#planned-modules)
 
 ## Base Modules
-Each Module can stack up to 16, and will change the rifles statistics depending on which ones are added. See each module for more information.
+Each Module can stack up to 16, and will change the rifle's statistics depending on which ones are added. See each module for more information.
 
 ## Capacitor Module
 The capacitor module allows the rifle to hold more power capacity, however it also increases power usage slightly.
@@ -35,19 +35,19 @@ This module will decrease the cool down time that it takes to fire a new laser b
 This module allows the laser to change color. This feature does and does not not work currently and so this item can only be spawned in.
 
 ## Phaser Module
-This module changes the amount of damage that is given to an entity when hit. With out this module the laser will do no damage no matter what the [formula](#damage-given) says.
+This module changes the amount of damage that is given to an entity when hit. Without this module the laser will do no damage no matter what the [formula](#damage-given) says.
 
 ## Overclock Module
-This module makes other module more power full with the cost of using more power when used
+This module makes other modules more powerful with the cost of using more power when used.
 
 ## Explosion Module
-This module allows the laser to create an explosion when the it hits either the block or an entity. If no explosion modules are present then it ill not create an explosion no matter of what the [formula](#explosion-size) says.
+This module allows the laser to create an explosion when the it hits either a block or an entity. If no explosion modules are present then it will not create an explosion no matter of what the [formula](#explosion-size) says.
 
 ## Igniter Module
 This module sets the block/entity hit on fire
 
 ## Formula
-The bellow formulas are what the mod will be using in the next release. These are subject to change
+The below formulas are what the mod will be using in the next release. These are subject to change.
 #### Capacity Size
 ```
 1000 + (1000 x number of capacitors) + (100 x number of overclockers)
