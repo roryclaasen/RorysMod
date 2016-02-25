@@ -8,7 +8,7 @@ Please let me know by [clicking here](https://github.com/GOGO98901/RorysMod/issu
 Check if I'm not about to add it already by looking at this [list](#planned-modules) then do one of the following bellow.<br>
 NOTE: I may not add the module, but I probably will.
 - Create a [pull request](https://github.com/GOGO98901/RorysMod/compare) with the new module implemented (the texture does not have to be added at this point)
-- Create a [new issue](https://github.com/GOGO98901/RorysMod/issues/new) that says what should be added
+- Create a [new issue](https://github.com/GOGO98901/RorysMod/issues/new) that says what should be added, remember to add the idea lable
 
 ### Contents
 1. [Base Modules](#base-modules)
