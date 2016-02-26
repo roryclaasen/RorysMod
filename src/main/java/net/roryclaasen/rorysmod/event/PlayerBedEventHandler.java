@@ -57,7 +57,7 @@ public class PlayerBedEventHandler {
 
 		if (mobs && night) {
 			RMLog.info("Player can sleep");
-			if (Settings.bedText && event.entityPlayer.worldObj.isRemote) {
+			if (Settings.bedText && !event.entityPlayer.worldObj.isRemote) {
 				if (event.entityPlayer.worldObj.isDaytime()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)));
 				if (!list.isEmpty()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_SAFE)));
 			}
