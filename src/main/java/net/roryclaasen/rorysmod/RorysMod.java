@@ -30,6 +30,8 @@ import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.RMLog;
+import net.roryclaasen.rorysmod.util.VersionChecker;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -52,6 +54,8 @@ public class RorysMod {
 
 	@Instance(MODID)
 	public static RorysMod instance;
+
+	public VersionChecker checker;
 
 	public static enum GUIS {
 		RILE_TABLE("rorysmod.gui.upgradeTable"), CHEST_POWERED("rorysmod.gui.poweredchest");
@@ -116,7 +120,11 @@ public class RorysMod {
 	}
 
 	@EventHandler
-	public void postinit(FMLPostInitializationEvent event) {}
+	public void postinit(FMLPostInitializationEvent event) {
+		checker = new VersionChecker(FMLCommonHandler.instance().findContainerFor(RorysMod.MODID).getVersion());
+		Thread thread = new Thread(checker,MODID + " Version Check");
+		thread.start();
+	}
 
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "tableUpgrade");
