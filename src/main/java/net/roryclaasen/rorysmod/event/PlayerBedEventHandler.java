@@ -15,6 +15,8 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.event;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +31,7 @@ import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
-import cpw.mods.fml.common.eventhandler.Event.Result;
+import net.roryclaasen.rorysmod.util.ReflectionUtilities;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerBedEventHandler {
@@ -40,6 +42,56 @@ public class PlayerBedEventHandler {
 	private final Random random = new Random();
 
 	private final int sleepRange = 10;
+	private static Field sleeping;
+	private static Field sleeptimer;
+	private static Method setsize;
+	private static Method func_71013_b;
+
+	@SuppressWarnings("rawtypes")
+	public static void setupFields() {
+		Class bed = EntityPlayer.class;
+		Class entity = Entity.class;
+		try {
+			sleeping = ReflectionUtilities.getField("sleeping", "field_71083_bS", bed);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			sleeptimer = ReflectionUtilities.getField("sleepTimer", "field_71076_b", bed);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			setsize = ReflectionUtilities.getMethod("setSize", "func_70105_a", entity, float.class, float.class);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			func_71013_b = ReflectionUtilities.getMethod("func_175139_a", "func_175139_a", bed, int.class);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			func_71013_b.setAccessible(true);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			setsize.setAccessible(true);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			sleeping.setAccessible(true);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+		try {
+			sleeptimer.setAccessible(true);
+		} catch (Exception e) {
+			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+		}
+	}
 
 	@SubscribeEvent
 	public void onWakeUpEvent(PlayerWakeUpEvent event) {
@@ -51,24 +103,32 @@ public class PlayerBedEventHandler {
 	}
 
 	@SubscribeEvent
-	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event) {
-		List<EntityMob> list = getEntityMobFromPlayer(event.entityPlayer, sleepRange);
+	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event) throws IllegalArgumentException, IllegalAccessException {
+		EntityPlayer player = event.entityPlayer;
+		List<EntityMob> list = getEntityMobFromPlayer(player, sleepRange);
 
 		boolean mobs = (!Settings.enableMobsNearByCheck || list.isEmpty());
 		boolean night = (Settings.enableSleepInDay || !event.entityPlayer.worldObj.isDaytime());
 
 		if (mobs && night) {
-			RMLog.info("Player can sleep");
 			if (!event.entityPlayer.worldObj.isRemote) {
 				if (event.entityPlayer.worldObj.isDaytime()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)));
 				if (!list.isEmpty()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_SAFE)));
 			}
 			event.result = EntityPlayer.EnumStatus.OK;
+			if (sleeping != null) sleeping.setBoolean(player, true);
+			if (sleeptimer != null) sleeptimer.setInt(player, 0);
+			if (!player.worldObj.isRemote) {
+				player.worldObj.updateAllPlayersSleepingFlag();
+			}
+			return;
 		} else {
 			if (!night) event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
 			else if (!mobs && night) event.result = EntityPlayer.EnumStatus.NOT_SAFE;
 			else event.result = EntityPlayer.EnumStatus.OTHER_PROBLEM;
+			return;
 		}
+
 	}
 
 	@SuppressWarnings("unchecked")

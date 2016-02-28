@@ -137,6 +137,7 @@ public class RorysMod {
 		MinecraftForge.EVENT_BUS.register(new PlayerHoldingRifle());
 		MinecraftForge.EVENT_BUS.register(new PlayerTickEvents());
 		if (Arguments.isExperiment()) {
+			PlayerBedEventHandler.setupFields();
 			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 		} else RMLog.info("Skiping expiremntal Handlers");
 	}
