@@ -32,22 +32,26 @@ public class WorldServerTransformer implements IClassTransformer {
 
 	@Override
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
+		byte[] data = arg2;
 		try {
 			if (arg0.equals("js")) {
 				RMLog.info("About to patch WorldServer [js]", true);
-				return patchClassASM(arg0, arg2, true);
+				data = patchClassASM(arg0, arg2, true);
 			}
 
 			if (arg0.equals("net.minecraft.world.WorldServer")) {
 				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
-				return patchClassASM(arg0, arg2, false);
+				data = patchClassASM(arg0, arg2, false);
 			}
 		} catch (Exception e) {
-			RMLog.warn("Patch failed!", true);
 			e.printStackTrace();
 		}
-
-		return arg2;
+		if (data != arg2) {
+			RMLog.info("Finnished Patching!", true);
+		} else {
+			RMLog.warn("Patch failed!", true);
+		}
+		return data;
 	}
 
 	public byte[] patchClassASM(String name, byte[] bytes, boolean obfuscated) {
@@ -94,7 +98,6 @@ public class WorldServerTransformer implements IClassTransformer {
 				MethodInsnNode p2 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "()Z", false);
 
 				method.instructions.set(p1, p2);
-				RMLog.info("Finnished Patching!", true);
 				break;
 			}
 		}
