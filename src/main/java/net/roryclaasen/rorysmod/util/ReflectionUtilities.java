@@ -24,10 +24,10 @@ public class ReflectionUtilities {
 	public static Field getField(String methodName, String obfname, Class classy) {
 		for (Field i : classy.getDeclaredFields()) {
 			if (i.getName() == methodName) {
-				System.out.println("Found Field " + methodName + " as " + methodName);
+				RMLog.info("Found Field " + methodName + " as " + methodName);
 				return i;
 			} else if (i.getName() == obfname) {
-				System.out.println("Found Field " + methodName + " as " + obfname);
+				RMLog.info("Found Field " + methodName + " as " + obfname);
 				return i;
 			}
 		}
@@ -38,10 +38,10 @@ public class ReflectionUtilities {
 	public static Method getMethod(String methodName, String obfname, Class classy, Class... parameters) {
 		for (Method i : classy.getDeclaredMethods()) {
 			if (i.getName() == methodName) {
-				System.out.println("Found Method " + methodName + " as " + methodName);
+				RMLog.info("Found Method " + methodName + " as " + methodName);
 				return i;
 			} else if (i.getName() == obfname) {
-				System.out.println("Found Method " + methodName + " as " + obfname);
+				RMLog.info("Found Method " + methodName + " as " + obfname);
 				return i;
 			}
 		}

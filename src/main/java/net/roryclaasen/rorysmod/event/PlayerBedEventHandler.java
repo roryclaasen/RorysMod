@@ -45,7 +45,6 @@ public class PlayerBedEventHandler {
 	private static Field sleeping;
 	private static Field sleeptimer;
 	private static Method setsize;
-	private static Method func_71013_b;
 
 	@SuppressWarnings("rawtypes")
 	public static void setupFields() {
@@ -67,16 +66,6 @@ public class PlayerBedEventHandler {
 			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
-			func_71013_b = ReflectionUtilities.getMethod("func_175139_a", "func_175139_a", bed, int.class);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
-			func_71013_b.setAccessible(true);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
 			setsize.setAccessible(true);
 		} catch (Exception e) {
 			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
@@ -94,16 +83,26 @@ public class PlayerBedEventHandler {
 	}
 
 	@SubscribeEvent
-	public void onWakeUpEvent(PlayerWakeUpEvent event) {
-		RMLog.info("waking up");
-		event.entity.worldObj.getWorldInfo().setWorldTime(1000);
+	public void onWakeUpEvent(PlayerWakeUpEvent event) throws IllegalArgumentException, IllegalAccessException {
+		if (event.entity.worldObj.isRemote) return;
+		if (!event.entity.worldObj.provider.isSurfaceWorld()) return;
+
+		EntityPlayer player = event.entityPlayer;
+		player.worldObj.getWorldInfo().setWorldTime(1000);
+		
 		if (Settings.enableStayInBed) {
-			// RMLog.info("Should be in bed");
+			if (sleeping != null) sleeping.setBoolean(player, true);
+			if (!player.worldObj.isRemote) {
+				player.worldObj.updateAllPlayersSleepingFlag();
+			}
 		}
 	}
 
 	@SubscribeEvent
 	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event) throws IllegalArgumentException, IllegalAccessException {
+		if (event.entity.worldObj.isRemote) return;
+		if (!event.entity.worldObj.provider.isSurfaceWorld()) return;
+		
 		EntityPlayer player = event.entityPlayer;
 		List<EntityMob> list = getEntityMobFromPlayer(player, sleepRange);
 
@@ -118,6 +117,7 @@ public class PlayerBedEventHandler {
 			event.result = EntityPlayer.EnumStatus.OK;
 			if (sleeping != null) sleeping.setBoolean(player, true);
 			if (sleeptimer != null) sleeptimer.setInt(player, 0);
+			player.motionX = player.motionZ = player.motionY = 0.0D;
 			if (!player.worldObj.isRemote) {
 				player.worldObj.updateAllPlayersSleepingFlag();
 			}
