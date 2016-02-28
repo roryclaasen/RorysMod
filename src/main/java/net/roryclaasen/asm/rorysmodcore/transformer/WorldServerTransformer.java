@@ -48,7 +48,7 @@ public class WorldServerTransformer implements IClassTransformer {
 		if (data != arg2) {
 			RMLog.info("Finnished Patching!", true);
 		} else {
-			RMLog.warn("Patch failed!", true);
+			//RMLog.warn("Patch failed!", true);
 		}
 		return data;
 	}
@@ -93,6 +93,7 @@ public class WorldServerTransformer implements IClassTransformer {
 				MethodInsnNode p2 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "()Z", false);
 
 				method.instructions.set(p1, p2);
+				method.instructions.remove(method.instructions.get(invok_index - 1));
 				break;
 			}
 		}
