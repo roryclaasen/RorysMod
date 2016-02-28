@@ -92,6 +92,7 @@ public class PlayerBedEventHandler {
 		
 		if (Settings.enableStayInBed) {
 			if (sleeping != null) sleeping.setBoolean(player, true);
+			if (sleeptimer != null) sleeptimer.setInt(player, 0);
 			if (!player.worldObj.isRemote) {
 				player.worldObj.updateAllPlayersSleepingFlag();
 			}

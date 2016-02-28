@@ -26,7 +26,6 @@ import net.roryclaasen.rorysmod.event.PlayerHoldingRifle;
 import net.roryclaasen.rorysmod.event.PlayerTickEvents;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
-import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.VersionChecker;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -120,7 +119,7 @@ public class RorysMod {
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
 		checker = new VersionChecker(FMLCommonHandler.instance().findContainerFor(RorysMod.MODID).getVersion());
-		Thread thread = new Thread(checker,MODID + " Version Check");
+		Thread thread = new Thread(checker, MODID + " Version Check");
 		thread.start();
 	}
 
@@ -136,9 +135,7 @@ public class RorysMod {
 	private void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new PlayerHoldingRifle());
 		MinecraftForge.EVENT_BUS.register(new PlayerTickEvents());
-		if (Arguments.isExperiment()) {
-			PlayerBedEventHandler.setupFields();
-			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
-		} else RMLog.info("Skiping expiremntal Handlers");
+		PlayerBedEventHandler.setupFields();
+		MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 	}
 }
