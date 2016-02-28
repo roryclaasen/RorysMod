@@ -26,11 +26,16 @@ minecraft {
     runDir = "eclipse"
 }
 
+configurations {
+    extraLibs
+}
+
 dependencies {
     compile files('libs/industrialcraft-2-2.2.811-experimental-api.jar')
 	compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
 	compile files('libs/CoFHLib-[1.7.10]1.1.1-181.jar')
 	compile files('libs/version-checker-1.0.jar')
+	extraLibs files('libs/version-checker-1.0.jar')
 }
 
 processResources {
@@ -58,5 +63,8 @@ jar {
     archiveName = archivesBaseName + classifier + version + ".jar"
     manifest {
         attributes 'FMLAT': 'rorysmods_at.cfg'
+    }
+    into('lib') {
+        from configurations.extraLibs
     }
 }
