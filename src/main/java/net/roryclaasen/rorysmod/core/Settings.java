@@ -29,7 +29,6 @@ public class Settings {
 	public static boolean enableMobsNearByCheck;
 	public static boolean enableSleepInDay;
 	public static boolean enableStayInBed;
-	public static boolean bedText;
 	public static boolean showColorBox;
 	public static boolean laserEmitsLight;
 
@@ -60,7 +59,6 @@ public class Settings {
 		enableMobsNearByCheck = config.get("sleeping", "enableMobsNearByCheck", false).getBoolean(false);
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true).getBoolean(true);
 		enableStayInBed = config.get("sleeping", "stayInBed", true).getBoolean(true);
-		bedText = config.get("sleeping", "whenAccessingBedShowNewText", false).getBoolean(false);
 
 		// modular lasers
 		coloredLaser = config.get("modular-lasers", "allowColouredLasers", true).getBoolean(true);

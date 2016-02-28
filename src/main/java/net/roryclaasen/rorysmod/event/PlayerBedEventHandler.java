@@ -43,6 +43,7 @@ public class PlayerBedEventHandler {
 	@SubscribeEvent
 	public void onWakeUpEvent(PlayerWakeUpEvent event) {
 		RMLog.info("waking up");
+		event.entity.worldObj.getWorldInfo().setWorldTime(1000);
 		if (Settings.enableStayInBed) {
 			// RMLog.info("Should be in bed");
 		}
@@ -57,12 +58,12 @@ public class PlayerBedEventHandler {
 
 		if (mobs && night) {
 			RMLog.info("Player can sleep");
-			if (Settings.bedText && !event.entityPlayer.worldObj.isRemote) {
+			if (!event.entityPlayer.worldObj.isRemote) {
 				if (event.entityPlayer.worldObj.isDaytime()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)));
 				if (!list.isEmpty()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_SAFE)));
 			}
 
-			//event.result = EntityPlayer.EnumStatus.OK;
+			event.result = EntityPlayer.EnumStatus.OK;
 		} else {
 			if (!night) event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
 			else if (!mobs && night) event.result = EntityPlayer.EnumStatus.NOT_SAFE;
