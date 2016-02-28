@@ -111,7 +111,6 @@ public class PlayerBedEventHandler {
 			else event.result = EntityPlayer.EnumStatus.OTHER_PROBLEM;
 			return;
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -143,6 +142,6 @@ public class PlayerBedEventHandler {
 			int msg = random.nextInt(NOT_SAFE.length);
 			return NOT_SAFE[msg];
 		}
-		return "Message not Fo";
+		return "Message not Found";
 	}
 }
