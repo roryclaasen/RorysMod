@@ -56,6 +56,7 @@ public class RMLog {
 	}
 
 	public static void log(Level level, Object object, boolean core) {
+		if (object == null) object = "null";
 		if (core) FMLLog.log(RorysMod.MODID + "core", level, object.toString());
 		else FMLLog.log(RorysMod.MODID, level, object.toString());
 	}
