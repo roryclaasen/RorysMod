@@ -28,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
-import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.ReflectionUtilities;
@@ -79,23 +78,6 @@ public class PlayerBedEventHandler {
 			sleeptimer.setAccessible(true);
 		} catch (Exception e) {
 			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-	}
-
-	@SubscribeEvent
-	public void onWakeUpEvent(PlayerWakeUpEvent event) throws IllegalArgumentException, IllegalAccessException {
-		if (event.entity.worldObj.isRemote) return;
-		if (!event.entity.worldObj.provider.isSurfaceWorld()) return;
-
-		EntityPlayer player = event.entityPlayer;
-		player.worldObj.getWorldInfo().setWorldTime(1000);
-		
-		if (Settings.enableStayInBed) {
-			if (sleeping != null) sleeping.setBoolean(player, true);
-			if (sleeptimer != null) sleeptimer.setInt(player, 0);
-			if (!player.worldObj.isRemote) {
-				player.worldObj.updateAllPlayersSleepingFlag();
-			}
 		}
 	}
 
