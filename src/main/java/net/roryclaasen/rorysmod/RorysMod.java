@@ -26,6 +26,7 @@ import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import net.roryclaasen.rorysmod.event.PlayerHoldingRifle;
+import net.roryclaasen.rorysmod.event.PlayerTickEvents;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.util.Arguments;
@@ -137,6 +138,7 @@ public class RorysMod {
 
 	private void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new PlayerHoldingRifle());
+		MinecraftForge.EVENT_BUS.register(new PlayerTickEvents());
 		if (Arguments.isExperiment()) {
 			MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 		} else RMLog.info("Skiping expiremntal Handlers");

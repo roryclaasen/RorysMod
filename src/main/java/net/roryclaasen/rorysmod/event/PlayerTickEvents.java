@@ -18,24 +18,26 @@ package net.roryclaasen.rorysmod.event;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.util.UsefulFunctions;
 import net.roryclaasen.rorysmod.util.VersionChecker;
-import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class PlayerTickEvents {
 
-	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
-	public void onEvent(PlayerTickEvent event) {
-		if (!VersionChecker.haveWarnedVersionOutOfDate && event.player.worldObj.isRemote && !RorysMod.instance.checker.isLatestVersion()) {
-			ClickEvent versionCheckChatClickEvent = new ClickEvent(ClickEvent.Action.OPEN_URL, "http://gogo98901.github.io/RorysMod/");
-			ChatStyle clickableChatStyle = new ChatStyle().setChatClickEvent(versionCheckChatClickEvent);
-			ChatComponentText versionWarningChatComponent = new ChatComponentText("Your Rory's Mod is not latest version!  Click here to update.");
-			versionWarningChatComponent.setChatStyle(clickableChatStyle);
-			event.player.addChatMessage(versionWarningChatComponent);
-			VersionChecker.haveWarnedVersionOutOfDate = true;
+	@SubscribeEvent
+	public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
+		if (UsefulFunctions.isPlayer(event.entity) && event.world.isRemote) {
+			if (!VersionChecker.haveWarnedVersionOutOfDate && !RorysMod.instance.checker.isLatestVersion()) {
+				ClickEvent versionCheckChatClickEvent = new ClickEvent(ClickEvent.Action.OPEN_URL, "http://gogo98901.github.io/RorysMod/");
+				ChatStyle clickableChatStyle = new ChatStyle().setChatClickEvent(versionCheckChatClickEvent);
+				ChatComponentText versionWarningChatComponent = new ChatComponentText(EnumChatFormatting.GOLD + "[Rory's Mod]" + EnumChatFormatting.WHITE + " There is a new version avalible!" + EnumChatFormatting.GREEN + "  Click here to update.");
+				versionWarningChatComponent.setChatStyle(clickableChatStyle);
+				UsefulFunctions.getPlayerFromEntity(event.entity).addChatMessage(versionWarningChatComponent);
+				VersionChecker.haveWarnedVersionOutOfDate = true;
+			}
 		}
-
 	}
 }
