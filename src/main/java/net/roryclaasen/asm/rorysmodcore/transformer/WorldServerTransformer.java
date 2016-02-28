@@ -38,7 +38,6 @@ public class WorldServerTransformer implements IClassTransformer {
 				RMLog.info("About to patch WorldServer [js]", true);
 				data = patchClassASM(arg0, arg2, true);
 			}
-
 			if (arg0.equals("net.minecraft.world.WorldServer")) {
 				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
 				data = patchClassASM(arg0, arg2, false);
@@ -57,16 +56,12 @@ public class WorldServerTransformer implements IClassTransformer {
 	public byte[] patchClassASM(String name, byte[] bytes, boolean obfuscated) {
 		String targetMethodName = "";
 
-		// Our target method
 		if (obfuscated == true) targetMethodName = "d";
 		else targetMethodName = "wakeAllPlayers";
 
-		// set up ASM class manipulation stuff. Consult the ASM docs for details
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(bytes);
 		classReader.accept(classNode, 0);
-
-		// Now we loop over all of the methods declared inside the World server class until we get to the targetMethodName "doExplosionB"
 
 		Iterator<MethodNode> methods = classNode.methods.iterator();
 		while (methods.hasNext()) {
