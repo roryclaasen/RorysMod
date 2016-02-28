@@ -29,8 +29,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.roryclaasen.rorysmod.RorysMod;
 import net.roryclaasen.rorysmod.core.ModBlocks;
+import net.roryclaasen.rorysmod.core.RorysMod;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 

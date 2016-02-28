@@ -17,7 +17,7 @@ package net.roryclaasen.rorysmod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.RorysMod;
 
 public class BlockBase extends Block {
 

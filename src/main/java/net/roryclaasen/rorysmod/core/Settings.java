@@ -16,7 +16,6 @@ limitations under the License.
 package net.roryclaasen.rorysmod.core;
 
 import net.minecraftforge.common.config.Configuration;
-import net.roryclaasen.rorysmod.RorysMod;
 
 import org.apache.logging.log4j.Level;
 

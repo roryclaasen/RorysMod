@@ -15,7 +15,7 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.util;
 
-import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.RorysMod;
 
 import org.apache.logging.log4j.Level;
 

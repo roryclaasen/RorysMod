@@ -20,7 +20,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.RorysMod;
 import net.roryclaasen.rorysmod.util.UsefulFunctions;
 import net.roryclaasen.rorysmod.util.VersionChecker;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

@@ -30,7 +30,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.RorysMod;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

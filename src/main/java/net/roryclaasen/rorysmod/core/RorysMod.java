@@ -13,14 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package net.roryclaasen.rorysmod;
+package net.roryclaasen.rorysmod.core;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.roryclaasen.rorysmod.core.ModBlocks;
-import net.roryclaasen.rorysmod.core.ModItems;
-import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;

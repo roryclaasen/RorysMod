@@ -19,7 +19,7 @@ import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.RorysMod;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 
 import org.lwjgl.opengl.GL11;

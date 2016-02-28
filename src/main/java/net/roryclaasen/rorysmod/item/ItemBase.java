@@ -16,7 +16,7 @@ limitations under the License.
 package net.roryclaasen.rorysmod.item;
 
 import net.minecraft.item.Item;
-import net.roryclaasen.rorysmod.RorysMod;
+import net.roryclaasen.rorysmod.core.RorysMod;
 
 public class ItemBase extends Item {
 
