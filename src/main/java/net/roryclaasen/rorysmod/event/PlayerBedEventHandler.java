@@ -54,42 +54,42 @@ public class PlayerBedEventHandler {
 		try {
 			sleeping = ReflectionUtilities.getField("sleeping", "field_71083_bS", bed);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			sleeptimer = ReflectionUtilities.getField("sleepTimer", "field_71076_b", bed);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			setsize = ReflectionUtilities.getMethod("setSize", "func_70105_a", entity, float.class, float.class);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			func_71013_b = ReflectionUtilities.getMethod("func_175139_a", "func_175139_a", bed, int.class);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			func_71013_b.setAccessible(true);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			setsize.setAccessible(true);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			sleeping.setAccessible(true);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 		try {
 			sleeptimer.setAccessible(true);
 		} catch (Exception e) {
-			System.out.println("Ran into error:\t" + e.getLocalizedMessage());
+			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
 	}
 
