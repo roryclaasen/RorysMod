@@ -1,9 +1,17 @@
 # exclude all
 /*
 
-# include important folders
+# include important folders and files
+!.travis.yml
 !build.bat
-!*.md
+!build.sh
+
+# include markdowns
+!README.md
+!LICENSE
+!CONTRIBUTING.md
+!RifleModules.md
+
 # need gradle
 !libs/
 !gradle/
@@ -11,11 +19,6 @@
 !gradlew.bat
 !build.gradle
 !gradle.properties
-
-# include markdowns
-!README.md
-!LICENSE
-!CONTRIBUTING.md
 
 # include sourcecode
 !src/
