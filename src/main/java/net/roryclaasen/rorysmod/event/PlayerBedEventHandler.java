@@ -87,10 +87,10 @@ public class PlayerBedEventHandler {
 		EntityPlayer player = event.entityPlayer;
 		List<EntityMob> list = getEntityMobFromPlayer(player, sleepRange);
 
-		boolean mobs = (!Settings.enableMobsNearByCheck || list.isEmpty());
+		boolean noMobs = (!Settings.enableMobsNearByCheck || list.isEmpty());
 		boolean night = (Settings.enableSleepInDay || !event.entityPlayer.worldObj.isDaytime());
 
-		if (mobs && night) {
+		if (noMobs && night) {
 			if (!event.entityPlayer.worldObj.isRemote) {
 				if (event.entityPlayer.worldObj.isDaytime()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)));
 				if (!list.isEmpty()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_SAFE)));
@@ -102,13 +102,13 @@ public class PlayerBedEventHandler {
 			if (!player.worldObj.isRemote) {
 				player.worldObj.updateAllPlayersSleepingFlag();
 			}
-			return;
 		} else {
 			if (!night) event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
-			else if (!mobs && night) event.result = EntityPlayer.EnumStatus.NOT_SAFE;
+			else if (!noMobs && night) event.result = EntityPlayer.EnumStatus.NOT_SAFE;
 			else event.result = EntityPlayer.EnumStatus.OTHER_PROBLEM;
 			return;
 		}
+		return;
 	}
 
 	@SuppressWarnings("unchecked")

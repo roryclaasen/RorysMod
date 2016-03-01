@@ -34,31 +34,32 @@ public class WorldServerTransformer implements IClassTransformer {
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
 		byte[] data = arg2;
 		try {
-			if (arg0.equals("js")) {
-				RMLog.info("About to patch WorldServer [js]", true);
-				data = patchClassASM(arg0, arg2, true);
+			if (arg0.equals("mt")) {
+				RMLog.info("About to patch WorldServer [mt]", true);
+				data = patchWakeAllPlayers(arg0, data, true);
+				data = patchTick(arg0, data, true);
 			}
 			if (arg0.equals("net.minecraft.world.WorldServer")) {
 				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
-				data = patchClassASM(arg0, arg2, false);
+				data = patchWakeAllPlayers(arg0, data, false);
+				data = patchTick(arg0, data, false);
 			}
 		} catch (Exception e) {
+			RMLog.warn("Patch failed!", true);
 			e.printStackTrace();
 		}
 		if (data != arg2) {
 			RMLog.info("Finnished Patching!", true);
-		} else {
-			//RMLog.warn("Patch failed!", true);
 		}
 		return data;
 	}
 
-	public byte[] patchClassASM(String name, byte[] bytes, boolean obfuscated) {
+	public byte[] patchTick(String name, byte[] bytes, boolean obfuscated) {
+		RMLog.info("[tick] Patching");
 		String targetMethodName = "";
 
-		if (obfuscated == true) targetMethodName = "d";
-		else targetMethodName = "wakeAllPlayers";
-
+		if (obfuscated == true) targetMethodName = "d"	;
+		else targetMethodName = "tick";
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(bytes);
 		classReader.accept(classNode, 0);
@@ -81,7 +82,7 @@ public class WorldServerTransformer implements IClassTransformer {
 					currentNode = iter.next();
 
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
-						RMLog.info("Found index [opcode=" + currentNode.getOpcode() + "]", true);
+						RMLog.info(currentNode);
 						targetNode = currentNode;
 						invok_index = index;
 						break;
@@ -99,6 +100,51 @@ public class WorldServerTransformer implements IClassTransformer {
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 		classNode.accept(writer);
+		RMLog.info("[tick] Done");
+		return writer.toByteArray();
+	}
+
+	public byte[] patchWakeAllPlayers(String name, byte[] bytes, boolean obfuscated) {
+		RMLog.info("[wakeAllPlayers] Patching");
+		String targetMethodName = "";
+
+		if (obfuscated == true) targetMethodName = "d";
+		else targetMethodName = "wakeAllPlayers";
+
+		ClassNode classNode = new ClassNode();
+		ClassReader classReader = new ClassReader(bytes);
+		classReader.accept(classNode, 0);
+
+		Iterator<MethodNode> methods = classNode.methods.iterator();
+		while (methods.hasNext()) {
+			MethodNode method = methods.next();
+			int invok_index = -1;
+			if ((method.name.equals(targetMethodName) && method.desc.equals("()V"))) {
+				AbstractInsnNode currentNode = null;
+
+				Iterator<AbstractInsnNode> iter = method.instructions.iterator();
+				int index = -1;
+				while (iter.hasNext()) {
+					index++;
+					currentNode = iter.next();
+					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
+						invok_index = index;
+						break;
+					}
+				}
+
+				AbstractInsnNode p1;
+				p1 = method.instructions.get(invok_index);
+				MethodInsnNode p2 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "()Z", false);
+
+				method.instructions.set(p1, p2);
+				method.instructions.remove(method.instructions.get(invok_index - 1));
+				break;
+			}
+		}
+		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+		classNode.accept(writer);
+		RMLog.info("[wakeAllPlayers] Done");
 		return writer.toByteArray();
 	}
 }
