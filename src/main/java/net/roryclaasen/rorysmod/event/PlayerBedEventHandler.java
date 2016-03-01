@@ -27,6 +27,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
@@ -34,9 +35,6 @@ import net.roryclaasen.rorysmod.util.ReflectionUtilities;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerBedEventHandler {
-
-	private final String[] NOT_POSSIBLE_NOW = new String[]{"Getting in to bed right now is pointless", "Time wont wait for no one", "Sorry but you have to wait for night"};
-	private final String[] NOT_SAFE = new String[]{"There are monsters near by!"};
 
 	private final Random random = new Random();
 
@@ -85,7 +83,7 @@ public class PlayerBedEventHandler {
 	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event) throws IllegalArgumentException, IllegalAccessException {
 		if (event.entity.worldObj.isRemote) return;
 		if (!event.entity.worldObj.provider.isSurfaceWorld()) return;
-		
+
 		EntityPlayer player = event.entityPlayer;
 		List<EntityMob> list = getEntityMobFromPlayer(player, sleepRange);
 
@@ -135,12 +133,11 @@ public class PlayerBedEventHandler {
 
 	private String getMessage(EntityPlayer.EnumStatus status) {
 		if (status == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
-			int msg = random.nextInt(NOT_POSSIBLE_NOW.length);
-			return NOT_POSSIBLE_NOW[msg];
+			int msg = random.nextInt(3);
+			return StatCollector.translateToLocal("message.rorysmod.sleeping.daytime_" + msg);
 		}
 		if (status == EntityPlayer.EnumStatus.NOT_SAFE) {
-			int msg = random.nextInt(NOT_SAFE.length);
-			return NOT_SAFE[msg];
+			return StatCollector.translateToLocal("tile.bed.notSafe");
 		}
 		return "Message not Found";
 	}

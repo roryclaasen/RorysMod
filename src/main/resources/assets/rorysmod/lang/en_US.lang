@@ -74,6 +74,10 @@ message.rorysmod.rifle.state.overheat=Your rifle has overheated. Wait for it too
 
 message.rorysmod.chest.state.locked=This chest is locked, it needs to be powered to be opened
 
+message.rorysmod.sleeping.daytime_0=Getting in to bed right now is pointless
+message.rorysmod.sleeping.daytime_1=Time wont wait for no one
+message.rorysmod.sleeping.daytime_2=Sorry but you have to wait for night to sleep
+
 message.rorysmod.weight=Weight
 message.rorysmod.heat=Heat
 message.rorysmod.charge=Charge
