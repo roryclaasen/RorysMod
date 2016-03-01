@@ -80,11 +80,6 @@ public class WorldServerTransformer implements IClassTransformer {
 				while (iter.hasNext()) {
 					index++;
 					currentNode = iter.next();
-					/*
-					 * mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
-					 * mv.visitVarInsn(ALOAD, 0);
-					 * mv.visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/world/WorldServer", "wakeAllPlayers", "()V", false);
-					 */
 					int INVOKEVIRTUAL_COUNT = 0;
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
 						INVOKEVIRTUAL_COUNT++;
