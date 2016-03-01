@@ -49,16 +49,16 @@ public class WorldServerTransformer implements IClassTransformer {
 			e.printStackTrace();
 		}
 		if (data != arg2) {
-			RMLog.info("Finnished Patching!", true);
+			RMLog.info("Finnished Patching! and applied changes", true);
 		}
 		return data;
 	}
 
 	public byte[] patchTick(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[tick] Patching");
+		RMLog.info("[tick] Patching", true);
 		String targetMethodName = "";
 
-		if (obfuscated == true) targetMethodName = "d"	;
+		if (obfuscated == true) targetMethodName = "b";
 		else targetMethodName = "tick";
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(bytes);
@@ -80,32 +80,42 @@ public class WorldServerTransformer implements IClassTransformer {
 				while (iter.hasNext()) {
 					index++;
 					currentNode = iter.next();
-
+					/*
+					 * mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+					 * mv.visitVarInsn(ALOAD, 0);
+					 * mv.visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/world/WorldServer", "wakeAllPlayers", "()V", false);
+					 */
+					int INVOKEVIRTUAL_COUNT = 0;
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
-						RMLog.info(currentNode);
+						INVOKEVIRTUAL_COUNT++;
 						targetNode = currentNode;
+
 						invok_index = index;
-						break;
+						if (INVOKEVIRTUAL_COUNT == 9) break;
 					}
 				}
-
-				AbstractInsnNode p1;
+				AbstractInsnNode p1, p2, p3, p4, p5;
 				p1 = method.instructions.get(invok_index);
-				MethodInsnNode p2 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "()Z", false);
+				p2 = method.instructions.get(invok_index - 1);
+				p3 = method.instructions.get(invok_index - 2);
+				p4 = method.instructions.get(invok_index - 3);
+				p5 = method.instructions.get(invok_index - 4);
 
-				method.instructions.set(p1, p2);
-				method.instructions.remove(method.instructions.get(invok_index - 1));
+				method.instructions.remove(p5);
+				method.instructions.remove(p4);
+				method.instructions.remove(p3);
+				method.instructions.remove(p2);
+				method.instructions.remove(p1);
 				break;
 			}
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 		classNode.accept(writer);
-		RMLog.info("[tick] Done");
 		return writer.toByteArray();
 	}
 
 	public byte[] patchWakeAllPlayers(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[wakeAllPlayers] Patching");
+		RMLog.info("[wakeAllPlayers] Patching", true);
 		String targetMethodName = "";
 
 		if (obfuscated == true) targetMethodName = "d";
@@ -144,7 +154,6 @@ public class WorldServerTransformer implements IClassTransformer {
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 		classNode.accept(writer);
-		RMLog.info("[wakeAllPlayers] Done");
 		return writer.toByteArray();
 	}
 }
