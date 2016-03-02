@@ -28,21 +28,19 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
-public class WorldServerTransformer implements IClassTransformer {
+public class EntityPlayerTransformer implements IClassTransformer {
 
 	@Override
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
 		byte[] data = arg2;
 		try {
 			if (arg0.equals("mt")) {
-				RMLog.info("About to patch WorldServer [mt]", true);
-				data = patchWakeAllPlayers(arg0, data, true);
-				data = patchTick(arg0, data, true);
+				RMLog.info("About to patch EntityPlayer [mt]", true);
+				data = patchOnUpdate(arg0, data, true);
 			}
-			if (arg0.equals("net.minecraft.world.WorldServer")) {
-				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
-				data = patchWakeAllPlayers(arg0, data, false);
-				data = patchTick(arg0, data, false);
+			if (arg0.equals("net.minecraft.entity.player")) {
+				RMLog.info("About to patch EntityPlayer [net.minecraft.entity.player]", true);
+				data = patchOnUpdate(arg0, data, false);
 			}
 		} catch (Exception e) {
 			RMLog.warn("Patch failed!", true);
@@ -54,12 +52,12 @@ public class WorldServerTransformer implements IClassTransformer {
 		return data;
 	}
 
-	public byte[] patchTick(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[tick] Patching", true);
+	public byte[] patchOnUpdate(String name, byte[] bytes, boolean obfuscated) {
+		RMLog.info("[onUpdate] Patching", true);
 		String targetMethodName = "";
 
 		if (obfuscated == true) targetMethodName = "b";
-		else targetMethodName = "tick";
+		else targetMethodName = "onUpdate";
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(bytes);
 		classReader.accept(classNode, 0);
@@ -84,64 +82,21 @@ public class WorldServerTransformer implements IClassTransformer {
 						INVOKEVIRTUAL_COUNT++;
 						targetNode = currentNode;
 						invok_index = index;
-						if (INVOKEVIRTUAL_COUNT == 9) break;
 					}
 				}
+				/*
+				 * mv.visitLineNumber(311, l23);
+				 * mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+				 * mv.visitVarInsn(ALOAD, 0);
+				 * mv.visitFieldInsn(GETFIELD, "net/minecraft/entity/player/EntityPlayer", "worldObj", "Lnet/minecraft/world/World;");
+				 * mv.visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/world/World", "isDaytime", "()Z", false);
+				 * mv.visitJumpInsn(IFEQ, l21);
+				 */
 				if (targetNode == null || invok_index == -1) {
 					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
 					return bytes;
 				}
-				AbstractInsnNode p1 = method.instructions.get(invok_index);
-				MethodInsnNode a1 = new MethodInsnNode(Opcodes.INVOKESPECIAL, "net/minecraft/world/WorldServer", "resetRainAndThunder", "()V", false);
 
-				method.instructions.set(p1, a1);
-				break;
-			}
-		}
-		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-		classNode.accept(writer);
-		return writer.toByteArray();
-	}
-
-	public byte[] patchWakeAllPlayers(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[wakeAllPlayers] Patching", true);
-		String targetMethodName = "";
-
-		if (obfuscated == true) targetMethodName = "d";
-		else targetMethodName = "wakeAllPlayers";
-
-		ClassNode classNode = new ClassNode();
-		ClassReader classReader = new ClassReader(bytes);
-		classReader.accept(classNode, 0);
-
-		Iterator<MethodNode> methods = classNode.methods.iterator();
-		while (methods.hasNext()) {
-			MethodNode method = methods.next();
-			int invok_index = -1;
-			if ((method.name.equals(targetMethodName) && method.desc.equals("()V"))) {
-				AbstractInsnNode currentNode = null;
-				AbstractInsnNode targetNode = null;
-
-				Iterator<AbstractInsnNode> iter = method.instructions.iterator();
-				int index = -1;
-				while (iter.hasNext()) {
-					index++;
-					currentNode = iter.next();
-					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
-						invok_index = index;
-						targetNode = currentNode;
-						break;
-					}
-				}
-				if (targetNode == null || invok_index == -1) {
-					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
-					return bytes;
-				}
-				AbstractInsnNode p1 = method.instructions.get(invok_index);
-				MethodInsnNode p2 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "()Z", false);
-
-				method.instructions.set(p1, p2);
-				method.instructions.remove(method.instructions.get(invok_index - 1));
 				break;
 			}
 		}

@@ -17,6 +17,7 @@ package net.roryclaasen.asm.rorysmodcore;
 
 import java.util.Map;
 
+import net.roryclaasen.asm.rorysmodcore.transformer.EntityPlayerTransformer;
 import net.roryclaasen.asm.rorysmodcore.transformer.WorldServerTransformer;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
@@ -26,7 +27,7 @@ public class RorysModCoreLoading implements IFMLLoadingPlugin {
 
 	@Override
 	public String[] getASMTransformerClass() {
-		return new String[]{WorldServerTransformer.class.getName()};
+		return new String[]{WorldServerTransformer.class.getName(), EntityPlayerTransformer.class.getName()};
 	}
 
 	@Override
