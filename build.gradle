@@ -53,7 +53,7 @@ processResources {
     }
     
     from('./') {
-    	include 'LICENSE'
+    	include 'licence.txt'
     }
 }
 
