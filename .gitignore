@@ -5,10 +5,10 @@
 !.travis.yml
 !build.bat
 !build.sh
+!licence.txt
 
 # include markdowns
 !README.md
-!LICENSE
 !CONTRIBUTING.md
 !RifleModules.md
 
