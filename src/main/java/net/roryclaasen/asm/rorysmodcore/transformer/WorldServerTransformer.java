@@ -82,9 +82,11 @@ public class WorldServerTransformer implements IClassTransformer {
 					currentNode = iter.next();
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
 						INVOKEVIRTUAL_COUNT++;
-						targetNode = currentNode;
-						invok_index = index;
-						if (INVOKEVIRTUAL_COUNT == 9) break;
+						if (INVOKEVIRTUAL_COUNT == 9) {
+							targetNode = currentNode;
+							invok_index = index;
+							break;
+						}
 					}
 				}
 				if (targetNode == null || invok_index == -1) {
