@@ -70,7 +70,6 @@ public class WorldServerTransformer implements IClassTransformer {
 			int invok_index = -1;
 			if ((method.name.equals(targetMethodName) && method.desc.equals("()V"))) {
 				AbstractInsnNode currentNode = null;
-				@SuppressWarnings("unused")
 				AbstractInsnNode targetNode = null;
 
 				Iterator<AbstractInsnNode> iter = method.instructions.iterator();
@@ -88,6 +87,10 @@ public class WorldServerTransformer implements IClassTransformer {
 						invok_index = index;
 						if (INVOKEVIRTUAL_COUNT == 9) break;
 					}
+				}
+				if (targetNode == null) {
+					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
+					return bytes;
 				}
 				AbstractInsnNode p1, p2, p3, p4, p5;
 				p1 = method.instructions.get(invok_index);
@@ -126,7 +129,8 @@ public class WorldServerTransformer implements IClassTransformer {
 			int invok_index = -1;
 			if ((method.name.equals(targetMethodName) && method.desc.equals("()V"))) {
 				AbstractInsnNode currentNode = null;
-
+				AbstractInsnNode targetNode = null;
+				
 				Iterator<AbstractInsnNode> iter = method.instructions.iterator();
 				int index = -1;
 				while (iter.hasNext()) {
@@ -134,10 +138,14 @@ public class WorldServerTransformer implements IClassTransformer {
 					currentNode = iter.next();
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
 						invok_index = index;
+						targetNode = currentNode;
 						break;
 					}
 				}
-
+				if (targetNode == null) {
+					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
+					return bytes;
+				}
 				AbstractInsnNode p1;
 				p1 = method.instructions.get(invok_index);
 				MethodInsnNode p2 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "()Z", false);
