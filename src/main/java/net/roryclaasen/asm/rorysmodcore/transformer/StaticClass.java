@@ -15,6 +15,7 @@ limitations under the License.
  */
 package net.roryclaasen.asm.rorysmodcore.transformer;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.roryclaasen.rorysmod.core.Settings;
 
 public class StaticClass {
@@ -23,5 +24,15 @@ public class StaticClass {
 
 	public static boolean shouldWakeUp() {
 		return !Settings.enableStayInBed;
+	}
+
+	public static boolean shouldWakeUp(EntityPlayer player) {
+		if (player == null) return false;
+		if (!player.worldObj.isRemote) {
+			if (shouldWakeUp()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

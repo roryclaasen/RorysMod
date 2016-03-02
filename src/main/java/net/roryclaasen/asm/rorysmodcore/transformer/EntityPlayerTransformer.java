@@ -80,17 +80,19 @@ public class EntityPlayerTransformer implements IClassTransformer {
 					currentNode = iter.next();
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
 						INVOKEVIRTUAL_COUNT++;
-						targetNode = currentNode;
-						invok_index = index;
+						RMLog.info(currentNode);
+						// targetNode = currentNode;
+						// invok_index = index;
 					}
 				}
 				/*
-				 * mv.visitLineNumber(311, l23);
+				 * mv.visitLineNumber(305, l19);
 				 * mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
 				 * mv.visitVarInsn(ALOAD, 0);
 				 * mv.visitFieldInsn(GETFIELD, "net/minecraft/entity/player/EntityPlayer", "worldObj", "Lnet/minecraft/world/World;");
-				 * mv.visitMethodInsn(INVOKEVIRTUAL, "net/minecraft/world/World", "isDaytime", "()Z", false);
-				 * mv.visitJumpInsn(IFEQ, l21);
+				 * mv.visitFieldInsn(GETFIELD, "net/minecraft/world/World", "isRemote", "Z");
+				 * Label l21 = new Label();
+				 * mv.visitJumpInsn(IFNE, l21);
 				 */
 				if (targetNode == null || invok_index == -1) {
 					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
