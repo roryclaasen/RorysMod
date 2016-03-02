@@ -138,7 +138,7 @@ public class WorldServerTransformer implements IClassTransformer {
 					}
 				}
 				if (targetNode == null || invok_index == -1) {
-					RMLog.info("[WorldServer] Did not find all necessary target nodes! ABANDON CLASS!");
+					RMLog.info("[WorldServer] Did not find all necessary target nodes! ABANDON CLASS!", true);
 					return bytes;
 				}
 				AbstractInsnNode p1 = method.instructions.get(invok_index);
