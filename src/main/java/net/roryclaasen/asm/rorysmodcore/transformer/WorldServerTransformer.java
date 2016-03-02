@@ -76,14 +76,13 @@ public class WorldServerTransformer implements IClassTransformer {
 
 				int index = -1;
 
+				int INVOKEVIRTUAL_COUNT = 0;
 				while (iter.hasNext()) {
 					index++;
 					currentNode = iter.next();
-					int INVOKEVIRTUAL_COUNT = 0;
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
 						INVOKEVIRTUAL_COUNT++;
 						targetNode = currentNode;
-
 						invok_index = index;
 						if (INVOKEVIRTUAL_COUNT == 9) break;
 					}
@@ -98,9 +97,15 @@ public class WorldServerTransformer implements IClassTransformer {
 				p3 = method.instructions.get(invok_index - 2);
 				p4 = method.instructions.get(invok_index - 3);
 				p5 = method.instructions.get(invok_index - 4);
+				
+				RMLog.info(p1);
+				RMLog.info(p2);
+				RMLog.info(p3);
+				RMLog.info(p4);
+				RMLog.info(p5);
 
-				method.instructions.remove(p5);
-				method.instructions.remove(p4);
+				//method.instructions.remove(p5);
+				//method.instructions.remove(p4);
 				method.instructions.remove(p3);
 				method.instructions.remove(p2);
 				method.instructions.remove(p1);
