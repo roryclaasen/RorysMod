@@ -75,16 +75,22 @@ public class EntityPlayerTransformer implements IClassTransformer {
 
 				int index = -1;
 
-				int INVOKEVIRTUAL_COUNT = 0;
+				int GETFIELD_COUNT = 0;
 				while (iter.hasNext()) {
 					index++;
 					currentNode = iter.next();
-					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
-						INVOKEVIRTUAL_COUNT++;
-						RMLog.info(currentNode, true);
-						// targetNode = currentNode;
-						// invok_index = index;
+					if (currentNode.getOpcode() == Opcodes.GETFIELD) {
+						GETFIELD_COUNT++;
+						if (GETFIELD_COUNT == 13) {
+							targetNode = currentNode;
+							invok_index = index;
+							break;
+						}
 					}
+				}
+				if (targetNode == null || invok_index == -1) {
+					RMLog.info("[EntityPlayer] Did not find all necessary target nodes! ABANDON CLASS!");
+					return bytes;
 				}
 				/*
 				 * mv.visitLineNumber(305, l19);
@@ -95,11 +101,6 @@ public class EntityPlayerTransformer implements IClassTransformer {
 				 * Label l21 = new Label();
 				 * mv.visitJumpInsn(IFNE, l21);
 				 */
-				if (targetNode == null || invok_index == -1) {
-					RMLog.info("[EntityPlayer] Did not find all necessary target nodes! ABANDON CLASS!");
-					return bytes;
-				}
-
 				break;
 			}
 		}
