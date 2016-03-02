@@ -1,7 +1,7 @@
 # Change log
 ##### Key
 ```java
-+ Usually mean an addition
++ Usually means an addition
 * Represents a change
 - Indicates a removal 
 ? Broken or not sure about it
@@ -9,7 +9,7 @@
 ## What will be in the next release
 ```
 + Better sleeping
-* Fixed module allways on (igniter)
+* Fixed module always on (igniter)
 * General bug fixes
 ```
 ## Version 1.2.4
@@ -17,9 +17,9 @@
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.4)
 ```
 + Added mod logo!
-+ Added new module with recipie (no texture)
-* These vaules now are what it will say in the RifleModules.md file
-* The rilfe table now has a 3D texture when droped and in the inventory
++ Added new module with recipe (no texture)
+* These values now are what it will say in the RifleModules.md file
+* The rifle table now has a 3D texture when droped and in the inventory
 * General bug fixes and work
 ```
 ## Version 1.2.3
