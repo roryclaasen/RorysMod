@@ -25,7 +25,6 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public class EntityPlayerTransformer implements IClassTransformer {
@@ -34,29 +33,31 @@ public class EntityPlayerTransformer implements IClassTransformer {
 	public byte[] transform(String arg0, String arg1, byte[] arg2) {
 		byte[] data = arg2;
 		try {
-			if (arg0.equals("mt")) {
-				RMLog.info("About to patch EntityPlayer [mt]", true);
+			if (arg0.equals("yz")) {
+				RMLog.info("[EntityPlayer] About to patch [yz]", true);
 				data = patchOnUpdate(arg0, data, true);
 			}
 			if (arg0.equals("net.minecraft.entity.player")) {
-				RMLog.info("About to patch EntityPlayer [net.minecraft.entity.player]", true);
+				RMLog.info("[EntityPlayer] About to patch [net.minecraft.entity.player]", true);
 				data = patchOnUpdate(arg0, data, false);
 			}
 		} catch (Exception e) {
-			RMLog.warn("Patch failed!", true);
+			RMLog.warn("[EntityPlayer] Patch failed!", true);
 			e.printStackTrace();
 		}
 		if (data != arg2) {
-			RMLog.info("Finnished Patching! and applied changes", true);
+			RMLog.info("[EntityPlayer] Finnished Patching! and applied changes", true);
+		} else {
+			// RMLog.info("[EntityPlayer] No changes applied", true);
 		}
 		return data;
 	}
 
 	public byte[] patchOnUpdate(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[onUpdate] Patching", true);
+		RMLog.info("[EntityPlayer] [onUpdate] Patching", true);
 		String targetMethodName = "";
 
-		if (obfuscated == true) targetMethodName = "b";
+		if (obfuscated == true) targetMethodName = "h";
 		else targetMethodName = "onUpdate";
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(bytes);
@@ -95,7 +96,7 @@ public class EntityPlayerTransformer implements IClassTransformer {
 				 * mv.visitJumpInsn(IFNE, l21);
 				 */
 				if (targetNode == null || invok_index == -1) {
-					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
+					RMLog.info("[EntityPlayer] Did not find all necessary target nodes! ABANDON CLASS!");
 					return bytes;
 				}
 

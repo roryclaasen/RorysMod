@@ -35,27 +35,29 @@ public class WorldServerTransformer implements IClassTransformer {
 		byte[] data = arg2;
 		try {
 			if (arg0.equals("mt")) {
-				RMLog.info("About to patch WorldServer [mt]", true);
+				RMLog.info("[WorldServer] About to patch [mt]", true);
 				data = patchWakeAllPlayers(arg0, data, true);
 				data = patchTick(arg0, data, true);
 			}
 			if (arg0.equals("net.minecraft.world.WorldServer")) {
-				RMLog.info("About to patch WorldServer [net.minecraft.world.WorldServer]", true);
+				RMLog.info("[WorldServer] About to patch [net.minecraft.world.WorldServer]", true);
 				data = patchWakeAllPlayers(arg0, data, false);
 				data = patchTick(arg0, data, false);
 			}
 		} catch (Exception e) {
-			RMLog.warn("Patch failed!", true);
+			RMLog.warn("[WorldServer] Patch failed!", true);
 			e.printStackTrace();
 		}
 		if (data != arg2) {
-			RMLog.info("Finnished Patching! and applied changes", true);
+			RMLog.info("[WorldServer] Finnished Patching! and applied changes", true);
+		} else {
+			// RMLog.info("[WorldServer] No changes applied", true);
 		}
 		return data;
 	}
 
 	public byte[] patchTick(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[tick] Patching", true);
+		RMLog.info("[WorldServer] [tick] Patching", true);
 		String targetMethodName = "";
 
 		if (obfuscated == true) targetMethodName = "b";
@@ -90,7 +92,7 @@ public class WorldServerTransformer implements IClassTransformer {
 					}
 				}
 				if (targetNode == null || invok_index == -1) {
-					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
+					RMLog.info("[WorldServer] Did not find all necessary target nodes! ABANDON CLASS!");
 					return bytes;
 				}
 				AbstractInsnNode p1 = method.instructions.get(invok_index);
@@ -106,7 +108,7 @@ public class WorldServerTransformer implements IClassTransformer {
 	}
 
 	public byte[] patchWakeAllPlayers(String name, byte[] bytes, boolean obfuscated) {
-		RMLog.info("[wakeAllPlayers] Patching", true);
+		RMLog.info("[WorldServer] [wakeAllPlayers] Patching", true);
 		String targetMethodName = "";
 
 		if (obfuscated == true) targetMethodName = "d";
@@ -136,7 +138,7 @@ public class WorldServerTransformer implements IClassTransformer {
 					}
 				}
 				if (targetNode == null || invok_index == -1) {
-					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
+					RMLog.info("[WorldServer] Did not find all necessary target nodes! ABANDON CLASS!");
 					return bytes;
 				}
 				AbstractInsnNode p1 = method.instructions.get(invok_index);
