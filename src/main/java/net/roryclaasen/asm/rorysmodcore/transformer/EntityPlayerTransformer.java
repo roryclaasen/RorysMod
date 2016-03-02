@@ -37,7 +37,7 @@ public class EntityPlayerTransformer implements IClassTransformer {
 				RMLog.info("[EntityPlayer] About to patch [yz]", true);
 				data = patchOnUpdate(arg0, data, true);
 			}
-			if (arg0.equals("net.minecraft.entity.player")) {
+			if (arg0.equals("net.minecraft.entity.player.EntityPlayer")) {
 				RMLog.info("[EntityPlayer] About to patch [net.minecraft.entity.player]", true);
 				data = patchOnUpdate(arg0, data, false);
 			}
