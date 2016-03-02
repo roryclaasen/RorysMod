@@ -38,14 +38,14 @@ public class RorysModCore extends DummyModContainer {
 		ModMetadata meta = getMetadata();
 		meta.modId = "rorysmodcore";
 		meta.name = "Rory's Mod Core";
-		meta.version = "1.0";
+		meta.version = "1.1";
 		meta.credits = "";
 		meta.authorList = Arrays.asList("Rory Claasen");
 		meta.description = "The Backbone to Rory's Mod";
-		meta.url = "https://github.com/GOGO98901/RorysMod";
+		meta.url = "http://gogo98901.github.io/RorysMod/";
 		meta.updateUrl = "";
 		meta.screenshots = new String[0];
-		meta.logoFile = "";
+		meta.logoFile = "assets/rorysmod/textures/logo.png";
 
 		if (Arguments.isExperiment()) {
 			RMLog.info("Mod running in experimental mode", true);
