@@ -88,7 +88,7 @@ public class WorldServerTransformer implements IClassTransformer {
 						if (INVOKEVIRTUAL_COUNT == 9) break;
 					}
 				}
-				if (targetNode == null) {
+				if (targetNode == null || invok_index == -1) {
 					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
 					return bytes;
 				}
@@ -130,7 +130,7 @@ public class WorldServerTransformer implements IClassTransformer {
 			if ((method.name.equals(targetMethodName) && method.desc.equals("()V"))) {
 				AbstractInsnNode currentNode = null;
 				AbstractInsnNode targetNode = null;
-				
+
 				Iterator<AbstractInsnNode> iter = method.instructions.iterator();
 				int index = -1;
 				while (iter.hasNext()) {
@@ -142,7 +142,7 @@ public class WorldServerTransformer implements IClassTransformer {
 						break;
 					}
 				}
-				if (targetNode == null) {
+				if (targetNode == null || invok_index == -1) {
 					RMLog.info("Did not find all necessary target nodes! ABANDON CLASS!");
 					return bytes;
 				}
