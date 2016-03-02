@@ -25,6 +25,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public class EntityPlayerTransformer implements IClassTransformer {
@@ -96,11 +97,25 @@ public class EntityPlayerTransformer implements IClassTransformer {
 				 * mv.visitLineNumber(305, l19);
 				 * mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
 				 * mv.visitVarInsn(ALOAD, 0);
-				 * mv.visitFieldInsn(GETFIELD, "net/minecraft/entity/player/EntityPlayer", "worldObj", "Lnet/minecraft/world/World;");
+				 * -- mv.visitFieldInsn(GETFIELD, "net/minecraft/entity/player/EntityPlayer", "worldObj", "Lnet/minecraft/world/World;");
 				 * mv.visitFieldInsn(GETFIELD, "net/minecraft/world/World", "isRemote", "Z");
 				 * Label l21 = new Label();
 				 * mv.visitJumpInsn(IFNE, l21);
 				 */
+				@SuppressWarnings("unused")
+				AbstractInsnNode p1, p2, p3;
+				p1 = method.instructions.get(invok_index - 1); // mv.visitVarInsn(ALOAD, 0);
+				p2 = method.instructions.get(invok_index); // mv.visitFieldInsn(GETFIELD, "net/minecraft/entity/player/EntityPlayer", "worldObj", "Lnet/minecraft/world/World;");
+				p3 = method.instructions.get(invok_index + 1); // mv.visitFieldInsn(GETFIELD, "net/minecraft/world/World", "isRemote", "Z");
+
+				//method.instructions.remove(p1);
+				//method.instructions.remove(p2);
+				//method.instructions.remove(p3);
+				
+				MethodInsnNode m1 = new MethodInsnNode(Opcodes.INVOKESTATIC, "net/roryclaasen/asm/rorysmodcore/transformer/StaticClass", "shouldWakeUp", "(Lnet/minecraft/entity/player/EntityPlayer;)Z", false);
+				
+				method.instructions.set(p2, m1);
+				method.instructions.remove(p3);
 				break;
 			}
 		}
