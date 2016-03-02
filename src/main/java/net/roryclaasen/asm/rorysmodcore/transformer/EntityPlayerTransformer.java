@@ -89,7 +89,7 @@ public class EntityPlayerTransformer implements IClassTransformer {
 					}
 				}
 				if (targetNode == null || invok_index == -1) {
-					RMLog.info("[EntityPlayer] Did not find all necessary target nodes! ABANDON CLASS!");
+					RMLog.info("[EntityPlayer] Did not find all necessary target nodes! ABANDON CLASS!", true);
 					return bytes;
 				}
 				/*
