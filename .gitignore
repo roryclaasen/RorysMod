@@ -30,4 +30,5 @@
 # code format to reduce noise in git commits
 !codeformat/
 
+# exclude any files from included folders
 *.psd
