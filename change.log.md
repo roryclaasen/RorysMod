@@ -8,6 +8,9 @@
 ```
 ## What will be in the next release
 ```
++ Better sleeping
+* Fixed module allways on (igniter)
+* General bug fixes
 ```
 ## Version 1.2.4
 (11/02/2016) RorysMod-1.7.10-1.2.4.jar<br>
