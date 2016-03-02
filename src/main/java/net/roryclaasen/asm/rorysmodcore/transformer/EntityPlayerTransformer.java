@@ -38,7 +38,7 @@ public class EntityPlayerTransformer implements IClassTransformer {
 				data = patchOnUpdate(arg0, data, true);
 			}
 			if (arg0.equals("net.minecraft.entity.player.EntityPlayer")) {
-				RMLog.info("[EntityPlayer] About to patch [net.minecraft.entity.player]", true);
+				RMLog.info("[EntityPlayer] About to patch [net.minecraft.entity.player.EntityPlayer]", true);
 				data = patchOnUpdate(arg0, data, false);
 			}
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class EntityPlayerTransformer implements IClassTransformer {
 					currentNode = iter.next();
 					if (currentNode.getOpcode() == Opcodes.INVOKEVIRTUAL) {
 						INVOKEVIRTUAL_COUNT++;
-						RMLog.info(currentNode);
+						RMLog.info(currentNode, true);
 						// targetNode = currentNode;
 						// invok_index = index;
 					}
