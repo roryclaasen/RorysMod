@@ -37,7 +37,7 @@ That being said to use these features you must pass this VM argument
 ### Build Status
 |Branch| Status|
 |:----:|:-----:|
-|Master|[![Build Status](https://travis-ci.org/GOGO98901/RorysMod.svg?branch=master)](https://travis-ci.org/GOGO98901/RorysMod) [ ![Codeship Status for GOGO98901/RorysMod](https://codeship.com/projects/899ce0c0-c29b-0133-ce67-66aebc4c133d/status?branch=master)](https://codeship.com/projects/137823)|
+|Master|[![Build Status](https://travis-ci.org/GOGO98901/RorysMod.svg?branch=master)](https://travis-ci.org/GOGO98901/RorysMod) [ |
 
 # License
 See full license file [LICENSE](https://github.com/GOGO98901/RorysMod/blob/master/LICENSE)
