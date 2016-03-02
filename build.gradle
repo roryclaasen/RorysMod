@@ -62,7 +62,7 @@ jar {
     classifier = "-" + minecraft.version + "-"
     archiveName = archivesBaseName + classifier + version + ".jar"
     manifest {
-        attributes 'FMLAT': 'rorysmods_at.cfg'
+        attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'net.roryclaasen.asm.rorysmodcore.RorysModCoreLoading', 'FMLCorePluginContainsFMLMod': 'true'
     }
     into('lib') {
         from configurations.extraLibs
