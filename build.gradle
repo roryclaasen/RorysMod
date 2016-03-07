@@ -42,6 +42,10 @@ dependencies {
 	compile files('libs/CoFHLib-[1.7.10]1.1.1-181.jar')
 	compile files('checker/lib/json-simple-1.1.1.jar')
 	extraLibs files('checker/lib/json-simple-1.1.1.jar')
+	
+	compile {
+    source = file(sourceSets.checker.srcDirs)
+	}
 }
 
 processResources {
