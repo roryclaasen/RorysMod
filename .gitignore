@@ -22,6 +22,7 @@
 
 # include sourcecode
 !src/
+!checker/
 
 # include git important files
 !.gitmodules

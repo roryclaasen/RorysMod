@@ -1,0 +1,3 @@
+[submodule "checker"]
+	path = checker
+	url = https://github.com/GOGO98901/version-checker
