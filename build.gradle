@@ -43,11 +43,15 @@ dependencies {
 	compile files('checker/lib/json-simple-1.1.1.jar')
 	extraLibs files('checker/lib/json-simple-1.1.1.jar')
 	
-	compile {
-    source = file(sourceSets.checker.srcDirs)
-	}
+	
 }
 
+task compile(type: JavaCompile)
+
+compile {
+		source = file(sourceSets.checker.srcDirs)
+}
+	
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
