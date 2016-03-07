@@ -49,7 +49,7 @@ dependencies {
 task compile(type: JavaCompile)
 
 compile {
-		source = file(sourceSets.checker.srcDirs)
+		source = file(sourceSets.checker.resources.srcDirs)
 }
 	
 processResources {
