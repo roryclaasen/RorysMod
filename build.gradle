@@ -19,7 +19,7 @@ apply plugin: 'forge'
 
 sourceSets {
 	checker {
-		resources.srcDirs = ['checker/src']
+		resources.srcDirs = "checker/src"
     }
 }
 
