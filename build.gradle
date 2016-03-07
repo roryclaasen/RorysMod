@@ -19,7 +19,7 @@ apply plugin: 'forge'
 
 sourceSets {
 	checker {
-		resources.srcDirs = "checker/src"
+		resources.srcDir = 'checker/src'
     }
 }
 
@@ -49,7 +49,7 @@ dependencies {
 task compile(type: JavaCompile)
 
 compile {
-		source = file(sourceSets.checker.resources.srcDirs)
+		source = file(sourceSets.checker.resources.srcDir)
 }
 	
 processResources {
