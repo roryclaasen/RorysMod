@@ -15,8 +15,8 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.util;
 
-import net.roryclaasen.githubcheck.Release;
 import net.roryclaasen.githubcheck.VersionCheck;
+import net.roryclaasen.githubcheck.data.Release;
 
 public class VersionChecker implements Runnable {
 
@@ -32,7 +32,7 @@ public class VersionChecker implements Runnable {
 
 	@Override
 	public void run() {
-		latest = version.checkRelease();
+		latest = version.isLatestRelease();
 		if (latest) RMLog.info("This is the latest release");
 		else {
 			RMLog.info("This is not the latest release");

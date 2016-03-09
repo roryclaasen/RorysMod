@@ -17,6 +17,7 @@ package net.roryclaasen.asm.rorysmodcore.transformer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.roryclaasen.rorysmod.core.Settings;
+import net.roryclaasen.rorysmod.util.RMLog;
 
 public class StaticClass {
 
@@ -27,6 +28,7 @@ public class StaticClass {
 	}
 
 	public static boolean shouldWakeUp(EntityPlayer player) {
+		RMLog.info("called");
 		if (player == null) return false;
 		if (!player.worldObj.isRemote) {
 			if (shouldWakeUp()) {
