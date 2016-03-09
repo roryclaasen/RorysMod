@@ -26,7 +26,7 @@ sourceSets {
 	main {
 		java {
             srcDirs = ['src/main/java', 'src/main/resources']
-            compileClasspath += checker.classes
+            compileClasspath += checker.output
         }
     }
 }
