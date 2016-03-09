@@ -19,17 +19,16 @@ apply plugin: 'forge'
 
 sourceSets {
 	checker {
-		java.srcDir 'checker/src'
+		java {
+			srcDirs = ['checker/src']
+    	}
     }
 	main {
-		compileClasspath += checker.output
-		runtimeClasspath += checker.output
-	}
-
-	test {
-		compileClasspath += checker.output
-		runtimeClasspath += checker.output
-  }
+		java {
+            srcDirs = ['src/main/java', 'src/main/resources']
+            compileClasspath += checker.classes
+        }
+    }
 }
 
 version = "1.2.5"
