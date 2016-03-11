@@ -27,7 +27,6 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 ## General Information and Developer stuff
 [![Travis](https://img.shields.io/travis/GOGO98901/RorysMod.svg?style=flat-square)](https://travis-ci.org/GOGO98901/RorysMod)
 [![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/releases/latest)
-[![GitHub commits](https://img.shields.io/github/commits-since/GOGO98901/RorysMod/1.2.2.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/commits/master)
 [![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/blob/master/licence.txt)
 [![GitHub issues](https://img.shields.io/github/issues/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/issues)
 [![GitHub stars](https://img.shields.io/github/stars/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/stargazers)
@@ -43,7 +42,7 @@ That being said to use these features you must pass this VM argument
 ```
 
 ### [waffle.io](waffle.io)
-[![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics)
+[![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics)<br>
 [![Issues in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
 [![Issues in Progress](https://badge.waffle.io/GOGO98901/RorysMod.png?label=in%20progress&title=In%20Progress)](https://waffle.io/GOGO98901/RorysMod)
 
