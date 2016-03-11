@@ -1,11 +1,12 @@
 [![Rory's Mod Logo](/src/main/resources/assets/rorysmod/textures/logo.png)](http://gogo98901.github.io/RorysMod/)
 
-A forge mod for Minecraft 1.7.10
+[![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)]()
 
+Rory's Mod is a forge mod for Minecraft 1.7.10.
+
+Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/issues/new) to submit a new issue, or send a message on [gitter](https://gitter.im/GOGO98901/RorysMod).<br>
 Please view the change log [here](https://github.com/GOGO98901/RorysMod/blob/master/change.log.md#change-log) before posting an issue to check if it has been changed!
-
-Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/issues/new) to submit a new issue, or send a message on [gitter](https://gitter.im/GOGO98901/RorysMod).
-
 
 ## Installation
 
@@ -23,7 +24,7 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 - Save file in Mods folder
 - And run
 
-## Developer stuff
+## General Information and Developer stuff
 [![Travis](https://img.shields.io/travis/GOGO98901/RorysMod.svg?style=flat-square)]()
 [![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)]()
 [![GitHub commits](https://img.shields.io/github/commits-since/GOGO98901/RorysMod/1.2.2.svg?style=flat-square)]()
@@ -47,7 +48,8 @@ That being said to use these features you must pass this VM argument
 [![Issues in Progress](https://badge.waffle.io/GOGO98901/RorysMod.png?label=in%20progress&title=In%20Progress)](https://waffle.io/GOGO98901/RorysMod)
 
 # License
-See full license file [LICENSE](https://github.com/GOGO98901/RorysMod/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)]()
+See the full license file [here](https://github.com/GOGO98901/RorysMod/blob/master/LICENSE).
 ```
 Copyright 2016 Rory Claasen
 
