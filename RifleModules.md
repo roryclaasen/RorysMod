@@ -32,7 +32,7 @@ The capacitor module allows the rifle to hold more power capacity, however it al
 This module will decrease the cool down time that it takes to fire a new laser but will also in some case reduce the power usage. Almost like an [overclocker](#overclock-module).
 
 ## Lens Module
-This module allows the laser to change color. This feature does and does not not work currently and so this item can only be spawned in.
+This module allows the laser to change color. This feature does and does not work currently and so this item can only be spawned in.
 
 ## Phaser Module
 This module changes the amount of damage that is given to an entity when hit. Without this module the laser will do no damage no matter what the [formula](#damage-given) says.
