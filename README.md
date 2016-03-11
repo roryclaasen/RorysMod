@@ -8,6 +8,8 @@ Any errors or issues please [click here](https://github.com/GOGO98901/RorysMod/i
 
 
 ## Installation
+
+[![Join the chat at https://gitter.im/GOGO98901/RorysMod](https://badges.gitter.im/GOGO98901/RorysMod.svg)](https://gitter.im/GOGO98901/RorysMod?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Backup your world! Especially if you are installing a development build or a pre release.<br>
 Delete any old versions of the mod from your .minecraft/mods folder.<br>
 Install Minecraft Forge if you haven't already.<br>
