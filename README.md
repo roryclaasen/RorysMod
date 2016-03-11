@@ -1,7 +1,7 @@
 [![Rory's Mod Logo](/src/main/resources/assets/rorysmod/textures/logo.png)](http://gogo98901.github.io/RorysMod/)
 
-[![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)]()
-[![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/releases/latest)
+[![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)](https://gitter.im/GOGO98901/RorysMod)
 
 Rory's Mod is a forge mod for Minecraft 1.7.10.
 
@@ -25,14 +25,14 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 - And run
 
 ## General Information and Developer stuff
-[![Travis](https://img.shields.io/travis/GOGO98901/RorysMod.svg?style=flat-square)]()
-[![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)]()
-[![GitHub commits](https://img.shields.io/github/commits-since/GOGO98901/RorysMod/1.2.2.svg?style=flat-square)]()
-[![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![Travis](https://img.shields.io/travis/GOGO98901/RorysMod.svg?style=flat-square)](https://travis-ci.org/GOGO98901/RorysMod)
+[![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/releases/latest)
+[![GitHub commits](https://img.shields.io/github/commits-since/GOGO98901/RorysMod/1.2.2.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/commits/master)
+[![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/blob/master/licence.txt)
 [![GitHub issues](https://img.shields.io/github/issues/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/issues)
 [![GitHub stars](https://img.shields.io/github/stars/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/network)
-[![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)](https://gitter.im/GOGO98901/RorysMod)
 
 ### Experimental Features
 If you would like to use experimental features please be aware that I am not responsible for any corrupt world
@@ -48,7 +48,7 @@ That being said to use these features you must pass this VM argument
 [![Issues in Progress](https://badge.waffle.io/GOGO98901/RorysMod.png?label=in%20progress&title=In%20Progress)](https://waffle.io/GOGO98901/RorysMod)
 
 # License
-[![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/blob/master/licence.txt)
 See the full license file [here](https://github.com/GOGO98901/RorysMod/blob/master/LICENSE).
 ```
 Copyright 2016 Rory Claasen
