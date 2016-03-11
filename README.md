@@ -23,6 +23,14 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 - And run
 
 ## Developer stuff
+[![Travis](https://img.shields.io/travis/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![GitHub commits](https://img.shields.io/github/commits-since/GOGO98901/RorysMod/1.2.2.svg?style=flat-square)]()
+[![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)]()
+[![GitHub issues](https://img.shields.io/github/issues/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/issues)
+[![GitHub stars](https://img.shields.io/github/stars/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/network)
+
 ### Experimental Features
 If you would like to use experimental features please be aware that I am not responsible for any corrupt world
 or game breaking error.<br>
@@ -30,14 +38,11 @@ That being said to use these features you must pass this VM argument
 ```
 -DrorysModExperiment=true
 ```
+
+### [waffle.io](waffle.io)
 [![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics)
-### Issues
 [![Issues in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
 [![Issues in Progress](https://badge.waffle.io/GOGO98901/RorysMod.png?label=in%20progress&title=In%20Progress)](https://waffle.io/GOGO98901/RorysMod)
-### Build Status
-|Branch| Status|
-|:----:|:-----:|
-|Master|[![Build Status](https://travis-ci.org/GOGO98901/RorysMod.svg?branch=master)](https://travis-ci.org/GOGO98901/RorysMod)|
 
 # License
 See full license file [LICENSE](https://github.com/GOGO98901/RorysMod/blob/master/LICENSE)
@@ -56,5 +61,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-
