@@ -1,34 +1,29 @@
 buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-    }
+   repositories {
+      mavenCentral()
+      maven {
+         name = "forge"
+         url = "http://files.minecraftforge.net/maven"
+      }
+      maven {
+         name = "sonatype"
+         url = "https://oss.sonatype.org/content/repositories/snapshots/"
+      }
+   }
+   dependencies {
+      classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+   }
 }
 
 apply plugin: 'forge'
 
 sourceSets {
-	checker {
-		java {
-			srcDirs = ['checker/src']
-    	}
-    }
-	main {
-		java {
-            srcDirs = ['src/main/java', 'src/main/resources']
-            compileClasspath += checker.output
-        }
-    }
+   main {
+      java {
+         srcDirs = ['src/main/java', 'src/main/resources', 'checker/src']
+         exclude 'net/roryclaasen/test/**'
+      }
+   }
 }
 
 version = "1.2.5"
@@ -36,48 +31,48 @@ group= "net.roryclaasen.rorysmod" // http://maven.apache.org/guides/mini/guide-n
 archivesBaseName = "RorysMod"
 
 minecraft {
-    version = "1.7.10-10.13.4.1614-1.7.10"
-    runDir = "eclipse"
+   version = "1.7.10-10.13.4.1614-1.7.10"
+   runDir = "eclipse"
 }
 
 configurations {
-    extraLibs
+   extraLibs
 }
 
 dependencies {
-    compile files('libs/industrialcraft-2-2.2.811-experimental-api.jar')
-	compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
-	compile files('libs/CoFHLib-[1.7.10]1.1.1-181.jar')
-	compile files('checker/lib/gson-2.2.4.jar')
+   compile files('libs/industrialcraft-2-2.2.811-experimental-api.jar')
+   compile files('libs/NotEnoughItems-1.7.10-1.0.5.118-universal.jar')
+   compile files('libs/CoFHLib-[1.7.10]1.1.1-181.jar')
+   compile files('checker/lib/gson-2.2.4.jar')
 }
-	
+
 processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+   inputs.property "version", project.version
+   inputs.property "mcversion", project.minecraft.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+   from(sourceSets.main.resources.srcDirs) {
+      include 'mcmod.info'
 
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
+      expand 'version':project.version, 'mcversion':project.minecraft.version
+   }
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-    
-    from('./') {
-    	include 'licence.txt'
-    }
+   from(sourceSets.main.resources.srcDirs) {
+      exclude 'mcmod.info'
+   }
+
+   from('./') {
+      include 'licence.txt'
+   }
 }
 
 jar {
-    includeEmptyDirs = false
-    classifier = "-" + minecraft.version + "-"
-    archiveName = archivesBaseName + classifier + version + ".jar"
-    manifest {
-        attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'net.roryclaasen.asm.rorysmodcore.RorysModCoreLoading', 'FMLCorePluginContainsFMLMod': 'true'
-    }
-    into('lib') {
-        from configurations.extraLibs
-    }
+   includeEmptyDirs = false
+   classifier = "-" + minecraft.version + "-"
+   archiveName = archivesBaseName + classifier + version + ".jar"
+   manifest {
+      attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'net.roryclaasen.asm.rorysmodcore.RorysModCoreLoading', 'FMLCorePluginContainsFMLMod': 'true'
+   }
+   into('lib') {
+      from configurations.extraLibs
+   }
 }
