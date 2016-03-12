@@ -30,6 +30,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.core.RorysMod;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -124,6 +125,13 @@ public class Register {
 
 	public static void registerEventBus(Object target) {
 		MinecraftForge.EVENT_BUS.register(target);
+		event++;
+
+		FMLCommonHandler.instance().bus().register(target);
+	}
+
+	public static void registerFMLEvent(Object target) {
+		FMLCommonHandler.instance().bus().register(target);
 		event++;
 	}
 
