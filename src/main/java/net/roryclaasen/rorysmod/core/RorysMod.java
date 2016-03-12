@@ -17,7 +17,6 @@ package net.roryclaasen.rorysmod.core;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 import net.roryclaasen.rorysmod.entity.EntityLaser;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import net.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
@@ -39,8 +38,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "before:IC2;required-after:CoFHCore")
 public class RorysMod {
@@ -122,7 +119,10 @@ public class RorysMod {
 	public void postinit(FMLPostInitializationEvent event) {
 		RMLog.info("Registered " + Register.getRegisteredBlocks() + " block(s)");
 		RMLog.info("Registered " + Register.getRegisteredItems() + " item(s)");
+		RMLog.info("Registered " + Register.getRegisteredTileEntities() + " tile entity(s)");
+		RMLog.info("Registered " + Register.getRegisteredEntities() + " entity(s)");
 		RMLog.info("Registered " + Register.getRegisteredRecipies() + " recipie(s)");
+		RMLog.info("Registered " + Register.getRegisteredEvents() + " event(s)");
 		
 		checker = new VersionChecker(FMLCommonHandler.instance().findContainerFor(RorysMod.MODID).getVersion());
 		Thread thread = new Thread(checker, MODID + " Version Check");
@@ -130,18 +130,18 @@ public class RorysMod {
 	}
 
 	private void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityRifleTable.class, "tableUpgrade");
-		GameRegistry.registerTileEntity(TileEntityPoweredChest.class, "blockChestPowered");
+		Register.registerTileEntity(TileEntityRifleTable.class, "tableUpgrade");
+		Register.registerTileEntity(TileEntityPoweredChest.class, "blockChestPowered");
 	}
 
 	private void registerModEntities() {
-		EntityRegistry.registerModEntity(EntityLaser.class, "laser", 0, RorysMod.instance, 64, 10, true);
+		Register.registerEntities(EntityLaser.class, "laser", 64, 10, true);
 	}
 
 	private void registerEventHandlers() {
-		MinecraftForge.EVENT_BUS.register(new PlayerHoldingRifle());
-		MinecraftForge.EVENT_BUS.register(new PlayerTickEvents());
+		Register.registerEventBus(new PlayerHoldingRifle());
+		Register.registerEventBus(new PlayerTickEvents());
 		PlayerBedEventHandler.setupFields();
-		if (Arguments.isExperiment()) MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
+		if (Arguments.isExperiment()) Register.registerEventBus(new PlayerBedEventHandler());
 	}
 }

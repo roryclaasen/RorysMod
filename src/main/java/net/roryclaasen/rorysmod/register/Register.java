@@ -16,17 +16,22 @@ limitations under the License.
 package net.roryclaasen.rorysmod.register;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.roryclaasen.rorysmod.core.RorysMod;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Register {
 
-	private static int items, blocks, recipies, dictionary;
+	private static int items, blocks, tileEntitys, entitys, recipies, dictionary, event;
 
 	private Register() {}
 
@@ -91,6 +96,31 @@ public class Register {
 		recipies++;
 	}
 
+	public static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id) {
+		GameRegistry.registerTileEntity(tileEntityClass, id);
+		tileEntitys++;
+	}
+
+	public static void registerTileEntityWithAlternatives(Class<? extends TileEntity> tileEntityClass, String id, String... alternatives) {
+		GameRegistry.registerTileEntityWithAlternatives(tileEntityClass, id, alternatives);
+		tileEntitys++;
+	}
+
+	public static void registerEntities(Class<? extends Entity> entityClass, String entityName, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates) {
+		registerEntities(entityClass, entityName, entitys, trackingRange, updateFrequency, sendsVelocityUpdates);
+	}
+
+	@Deprecated
+	public static void registerEntities(Class<? extends Entity> entityClass, String entityName, int id, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates) {
+		EntityRegistry.registerModEntity(entityClass, entityName, id, RorysMod.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
+		entitys++;
+	}
+
+	public static void registerEventBus(Object target) {
+		MinecraftForge.EVENT_BUS.register(target);
+		event++;
+	}
+
 	public static int getRegisteredItems() {
 		return items;
 	}
@@ -99,11 +129,23 @@ public class Register {
 		return blocks;
 	}
 
+	public static int getRegisteredTileEntities() {
+		return tileEntitys;
+	}
+
+	public static int getRegisteredEntities() {
+		return entitys;
+	}
+
 	public static int getRegisteredRecipies() {
 		return recipies;
 	}
 
 	public static int getRegisteredInDictionary() {
 		return dictionary;
+	}
+
+	public static int getRegisteredEvents() {
+		return event;
 	}
 }
