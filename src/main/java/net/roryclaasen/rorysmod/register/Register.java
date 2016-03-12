@@ -26,6 +26,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.core.RorysMod;
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -119,6 +121,14 @@ public class Register {
 	public static void registerEventBus(Object target) {
 		MinecraftForge.EVENT_BUS.register(target);
 		event++;
+	}
+
+	public static void registerGUI(IGuiHandler handler) {
+		NetworkRegistry.INSTANCE.registerGuiHandler(RorysMod.instance, handler);
+	}
+
+	public static void registerGUI(Object mod, IGuiHandler handler) {
+		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
 	}
 
 	public static int getRegisteredItems() {

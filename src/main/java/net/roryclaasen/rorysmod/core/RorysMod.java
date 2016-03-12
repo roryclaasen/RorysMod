@@ -37,7 +37,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "before:IC2;required-after:CoFHCore")
 public class RorysMod {
@@ -106,7 +105,7 @@ public class RorysMod {
 		items.createRecipes();
 		RMLog.info("Registering everything else");
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		Register.registerGUI(new GuiHandler());
 
 		registerEventHandlers();
 		registerTileEntities();
