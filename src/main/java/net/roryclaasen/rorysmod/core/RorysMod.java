@@ -26,6 +26,7 @@ import net.roryclaasen.rorysmod.event.PlayerHoldingRifle;
 import net.roryclaasen.rorysmod.event.PlayerTickEvents;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
+import net.roryclaasen.rorysmod.register.Register;
 import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.VersionChecker;
@@ -119,6 +120,10 @@ public class RorysMod {
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
+		RMLog.info("Registered " + Register.getRegisteredBlocks() + " block(s)");
+		RMLog.info("Registered " + Register.getRegisteredItems() + " item(s)");
+		RMLog.info("Registered " + Register.getRegisteredRecipies() + " recipie(s)");
+		
 		checker = new VersionChecker(FMLCommonHandler.instance().findContainerFor(RorysMod.MODID).getVersion());
 		Thread thread = new Thread(checker, MODID + " Version Check");
 		thread.start();

@@ -20,20 +20,17 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.block.BlockBaseMeta;
+import net.roryclaasen.rorysmod.block.BlockBlueprint;
 import net.roryclaasen.rorysmod.block.BlockIngot;
 import net.roryclaasen.rorysmod.block.BlockPoweredChest;
 import net.roryclaasen.rorysmod.block.BlockRifleTable;
 import net.roryclaasen.rorysmod.block.BlockTestingWall;
-import net.roryclaasen.rorysmod.block.BlockBlueprint;
 import net.roryclaasen.rorysmod.block.MultiBlockHandler;
+import net.roryclaasen.rorysmod.register.Register;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.registry.BlockRegistry;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModBlocks implements TypeGroup {
 
@@ -59,39 +56,39 @@ public class ModBlocks implements TypeGroup {
 	@Override
 	public void register(FMLPreInitializationEvent event) {
 		RMLog.info("Registering Blocks");
-		GameRegistry.registerBlock(testingWall, MultiBlockHandler.class, testingWall.getUnlocalizedName());
-		GameRegistry.registerBlock(upgradeTable, upgradeTable.getUnlocalizedName());
-		GameRegistry.registerBlock(steelBlock, steelBlock.getUnlocalizedName());
-		GameRegistry.registerBlock(bluePrint, MultiBlockHandler.class, bluePrint.getUnlocalizedName());
+		Register.registerBlock(testingWall, MultiBlockHandler.class);
+		Register.registerBlock(upgradeTable);
+		Register.registerBlock(steelBlock);
+		Register.registerBlock(bluePrint, MultiBlockHandler.class);
 
-		OreDictionary.registerOre("blockSteel", steelBlock);
+		Register.registerDictionary("blockSteel", steelBlock);
 		for (int i = 0; i < ((BlockBaseMeta) testingWall).getMetaSize(); i++) {
-			OreDictionary.registerOre("testingWall", new ItemStack(testingWall, 1, i));
+			Register.registerDictionary("testingWall", new ItemStack(testingWall, 1, i));
 		}
 		for (int i = 0; i < ((BlockBaseMeta) bluePrint).getMetaSize(); i++) {
-			OreDictionary.registerOre("bluePrint", new ItemStack(bluePrint, 1, i));
+			Register.registerDictionary("bluePrint", new ItemStack(bluePrint, 1, i));
 		}
 
-		GameRegistry.registerBlock(poweredChest, poweredChest.getUnlocalizedName());
+		Register.registerBlock(poweredChest);
 	}
 
 	@Override
 	public void createRecipes() {
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(steelBlock), new Object[]{"sss", "sss", "sss", 's', "ingotSteel"}));
+		Register.addShapedRecipie(new ItemStack(steelBlock), new Object[]{"sss", "sss", "sss", 's', "ingotSteel"});
 		for (int id = 0; id < ((BlockBaseMeta) testingWall).getMetaSize(); id++) {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
-			GameRegistry.addRecipe(new ShapedOreRecipe(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(currentBlock, new Object[]{"testingWall", dye, dye, dye}));
+			Register.addShapedRecipie(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye});
+			Register.addShapedRecipie(currentBlock, new Object[]{"testingWall", dye, dye, dye});
 		}
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 1), new Object[]{" d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 2), new Object[]{"  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 4), new Object[]{"   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bluePrint, 1, 0), new Object[]{"d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)}));
+		Register.addShapedRecipie(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table});
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4)});
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 1), new Object[]{" d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 2), new Object[]{"  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 4), new Object[]{"   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[]{"d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
 
-		GameRegistry.addShapedRecipe(new ItemStack(poweredChest), new Object[]{"c", "r", 'c', Blocks.chest, 'r', Items.redstone});
+		Register.addShapedRecipie(new ItemStack(poweredChest), new Object[]{"c", "r", 'c', Blocks.chest, 'r', Items.redstone});
 	}
 }
