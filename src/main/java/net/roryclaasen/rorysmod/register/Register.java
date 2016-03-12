@@ -16,16 +16,20 @@ limitations under the License.
 package net.roryclaasen.rorysmod.register;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.roryclaasen.rorysmod.core.RorysMod;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -129,6 +133,23 @@ public class Register {
 
 	public static void registerGUI(Object mod, IGuiHandler handler) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
+	}
+
+	public static void registerGlobalEntityID(Class<? extends Entity> entityClass, String entityName) {
+		registerGlobalEntityID(entityClass, entityName, EntityRegistry.findGlobalUniqueEntityId());
+	}
+
+	@Deprecated
+	public static void registerGlobalEntityID(Class<? extends Entity> entityClass, String entityName, int id) {
+		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
+	}
+
+	public static void registerEntityRenderingHandler(Class<? extends Entity> entityClass, Render renderer) {
+		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderer);
+	}
+
+	public static void registerItemRenderer(Item item, IItemRenderer renderer) {
+		MinecraftForgeClient.registerItemRenderer(item, renderer);
 	}
 
 	public static int getRegisteredItems() {
