@@ -26,6 +26,7 @@ import net.roryclaasen.rorysmod.event.PlayerHoldingRifle;
 import net.roryclaasen.rorysmod.event.PlayerTickEvents;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
+import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.VersionChecker;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -136,6 +137,6 @@ public class RorysMod {
 		MinecraftForge.EVENT_BUS.register(new PlayerHoldingRifle());
 		MinecraftForge.EVENT_BUS.register(new PlayerTickEvents());
 		PlayerBedEventHandler.setupFields();
-		MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
+		if (Arguments.isExperiment()) MinecraftForge.EVENT_BUS.register(new PlayerBedEventHandler());
 	}
 }
