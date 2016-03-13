@@ -9,8 +9,15 @@
 ## What will be in the next release
 ```
 + Better sleeping
+```
+## Version 1.2.5
+(13/03/2016) RorysMod-1.7.10-1.2.5.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.5)
+```
++ Added version checker, shown when joining a world
 * Fixed module always on (igniter)
-* General bug fixes
+* (A lot of) General bug fixes
+? Better sleeping not 100%, (see http://github.com/GOGO98901/RorysMod#experimental-features)
 ```
 ## Version 1.2.4
 (11/02/2016) RorysMod-1.7.10-1.2.4.jar<br>
