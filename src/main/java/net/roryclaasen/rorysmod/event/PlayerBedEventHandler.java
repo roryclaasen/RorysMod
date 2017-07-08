@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Rory Claasen
+Copyright 2016-2017 Rory Claasen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@ limitations under the License.
 package net.roryclaasen.rorysmod.event;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -32,7 +32,6 @@ import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.roryclaasen.rorysmod.core.Settings;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.ReflectionUtilities;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerBedEventHandler {
 
@@ -41,12 +40,10 @@ public class PlayerBedEventHandler {
 	private final int sleepRange = 10;
 	private static Field sleeping;
 	private static Field sleeptimer;
-	private static Method setsize;
 
 	@SuppressWarnings("rawtypes")
 	public static void setupFields() {
 		Class bed = EntityPlayer.class;
-		Class entity = Entity.class;
 		try {
 			sleeping = ReflectionUtilities.getField("sleeping", "field_71083_bS", bed);
 		} catch (Exception e) {
@@ -54,16 +51,6 @@ public class PlayerBedEventHandler {
 		}
 		try {
 			sleeptimer = ReflectionUtilities.getField("sleepTimer", "field_71076_b", bed);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
-			setsize = ReflectionUtilities.getMethod("setSize", "func_70105_a", entity, float.class, float.class);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
-			setsize.setAccessible(true);
 		} catch (Exception e) {
 			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
 		}
@@ -91,7 +78,7 @@ public class PlayerBedEventHandler {
 		boolean night = (Settings.enableSleepInDay || !event.entityPlayer.worldObj.isDaytime());
 
 		if (noMobs && night) {
-			if (!event.entityPlayer.worldObj.isRemote) {
+			if (!player.worldObj.isRemote) {
 				if (event.entityPlayer.worldObj.isDaytime()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)));
 				if (!list.isEmpty()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_SAFE)));
 			}

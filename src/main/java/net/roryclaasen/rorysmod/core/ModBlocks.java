@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Rory Claasen
+Copyright 2016-2017 Rory Claasen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ public class ModBlocks implements TypeGroup {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
 			Register.addShapedRecipie(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye});
-			Register.addShapedRecipie(currentBlock, new Object[]{"testingWall", dye, dye, dye});
+			Register.addShaplessRecipie(currentBlock, new Object[]{"testingWall", dye, dye, dye});
 		}
 		Register.addShapedRecipie(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table});
 		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4)});

@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Rory Claasen
+Copyright 2016-2017 Rory Claasen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.core;
 
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
@@ -32,9 +34,6 @@ import net.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import net.roryclaasen.rorysmod.register.Register;
 import net.roryclaasen.rorysmod.util.RMLog;
 import net.roryclaasen.rorysmod.util.registry.ItemRegistry;
-import codechicken.nei.api.API;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ModItems implements TypeGroup {
 
@@ -106,7 +105,7 @@ public class ModItems implements TypeGroup {
 		Register.registerDictionary("cpu", cpu);
 
 		if (Loader.isModLoaded("NotEnoughItems")) {
-			API.hideItem(new ItemStack(laserBolt));
+			//API.hideItem(new ItemStack(laserBolt));
 		}
 	}
 
