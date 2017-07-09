@@ -49,7 +49,7 @@ That being said to use these features you must pass this VM argument
 # License
 [![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/blob/master/licence.txt)
 ```
-Copyright 2016 Rory Claasen
+Copyright 2016-2017 Rory Claasen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
