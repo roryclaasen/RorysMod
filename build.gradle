@@ -24,20 +24,11 @@ repositories {
 
 apply plugin: 'forge'
 
-sourceSets {
-   main {
-      java {
-         srcDirs = ['src/main/java', 'src/main/resources', 'checker/src']
-         exclude 'net/roryclaasen/test/**'
-      }
-   }
-}
-
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 version = "1.2.7"
-group= "net.roryclaasen.rorysmod"
+group= "me.roryclaasen.rorysmod"
 archivesBaseName = "RorysMod"
 
 minecraft {
@@ -83,7 +74,7 @@ jar {
    classifier = "-" + minecraft.version + "-"
    archiveName = archivesBaseName + classifier + version + ".jar"
    manifest {
-      attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'net.roryclaasen.asm.rorysmodcore.RorysModCoreLoading', 'FMLCorePluginContainsFMLMod': 'true'
+      attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'me.roryclaasen.asm.rorysmodcore.RorysModCorePlugin', 'FMLCorePluginContainsFMLMod': 'true'
    }
    //into('lib') {
    //   from configurations.extraLibs
