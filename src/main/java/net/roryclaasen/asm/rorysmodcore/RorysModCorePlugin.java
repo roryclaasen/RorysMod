@@ -12,20 +12,34 @@
  */
 package net.roryclaasen.asm.rorysmodcore;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-import net.roryclaasen.asm.rorysmodcore.transformer.EntityPlayerTransformer;
-import net.roryclaasen.asm.rorysmodcore.transformer.WorldServerTransformer;
-import net.roryclaasen.rorysmod.util.Arguments;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.DependsOn;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
+import net.roryclaasen.asm.rorysmodcore.transformer.SleepingTransformer;
+import net.roryclaasen.asm.rorysmodcore.util.ASMHelper;
+import net.roryclaasen.asm.rorysmodcore.util.MCPNames;
 
+@SortingIndex(1001)
 @MCVersion(value = "1.7.10")
-public class RorysModCoreLoading implements IFMLLoadingPlugin {
+@DependsOn("forge")
+public class RorysModCorePlugin implements IFMLLoadingPlugin {
 
 	@Override
 	public String[] getASMTransformerClass() {
-		return new String[] { Arguments.isExperiment() ? WorldServerTransformer.class.getName() : "", Arguments.isExperiment() ? EntityPlayerTransformer.class.getName() : "" };
+		List<String> list = new ArrayList<String>();
+		
+		list.add(SleepingTransformer.class.getName());
+
+		String[] sList = new String[list.size()];
+		for (int i = 0; i < sList.length; i++) {
+			sList[i] = list.get(i);
+		}
+		return sList;
 	}
 
 	@Override
@@ -39,7 +53,10 @@ public class RorysModCoreLoading implements IFMLLoadingPlugin {
 	}
 
 	@Override
-	public void injectData(Map<String, Object> data) {}
+	public void injectData(Map<String, Object> data) {
+		ASMHelper.isMCP = !(Boolean) data.get("runtimeDeobfuscationEnabled");
+		MCPNames.use();
+	}
 
 	@Override
 	public String getAccessTransformerClass() {

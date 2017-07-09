@@ -33,6 +33,9 @@ sourceSets {
    }
 }
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 version = "1.2.7"
 group= "net.roryclaasen.rorysmod"
 archivesBaseName = "RorysMod"
@@ -42,15 +45,21 @@ minecraft {
     runDir = "eclipse"
 }
 
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
 dependencies {
     compile 'net.industrial-craft:industrialcraft-2:2.2.811-experimental:api'
 	// compile files('libs/CodeChickenLib-1.7.10-1.1.3.140-dev.jar')
 	// compile files('libs/NotEnoughItems-1.7.10-1.0.5.120-dev.jar')
 	compile files('libs/CoFHLib-[1.7.10]1.2.1-185.jar')
+	
+	embed files('libs/javatuples-1.2.jar')
 }
 
-processResources
-{
+processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 

@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Rory Claasen
+Copyright 2016-2017 Rory Claasen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@ limitations under the License.
  */
 package net.roryclaasen.rorysmod.util;
 
-import net.roryclaasen.rorysmod.core.RorysMod;
-
 import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
+import net.roryclaasen.rorysmod.core.RorysMod;
 
 public class RMLog {
 

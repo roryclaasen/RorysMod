@@ -30,7 +30,6 @@ import net.roryclaasen.rorysmod.event.PlayerTickEvents;
 import net.roryclaasen.rorysmod.gui.GuiHandler;
 import net.roryclaasen.rorysmod.proxy.CommonProxy;
 import net.roryclaasen.rorysmod.register.Register;
-import net.roryclaasen.rorysmod.util.Arguments;
 import net.roryclaasen.rorysmod.util.RMLog;
 
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "before:IC2;required-after:CoFHCore")
@@ -128,7 +127,6 @@ public class RorysMod {
 	private void registerEventHandlers() {
 		Register.registerEventBus(new PlayerHoldingRifle());
 		Register.registerEventBus(new PlayerTickEvents());
-		PlayerBedEventHandler.setupFields();
-		if (Arguments.isExperiment()) Register.registerEventBus(new PlayerBedEventHandler());
+		Register.registerEventBus(new PlayerBedEventHandler());
 	}
 }

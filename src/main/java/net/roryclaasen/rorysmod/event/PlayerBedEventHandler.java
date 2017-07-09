@@ -1,131 +1,132 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package net.roryclaasen.rorysmod.event;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.roryclaasen.rorysmod.core.Settings;
-import net.roryclaasen.rorysmod.util.RMLog;
-import net.roryclaasen.rorysmod.util.ReflectionUtilities;
 
 public class PlayerBedEventHandler {
 
-	private final Random random = new Random();
-
-	private final int sleepRange = 10;
-	private static Field sleeping;
-	private static Field sleeptimer;
-
-	@SuppressWarnings("rawtypes")
-	public static void setupFields() {
-		Class bed = EntityPlayer.class;
-		try {
-			sleeping = ReflectionUtilities.getField("sleeping", "field_71083_bS", bed);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
-			sleeptimer = ReflectionUtilities.getField("sleepTimer", "field_71076_b", bed);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
-			sleeping.setAccessible(true);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-		try {
-			sleeptimer.setAccessible(true);
-		} catch (Exception e) {
-			RMLog.warn("Ran into error:\t" + e.getLocalizedMessage());
-		}
-	}
-
 	@SubscribeEvent
 	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event) throws IllegalArgumentException, IllegalAccessException {
-		if (event.entity.worldObj.isRemote) return;
-		if (!event.entity.worldObj.provider.isSurfaceWorld()) return;
-
 		EntityPlayer player = event.entityPlayer;
-		List<EntityMob> list = getEntityMobFromPlayer(player, sleepRange);
+		World worldObj = player.worldObj;
 
-		boolean noMobs = (!Settings.enableMobsNearByCheck || list.isEmpty());
-		boolean night = (Settings.enableSleepInDay || !event.entityPlayer.worldObj.isDaytime());
-
-		if (noMobs && night) {
-			if (!player.worldObj.isRemote) {
-				if (event.entityPlayer.worldObj.isDaytime()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)));
-				if (!list.isEmpty()) event.entityPlayer.addChatMessage(new ChatComponentText(getMessage(EntityPlayer.EnumStatus.NOT_SAFE)));
+		if (!worldObj.isRemote) {
+			if (player.isPlayerSleeping() || !player.isEntityAlive()) {
+				event.result = EntityPlayer.EnumStatus.OTHER_PROBLEM;
+				return;
 			}
-			event.result = EntityPlayer.EnumStatus.OK;
-			if (sleeping != null) sleeping.setBoolean(player, true);
-			if (sleeptimer != null) sleeptimer.setInt(player, 0);
-			player.motionX = player.motionZ = player.motionY = 0.0D;
-			if (!player.worldObj.isRemote) {
-				player.worldObj.updateAllPlayersSleepingFlag();
-			}
-		} else {
-			if (!night) event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
-			else if (!noMobs && night) event.result = EntityPlayer.EnumStatus.NOT_SAFE;
-			else event.result = EntityPlayer.EnumStatus.OTHER_PROBLEM;
-			return;
-		}
-		return;
-	}
 
-	@SuppressWarnings("unchecked")
-	private List<EntityMob> getEntityMobFromPlayer(EntityLivingBase player, int range) {
-		double px = player.posX;
-		double py = player.posY;
-		double pz = player.posZ;
-		List<Entity> l = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(px - range, py - range, pz - range, px + range, py + range, pz + range));
-		List<EntityMob> result = new ArrayList<EntityMob>();
-		for (int i = 0; i < l.size(); ++i) {
-			EntityLivingBase x = (EntityLivingBase) l.get(i);
-			if (x != null) {
-				if (x instanceof EntityMob) {
-					if (x.getDistanceToEntity(player) <= range) {
-						result.add((EntityMob) x);
-					}
+			if (!worldObj.provider.isSurfaceWorld()) {
+				event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_HERE;
+				return;
+			}
+
+			if (worldObj.isDaytime() && !Settings.enableSleepInDay) {
+				event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
+				return;
+			}
+
+			if (Math.abs(player.posX - (double) event.x) > 3.0D || Math.abs(player.posY - (double) event.y) > 2.0D || Math.abs(player.posZ - (double) event.z) > 3.0D) {
+				event.result = EntityPlayer.EnumStatus.TOO_FAR_AWAY;
+				return;
+			}
+
+			if (Settings.enableMobsNearByCheck) {
+				double d0 = 8.0D;
+				double d1 = 5.0D;
+				@SuppressWarnings("rawtypes")
+				List list = worldObj.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.getBoundingBox((double) event.x - d0, (double) event.y - d1, (double) event.z - d0, (double) event.x + d0, (double) event.y + d1, (double) event.z + d0));
+
+				if (!list.isEmpty()) {
+					event.result = EntityPlayer.EnumStatus.NOT_SAFE;
+					return;
 				}
 			}
 		}
-		return result;
+
+		if (player.isRiding()) {
+			player.mountEntity((Entity) null);
+		}
+
+		player.setSize(0.2F, 0.2F);
+		player.yOffset = 0.2F;
+
+		if (worldObj.blockExists(event.x, event.y, event.z)) {
+			int l = worldObj.getBlock(event.x, event.y, event.z).getBedDirection(worldObj, event.x, event.y, event.z);
+			float f1 = 0.5F;
+			float f = 0.5F;
+
+			switch (l) {
+				case 0:
+					f = 0.9F;
+					break;
+				case 1:
+					f1 = 0.1F;
+					break;
+				case 2:
+					f = 0.1F;
+					break;
+				case 3:
+					f1 = 0.9F;
+			}
+
+			func_71013_b(player, l);
+			player.setPosition((double) ((float) event.x + f1), (double) ((float) event.y + 0.9375F), (double) ((float) event.z + f));
+		} else {
+			player.setPosition((double) ((float) event.x + 0.5F), (double) ((float) event.y + 0.9375F), (double) ((float) event.z + 0.5F));
+		}
+
+		player.sleeping = true;
+		player.sleepTimer = 0;
+		player.playerLocation = new ChunkCoordinates(event.x, event.y, event.z);
+		player.motionX = player.motionZ = player.motionY = 0.0D;
+
+		if (!worldObj.isRemote) {
+			worldObj.updateAllPlayersSleepingFlag();
+			player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.daytime")));
+		}
+		event.result = EntityPlayer.EnumStatus.OK;
 	}
 
-	private String getMessage(EntityPlayer.EnumStatus status) {
-		if (status == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
-			int msg = random.nextInt(3);
-			return StatCollector.translateToLocal("message.rorysmod.sleeping.daytime_" + msg);
+	private void func_71013_b(EntityPlayer player, int p_71013_1_) {
+		player.field_71079_bU = 0.0F;
+		player.field_71089_bV = 0.0F;
+
+		switch (p_71013_1_) {
+			case 0:
+				player.field_71089_bV = -1.8F;
+				break;
+			case 1:
+				player.field_71079_bU = 1.8F;
+				break;
+			case 2:
+				player.field_71089_bV = 1.8F;
+				break;
+			case 3:
+				player.field_71079_bU = -1.8F;
 		}
-		if (status == EntityPlayer.EnumStatus.NOT_SAFE) {
-			return StatCollector.translateToLocal("tile.bed.notSafe");
-		}
-		return "Message not Found";
 	}
 }
