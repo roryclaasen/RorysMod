@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.asm.rorysmodcore.transformer;
+package me.roryclaasen.rorysmodcore.transformer;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -25,9 +25,9 @@ import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+import me.roryclaasen.rorysmodcore.asm.ASMHelper;
+import me.roryclaasen.rorysmodcore.asm.ASMNames;
 import net.minecraft.launchwrapper.IClassTransformer;
-import me.roryclaasen.asm.rorysmodcore.util.ASMHelper;
-import me.roryclaasen.asm.rorysmodcore.util.ASMNames;
 
 public class SleepingTransformer implements IClassTransformer {
 	@Override

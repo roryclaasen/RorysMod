@@ -10,15 +10,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.asm.rorysmodcore.util;
+package me.roryclaasen.rorysmodcore;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import me.roryclaasen.rorysmod.core.Settings;
 
-public class Helper {
+public class CoreHelper {
 
-	private Helper() {}
+	private CoreHelper() {}
 
 	public static boolean shouldWakeUpNow() {
 		return !Settings.enableSleepInDay;

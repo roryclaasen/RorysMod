@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.asm.rorysmodcore;
+package me.roryclaasen.rorysmodcore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.DependsOn;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
-import me.roryclaasen.asm.rorysmodcore.transformer.SleepingTransformer;
-import me.roryclaasen.asm.rorysmodcore.util.ASMHelper;
-import me.roryclaasen.asm.rorysmodcore.util.MCPNames;
+import me.roryclaasen.rorysmodcore.asm.ASMHelper;
+import me.roryclaasen.rorysmodcore.asm.MCPNames;
+import me.roryclaasen.rorysmodcore.transformer.SleepingTransformer;
 
 @SortingIndex(1001)
 @MCVersion(value = "1.7.10")

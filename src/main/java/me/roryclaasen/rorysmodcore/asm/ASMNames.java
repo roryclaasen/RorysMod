@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.asm.rorysmodcore.util;
+package me.roryclaasen.rorysmodcore.asm;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,8 +42,8 @@ public final class ASMNames {
 	public static final String FD_PLAYER_ENUM_NOT_POSSIBLE = "net/minecraft/entity/player/EntityPlayer$EnumStatus/NOT_POSSIBLE_HERE Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;";
 	public static final String FD_PLAYER_ENUM_OK = "net/minecraft/entity/player/EntityPlayer$EnumStatus/OK Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;";
 	
-	public static final String MD_RM_HELPER_SLEEP = "me/roryclaasen/asm/rorysmodcore/util/Helper/shouldWakeUpNow Z";
-	public static final String MD_RM_HELPER_SLEEP_PLAEYR = "me/roryclaasen/asm/rorysmodcore/util/Helper/shouldWakeUpNow (Lnet/minecraft/entity/player/EntityPlayer;)Z";
+	public static final String MD_RM_HELPER_SLEEP = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow Z";
+	public static final String MD_RM_HELPER_SLEEP_PLAEYR = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow (Lnet/minecraft/entity/player/EntityPlayer;)Z";
 
 	
 

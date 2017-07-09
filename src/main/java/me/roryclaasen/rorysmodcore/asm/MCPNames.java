@@ -1,4 +1,4 @@
-package me.roryclaasen.asm.rorysmodcore.util;
+package me.roryclaasen.rorysmodcore.asm;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;

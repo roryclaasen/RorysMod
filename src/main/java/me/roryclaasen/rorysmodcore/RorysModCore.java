@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.asm.rorysmodcore;
+package me.roryclaasen.rorysmodcore;
 
 import java.util.Arrays;
 
