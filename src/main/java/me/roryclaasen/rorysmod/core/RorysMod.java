@@ -32,7 +32,7 @@ import me.roryclaasen.rorysmod.proxy.CommonProxy;
 import me.roryclaasen.rorysmod.register.Register;
 import me.roryclaasen.rorysmod.util.RMLog;
 
-@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "before:IC2;required-after:CoFHCore")
+@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "required-after:CoFHCore;before:IC2;")
 public class RorysMod {
 
 	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.proxy.CommonProxy")
@@ -94,6 +94,11 @@ public class RorysMod {
 		RMLog.info("Registering Recipes");
 		blocks.createRecipes();
 		items.createRecipes();
+
+		RMLog.info("Registering Mod Recipes");
+		blocks.createModRecipes();
+		items.createModRecipes();
+		
 		RMLog.info("Registering everything else");
 
 		Register.registerGUI(new GuiHandler());
@@ -107,6 +112,7 @@ public class RorysMod {
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
+		
 		RMLog.info("Registered " + Register.getRegisteredBlocks() + " block(s)");
 		RMLog.info("Registered " + Register.getRegisteredItems() + " item(s)");
 		RMLog.info("Registered " + Register.getRegisteredTileEntities() + " tile entity(s)");

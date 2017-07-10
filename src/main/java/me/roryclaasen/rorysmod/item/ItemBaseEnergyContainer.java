@@ -26,14 +26,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContainerItem {
 
-	protected int capacity;
+	protected int capacity, baseCapacity;
 	protected int maxReceive;
 	protected int maxExtract;
 	protected int tier = 1;
 
 	public ItemBaseEnergyContainer(String unlocalizedName, int capacity, int maxReceive, int maxExtract) {
 		super(unlocalizedName);
-		this.capacity = capacity;
+		this.capacity = this.baseCapacity = capacity;
 		this.maxReceive = maxReceive;
 		this.maxExtract = maxExtract;
 	}

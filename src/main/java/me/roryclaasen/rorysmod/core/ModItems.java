@@ -1,20 +1,18 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.core;
 
+import codechicken.nei.api.API;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import ic2.api.item.IC2Items;
@@ -105,7 +103,7 @@ public class ModItems implements TypeGroup {
 		Register.registerDictionary("cpu", cpu);
 
 		if (Loader.isModLoaded("NotEnoughItems")) {
-			//API.hideItem(new ItemStack(laserBolt));
+			API.hideItem(new ItemStack(laserBolt));
 		}
 	}
 
@@ -123,36 +121,42 @@ public class ModItems implements TypeGroup {
 		Register.addShaplessRecipie(new ItemStack(steelPlate), "ingotSteel", forgeHammer);
 		Register.addShaplessRecipie(new ItemStack(steelIngot, 9), "blockSteel");
 		Register.addSmeltingRecipie(new ItemStack(steelDust), new ItemStack(steelIngot), 0.1f);
-		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
-		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
 
 		// Circuit
-		Register.addShapedRecipie(new ItemStack(circuit), new Object[]{" r ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget});
-		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[]{"lrg", "cpc", "grl", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'p', "cpu", 'c', "circuitBasic"});
-		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[]{"grl", "cpc", "lrg", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'p', "cpu", 'c', "circuitBasic"});
+		Register.addShapedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget });
+		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[] { "rgr", "lcl", "rgr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
+		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[] { "rlr", "gcg", "rlr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
 
 		// Lens
-		Register.addShapedRecipie(new ItemStack(lens, 4), new Object[]{" g ", "g g", " g ", 'g', Blocks.glass});
+		Register.addShapedRecipie(new ItemStack(lens, 4), new Object[] { " g ", "g g", " g ", 'g', Blocks.glass });
 
 		// Filament
-		Register.addShaplessRecipie(new ItemStack(filament, 2), new Object[]{Items.redstone, Items.flint, IC2Items.getItem("copperCableItem")});
+		Register.addShaplessRecipie(new ItemStack(filament, 2), new Object[] { Items.redstone, Items.flint, IC2Items.getItem("copperCableItem") });
+
 		// CPU
-		Register.addShapedRecipie(new ItemStack(cpu), new Object[]{" r ", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic"});
+		Register.addShapedRecipie(new ItemStack(cpu), new Object[] { " r ", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic" });
 
 		// Rifle
-		Register.addShapedRecipie(new ItemStack(rifleBarrel), new Object[]{"sss", "   ", "sss", 's', "ingotSteel"});
-		Register.addShapedRecipie(new ItemStack(rifleTrigger), new Object[]{" ss", " s ", "  s", 's', "ingotSteel"});
-		Register.addShapedRecipie(new ItemStack(rifle1), new Object[]{"lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitAdvanced", 't', new ItemStack(rifleTrigger)});
+		Register.addShapedRecipie(new ItemStack(rifleBarrel), new Object[] { "sss", "   ", "sss", 's', "ingotSteel" });
+		Register.addShapedRecipie(new ItemStack(rifleTrigger), new Object[] { " ss", " s ", "  s", 's', "ingotSteel" });
+		Register.addShapedRecipie(new ItemStack(rifle1), new Object[] { "lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitAdvanced", 't', new ItemStack(rifleTrigger) });
 
 		// Rifle upgrade
-		Register.addShapedRecipie(new ItemStack(upgradePlate, 2), new Object[]{"rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel"});
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade), new Object[]{"cuc", 'u', new ItemStack(upgradePlate), 'c', "circuitBasic"});
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 1), new Object[]{"c", "b", 'b', new ItemStack(rifleUpgrade), 'c', IC2Items.getItem("reBattery")});
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 2), new Object[]{"w", "b", 'b', new ItemStack(rifleUpgrade), 'w', IC2Items.getItem("waterCell")});
+		Register.addShapedRecipie(new ItemStack(upgradePlate, 2), new Object[] { "rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel" });
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade), new Object[] { "cuc", 'u', new ItemStack(upgradePlate), 'c', "circuitBasic" });
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 1), new Object[] { "c", "b", 'b', new ItemStack(rifleUpgrade), 'c', IC2Items.getItem("reBattery") });
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 2), new Object[] { "w", "b", 'b', new ItemStack(rifleUpgrade), 'w', IC2Items.getItem("waterCell") });
 		// Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 3), new Object[]{"l", "b", 'b', new ItemStack(rifleUpgrade), 'l', "lens"}));
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 4), new Object[]{"f", "b", 'b', new ItemStack(rifleUpgrade), 'f', filament});
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 5), new Object[]{"c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu});
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 6), new Object[]{"t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt});
-		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 7), new Object[]{"f", "b", 'b', new ItemStack(rifleUpgrade), 'f', Items.flint_and_steel});
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 4), new Object[] { "f", "b", 'b', new ItemStack(rifleUpgrade), 'f', filament });
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 5), new Object[] { "c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu });
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 6), new Object[] { "t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt });
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 7), new Object[] { "f", "b", 'b', new ItemStack(rifleUpgrade), 'f', Items.flint_and_steel });
+	}
+
+	@Override
+	public void createModRecipes() {
+		// Steel
+		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
+		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
 	}
 }

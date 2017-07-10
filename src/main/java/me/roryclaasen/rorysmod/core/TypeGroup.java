@@ -24,4 +24,6 @@ public interface TypeGroup {
 	public void register(FMLPreInitializationEvent event);
 
 	public void createRecipes();
+
+	public void createModRecipes();
 }

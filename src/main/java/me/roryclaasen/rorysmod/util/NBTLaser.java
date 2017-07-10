@@ -1,23 +1,22 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.util;
 
+import java.awt.Color;
+
+import me.roryclaasen.rorysmod.core.Settings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import me.roryclaasen.rorysmod.core.Settings;
 
 public class NBTLaser {
 
@@ -33,9 +32,9 @@ public class NBTLaser {
 		this(stack.stackTagCompound);
 	}
 
-	public NBTLaser(NBTTagCompound tag) {
-		if (tag == null) tag = new NBTTagCompound();
-		this.tag = tag;
+	public NBTLaser(NBTTagCompound currentTag) {
+		if (currentTag == null) currentTag = new NBTTagCompound();
+		this.tag = (NBTTagCompound) currentTag.copy();
 		setUp();
 	}
 
@@ -47,6 +46,7 @@ public class NBTLaser {
 		if (!tag.hasKey("lens")) tag.setBoolean("lens", false);
 		if (!tag.hasKey("cooldown")) tag.setInteger("cooldown", 0);
 		if (!tag.hasKey("cooldownMax")) tag.setInteger("cooldownMax", 100);
+		if (!tag.hasKey("color")) tag.setIntArray("color", ColorUtils.getIntArrayFromColor(Color.RED));
 	}
 
 	public NBTTagCompound getTag() {
@@ -76,7 +76,7 @@ public class NBTLaser {
 
 	public int[] getSlot(int slot) {
 		if (slot < 0 || slot >= NO_SLOTS) return null;
-		return new int[]{getSlotId(slot), getSlotQuantity(slot)};
+		return new int[] { getSlotId(slot), getSlotQuantity(slot) };
 	}
 
 	private int getSlotId(int slot) {
@@ -121,6 +121,14 @@ public class NBTLaser {
 		tag.setInteger("cooldownMax", maxCooldown);
 	}
 
+	public void setColor(int[] color) {
+		tag.setIntArray("color", color);
+	}
+
+	public int[] getColor() {
+		return tag.getIntArray("color");
+	}
+
 	public int getWeight() {
 		int weight = 0;
 		for (int i = 0; i < NO_SLOTS; i++) {
@@ -152,6 +160,7 @@ public class NBTLaser {
 		if (!ntbTag.hasKey("lens")) return false;
 		if (!ntbTag.hasKey("cooldown")) return false;
 		if (!ntbTag.hasKey("cooldownMax")) return false;
+		if (!ntbTag.hasKey("color")) return false;
 		return true;
 	}
 

@@ -1,17 +1,14 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.entity.tile;
 
@@ -32,15 +29,19 @@ import me.roryclaasen.rorysmod.item.ItemRifle;
 import me.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import me.roryclaasen.rorysmod.util.ColorUtils;
 import me.roryclaasen.rorysmod.util.NBTLaser;
+import me.roryclaasen.rorysmod.util.RMLog;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
 	private ItemStack[] inv;
 
+	private Color laserColor;
+
 	private GuiRifleTable gui;
 
 	public TileEntityRifleTable() {
 		inv = new ItemStack[ContainerRifleTable.NO_CUSTOM_SLOTS];
+		laserColor = Color.RED;
 	}
 
 	public void setGuiRifleTable(GuiRifleTable gui) {
@@ -95,20 +96,17 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				if (data.hasLens()) {
 					inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
 					if (gui != null) {
-						Color color = Color.RED;
-						if (stack.stackTagCompound.hasKey("color")) color = ColorUtils.getColorFromIntArray(stack.stackTagCompound.getIntArray("color"));
-						gui.setColorSlider(color);
+						laserColor = ColorUtils.getColorFromIntArray(data.getColor());
+						gui.setColorSlider(laserColor);
 					}
 				}
-				for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
-					int[] cont = data.getSlot(i - 3);
-					if (cont[0] > 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, cont[1], cont[0] + 1);
+				for (int i = 2; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
+					int[] upgrade = data.getSlot(i - 2);
+					if (upgrade[0] >= 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, upgrade[1], upgrade[0] + 1);
 				}
 			}
-			if (hasLaser()) {
-				writeToLaser();
-			}
 		}
+		writeToLaser();
 		if (!hasLaser()) {
 			for (int i = 0; i < inv.length; i++) {
 				inv[i] = null;
@@ -120,14 +118,16 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		if (hasLaser()) {
 			NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
 			data.setLens(inv[1] != null);
-			for (int i = 3; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
+			for (int i = 2; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 				ItemStack stack = inv[i];
 				if (stack != null) {
 					if (stack.getItem() instanceof ItemRifleUpgrade) {
-						data.setSlot(i - 3, stack.getItemDamage() - 1, stack.stackSize);
+						RMLog.info(stack.getDisplayName() + ">" + stack.getItemDamage());
+						data.setSlot(i - 2, stack.getItemDamage() - 1, stack.stackSize);
 					}
-				} else data.setSlot(i - 3, -1, 0);
+				} else data.setSlot(i - 2, -1, 0);
 			}
+			data.setColor(ColorUtils.getIntArrayFromColor(laserColor));
 			inv[0].stackTagCompound = data.getTag();
 			((ItemRifle) inv[0].getItem()).updateNBT(inv[0]);
 		}
@@ -151,9 +151,8 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 	}
 
 	public void setColor(Color color) {
-		if (hasLens()) {
-			inv[0].stackTagCompound.setIntArray("color", ColorUtils.getIntArrayFromColor(color));
-		}
+		laserColor = color;
+		writeToLaser();
 	}
 
 	@Override

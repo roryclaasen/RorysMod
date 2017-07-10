@@ -1,17 +1,14 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.core;
 
@@ -75,21 +72,23 @@ public class ModBlocks implements TypeGroup {
 
 	@Override
 	public void createRecipes() {
-		Register.addShapedRecipie(new ItemStack(steelBlock), new Object[]{"sss", "sss", "sss", 's', "ingotSteel"});
+		Register.addShapedRecipie(new ItemStack(steelBlock), new Object[] { "sss", "sss", "sss", 's', "ingotSteel" });
 		for (int id = 0; id < ((BlockBaseMeta) testingWall).getMetaSize(); id++) {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
-			Register.addShapedRecipie(currentBlock, new Object[]{" i ", "idi", " i ", 'i', "ingotSteel", 'd', dye});
-			Register.addShaplessRecipie(currentBlock, new Object[]{"testingWall", dye, dye, dye});
+			Register.addShapedRecipie(currentBlock, new Object[] { " i ", "idi", " i ", 'i', "ingotSteel", 'd', dye });
+			Register.addShaplessRecipie(currentBlock, new Object[] { "testingWall", dye, dye, dye });
 		}
-		Register.addShapedRecipie(new ItemStack(upgradeTable), new Object[]{"sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table});
-		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[]{" l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4)});
-		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 1), new Object[]{" d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
-		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 2), new Object[]{"  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
-		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 3), new Object[]{"   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
-		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 4), new Object[]{"   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
-		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[]{"d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15)});
+		Register.addShapedRecipie(new ItemStack(upgradeTable), new Object[] { "sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table });
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[] { " l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4) });
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 1), new Object[] { " d ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 2), new Object[] { "  d", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 3), new Object[] { "   ", " bd", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 4), new Object[] { "   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
+		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[] { "d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
 
-		Register.addShapedRecipie(new ItemStack(poweredChest), new Object[]{"c", "r", 'c', Blocks.chest, 'r', Items.redstone});
+		Register.addShapedRecipie(new ItemStack(poweredChest), new Object[] { "c", "r", 'c', Blocks.chest, 'r', Items.redstone });
 	}
+
+	public void createModRecipes() {}
 }

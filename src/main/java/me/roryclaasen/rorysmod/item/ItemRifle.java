@@ -1,17 +1,14 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.item;
 
@@ -36,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemRifle extends ItemBaseEnergyContainer {
 
 	public ItemRifle(String unlocalizedName, int tier) {
-		super(unlocalizedName, 1000, 10);
+		super(unlocalizedName, 1000 * (tier), 10);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 		this.setFull3D();
@@ -89,7 +86,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
 		this.maxReceive = 10 * this.tier;
 
-		this.capacity = (int) Math.ceil(1000 + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
+		this.capacity = (int) Math.ceil(this.baseCapacity + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
 
 		this.maxExtract = 10 + (75 * data.getItemCount(NBTLaser.Items.Overclock)) + (13 * data.getItemCount(NBTLaser.Items.Capacitor)) - data.getItemCount(NBTLaser.Items.Coolant) + (60 * data.getItemCount(NBTLaser.Items.Explosion)) + (60 * data.getItemCount(NBTLaser.Items.Phaser));
 		if (this.maxExtract < 10) this.maxExtract = 10;
@@ -103,7 +100,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	}
 
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		if (!NBTLaser.hasKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
@@ -120,14 +117,12 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						int overclock = data.getItemCount(NBTLaser.Items.Overclock);
 						int explosion = data.getItemCount(NBTLaser.Items.Explosion);
 						int igniter = data.getItemCount(NBTLaser.Items.Igniter);
+						
+						if (data.hasLens()) tooltip.add("Color: " + ColorUtils.getIntColorFromIntArray(stack.stackTagCompound.getIntArray("color")));
 						if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 						if (coolant > 0) tooltip.add(coolant + " Coolant(s)");
-						if (data.hasLens() && stack.stackTagCompound.hasKey("color")) {
-							tooltip.add("Color: " + ColorUtils.getIntColorFromIntArray(stack.stackTagCompound.getIntArray("color")));
-						}
 						if (overclock > 0) tooltip.add(overclock + " Overclock(s)");
 						if (explosion > 0) tooltip.add(explosion + " Explosion(s)");
-						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
 						if (phaser > 0) tooltip.add(phaser + " Phaser(s)");
 						if (igniter > 0) tooltip.add(igniter + " Igniter(s)");
 					} else tooltip.add(StatCollector.translateToLocal("message.rorysmod.heat") + " " + data.getCooldown());

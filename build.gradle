@@ -9,6 +9,10 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            name = 'CodeChicken'
+            url = 'http://chickenbones.net/maven/'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
@@ -20,6 +24,10 @@ repositories {
 		name = "ic2"
 		url = "http://maven.ic2.player.to/"
 	}
+	maven {
+		name = 'CodeChicken'
+		url = 'http://chickenbones.net/maven/'
+	}
 }
 
 apply plugin: 'forge'
@@ -27,27 +35,31 @@ apply plugin: 'forge'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = "1.2.7"
-group= "me.roryclaasen.rorysmod"
-archivesBaseName = "RorysMod"
-
-minecraft {
-    version = "1.7.10-10.13.4.1614-1.7.10"
-    runDir = "eclipse"
-}
-
 configurations {
     embed
     compile.extendsFrom(embed)
 }
 
 dependencies {
-    compile 'net.industrial-craft:industrialcraft-2:2.2.811-experimental:api'
-	// compile files('libs/CodeChickenLib-1.7.10-1.1.3.140-dev.jar')
-	// compile files('libs/NotEnoughItems-1.7.10-1.0.5.120-dev.jar')
-	compile files('libs/CoFHLib-[1.7.10]1.2.1-185.jar')
-	
-	embed files('libs/javatuples-1.2.jar')
+    compile "net.industrial-craft:industrialcraft-2:${ic2_version}:api"
+    
+    compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
+    compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
+    compile "codechicken:CodeChickenLib:${mc_version}-${chickenLib_version}:dev"
+    
+    compile files("libs/CoFHLib-[1.7.10]1.2.1-185.jar")
+    
+	embed files("libs/javatuples-1.2.jar")
+}
+
+version = "${mod_version}"
+group = "me.roryclaasen"
+archivesBaseName = "RorysMod"
+
+minecraft {
+    version = "${mc_version}-${forge_version}"
+    runDir = "eclipse"
+	replace '$version', project.version
 }
 
 processResources {
@@ -56,8 +68,7 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
         
     from(sourceSets.main.resources.srcDirs) {
@@ -69,15 +80,31 @@ processResources {
 	}
 }
 
-jar {
-   includeEmptyDirs = false
-   classifier = "-" + minecraft.version + "-"
-   archiveName = archivesBaseName + classifier + version + ".jar"
-   manifest {
-      attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'me.roryclaasen.rorysmodcore.RorysModCorePlugin', 'FMLCorePluginContainsFMLMod': 'true'
-   }
-   //into('lib') {
-   //   from configurations.extraLibs
-   //}
+def commonManifest = {
+	attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'me.roryclaasen.rorysmodcore.RorysModCorePlugin', 'FMLCorePluginContainsFMLMod': 'true'
 }
 
+version = "${project.minecraft.version}-${project.version}"
+
+jar {
+	includeEmptyDirs = false
+	classifier = 'universal'
+	manifest commonManifest
+}
+
+task deobfJar(type: Jar) {
+	from sourceSets.main.output
+	classifier = 'deobf'
+	manifest commonManifest
+}
+
+task srcJar(type: Jar) {
+	from sourceSets.main.allSource
+	classifier = 'sources'
+	manifest commonManifest
+}
+
+artifacts {
+	archives deobfJar
+	archives srcJar
+}

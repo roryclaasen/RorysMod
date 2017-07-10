@@ -33,14 +33,6 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 [![GitHub forks](https://img.shields.io/github/forks/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/network)
 [![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)](https://gitter.im/GOGO98901/RorysMod)
 
-### Experimental Features
-If you would like to use experimental features please be aware that I am not responsible for any corrupt world
-or game breaking error.<br>
-That being said to use these features you must pass this VM argument
-```
--DrorysModExperiment=true
-```
-
 ### [waffle.io](waffle.io)
 [![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics)<br>
 [![Issues in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
