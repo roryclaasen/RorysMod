@@ -41,6 +41,10 @@ public class ClientProxy extends CommonProxy {
 		Register.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
 
 		Register.registerItemRenderer(ModItems.rifle1, new RenderRifle());
+		Register.registerItemRenderer(ModItems.rifle2, new RenderRifle());
+		Register.registerItemRenderer(ModItems.rifle3, new RenderRifle());
+		Register.registerItemRenderer(ModItems.rifle4, new RenderRifle());
+		Register.registerItemRenderer(ModItems.rifle5, new RenderRifle());
 
 		TileEntitySpecialRenderer render = new RenderRifleTable();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRifleTable.class, render);

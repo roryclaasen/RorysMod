@@ -15,14 +15,14 @@ limitations under the License.
  */
 package me.roryclaasen.rorysmod.event;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import me.roryclaasen.rorysmod.item.ItemRifle;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import me.roryclaasen.rorysmod.core.ModItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PlayerHoldingRifle {
 
@@ -35,7 +35,7 @@ public class PlayerHoldingRifle {
 			if (item == null) return;
 
 			RenderPlayer rp;
-			if (item.getItem() == ModItems.rifle1) {
+			if (item.getItem() instanceof ItemRifle) {
 				rp = (RenderPlayer) event.renderer;
 				rp.modelArmorChestplate.heldItemRight = rp.modelArmor.heldItemRight = rp.modelBipedMain.heldItemRight = 5;
 			} else {
