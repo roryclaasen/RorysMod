@@ -117,6 +117,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 	public void writeToLaser() {
 		if (hasLaser()) {
 			NBTLaser data = new NBTLaser(inv[0].stackTagCompound);
+			
 			data.setLens(inv[1] != null);
 			for (int i = 2; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 				ItemStack stack = inv[i];

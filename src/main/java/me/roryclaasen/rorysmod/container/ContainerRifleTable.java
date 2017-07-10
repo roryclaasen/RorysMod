@@ -18,6 +18,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import me.roryclaasen.rorysmod.core.ModItems;
@@ -28,7 +29,7 @@ public class ContainerRifleTable extends Container {
 	protected TileEntityRifleTable tileEntity;
 
 	public static final int NO_CUSTOM_SLOTS = 8;
-	
+
 	public ContainerRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable te) {
 		this.tileEntity = te;
 		List<ItemStack> rifles = new ArrayList<ItemStack>();
@@ -56,11 +57,18 @@ public class ContainerRifleTable extends Container {
 	public boolean canInteractWith(EntityPlayer player) {
 		return tileEntity.isUseableByPlayer(player);
 	}
-	
+
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		tileEntity.writeToLaser();
+		for (int i = 0; i < this.inventorySlots.size(); ++i) {
+			ItemStack itemstack = ((Slot) this.inventorySlots.get(i)).getStack();
+			ItemStack itemstack1 = (ItemStack) this.inventoryItemStacks.get(i);
+
+			if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
+				tileEntity.writeToLaser();
+			}
+		}
 	}
 
 	private void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
@@ -81,7 +89,7 @@ public class ContainerRifleTable extends Container {
 		if (slotObject != null && slotObject.getHasStack()) {
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
-			
+
 			if (slot < tileEntity.getSizeInventory()) {
 				if (!this.mergeItemStack(stackInSlot, NO_CUSTOM_SLOTS, 36 + NO_CUSTOM_SLOTS, true)) {
 					return null;
@@ -98,7 +106,7 @@ public class ContainerRifleTable extends Container {
 
 			slotObject.onPickupFromSlot(player, stackInSlot);
 		}
-		
+
 		tileEntity.writeToLaser();
 		return stack;
 	}

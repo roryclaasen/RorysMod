@@ -46,7 +46,10 @@ public class NBTLaser {
 		if (!tag.hasKey("lens")) tag.setBoolean("lens", false);
 		if (!tag.hasKey("cooldown")) tag.setInteger("cooldown", 0);
 		if (!tag.hasKey("cooldownMax")) tag.setInteger("cooldownMax", 100);
-		if (!tag.hasKey("color")) tag.setIntArray("color", ColorUtils.getIntArrayFromColor(Color.RED));
+		if (!tag.hasKey("color")){
+			RMLog.info("Color missing");
+			tag.setIntArray("color", ColorUtils.getIntArrayFromColor(Color.RED));
+		}
 	}
 
 	public NBTTagCompound getTag() {
@@ -122,10 +125,12 @@ public class NBTLaser {
 	}
 
 	public void setColor(int[] color) {
+		RMLog.info("Color set => " + color[0]);
 		tag.setIntArray("color", color);
 	}
 
 	public int[] getColor() {
+		RMLog.info("Color get => " + tag.getIntArray("color")[0]);
 		return tag.getIntArray("color");
 	}
 
