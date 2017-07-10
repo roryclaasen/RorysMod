@@ -54,20 +54,24 @@ public class PlayerBedEventHandler {
 				return;
 			}
 
-			if (Settings.enableMobsNearByCheck) {
-				double d0 = 8.0D;
-				double d1 = 5.0D;
-				@SuppressWarnings("rawtypes")
-				List list = worldObj.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.getBoundingBox((double) event.x - d0, (double) event.y - d1, (double) event.z - d0, (double) event.x + d0, (double) event.y + d1, (double) event.z + d0));
+			double d0 = 8.0D;
+			double d1 = 5.0D;
+			@SuppressWarnings("rawtypes")
+			List list = worldObj.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.getBoundingBox((double) event.x - d0, (double) event.y - d1, (double) event.z - d0, (double) event.x + d0, (double) event.y + d1, (double) event.z + d0));
 
-				if (!list.isEmpty()) {
+			if (!list.isEmpty()) {
+				if (Settings.enableMobsNearByCheck) {
 					event.result = EntityPlayer.EnumStatus.NOT_SAFE;
 					return;
+				} else {
+					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.mobsclose")));
 				}
 			}
 		}
 
-		if (player.isRiding()) {
+		if (player.isRiding())
+
+		{
 			player.mountEntity((Entity) null);
 		}
 
@@ -106,7 +110,7 @@ public class PlayerBedEventHandler {
 
 		if (!worldObj.isRemote) {
 			worldObj.updateAllPlayersSleepingFlag();
-			player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.daytime")));
+			if (worldObj.isDaytime()) player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.daytime")));
 		}
 		event.result = EntityPlayer.EnumStatus.OK;
 	}

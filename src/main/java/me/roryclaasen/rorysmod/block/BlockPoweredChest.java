@@ -99,9 +99,7 @@ public class BlockPoweredChest extends BlockBaseContainer implements ITileEntity
 				((TileEntityPoweredChest) tile).openInventory();
 				return true;
 			} else {
-				if (!world.isRemote) {
-					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.chest.state.locked")));
-				}
+				player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.chest.state.locked")));
 			}
 		}
 		return true;

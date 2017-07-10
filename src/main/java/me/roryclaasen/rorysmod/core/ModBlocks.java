@@ -27,6 +27,7 @@ import me.roryclaasen.rorysmod.block.BlockPoweredChest;
 import me.roryclaasen.rorysmod.block.BlockRifleTable;
 import me.roryclaasen.rorysmod.block.BlockTestingWall;
 import me.roryclaasen.rorysmod.block.MultiBlockHandler;
+import me.roryclaasen.rorysmod.item.ItemPoweredChest;
 import me.roryclaasen.rorysmod.register.Register;
 import me.roryclaasen.rorysmod.util.RMLog;
 import me.roryclaasen.rorysmod.util.registry.BlockRegistry;
@@ -69,7 +70,7 @@ public class ModBlocks implements TypeGroup {
 			Register.registerDictionary("bluePrint", new ItemStack(bluePrint, 1, i));
 		}
 
-		Register.registerBlock(poweredChest);
+		Register.registerBlock(poweredChest, ItemPoweredChest.class);
 	}
 
 	@Override

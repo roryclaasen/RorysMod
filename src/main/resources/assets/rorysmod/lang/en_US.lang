@@ -67,14 +67,17 @@ item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
 item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit
 item.rorysmod_rifleUpgrade_7.tooltip=Sets fire to entities or blocks when hit
 
+tile.rorysmod_blockChestPowered.tooltip=A redstone signal is required to open this chest
+
 // ----------------{  Message  }----------------
 message.rorysmod.rifle.discription=Fires a laser bolt 
 message.rorysmod.rifle.state.jammed=Your rifle is jammed and can not fire. Remove some modules
 message.rorysmod.rifle.state.overheat=Your rifle has overheated. Wait for it too cool down
 
-message.rorysmod.chest.state.locked=This chest is locked, it needs to be powered to be opened
+message.rorysmod.chest.state.locked=This chest is locked, it needs to be powered by redstone to be opened
 
 message.rorysmod.sleeping.daytime=Sleeping now won't have any effect till night
+message.rorysmod.sleeping.mobs=There are monsters near by. Be careful
 
 message.rorysmod.weight=Weight
 message.rorysmod.heat=Heat
