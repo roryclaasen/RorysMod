@@ -16,12 +16,9 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FrameNode;
 import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.LabelNode;
-import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
@@ -46,51 +43,19 @@ public class SleepingTransformer implements IClassTransformer {
 	private byte[] transformPlayer(byte[] bytes) {
 		ClassNode clazz = ASMHelper.createClassNode(bytes);
 
-		// onUpdate
+		MethodNode method = ASMHelper.findMethod(clazz, ASMNames.MD_PLAYER_UPDATE);
 
-		{
-			MethodNode method = ASMHelper.findMethod(clazz, ASMNames.MD_PLAYER_UPDATE);
+		InsnList needle = new InsnList();
+		needle.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		needle.add(ASMHelper.getFieldInsnNode(Opcodes.GETFIELD, ASMNames.FD_PLAYER_WORLD_OBJ));
+		needle.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKEVIRTUAL, ASMNames.MD_WORLD_IS_DAY, false));
+		LabelNode l2 = new LabelNode();
+		needle.add(new JumpInsnNode(Opcodes.IFEQ, l2));
 
-			InsnList needleForJump = new InsnList();
-			// needleForJump.add(new LabelNode());
-			// needleForJump.add(new LineNumberNode(327, new LabelNode()));
-			needleForJump.add(new FrameNode(Opcodes.F_SAME, 0, null, 0, null));
-			needleForJump.add(new VarInsnNode(Opcodes.ALOAD, 0));
-			needleForJump.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKESPECIAL, ASMNames.MD_ENTITY_LIVING_UPDATE, false));
-			needleForJump.add(new LabelNode());
+		AbstractInsnNode insertPoint = ASMHelper.findFirstNodeFromNeedle(method.instructions, needle);
 
-			AbstractInsnNode jumpPoint = ASMHelper.findFirstNodeFromNeedle(method.instructions, needleForJump);
-
-			InsnList needle = new InsnList();
-			needle.add(new VarInsnNode(Opcodes.ALOAD, 0));
-			needle.add(ASMHelper.getFieldInsnNode(Opcodes.GETFIELD, ASMNames.FD_PLAYER_WORLD_OBJ));
-			needle.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKEVIRTUAL, ASMNames.MD_WORLD_IS_DAY, false));
-			LabelNode l2 = new LabelNode();
-			needle.add(new JumpInsnNode(Opcodes.IFEQ, l2));
-
-			AbstractInsnNode insertPoint = ASMHelper.findLastNodeFromNeedle(method.instructions, needle);
-
-			InsnList injectList = new InsnList();
-			injectList.add(new VarInsnNode(Opcodes.ALOAD, 0));
-			injectList.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKESTATIC, ASMNames.MD_RM_HELPER_SLEEP_PLAEYR, false));
-			injectList.add(new JumpInsnNode(Opcodes.IFEQ, (LabelNode) jumpPoint));
-			method.instructions.insert(insertPoint, injectList);
-		}
-
-		// sleepInBedAt
-
-		{
-			MethodNode method = ASMHelper.findMethod(clazz, ASMNames.MD_PLAYER_SLEEP_IN_BED);
-
-			InsnList needle = new InsnList();
-			needle.add(ASMHelper.getFieldInsnNode(Opcodes.GETSTATIC, ASMNames.FD_PLAYER_ENUM_NOT_POSSIBLE));
-			needle.add(new InsnNode(Opcodes.ARETURN));
-
-			AbstractInsnNode enumNode = ASMHelper.findFirstNodeFromNeedle(method.instructions, needle);
-			AbstractInsnNode returnNode = ASMHelper.findLastNodeFromNeedle(method.instructions, needle);
-			method.instructions.remove(enumNode);
-			method.instructions.remove(returnNode);
-		}
+		method.instructions.remove(insertPoint.getNext().getNext());
+		method.instructions.set(insertPoint.getNext(), ASMHelper.getMethodInsnNode(Opcodes.INVOKESTATIC, ASMNames.MD_RM_HELPER_SLEEP_PLAEYR, false));
 
 		return ASMHelper.createBytes(clazz, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 	}
