@@ -34,7 +34,8 @@ Download and drop the mod's .jar file into your .minecraft/mods folder.
 [![Gitter](https://img.shields.io/gitter/room/GOGO98901/RorysMod.svg?style=flat-square)](https://gitter.im/GOGO98901/RorysMod)
 
 ### [waffle.io](waffle.io)
-[![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics)<br>
+[![Throughput Graph](https://graphs.waffle.io/GOGO98901/RorysMod/throughput.svg)](https://waffle.io/GOGO98901/RorysMod/metrics/throughput)
+
 [![Issues in Ready](https://badge.waffle.io/GOGO98901/RorysMod.png?label=ready&title=Ready)](https://waffle.io/GOGO98901/RorysMod)
 [![Issues in Progress](https://badge.waffle.io/GOGO98901/RorysMod.png?label=in%20progress&title=In%20Progress)](https://waffle.io/GOGO98901/RorysMod)
 
