@@ -1,27 +1,48 @@
 # Change log
+
 ##### Key
+
 ```java
 + Usually means an addition
 * Represents a change
 - Indicates a removal 
 ? Broken or not sure about it
 ```
+
 ## What will be in the next release
+
 ```
-+ Better sleeping
 ```
+
+## Version 1.3.0
+
+(12/07/2017) RorysMod-1.7.10-1.3-universal.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.3.0)
+
+```
++ Better sleeping has been added and works
+* Modular Lasers formulas have been changed
+* General bug fixes
+- Removed version checker
+```
+
 ## Version 1.2.5
+
 (13/03/2016) RorysMod-1.7.10-1.2.5.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.5)
+
 ```
 + Added version checker, shown when joining a world
 * Fixed module always on (igniter)
 * (A lot of) General bug fixes
 ? Better sleeping not 100%, (see http://github.com/GOGO98901/RorysMod#experimental-features)
 ```
+
 ## Version 1.2.4
+
 (11/02/2016) RorysMod-1.7.10-1.2.4.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.4)
+
 ```
 + Added mod logo!
 + Added new module with recipe (no texture)
@@ -29,9 +50,12 @@
 * The rifle table now has a 3D texture when droped and in the inventory
 * General bug fixes and work
 ```
+
 ## Version 1.2.3
+
 (08/02/2016) RorysMod-1.7.10-1.2.3.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.3)
+
 ```
 + Added more stuff in the lang file
 * Changed tooltips to be better
@@ -39,9 +63,12 @@
 * Changed values for firing the Laser Rifle (again)
 * Changing laser power from EU (ic2) to RF (CoFH)
 ```
+
 ## Version 1.2.2
+
 (07/02/2016) RorysMod-1.7.10-1.2.2.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.2)
+
 ```
 + Added cooldown to the laser (only survival)
 + Added the ability to spawn in the different tiers
@@ -49,8 +76,10 @@
 ```
 
 ## Version 1.2.1
+
 (06/02/2016) RorysMod-1.7.10-1.2.1.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.2.1)
+
 ```
 + Added a recipe for the Rifle Table
 + Added laser fail sound
@@ -62,8 +91,10 @@
 ```
 
 ## Version 1.0.1
+
 (30/01/2016) RorysMod-1.7.10-1.0.1.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.0.1)
+
 ```
 + Added White Testing Wall
 + Added Orange Testing Wall
