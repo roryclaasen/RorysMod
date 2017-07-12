@@ -12,6 +12,8 @@
  */
 package me.roryclaasen.rorysmod.entity;
 
+import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.util.NBTLaser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -22,8 +24,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import me.roryclaasen.rorysmod.core.Settings;
-import me.roryclaasen.rorysmod.util.NBTLaser;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityLaser extends EntityThrowable {
 
@@ -66,33 +67,13 @@ public class EntityLaser extends EntityThrowable {
 			if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 				if (Settings.setFireToBlocks) {
 					if (data.getItemCount(NBTLaser.Items.Igniter) > 0) {
-						int x = movingObjectPosition.blockX, y = movingObjectPosition.blockY, z = movingObjectPosition.blockZ;
-						boolean fire = true;
-						switch (movingObjectPosition.sideHit) {
-							case -1: {
-								fire = false;
-							}
-							case 0: {
-								--y;
-								fire = false;
-							}
-							case 1: {
-								++y;
-							}
-							case 2: {
-								--z;
-							}
-							case 3: {
-								++z;
-							}
-							case 4: {
-								--x;
-							}
-							case 5: {
-								++x;
-							}
-						}
-						if (fire) worldObj.setBlock(x, y, z, Blocks.fire);
+						// int range = 1 + (int) Math.floor(data.getItemCount(NBTLaser.Items.Igniter) / 2);
+
+						// int minX = movingObjectPosition.blockX - range, maxX = movingObjectPosition.blockX + range;
+						// int minY = movingObjectPosition.blockY - range, maxY = movingObjectPosition.blockY + range;
+						// int minZ = movingObjectPosition.blockZ - range, maxZ = movingObjectPosition.blockZ + range;
+
+						setBlockOnFire(movingObjectPosition.blockX, movingObjectPosition.blockY, movingObjectPosition.blockZ, movingObjectPosition.sideHit);
 					}
 				}
 			} else if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
@@ -106,10 +87,47 @@ public class EntityLaser extends EntityThrowable {
 		}
 	}
 
+	private void setBlockOnFire(int x, int y, int z, int side) {
+		boolean fire = true;
+		switch (side) {
+			case -1: {
+				fire = false;
+			}
+			case 0: {
+				--y;
+				fire = false;
+			}
+			case 1: {
+				++y;
+			}
+			case 2: {
+				--z;
+			}
+			case 3: {
+				++z;
+			}
+			case 4: {
+				--x;
+			}
+			case 5: {
+				++x;
+			}
+		}
+		if (fire) {
+			if (worldObj.isAirBlock(x, y, z) && worldObj.isSideSolid(x, y, z, ForgeDirection.DOWN)) {
+				worldObj.setBlock(x, y, z, Blocks.fire);
+			}
+		}
+
+	}
+
 	private void setFire(Entity entity) {
 		if (data != null) {
 			if (data.getItemCount(NBTLaser.Items.Igniter) > 0) {
-				entity.setFire((int) Math.ceil((double) data.getItemCount(NBTLaser.Items.Igniter) * 1.5));
+				float time = data.getItemCount(NBTLaser.Items.Igniter);
+				time += 0.5f * data.getItemCount(NBTLaser.Items.Overclock);
+				time -= 0.2f * data.getItemCount(NBTLaser.Items.Coolant);
+				entity.setFire((int) Math.ceil(time));
 			}
 		}
 	}
@@ -122,17 +140,19 @@ public class EntityLaser extends EntityThrowable {
 
 	private float getDamage() {
 		if (data.getItemCount(NBTLaser.Items.Phaser) == 0) return 0F;
-		float perP = 1.5F;
-		float perO = 1.2F;
-		float total = 1F + perP * ((float) data.getItemCount(NBTLaser.Items.Phaser) + (perO * ((float) data.getItemCount(NBTLaser.Items.Overclock) + 1F)));
+		float total = 1F * data.getItemCount(NBTLaser.Items.Phaser);
+		total += 0.75 * data.getItemCount(NBTLaser.Items.Overclock);
+		total -= 0.2 * data.getItemCount(NBTLaser.Items.Coolant);
 		return total;
 	}
 
 	private void explode() {
 		if (data != null) {
 			if (data.getItemCount(NBTLaser.Items.Explosion) > 0) {
-				float expl = 1F + (0.325F * (float) data.getItemCount(NBTLaser.Items.Explosion)) + (0.1F * (float) data.getItemCount(NBTLaser.Items.Overclock));
-				worldObj.createExplosion(this, posX, posY, posZ, expl, true);
+				float strength = 1F * data.getItemCount(NBTLaser.Items.Explosion);
+				strength += 0.5F * data.getItemCount(NBTLaser.Items.Overclock);
+
+				worldObj.newExplosion(this, posX, posY, posZ, strength, data.getItemCount(NBTLaser.Items.Igniter) > 0, true);
 			}
 		}
 	}

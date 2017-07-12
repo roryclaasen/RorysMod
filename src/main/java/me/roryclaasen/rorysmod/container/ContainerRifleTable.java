@@ -60,14 +60,14 @@ public class ContainerRifleTable extends Container {
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int i = 0; i < this.inventorySlots.size(); ++i) {
-			ItemStack itemstack = ((Slot) this.inventorySlots.get(i)).getStack();
-			ItemStack itemstack1 = (ItemStack) this.inventoryItemStacks.get(i);
-
-			if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
-				tileEntity.writeToLaser();
-			}
-		}
+		// for (int i = 0; i < this.inventorySlots.size(); ++i) {
+		// ItemStack itemstack = ((Slot) this.inventorySlots.get(i)).getStack();
+		// ItemStack itemstack1 = (ItemStack) this.inventoryItemStacks.get(i);
+		//
+		// if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
+		// tileEntity.writeToLaser();
+		// }
+		// }
 	}
 
 	private void bindPlayerInventory(InventoryPlayer inventoryPlayer) {

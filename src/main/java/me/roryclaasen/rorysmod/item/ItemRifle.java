@@ -33,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemRifle extends ItemBaseEnergyContainer {
 
 	public ItemRifle(String unlocalizedName, int tier) {
-		super(unlocalizedName, 1000 * (tier), 10);
+		super(unlocalizedName, 1000 * (tier), 10, 50);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 		this.setFull3D();
@@ -57,6 +57,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 				if (data.checkWeight(this.tier)) {
 					if (!data.overheating()) {
 						if (this.use(itemStack, false)) {
+							data = new NBTLaser(itemStack.stackTagCompound);
 							fireRifle(itemStack, world, player);
 							data.setCooldown(data.getMaxCooldown());
 							itemStack.stackTagCompound = data.getTag();
@@ -76,21 +77,31 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int par4, boolean par5) {
 		NBTLaser data = new NBTLaser(itemstack.stackTagCompound);
-		if (data.getCooldown() > 0) {
-			data.setCooldown(data.getCooldown() - 1);
+		int cooldown = data.getCooldown();
+		if (cooldown > 0) {
+			int newCooldown = cooldown - 1;
+			newCooldown -= (data.getItemCount(NBTLaser.Items.Coolant) / 2);
+			if (entity.isWet()) newCooldown -= 2;
+			data.setCooldown(newCooldown);
 		}
 		itemstack.stackTagCompound = data.getTag();
 	}
 
 	public void updateNBT(ItemStack itemStack) {
 		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
-		this.maxReceive = 10 * this.tier;
+		this.maxReceive = 50 * this.tier;
+		this.maxReceive += 10 * data.getItemCount(NBTLaser.Items.Capacitor);
 
-		this.capacity = (int) Math.ceil(this.baseCapacity + (1000 * (data.getItemCount(NBTLaser.Items.Capacitor)) + (((double) data.getItemCount(NBTLaser.Items.Overclock)) * 5)));
+		this.capacity = this.baseCapacity;
+		this.capacity += 150 * data.getItemCount(NBTLaser.Items.Capacitor);
 
-		this.maxExtract = 10 + (75 * data.getItemCount(NBTLaser.Items.Overclock)) + (13 * data.getItemCount(NBTLaser.Items.Capacitor)) - data.getItemCount(NBTLaser.Items.Coolant) + (60 * data.getItemCount(NBTLaser.Items.Explosion)) + (60 * data.getItemCount(NBTLaser.Items.Phaser));
-		if (this.maxExtract < 10) this.maxExtract = 10;
-
+		int cooldown = 100;
+		cooldown += 10 * data.getItemCount(NBTLaser.Items.Overclock);
+		cooldown += 10 * data.getItemCount(NBTLaser.Items.Phaser);
+		cooldown += 10 * data.getItemCount(NBTLaser.Items.Igniter);
+		cooldown -= 25 * data.getItemCount(NBTLaser.Items.Coolant);
+		data.setMaxCooldown(cooldown);
+		
 		itemStack.stackTagCompound = data.getTag();
 	}
 
@@ -117,7 +128,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 						int overclock = data.getItemCount(NBTLaser.Items.Overclock);
 						int explosion = data.getItemCount(NBTLaser.Items.Explosion);
 						int igniter = data.getItemCount(NBTLaser.Items.Igniter);
-						
+
 						if (data.hasLens()) tooltip.add("Color: " + ColorUtils.getIntColorFromIntArray(data.getColor()));
 						if (capacitor > 0) tooltip.add(capacitor + " Capacitor(s)");
 						if (coolant > 0) tooltip.add(coolant + " Coolant(s)");

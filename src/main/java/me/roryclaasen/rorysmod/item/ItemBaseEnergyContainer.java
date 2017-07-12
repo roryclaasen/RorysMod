@@ -1,28 +1,26 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.item;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import me.roryclaasen.rorysmod.util.NBTLaser;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContainerItem {
 
@@ -98,14 +96,22 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
 		int energy = container.stackTagCompound.getInteger("Energy");
-		int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+
+		NBTLaser data = new NBTLaser(container);
+
+		float energyCost = 50F;
+		energyCost += 15F * data.getItemCount(NBTLaser.Items.Explosion);
+		energyCost += 7F * data.getItemCount(NBTLaser.Items.Igniter);
+		energyCost += 50F * data.getItemCount(NBTLaser.Items.Overclock);
+		energyCost += 5F * data.getItemCount(NBTLaser.Items.Phaser);
 		
 		if (!simulate) {
-			energy -= energyExtracted;
+			if (energyCost > energy) return 0;
+			energy -= energyCost;
 			container.stackTagCompound.setInteger("Energy", energy);
 			updateItemDamage(container);
 		}
-		return energyExtracted;
+		return energy;
 	}
 
 	@Override
@@ -119,15 +125,15 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		return capacity;
 	}
 
-	private void updateItemDamage(ItemStack itemtack) {
-		if (itemtack.stackTagCompound.hasKey("Energy")) {
-			int energy = itemtack.stackTagCompound.getInteger("Energy");
+	private void updateItemDamage(ItemStack itemstack) {
+		if (itemstack.stackTagCompound.hasKey("Energy")) {
+			int energy = itemstack.stackTagCompound.getInteger("Energy");
 			int percentage = (int) (((double) energy / (double) this.capacity) * (double) 100);
-			itemtack.setItemDamage(getMaxDamage() - percentage);
+			itemstack.setItemDamage(getMaxDamage() - percentage);
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {

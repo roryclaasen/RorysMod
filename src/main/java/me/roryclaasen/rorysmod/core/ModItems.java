@@ -139,7 +139,13 @@ public class ModItems implements TypeGroup {
 		// Rifle
 		Register.addShapedRecipie(new ItemStack(rifleBarrel), new Object[] { "sss", "   ", "sss", 's', "ingotSteel" });
 		Register.addShapedRecipie(new ItemStack(rifleTrigger), new Object[] { " ss", " s ", "  s", 's', "ingotSteel" });
+
 		Register.addShapedRecipie(new ItemStack(rifle1), new Object[] { "lbe", "ssc", " ts", 'l', "lens", 'b', new ItemStack(rifleBarrel), 'e', IC2Items.getItem("energyCrystal"), 's', "plateSteel", 'c', "circuitAdvanced", 't', new ItemStack(rifleTrigger) });
+
+		Register.addShaplessRecipie(new ItemStack(rifle2), new Object[] { rifle1, new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
+		Register.addShaplessRecipie(new ItemStack(rifle3), new Object[] { rifle2, new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
+		Register.addShaplessRecipie(new ItemStack(rifle4), new Object[] { rifle4, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
+		Register.addShaplessRecipie(new ItemStack(rifle5), new Object[] { rifle5, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
 
 		// Rifle upgrade
 		Register.addShapedRecipie(new ItemStack(upgradePlate, 2), new Object[] { "rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel" });
