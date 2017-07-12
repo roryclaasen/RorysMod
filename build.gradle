@@ -77,7 +77,9 @@ processResources {
 }
 
 def commonManifest = {
-	attributes 'FMLAT': 'rorysmods_at.cfg', 'FMLCorePlugin': 'me.roryclaasen.rorysmodcore.RorysModCorePlugin', 'FMLCorePluginContainsFMLMod': 'true'
+	attributes 'FMLAT': 'rorysmods_at.cfg'
+    attributes 'FMLCorePlugin': 'me.roryclaasen.rorysmodcore.RorysModCorePlugin'
+    attributes 'FMLCorePluginContainsFMLMod': 'true'
 }
 
 version = "${project.minecraft.version}-${project.version}"

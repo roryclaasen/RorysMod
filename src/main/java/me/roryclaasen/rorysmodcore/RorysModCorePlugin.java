@@ -32,7 +32,7 @@ public class RorysModCorePlugin implements IFMLLoadingPlugin {
 	@Override
 	public String[] getASMTransformerClass() {
 		List<String> list = new ArrayList<String>();
-		
+
 		list.add(SleepingTransformer.class.getName());
 
 		String[] sList = new String[list.size()];
@@ -60,6 +60,6 @@ public class RorysModCorePlugin implements IFMLLoadingPlugin {
 
 	@Override
 	public String getAccessTransformerClass() {
-		return null;
+		return RorysModAccessTransformer.class.getCanonicalName();
 	}
 }

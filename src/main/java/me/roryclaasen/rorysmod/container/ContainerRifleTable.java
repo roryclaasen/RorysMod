@@ -15,14 +15,13 @@ package me.roryclaasen.rorysmod.container;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.roryclaasen.rorysmod.core.ModItems;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import me.roryclaasen.rorysmod.core.ModItems;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 
 public class ContainerRifleTable extends Container {
 
@@ -84,31 +83,7 @@ public class ContainerRifleTable extends Container {
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
-		Slot slotObject = (Slot) inventorySlots.get(slot);
-		ItemStack stack = null;
-		if (slotObject != null && slotObject.getHasStack()) {
-			ItemStack stackInSlot = slotObject.getStack();
-			stack = stackInSlot.copy();
-
-			if (slot < tileEntity.getSizeInventory()) {
-				if (!this.mergeItemStack(stackInSlot, NO_CUSTOM_SLOTS, 36 + NO_CUSTOM_SLOTS, true)) {
-					return null;
-				}
-			} else {
-				if (!this.mergeItemStack(stackInSlot, 0, NO_CUSTOM_SLOTS, false)) {}
-				return null;
-			}
-
-			if (stackInSlot.stackSize == 0) slotObject.putStack(null);
-			else slotObject.onSlotChanged();
-
-			if (stackInSlot.stackSize == stack.stackSize) return null;
-
-			slotObject.onPickupFromSlot(player, stackInSlot);
-		}
-
-		tileEntity.writeToLaser();
-		return stack;
+		return null;
 	}
 
 	public boolean hasLaser() {

@@ -35,6 +35,9 @@ public final class ASMNames {
 	public static final String MD_WAKE_ALL_PLAYERS = "net/minecraft/world/WorldServer/wakeAllPlayers ()V";
 
 	public static final String MD_WORLD_TICK = "net/minecraft/world/WorldServer/tick ()V";
+	
+	public static final String MD_RM_HELPER_SLEEP = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow Z";
+	public static final String MD_RM_HELPER_SLEEP_PLAEYR = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow (Lnet/minecraft/entity/player/EntityPlayer;)Z";
 
 	public static final String FD_PLAYER_WORLD_OBJ = "net/minecraft/entity/player/EntityPlayer/worldObj Lnet/minecraft/world/World;";
 	public static final String FD_WORLD_IS_REMOTE = "net/minecraft/world/World/isRemote Z";
@@ -42,17 +45,21 @@ public final class ASMNames {
 	public static final String FD_PLAYER_ENUM_NOT_POSSIBLE = "net/minecraft/entity/player/EntityPlayer$EnumStatus/NOT_POSSIBLE_HERE Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;";
 	public static final String FD_PLAYER_ENUM_OK = "net/minecraft/entity/player/EntityPlayer$EnumStatus/OK Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;";
 	
-	public static final String MD_RM_HELPER_SLEEP = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow Z";
-	public static final String MD_RM_HELPER_SLEEP_PLAEYR = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow (Lnet/minecraft/entity/player/EntityPlayer;)Z";
-
-	
-
 	static {
-		MAPPINGS.put(FD_PLAYER_WORLD_OBJ, "field_70170_p");
-		MAPPINGS.put(FD_WORLD_IS_REMOTE, "field_72995_K");
+		MAPPINGS.put(MD_PLAYER_UPDATE, "func_70071_h_");
+		MAPPINGS.put(MD_PLAYER_SLEEP_IN_BED, "func_71018_a");
+		MAPPINGS.put(MD_ENTITY_LIVING_UPDATE, "func_70071_h_");
+
 		MAPPINGS.put(MD_WORLD_IS_DAY, "func_72935_r");
+		MAPPINGS.put(MD_WAKE_ALL_PLAYERS, "func_73053_d");
 		
 		MAPPINGS.put(MD_WORLD_TICK, "func_72835_b");
+		
+		MAPPINGS.put(FD_PLAYER_WORLD_OBJ, "field_70170_p");
+		MAPPINGS.put(FD_WORLD_IS_REMOTE, "field_72995_K");
+
+		MAPPINGS.put(FD_PLAYER_ENUM_NOT_POSSIBLE, "field_72995_K");
+		MAPPINGS.put(FD_PLAYER_ENUM_OK, "field_72995_K");
 	}
 
 	public static Triplet<String, String, String[]> getSrgNameMd(String method) {

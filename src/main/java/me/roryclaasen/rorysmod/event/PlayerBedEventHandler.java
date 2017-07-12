@@ -69,9 +69,7 @@ public class PlayerBedEventHandler {
 			}
 		}
 
-		if (player.isRiding())
-
-		{
+		if (player.isRiding()) {
 			player.mountEntity((Entity) null);
 		}
 

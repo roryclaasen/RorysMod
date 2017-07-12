@@ -55,7 +55,7 @@ public class Settings {
 		// sleeping
 		enableMobsNearByCheck = config.get("sleeping", "enableMobsNearByCheck", false, "If enabled then you can't sleep with monsters near by").getBoolean(false);
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true, "If enabled then you can sleep in the day").getBoolean(true);
-		enableStayInBed = config.get("sleeping", "stayInBed", true, "You will not get kicked out of the bed in daytime").getBoolean(true);
+		// enableStayInBed = config.get("sleeping", "stayInBed", true, "You will not get kicked out of the bed in daytime").getBoolean(true);
 
 		// modular lasers
 		coloredLaser = config.get("modular-lasers", "allowColouredLasers", true).getBoolean(true);
