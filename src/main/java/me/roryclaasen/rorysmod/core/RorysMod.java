@@ -12,6 +12,8 @@
  */
 package me.roryclaasen.rorysmod.core;
 
+import java.util.Random;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -19,18 +21,20 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import me.roryclaasen.rorysmod.core.entity.EntityLaser;
+import me.roryclaasen.rorysmod.core.entity.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.core.entity.tile.TileEntityRifleTable;
+import me.roryclaasen.rorysmod.core.event.PlayerBedEventHandler;
+import me.roryclaasen.rorysmod.core.event.PlayerHoldingRifle;
+import me.roryclaasen.rorysmod.core.event.PlayerTickEvents;
+import me.roryclaasen.rorysmod.core.gui.GuiHandler;
+import me.roryclaasen.rorysmod.core.init.ModBlocks;
+import me.roryclaasen.rorysmod.core.init.ModItems;
+import me.roryclaasen.rorysmod.core.proxy.CommonProxy;
+import me.roryclaasen.rorysmod.core.register.Register;
+import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import me.roryclaasen.rorysmod.entity.EntityLaser;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
-import me.roryclaasen.rorysmod.event.PlayerBedEventHandler;
-import me.roryclaasen.rorysmod.event.PlayerHoldingRifle;
-import me.roryclaasen.rorysmod.event.PlayerTickEvents;
-import me.roryclaasen.rorysmod.gui.GuiHandler;
-import me.roryclaasen.rorysmod.proxy.CommonProxy;
-import me.roryclaasen.rorysmod.register.Register;
-import me.roryclaasen.rorysmod.util.RMLog;
 
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "required-after:CoFHCore;before:IC2;")
 public class RorysMod {
@@ -40,6 +44,8 @@ public class RorysMod {
 
 	public static final String MODID = "rorysmod";
 	public static final String NAME = "Rory's Mod";
+
+	public static Random random;
 
 	@Instance(MODID)
 	public static RorysMod instance;
@@ -64,10 +70,17 @@ public class RorysMod {
 
 	private Settings settings;
 
-	public static ModBlocks blocks = new ModBlocks();
-	public static ModItems items = new ModItems();
+	public static ModBlocks blocks; 
+	public static ModItems items;
 
 	public static CreativeTabs tab;
+
+	static {
+		random = new Random();
+		
+		blocks = new ModBlocks();
+		items = new ModItems();
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -92,13 +105,9 @@ public class RorysMod {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		RMLog.info("Registering Recipes");
-		blocks.createRecipes();
-		items.createRecipes();
+		blocks.init(event);
+		items.init(event);
 
-		RMLog.info("Registering Mod Recipes");
-		blocks.createModRecipes();
-		items.createModRecipes();
-		
 		RMLog.info("Registering everything else");
 
 		Register.registerGUI(new GuiHandler());
@@ -112,7 +121,9 @@ public class RorysMod {
 
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
-		
+		blocks.postinit(event);
+		items.postinit(event);
+
 		RMLog.info("Registered " + Register.getRegisteredBlocks() + " block(s)");
 		RMLog.info("Registered " + Register.getRegisteredItems() + " item(s)");
 		RMLog.info("Registered " + Register.getRegisteredTileEntities() + " tile entity(s)");

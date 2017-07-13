@@ -1,0 +1,60 @@
+/*
+Copyright 2016-2017 Rory Claasen
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
+package me.roryclaasen.rorysmod.core.gui;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
+import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.container.ContainerPoweredChest;
+import me.roryclaasen.rorysmod.core.entity.tile.TileEntityPoweredChest;
+
+import org.lwjgl.opengl.GL11;
+
+public class GuiPoweredChest extends GuiContainer {
+
+	private ResourceLocation texture = new ResourceLocation(RorysMod.MODID, "textures/gui/chest.png");
+
+	private InventoryPlayer inventory;
+	private TileEntityPoweredChest te;
+
+	public GuiPoweredChest(TileEntityPoweredChest te, EntityPlayer player) {
+		super(new ContainerPoweredChest(te, player));
+		inventory = player.inventory;
+		this.te = te;
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+
+		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+		fontRendererObj.drawString(I18n.format(te.getInventoryName()), 8, 6, 4210752, false);
+		fontRendererObj.drawString(I18n.format(inventory.getInventoryName()), 8, ySize - 96 + 2, 4210752);
+	}
+}
