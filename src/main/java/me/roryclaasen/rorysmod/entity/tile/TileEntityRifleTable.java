@@ -14,6 +14,14 @@ package me.roryclaasen.rorysmod.entity.tile;
 
 import java.awt.Color;
 
+import me.roryclaasen.rorysmod.container.ContainerRifleTable;
+import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.gui.GuiRifleTable;
+import me.roryclaasen.rorysmod.item.ItemRifleUpgrade;
+import me.roryclaasen.rorysmod.item.tools.ItemRifle;
+import me.roryclaasen.rorysmod.util.ColorUtils;
+import me.roryclaasen.rorysmod.util.NBTLaser;
+import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -21,15 +29,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
-import me.roryclaasen.rorysmod.container.ContainerRifleTable;
-import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.core.init.ModItems;
-import me.roryclaasen.rorysmod.gui.GuiRifleTable;
-import me.roryclaasen.rorysmod.item.ItemRifleUpgrade;
-import me.roryclaasen.rorysmod.item.tools.ItemRifle;
-import me.roryclaasen.rorysmod.util.ColorUtils;
-import me.roryclaasen.rorysmod.util.NBTLaser;
-import me.roryclaasen.rorysmod.util.RMLog;
 
 public class TileEntityRifleTable extends TileEntity implements IInventory {
 
@@ -94,7 +93,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 			if (stack.getItem() instanceof ItemRifle) {
 				NBTLaser data = new NBTLaser(stack.stackTagCompound);
 				if (data.hasLens()) {
-					inv[1] = new ItemStack(ModItems.rifleUpgrade, 1, 3);
+					inv[1] = new ItemStack(RorysMod.items.rifleUpgrade, 1, 3);
 					if (gui != null) {
 						laserColor = ColorUtils.getColorFromIntArray(data.getColor());
 						gui.setColorSlider(laserColor);
@@ -102,7 +101,7 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				}
 				for (int i = 2; i < ContainerRifleTable.NO_CUSTOM_SLOTS; i++) {
 					int[] upgrade = data.getSlot(i - 2);
-					if (upgrade[0] >= 0) inv[i] = new ItemStack(ModItems.rifleUpgrade, upgrade[1], upgrade[0] + 1);
+					if (upgrade[0] >= 0) inv[i] = new ItemStack(RorysMod.items.rifleUpgrade, upgrade[1], upgrade[0] + 1);
 				}
 			}
 		}

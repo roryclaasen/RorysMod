@@ -39,7 +39,7 @@ import net.minecraft.item.Item;
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "required-after:CoFHCore;before:IC2;")
 public class RorysMod {
 
-	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.proxy.ClientProxy", serverSide = "me.roryclaasen.core.rorysmod.proxy.CommonProxy")
+	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.core.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static final String MODID = "rorysmod";
@@ -91,7 +91,7 @@ public class RorysMod {
 		tab = new CreativeTabs("rorysMobTab") {
 			@Override
 			public Item getTabIconItem() {
-				return ModItems.rifle1;
+				return RorysMod.items.rifle1;
 			}
 		};
 

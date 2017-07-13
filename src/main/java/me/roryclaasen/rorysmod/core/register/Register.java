@@ -29,6 +29,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.recipie.ShapedChargedOreRecipe;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -86,6 +87,11 @@ public class Register {
 
 	public static void addShapedRecipie(ItemStack result, Object... recipe) {
 		GameRegistry.addRecipe(new ShapedOreRecipe(result, recipe));
+		recipies++;
+	}
+	
+	public static void addShapedChargedRecipie(ItemStack result, Object... recipe) {
+		GameRegistry.addRecipe(new ShapedChargedOreRecipe(result, recipe));
 		recipies++;
 	}
 

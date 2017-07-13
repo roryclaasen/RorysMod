@@ -12,7 +12,6 @@
  */
 package me.roryclaasen.rorysmod.core.init;
 
-import codechicken.nei.api.API;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -20,11 +19,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.item.ItemDust;
 import me.roryclaasen.rorysmod.item.ItemIngot;
@@ -35,19 +29,24 @@ import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.item.tools.ItemSolderingIron;
 import me.roryclaasen.rorysmod.util.RMLog;
 import me.roryclaasen.rorysmod.util.registry.ItemRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ModItems implements ModInterface {
 
 	public ItemRegistry registry = new ItemRegistry();
 
-	public static Item steelIngot, steelDust, steelPlate;
-	public static Item carbonIngot;
-	public static Item rifle1, rifle2, rifle3, rifle4, rifle5;
-	public static Item laserBolt, rifleBarrel, rifleTrigger;
-	public static Item rifleUpgrade, upgradePlate;
-	public static Item circuit, advancedCircuit;
-	public static Item lens, filament, cpu;
-	public static Item solderingIron;
+	public Item steelIngot, steelDust, steelPlate;
+	public Item carbonIngot;
+	public Item rifle1, rifle2, rifle3, rifle4, rifle5;
+	public Item laserBolt, rifleBarrel, rifleTrigger;
+	public Item rifleUpgrade, upgradePlate;
+	public Item circuit, advancedCircuit;
+	public Item lens, filament, cpu;
+	public Item solderingIron;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -110,7 +109,6 @@ public class ModItems implements ModInterface {
 		Register.registerDictionary("solderingIron", new ItemStack(solderingIron, 1, OreDictionary.WILDCARD_VALUE));
 
 		if (Loader.isModLoaded("NotEnoughItems")) {
-			API.hideItem(new ItemStack(laserBolt));
 		}
 	}
 
@@ -135,10 +133,10 @@ public class ModItems implements ModInterface {
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
 
 		// Circuit
-		Register.addShapedRecipie(new ItemStack(circuit), new Object[] { "ir ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		Register.addShapedRecipie(new ItemStack(circuit), new Object[] { " ri", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		Register.addShapedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", "ir ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		Register.addShapedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", " ri", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { "ir ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " ri", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", "ir ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", " ri", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
 		
 		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[] { "rgr", "lcl", "rgr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
 		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[] { "rlr", "gcg", "rlr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });

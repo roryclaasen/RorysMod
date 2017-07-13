@@ -20,6 +20,7 @@ import ic2.api.item.IBoxable;
 import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -30,12 +31,15 @@ public class ItemSolderingIron extends ItemBaseEnergyContainer implements IBoxab
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 
-		// this.canRepair = false;
+		this.canRepair = false;
 	}
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
+		itemStack.stackTagCompound = new NBTTagCompound();
 		itemStack.stackTagCompound.setInteger("Energy", 0);
+		this.updateItemDamage(itemStack);
+		itemStack.setItemDamage(100);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -43,7 +47,9 @@ public class ItemSolderingIron extends ItemBaseEnergyContainer implements IBoxab
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		int energy = 0;
-		if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
+		if (stack.stackTagCompound != null) {
+			if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
+		}
 		tooltip.add(StatCollector.translateToLocal("message.rorysmod.charge") + ": " + energy + " / " + this.capacity + " RF");
 	}
 
@@ -62,7 +68,6 @@ public class ItemSolderingIron extends ItemBaseEnergyContainer implements IBoxab
 
 	public ItemStack getContainerItem(ItemStack itemstack) {
 		ItemStack stack = itemstack.copy();
-
 		((ItemBaseEnergyContainer) stack.getItem()).use(stack, 1, false);
 		return stack;
 	}

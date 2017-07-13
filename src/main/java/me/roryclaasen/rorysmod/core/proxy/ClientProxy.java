@@ -15,10 +15,10 @@ limitations under the License.
  */
 package me.roryclaasen.rorysmod.core.proxy;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.Item;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.init.ModBlocks;
-import me.roryclaasen.rorysmod.core.init.ModItems;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
@@ -28,8 +28,8 @@ import me.roryclaasen.rorysmod.render.RenderLaser;
 import me.roryclaasen.rorysmod.render.RenderPoweredChest;
 import me.roryclaasen.rorysmod.render.RenderRifle;
 import me.roryclaasen.rorysmod.render.RenderRifleTable;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.Item;
 
 public class ClientProxy extends CommonProxy {
 
@@ -40,11 +40,11 @@ public class ClientProxy extends CommonProxy {
 
 		Register.registerEntityRenderingHandler(EntityLaser.class, new RenderLaser());
 
-		Register.registerItemRenderer(ModItems.rifle1, new RenderRifle());
-		Register.registerItemRenderer(ModItems.rifle2, new RenderRifle());
-		Register.registerItemRenderer(ModItems.rifle3, new RenderRifle());
-		Register.registerItemRenderer(ModItems.rifle4, new RenderRifle());
-		Register.registerItemRenderer(ModItems.rifle5, new RenderRifle());
+		Register.registerItemRenderer(RorysMod.items.rifle1, new RenderRifle());
+		Register.registerItemRenderer(RorysMod.items.rifle2, new RenderRifle());
+		Register.registerItemRenderer(RorysMod.items.rifle3, new RenderRifle());
+		Register.registerItemRenderer(RorysMod.items.rifle4, new RenderRifle());
+		Register.registerItemRenderer(RorysMod.items.rifle5, new RenderRifle());
 
 		TileEntitySpecialRenderer render = new RenderRifleTable();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRifleTable.class, render);
