@@ -3,14 +3,12 @@
 
 # include important folders and files
 !.travis.yml
-!build.bat
-!build.sh
 !licence.txt
 
 # include markdowns
 !README.md
 !CONTRIBUTING.md
-!RifleModules.md
+!ISSUE_TEMPLATE.md
 
 # need gradle
 !libs/

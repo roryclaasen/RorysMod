@@ -21,17 +21,17 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import me.roryclaasen.rorysmod.core.entity.EntityLaser;
-import me.roryclaasen.rorysmod.core.entity.tile.TileEntityPoweredChest;
-import me.roryclaasen.rorysmod.core.entity.tile.TileEntityRifleTable;
-import me.roryclaasen.rorysmod.core.event.PlayerBedEventHandler;
-import me.roryclaasen.rorysmod.core.event.PlayerHoldingRifle;
-import me.roryclaasen.rorysmod.core.event.PlayerTickEvents;
-import me.roryclaasen.rorysmod.core.gui.GuiHandler;
 import me.roryclaasen.rorysmod.core.init.ModBlocks;
 import me.roryclaasen.rorysmod.core.init.ModItems;
 import me.roryclaasen.rorysmod.core.proxy.CommonProxy;
 import me.roryclaasen.rorysmod.core.register.Register;
+import me.roryclaasen.rorysmod.entity.EntityLaser;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
+import me.roryclaasen.rorysmod.event.PlayerBedEventHandler;
+import me.roryclaasen.rorysmod.event.PlayerHoldingRifle;
+import me.roryclaasen.rorysmod.event.PlayerTickEvents;
+import me.roryclaasen.rorysmod.gui.GuiHandler;
 import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -39,7 +39,7 @@ import net.minecraft.item.Item;
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "required-after:CoFHCore;before:IC2;")
 public class RorysMod {
 
-	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.proxy.CommonProxy")
+	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.proxy.ClientProxy", serverSide = "me.roryclaasen.core.rorysmod.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static final String MODID = "rorysmod";

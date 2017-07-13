@@ -17,17 +17,17 @@ package me.roryclaasen.rorysmod.core.proxy;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
-import me.roryclaasen.rorysmod.core.entity.EntityLaser;
-import me.roryclaasen.rorysmod.core.entity.tile.TileEntityPoweredChest;
-import me.roryclaasen.rorysmod.core.entity.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.core.init.ModBlocks;
 import me.roryclaasen.rorysmod.core.init.ModItems;
 import me.roryclaasen.rorysmod.core.register.Register;
-import me.roryclaasen.rorysmod.core.render.ItemRender;
-import me.roryclaasen.rorysmod.core.render.RenderLaser;
-import me.roryclaasen.rorysmod.core.render.RenderPoweredChest;
-import me.roryclaasen.rorysmod.core.render.RenderRifle;
-import me.roryclaasen.rorysmod.core.render.RenderRifleTable;
+import me.roryclaasen.rorysmod.entity.EntityLaser;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
+import me.roryclaasen.rorysmod.render.ItemRender;
+import me.roryclaasen.rorysmod.render.RenderLaser;
+import me.roryclaasen.rorysmod.render.RenderPoweredChest;
+import me.roryclaasen.rorysmod.render.RenderRifle;
+import me.roryclaasen.rorysmod.render.RenderRifleTable;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 
