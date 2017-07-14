@@ -37,7 +37,7 @@ public class RorysModCore extends DummyModContainer {
 		meta.credits = "";
 		meta.authorList = Arrays.asList("Rory Claasen");
 		meta.description = "The Backbone to Rory's Mod";
-		meta.url = "http://gogo98901.github.io/RorysMod/";
+		meta.url = "http://rorysmod.rtfd.io";
 		meta.updateUrl = "";
 		meta.screenshots = new String[0];
 		meta.logoFile = "assets/rorysmod/textures/logo.png";
