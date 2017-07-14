@@ -10,6 +10,11 @@
 !CONTRIBUTING.md
 !ISSUE_TEMPLATE.md
 
+# include docs
+!mkdocs.yml
+!docs/
+!docstheme/
+
 # need gradle
 !libs/
 !gradle/

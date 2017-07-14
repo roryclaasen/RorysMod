@@ -1,0 +1,15 @@
+site_name: Rory's Mod
+theme: readthedocs
+repo_url: https://github.com/GOGO98901/RorysMod/
+site_description: A forge mod for Minecraft 1.7.10
+site_author: Rory Claasen
+copyright: Copyright Rory Claasen (Apache 2.0)
+google_analytics: ['UA-45259414-3', 'mkdocs.org']
+theme_dir: docstheme
+
+pages:
+    - Home: 'index.md'
+    - Better Sleeping: 'bettersleeping.md'
+    - Modular Lasers:
+        - Rifle Modules: 'modularlasers/riflemodules.md'
+    - License: 'license.md'
