@@ -5,7 +5,7 @@
 	  "description": "This is a mod that adds new features that have been requested to be made in to a reality (well in the game world).",
 	  "version": "${version}",
 	  "mcversion": "${mcversion}",
-	  "url": "http://gogo98901.github.io/RorysMod/",
+	  "url": "http://rorysmod.rtfd.io",
 	  "updateUrl": "",
 	  "authorList": ["Rory Claasen"],
 	  "credits": "Thank you to redmechanic for correcting my many spelling mistakes throughout this project.",
