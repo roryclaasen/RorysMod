@@ -41,6 +41,7 @@ public class RorysModCore extends DummyModContainer {
 		meta.updateUrl = "";
 		meta.screenshots = new String[0];
 		meta.logoFile = "assets/rorysmod/textures/logo.png";
+		meta.parent = "rorysmod";
 	}
 
 	@Override

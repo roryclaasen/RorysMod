@@ -18,7 +18,6 @@ package me.roryclaasen.rorysmod.core.proxy;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.core.init.ModBlocks;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
@@ -48,7 +47,7 @@ public class ClientProxy extends CommonProxy {
 
 		TileEntitySpecialRenderer render = new RenderRifleTable();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRifleTable.class, render);
-		Register.registerItemRenderer(Item.getItemFromBlock(ModBlocks.upgradeTable), new ItemRender(render, new TileEntityRifleTable()));
+		Register.registerItemRenderer(Item.getItemFromBlock(RorysMod.blocks.upgradeTable), new ItemRender(render, new TileEntityRifleTable()));
 
 		render = new RenderPoweredChest();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPoweredChest.class, render);

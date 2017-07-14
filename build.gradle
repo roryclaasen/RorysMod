@@ -13,6 +13,7 @@
  buildscript {
     repositories {
         mavenCentral()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -24,8 +25,11 @@
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'org.ajoberstar:grgit:1.1.0'
     }
 }
+
+import org.ajoberstar.grgit.*
 
 repositories {
 	maven {
@@ -43,21 +47,29 @@ apply plugin: 'forge'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+
+ext.repo = Grgit.open(project.file('.'))
+def gitHash = 'unknown'
+
+if (new File(projectDir, '.git').exists())
+    gitHash = repo.log().find().abbreviatedId
+
 configurations {
     embed
     compile.extendsFrom(embed)
 }
 
 dependencies {
-    compile "net.industrial-craft:industrialcraft-2:${ic2_version}:api"
-    
-    compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
-    compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
-    compile "codechicken:CodeChickenLib:${mc_version}-${chickenLib_version}:dev"
-    
+	embed files("libs/javatuples-1.2.jar")
+	
     compile files("libs/CoFHLib-[1.7.10]1.2.1-185.jar")
     
-	embed files("libs/javatuples-1.2.jar")
+    compile "net.industrial-craft:industrialcraft-2:${ic2_version}:dev"
+    
+    compile "codechicken:CodeChickenLib:${mc_version}-${chickenLib_version}:dev"
+    compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
+    compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
+
 }
 
 version = "${mod_version}"
@@ -67,7 +79,10 @@ archivesBaseName = "RorysMod"
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "eclipse"
-	replace '$version', project.version
+    
+    
+	replace '@version@', project.version
+    replaceIn "RorysMod.java"
 }
 
 processResources {
@@ -80,7 +95,7 @@ processResources {
     }
         
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude 'mcmod.info', '**/psd/**'
     }
     
     from('./') {
@@ -92,11 +107,19 @@ def commonManifest = {
 	attributes 'FMLAT': 'rorysmods_at.cfg'
     attributes 'FMLCorePlugin': 'me.roryclaasen.rorysmodcore.RorysModCorePlugin'
     attributes 'FMLCorePluginContainsFMLMod': 'true'
+    
+    attributes 'Built-By': System.getProperty('user.name')
+    attributes 'Created-By': "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})"
+    attributes 'Implementation-Title': project.name
+    attributes 'Implementation-Version': project.version
+    attributes 'Git-Hash': gitHash
+    attributes 'Built-On': "${mc_version}-${forge_version}"
 }
 
 version = "${project.minecraft.version}-${project.version}"
 
 jar {
+    exclude "**/*.psd"
 	includeEmptyDirs = false
 	classifier = 'universal'
 	manifest commonManifest

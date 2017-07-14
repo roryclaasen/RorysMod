@@ -12,7 +12,6 @@
  */
 package me.roryclaasen.rorysmod.core.init;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -107,14 +106,11 @@ public class ModItems implements ModInterface {
 		Register.registerDictionary("cpu", cpu);
 
 		Register.registerDictionary("solderingIron", new ItemStack(solderingIron, 1, OreDictionary.WILDCARD_VALUE));
-
-		if (Loader.isModLoaded("NotEnoughItems")) {
-		}
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		ItemStack toolSolderingIron = new ItemStack(solderingIron, 1, OreDictionary.WILDCARD_VALUE);
+		// ItemStack toolSolderingIron = new ItemStack(solderingIron, 1, OreDictionary.WILDCARD_VALUE);
 
 		ItemStack forgeHammer = IC2Items.getItem("ForgeHammer").copy();
 		forgeHammer.setItemDamage(OreDictionary.WILDCARD_VALUE);
@@ -130,14 +126,15 @@ public class ModItems implements ModInterface {
 		Register.addSmeltingRecipie(new ItemStack(steelDust), new ItemStack(steelIngot), 0.1f);
 
 		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
+		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelDust));
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
 
 		// Circuit
-		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { "ir ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " ri", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", "ir ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", " ri", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', toolSolderingIron });
-		
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { "ir ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', "solderingIron" });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " ri", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', "solderingIron" });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", "ir ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', "solderingIron" });
+		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " r ", "gsg", " ri", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', "solderingIron" });
+
 		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[] { "rgr", "lcl", "rgr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
 		Register.addShapedRecipie(new ItemStack(advancedCircuit), new Object[] { "rlr", "gcg", "rlr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
 
@@ -145,13 +142,13 @@ public class ModItems implements ModInterface {
 		Register.addShapedRecipie(new ItemStack(lens, 4), new Object[] { " g ", "g g", " g ", 'g', Blocks.glass });
 
 		// Filament
-		Register.addShaplessRecipie(new ItemStack(filament, 2), new Object[] { Items.redstone, Items.flint, IC2Items.getItem("copperCableItem"), toolSolderingIron });
+		Register.addShaplessRecipie(new ItemStack(filament, 2), new Object[] { Items.redstone, Items.flint, IC2Items.getItem("copperCableItem"), "solderingIron" });
 
 		// CPU
-		Register.addShapedRecipie(new ItemStack(cpu), new Object[] { "ir ", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic", 'i', toolSolderingIron });
-		Register.addShapedRecipie(new ItemStack(cpu), new Object[] { " ri", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic", 'i', toolSolderingIron });
-		Register.addShapedRecipie(new ItemStack(cpu), new Object[] { " r ", "rcr", "ir ", 'r', Items.redstone, 'c', "circuitBasic", 'i', toolSolderingIron });
-		Register.addShapedRecipie(new ItemStack(cpu), new Object[] { " r ", "rcr", " ri", 'r', Items.redstone, 'c', "circuitBasic", 'i', toolSolderingIron });
+		Register.addShapedChargedRecipie(new ItemStack(cpu), new Object[] { "ir ", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic", 'i', "solderingIron" });
+		Register.addShapedChargedRecipie(new ItemStack(cpu), new Object[] { " ri", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic", 'i', "solderingIron" });
+		Register.addShapedChargedRecipie(new ItemStack(cpu), new Object[] { " r ", "rcr", "ir ", 'r', Items.redstone, 'c', "circuitBasic", 'i', "solderingIron" });
+		Register.addShapedChargedRecipie(new ItemStack(cpu), new Object[] { " r ", "rcr", " ri", 'r', Items.redstone, 'c', "circuitBasic", 'i', "solderingIron" });
 
 		// Rifle
 		Register.addShapedRecipie(new ItemStack(rifleBarrel), new Object[] { "sss", "   ", "sss", 's', "ingotSteel" });
@@ -174,6 +171,9 @@ public class ModItems implements ModInterface {
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 5), new Object[] { "c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 6), new Object[] { "t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 7), new Object[] { "f", "b", 'b', new ItemStack(rifleUpgrade), 'f', Items.flint_and_steel });
+
+		// Soldering Iron
+		Register.addShapedRecipie(new ItemStack(solderingIron, 1, 100), new Object[] { "  i", " i ", "c  ", 'i', "ingotIron", 'c', IC2Items.getItem("copperCableItem") });
 	}
 
 	@Override

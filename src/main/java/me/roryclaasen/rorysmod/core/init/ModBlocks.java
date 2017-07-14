@@ -36,10 +36,10 @@ public class ModBlocks implements ModInterface {
 
 	public BlockRegistry registry = new BlockRegistry();
 
-	public static Block testingWall;
-	public static Block upgradeTable;
-	public static Block steelBlock;
-	public static Block bluePrint;
+	public Block testingWall;
+	public Block upgradeTable;
+	public Block steelBlock;
+	public Block bluePrint;
 
 	public static Block poweredChest;
 

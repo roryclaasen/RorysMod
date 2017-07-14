@@ -12,14 +12,11 @@
  */
 package me.roryclaasen.rorysmod.core;
 
-import net.minecraftforge.common.config.Configuration;
-
-import org.apache.logging.log4j.Level;
-
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import me.roryclaasen.rorysmod.util.RMLog;
+import net.minecraftforge.common.config.Configuration;
 
 public class Settings {
 
@@ -45,7 +42,7 @@ public class Settings {
 	}
 
 	public void load(FMLPreInitializationEvent event) {
-		FMLLog.log(RorysMod.MODID, Level.INFO, "Loading Config");
+		RMLog.info("Loading Config");
 		config.load();
 
 		updateSettings();
@@ -81,6 +78,7 @@ public class Settings {
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (RorysMod.MODID.equals(event.modID)) updateSettings();
+		if ((RorysMod.MODID + "core").equals(event.modID)) updateSettings();
 	}
 
 	public static Configuration getConfig() {

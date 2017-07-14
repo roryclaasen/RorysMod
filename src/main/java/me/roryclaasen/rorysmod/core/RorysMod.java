@@ -36,7 +36,7 @@ import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, dependencies = "required-after:CoFHCore;before:IC2;")
+@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, version = RorysMod.VERSION, dependencies = "after:CoFHCore;before:IC2;")
 public class RorysMod {
 
 	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.core.proxy.CommonProxy")
@@ -44,6 +44,7 @@ public class RorysMod {
 
 	public static final String MODID = "rorysmod";
 	public static final String NAME = "Rory's Mod";
+	public static final String VERSION = "@version@";
 
 	public static Random random;
 
