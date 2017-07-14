@@ -1,6 +1,4 @@
-# Rifle Modules
-
-## About
+# About
 
 Modules are items that allow the rifle to be changed, from damage to color to the rifle cool down.
 
@@ -9,12 +7,13 @@ Modules are items that allow the rifle to be changed, from damage to color to th
 Please let me know by [clicking here](https://github.com/GOGO98901/RorysMod/issues/new) to submit an issue.
 
 #### Want a new module?
+
 NOTE: I may not add the module, but I probably will.
 
-- Create a [pull request](https://github.com/GOGO98901/RorysMod/compare) with the new module implemented the texture does not have to be added at this point)
+- Create a [pull request](https://github.com/GOGO98901/RorysMod/compare) with the new module implemented (the texture does not have to be added at this point)
 - Create a [new issues](https://github.com/GOGO98901/RorysMod/issues/new) that says what should be added, remember to add the idea label
 
-### Contents
+# Contents
 
 - [Base Modules](#base-modules)
 - [Capacitor Module](#capacitor-module)

@@ -1,5 +1,3 @@
-# Better Sleeping
-
 Better sleeping is part of `rorysmodcore`, the core mod part of `rorysmod`.
 
 ## What it does

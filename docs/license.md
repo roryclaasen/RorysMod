@@ -1,5 +1,3 @@
-# License
-
 [![GitHub license](https://img.shields.io/github/license/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/blob/master/licence.txt)
 
 ```text
