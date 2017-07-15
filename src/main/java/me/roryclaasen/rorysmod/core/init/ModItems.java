@@ -158,8 +158,8 @@ public class ModItems implements ModInterface {
 
 		Register.addShaplessRecipie(new ItemStack(rifle2), new Object[] { rifle1, new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
 		Register.addShaplessRecipie(new ItemStack(rifle3), new Object[] { rifle2, new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
-		Register.addShaplessRecipie(new ItemStack(rifle4), new Object[] { rifle4, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
-		Register.addShaplessRecipie(new ItemStack(rifle5), new Object[] { rifle5, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
+		Register.addShaplessRecipie(new ItemStack(rifle4), new Object[] { rifle3, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
+		Register.addShaplessRecipie(new ItemStack(rifle5), new Object[] { rifle4, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
 
 		// Rifle upgrade
 		Register.addShapedRecipie(new ItemStack(upgradePlate, 2), new Object[] { "rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel" });

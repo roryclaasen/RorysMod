@@ -23,7 +23,7 @@ import me.roryclaasen.rorysmod.core.RorysMod;
 
 public class BlockBaseContainer extends BlockContainer {
 
-	protected BlockBaseContainer(Material material, String unlocalizedName) {
+	public BlockBaseContainer(Material material, String unlocalizedName) {
 		super(material);
 		this.setBlockName(RorysMod.MODID + "_" + unlocalizedName);
 		this.setBlockTextureName(RorysMod.MODID + ":" + unlocalizedName);

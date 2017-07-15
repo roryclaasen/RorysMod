@@ -21,6 +21,7 @@ import me.roryclaasen.rorysmod.block.BlockBaseMeta;
 import me.roryclaasen.rorysmod.block.BlockBlueprint;
 import me.roryclaasen.rorysmod.block.BlockIngot;
 import me.roryclaasen.rorysmod.block.BlockPoweredChest;
+import me.roryclaasen.rorysmod.block.BlockMachineRenamer;
 import me.roryclaasen.rorysmod.block.BlockRifleTable;
 import me.roryclaasen.rorysmod.block.BlockTestingWall;
 import me.roryclaasen.rorysmod.block.base.MultiBlockHandler;
@@ -41,7 +42,8 @@ public class ModBlocks implements ModInterface {
 	public Block steelBlock;
 	public Block bluePrint;
 
-	public static Block poweredChest;
+	public Block poweredChest;
+	public Block renamer;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -51,6 +53,8 @@ public class ModBlocks implements ModInterface {
 		bluePrint = new BlockBlueprint(Material.iron, "blockBluePrint");
 
 		poweredChest = new BlockPoweredChest(Material.wood, "blockChestPowered");
+		
+		renamer = new BlockMachineRenamer(Material.iron, "machineRenamer");
 	}
 
 	public void register(FMLPreInitializationEvent event) {
@@ -58,6 +62,7 @@ public class ModBlocks implements ModInterface {
 		Register.registerBlock(testingWall, MultiBlockHandler.class);
 		Register.registerBlock(upgradeTable);
 		Register.registerBlock(steelBlock);
+		
 		Register.registerBlock(bluePrint, MultiBlockHandler.class);
 
 		Register.registerDictionary("blockSteel", steelBlock);
@@ -69,6 +74,8 @@ public class ModBlocks implements ModInterface {
 		}
 
 		Register.registerBlock(poweredChest, ItemPoweredChest.class);
+
+		Register.registerBlock(renamer);
 	}
 
 	@Override

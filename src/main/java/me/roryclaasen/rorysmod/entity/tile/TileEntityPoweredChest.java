@@ -12,6 +12,7 @@
  */
 package me.roryclaasen.rorysmod.entity.tile;
 
+import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -24,8 +25,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.core.init.ModBlocks;
 
 public class TileEntityPoweredChest extends TileEntity implements IInventory {
 
@@ -230,7 +229,7 @@ public class TileEntityPoweredChest extends TileEntity implements IInventory {
 			facing = (byte) ForgeDirection.NORTH.ordinal();
 		}
 		setFacing(facing);
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, ModBlocks.poweredChest, 2, facing);
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, RorysMod.blocks.poweredChest, 2, facing);
 	}
 
 	public void wasPlaced(EntityLivingBase entityliving, ItemStack itemStack) {}

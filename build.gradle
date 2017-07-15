@@ -40,6 +40,8 @@ repositories {
 		name = 'CodeChicken'
 		url = 'http://chickenbones.net/maven/'
 	}
+	
+	maven { url 'https://jitpack.io' }
 }
 
 apply plugin: 'forge'
@@ -61,6 +63,8 @@ configurations {
 
 dependencies {
 	embed files("libs/javatuples-1.2.jar")
+	
+	embed "com.github.GOGO98901:version-checker:gson-SNAPSHOT"
 	
     compile files("libs/CoFHLib-[1.7.10]1.2.1-185.jar")
     

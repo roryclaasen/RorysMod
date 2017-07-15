@@ -18,10 +18,12 @@ package me.roryclaasen.rorysmod.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import me.roryclaasen.rorysmod.container.ContainerMachineRenamer;
 import me.roryclaasen.rorysmod.container.ContainerPoweredChest;
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -40,6 +42,11 @@ public class GuiHandler implements IGuiHandler {
 				return new ContainerPoweredChest((TileEntityPoweredChest) tileEntity, player);
 			}
 		}
+		if (ID == RorysMod.GUIS.MACHINE_RENAMER.getId()) {
+			if (tileEntity instanceof TileEntityRenamer) {
+				return new ContainerMachineRenamer((TileEntityRenamer) tileEntity, player);
+			}
+		}
 		return null;
 	}
 
@@ -54,6 +61,11 @@ public class GuiHandler implements IGuiHandler {
 		if (ID == RorysMod.GUIS.CHEST_POWERED.getId()) {
 			if (tileEntity instanceof TileEntityPoweredChest) {
 				return new GuiPoweredChest((TileEntityPoweredChest) tileEntity, player);
+			}
+		}
+		if (ID == RorysMod.GUIS.MACHINE_RENAMER.getId()) {
+			if (tileEntity instanceof TileEntityRenamer) {
+				return new GuiMachineRenamer((TileEntityRenamer) tileEntity, player);
 			}
 		}
 		return null;

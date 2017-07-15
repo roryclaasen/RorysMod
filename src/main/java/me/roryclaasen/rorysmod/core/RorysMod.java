@@ -27,6 +27,7 @@ import me.roryclaasen.rorysmod.core.proxy.CommonProxy;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.event.PlayerBedEventHandler;
 import me.roryclaasen.rorysmod.event.PlayerHoldingRifle;
@@ -52,7 +53,7 @@ public class RorysMod {
 	public static RorysMod instance;
 
 	public static enum GUIS {
-		RILE_TABLE("rorysmod.gui.upgradeTable"), CHEST_POWERED("rorysmod.gui.poweredchest");
+		RILE_TABLE("rorysmod.gui.upgradeTable"), CHEST_POWERED("rorysmod.gui.poweredchest"), MACHINE_RENAMER("rorysmod.gui.machineRenamer");
 
 		private String name;
 
@@ -71,14 +72,16 @@ public class RorysMod {
 
 	private Settings settings;
 
-	public static ModBlocks blocks; 
+	public static ModBlocks blocks;
 	public static ModItems items;
 
 	public static CreativeTabs tab;
 
+	public Version versionCheker;
+
 	static {
 		random = new Random();
-		
+
 		blocks = new ModBlocks();
 		items = new ModItems();
 	}
@@ -86,6 +89,9 @@ public class RorysMod {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		instance = this;
+
+		versionCheker = new Version(RorysMod.VERSION);
+
 		settings = new Settings(event);
 		settings.load(event);
 
@@ -120,6 +126,22 @@ public class RorysMod {
 		proxy.init(event);
 	}
 
+	private void registerTileEntities() {
+		Register.registerTileEntity(TileEntityRifleTable.class, "tableUpgrade");
+		Register.registerTileEntity(TileEntityPoweredChest.class, "blockChestPowered");
+		Register.registerTileEntity(TileEntityRenamer.class, "machineRenamer");
+	}
+
+	private void registerModEntities() {
+		Register.registerEntities(EntityLaser.class, "laser", 64, 10, true);
+	}
+
+	private void registerEventHandlers() {
+		Register.registerEventBus(new PlayerHoldingRifle());
+		Register.registerEventBus(new PlayerTickEvents());
+		Register.registerEventBus(new PlayerBedEventHandler());
+	}
+
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
 		blocks.postinit(event);
@@ -131,20 +153,8 @@ public class RorysMod {
 		RMLog.info("Registered " + Register.getRegisteredEntities() + " entity(s)");
 		RMLog.info("Registered " + Register.getRegisteredRecipies() + " recipie(s)");
 		RMLog.info("Registered " + Register.getRegisteredEvents() + " event(s)");
-	}
 
-	private void registerTileEntities() {
-		Register.registerTileEntity(TileEntityRifleTable.class, "tableUpgrade");
-		Register.registerTileEntity(TileEntityPoweredChest.class, "blockChestPowered");
-	}
-
-	private void registerModEntities() {
-		Register.registerEntities(EntityLaser.class, "laser", 64, 10, true);
-	}
-
-	private void registerEventHandlers() {
-		Register.registerEventBus(new PlayerHoldingRifle());
-		Register.registerEventBus(new PlayerTickEvents());
-		Register.registerEventBus(new PlayerBedEventHandler());
+		Thread check = new Thread(versionCheker, RorysMod.MODID + " Checkers");
+		check.start();
 	}
 }

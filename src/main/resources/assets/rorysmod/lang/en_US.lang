@@ -28,6 +28,7 @@ tile.rorysmod_blockBluePrint_3.name=Blueprint Block
 tile.rorysmod_blockBluePrint_4.name=Blueprint Block
 tile.rorysmod_blockBluePrint_5.name=Blueprint Block
 tile.rorysmod_blockChestPowered.name=Powerable Chest
+tile.rorysmod_machineRenamer.name=Auto Renamer
 
 // ----------------{  Items  }----------------
 item.rorysmod_ingotSteel.name=Steel Ingot
@@ -92,4 +93,5 @@ message.rorysmod.holdShift3=for Details
 rorysmod.gui.upgradeTable.title=Rifle Upgrade Table
 rorysmod.gui.upgradeTable.color=Laser Color
 rorysmod.gui.poweredchest=Powerable Chest
+rorysmod.gui.machineRenamer=Auto Renamer
 
