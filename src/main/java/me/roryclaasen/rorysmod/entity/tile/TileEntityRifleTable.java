@@ -16,21 +16,21 @@ import java.awt.Color;
 
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
 import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
+import me.roryclaasen.rorysmod.core.network.SyncTileEntityData;
 import me.roryclaasen.rorysmod.gui.GuiRifleTable;
 import me.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.util.ColorUtils;
 import me.roryclaasen.rorysmod.util.NBTLaser;
-import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityRifleTable extends TileEntity implements IInventory {
+public class TileEntityRifleTable extends TileEntityBase implements IInventory {
 
 	private ItemStack[] inv;
 
@@ -122,7 +122,6 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 				ItemStack stack = inv[i];
 				if (stack != null) {
 					if (stack.getItem() instanceof ItemRifleUpgrade) {
-						RMLog.info(stack.getDisplayName() + ">" + stack.getItemDamage());
 						data.setSlot(i - 2, stack.getItemDamage() - 1, stack.stackSize);
 					}
 				} else data.setSlot(i - 2, -1, 0);
@@ -153,6 +152,8 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 	public void setColor(Color color) {
 		laserColor = color;
 		writeToLaser();
+
+		this.sync();
 	}
 
 	@Override
@@ -217,5 +218,16 @@ public class TileEntityRifleTable extends TileEntity implements IInventory {
 		}
 
 		nbt.setTag("Items", list);
+		
+		this.markDirty();
+	}
+	
+	@Override
+	public void sync() {
+		super.sync();		
+		
+		NBTTagCompound tagCompount = new NBTTagCompound();
+		writeToNBT(tagCompount);
+		PacketDispatcher.sendToServer(new SyncTileEntityData(tagCompount));
 	}
 }

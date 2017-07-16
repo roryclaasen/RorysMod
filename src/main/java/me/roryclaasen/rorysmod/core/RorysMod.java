@@ -23,7 +23,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import me.roryclaasen.rorysmod.core.init.ModBlocks;
 import me.roryclaasen.rorysmod.core.init.ModItems;
-import me.roryclaasen.rorysmod.core.proxy.CommonProxy;
+import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
+import me.roryclaasen.rorysmod.core.network.proxy.CommonProxy;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
@@ -40,7 +41,7 @@ import net.minecraft.item.Item;
 @Mod(modid = RorysMod.MODID, name = RorysMod.NAME, version = RorysMod.VERSION, dependencies = "after:CoFHCore;before:IC2;")
 public class RorysMod {
 
-	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.core.proxy.CommonProxy")
+	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.network.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.core.network.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static final String MODID = "rorysmod";
@@ -107,6 +108,8 @@ public class RorysMod {
 
 		blocks.register(event);
 		items.register(event);
+		
+		PacketDispatcher.registerPackets();
 	}
 
 	@EventHandler

@@ -26,8 +26,8 @@ public class ContainerMachineRenamer extends Container {
 		this.tileEntity = tileEntity;
 
 		// Custom Storage
-		addSlotToContainer(new Slot(tileEntity, 0, 26, 35));
-		addSlotToContainer(new Slot(tileEntity, 1, 134, 35));
+		addSlotToContainer(new Slot(tileEntity, 0, 26, 44));
+		addSlotToContainer(new OutputSlot(tileEntity, 1, 134, 44));
 
 		bindPlayerInventory(player.inventory);
 	}

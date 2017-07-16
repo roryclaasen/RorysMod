@@ -14,22 +14,25 @@ package me.roryclaasen.rorysmod.entity.tile;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
 import cofh.api.tileentity.ITileInfo;
 import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
+import me.roryclaasen.rorysmod.core.network.SyncTileEntityData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityRenamer extends TileEntity implements IInventory, IEnergyReceiver, ITileInfo {
+public class TileEntityRenamer extends TileEntityBase implements ISidedInventory, IEnergyReceiver, ITileInfo {
 
 	private ItemStack[] inv;
 
@@ -37,8 +40,11 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 
 	private int tickSinceLastRename;
 
+	private String renamingName;
+
 	public TileEntityRenamer() {
 		inv = new ItemStack[2];
+		renamingName = "";
 	}
 
 	@Override
@@ -53,18 +59,22 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 
 	@Override
 	public ItemStack decrStackSize(int slot, int amount) {
-		ItemStack stack = getStackInSlot(slot);
-		if (stack != null) {
-			if (stack.stackSize <= amount) {
-				setInventorySlotContents(slot, null);
+		if (inv[slot] != null) {
+			ItemStack itemstack;
+			if (inv[slot].stackSize == amount) {
+				itemstack = inv[slot];
+				inv[slot] = null;
+				this.markDirty();
+				return itemstack;
 			} else {
-				stack = stack.splitStack(amount);
-				if (stack.stackSize == 0) {
-					setInventorySlotContents(slot, null);
-				}
+				itemstack = inv[slot].splitStack(amount);
+				if (inv[slot].stackSize == 0) inv[slot] = null;
+				this.markDirty();
+				return itemstack;
 			}
+		} else {
+			return null;
 		}
-		return stack;
 	}
 
 	@Override
@@ -84,6 +94,7 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 				stack.stackSize = getInventoryStackLimit();
 			}
 		}
+		this.markDirty();
 	}
 
 	@Override
@@ -122,6 +133,22 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 	}
 
 	@Override
+	public int[] getAccessibleSlotsFromSide(int slot) {
+		return new int[] { 0, 1 };
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+		return this.isItemValidForSlot(slot, stack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+		if (slot == 0) return false;
+		return true;
+	}
+
+	@Override
 	public boolean canConnectEnergy(ForgeDirection direction) {
 		return true;
 	}
@@ -143,33 +170,40 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 
 	@Override
 	public void updateEntity() {
-		if (!getWorldObj().isRemote) {
-			ItemStack input = inv[0];
+		if (worldObj.isRemote) return;
+
+		ItemStack input = inv[0];
+
+		if (input != null) {
+			if (energy.getEnergyStored() >= 40) {
+				energy.extractEnergy(40, false);
+			} else return;
+
+			if (StringUtils.isBlank(renamingName)) return;
 
 			tickSinceLastRename++;
-			if (tickSinceLastRename < 10) return;
-			tickSinceLastRename = 0;
-			// TODO Make this better
+			if (tickSinceLastRename < 25) return;
+			ItemStack copy = input.copy();
+			copy.stackSize = 1;
+			copy.setStackDisplayName(renamingName);
 
-			if (input != null) {
-				ItemStack copy = input.copy();
-				copy.setStackDisplayName("I HAVE BEEN RENAMED!");
+			ItemStack result = inv[1];
+			if (result == null) {
+				inv[1] = copy;
 
-				ItemStack result = inv[1];
-				if (result == null) {
-					inv[1] = copy;
+				--input.stackSize;
+			} else {
+				if (isItemEqual(result, copy)) {
+					if (result.stackSize < 64) {
+						++result.stackSize;
 
-					input.stackSize -= 1;
-					if (input.stackSize <= 0) inv[0] = null;
-				} else {
-					if (isItemEqual(result, copy)) {
-						if (result.stackSize < 64) {
-							result.stackSize += 1;
-							input.stackSize -= 1;
-							if (input.stackSize <= 0) inv[0] = null;
-						}
+						--input.stackSize;
 					}
 				}
+			}
+			tickSinceLastRename = 0;
+			if (input.stackSize <= 0) {
+				inv[0] = null;
 			}
 		}
 	}
@@ -181,10 +215,21 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 		return false;
 	}
 
+	public void setRenameName(String name) {
+		this.renamingName = name;
+		this.sync();
+	}
+
+	public String getCustomName() {
+		return renamingName;
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		energy.writeToNBT(nbt);
+		energy.readFromNBT(nbt);
+
+		renamingName = nbt.getString("settingName");
 
 		NBTTagList list = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 
@@ -201,7 +246,9 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		energy.readFromNBT(nbt);
+		energy.writeToNBT(nbt);
+
+		nbt.setString("settingName", renamingName);
 
 		NBTTagList list = new NBTTagList();
 		for (int i = 0; i < inv.length; ++i) {
@@ -214,10 +261,22 @@ public class TileEntityRenamer extends TileEntity implements IInventory, IEnergy
 		}
 
 		nbt.setTag("Items", list);
+
+		this.markDirty();
 	}
 
 	@Override
 	public void getTileInfo(List<IChatComponent> list, ForgeDirection direction, EntityPlayer player, boolean simulate) {
 		list.add(new ChatComponentText("Energy Stored : " + energy.getEnergyStored() + "/" + energy.getMaxEnergyStored() + " RF"));
+		list.add(new ChatComponentText("Custom Name : " + renamingName));
+	}
+	
+	@Override
+	public void sync() {
+		super.sync();		
+		
+		NBTTagCompound tagCompount = new NBTTagCompound();
+		writeToNBT(tagCompount);
+		PacketDispatcher.sendToServer(new SyncTileEntityData(tagCompount));
 	}
 }
