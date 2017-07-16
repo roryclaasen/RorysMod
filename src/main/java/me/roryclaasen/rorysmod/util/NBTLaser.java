@@ -175,4 +175,8 @@ public class NBTLaser {
 		// RMLog.warn("Unknown rifle tier");
 		return Settings.rifleTier1;
 	}
+
+	public String toString() {
+		return this.getClass().getCanonicalName() + "->" + tag.toString();
+	}
 }

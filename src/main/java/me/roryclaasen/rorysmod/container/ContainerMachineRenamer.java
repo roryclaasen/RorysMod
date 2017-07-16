@@ -12,6 +12,7 @@
  */
 package me.roryclaasen.rorysmod.container;
 
+import me.roryclaasen.rorysmod.container.slot.OutputSlot;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

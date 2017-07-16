@@ -17,7 +17,7 @@ import java.awt.Color;
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
-import me.roryclaasen.rorysmod.core.network.SyncTileEntityData;
+import me.roryclaasen.rorysmod.core.network.message.SyncTileEntityData;
 import me.roryclaasen.rorysmod.gui.GuiRifleTable;
 import me.roryclaasen.rorysmod.item.ItemRifleUpgrade;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;

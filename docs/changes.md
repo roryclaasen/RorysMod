@@ -7,6 +7,13 @@
 ? Broken or not sure about it
 ```
 
+# Version 1.3.1
+
+```
++ Added an Auto Renamer (machine)
+* General bug fixes
+```
+
 # Version 1.3.0
 
 (12/07/2017) RorysMod-1.7.10-1.3-universal.jar<br>

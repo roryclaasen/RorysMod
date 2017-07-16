@@ -18,6 +18,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.network.message.SyncEntityLaserData;
+import me.roryclaasen.rorysmod.core.network.message.SyncTileEntityData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -28,6 +30,7 @@ public class PacketDispatcher {
 
 	public static final void registerPackets() {
 		registerMessage(SyncTileEntityData.class);
+		registerMessage(SyncEntityLaserData.class);
 	}
 
 	/**
@@ -39,7 +42,6 @@ public class PacketDispatcher {
 		} else if (AbstractMessage.AbstractServerMessage.class.isAssignableFrom(clazz)) {
 			PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
 		} else {
-			// hopefully you didn't forget to extend the right class, or you will get registered on both sides
 			PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
 			PacketDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
 		}

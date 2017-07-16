@@ -29,7 +29,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class EntityLaser extends EntityThrowable {
 
 	private NBTLaser data;
-	private NBTTagCompound stackTag;
 
 	public EntityLaser(World world) {
 		super(world);
@@ -37,8 +36,7 @@ public class EntityLaser extends EntityThrowable {
 
 	public EntityLaser(World world, EntityLivingBase entity, ItemStack itemStack) {
 		super(world, entity);
-		this.data = new NBTLaser(itemStack.stackTagCompound);
-		this.stackTag = this.data.getTag();
+		this.data = new NBTLaser(itemStack.copy().stackTagCompound);
 	}
 
 	@Override
@@ -52,8 +50,8 @@ public class EntityLaser extends EntityThrowable {
 
 	@Override
 	public void setDead() {
-		if (Settings.laserEmitsLight) this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ);
 		super.setDead();
+		if (Settings.laserEmitsLight) this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ);
 	}
 
 	@Override
@@ -90,35 +88,28 @@ public class EntityLaser extends EntityThrowable {
 	private void setBlockOnFire(int x, int y, int z, int side) {
 		boolean fire = true;
 		switch (side) {
-			case -1: {
+			case -1:
 				fire = false;
-			}
 			case 0: {
 				--y;
 				fire = false;
 			}
-			case 1: {
+			case 1:
 				++y;
-			}
-			case 2: {
+			case 2:
 				--z;
-			}
-			case 3: {
+			case 3:
 				++z;
-			}
-			case 4: {
+			case 4:
 				--x;
-			}
-			case 5: {
+			case 5:
 				++x;
-			}
 		}
 		if (fire) {
 			if (worldObj.isAirBlock(x, y, z) && worldObj.isSideSolid(x, y, z, ForgeDirection.DOWN)) {
 				worldObj.setBlock(x, y, z, Blocks.fire);
 			}
 		}
-
 	}
 
 	private void setFire(Entity entity) {
@@ -157,12 +148,16 @@ public class EntityLaser extends EntityThrowable {
 		}
 	}
 
+	public void setLaserData(NBTLaser laserData) {
+		this.data = laserData;
+	}
+
 	public NBTLaser getLaserData() {
 		return data;
 	}
 
 	public NBTTagCompound getNBT() {
-		return stackTag;
+		return data.getTag();
 	}
 
 	private void addLight() {
@@ -176,4 +171,5 @@ public class EntityLaser extends EntityThrowable {
 		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ + 1);
 		this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ - 1);
 	}
+
 }

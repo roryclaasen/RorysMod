@@ -14,25 +14,23 @@ package me.roryclaasen.rorysmod.render;
 
 import java.awt.Color;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.Settings;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.model.ModelLaser;
 import me.roryclaasen.rorysmod.util.ColorUtils;
 import me.roryclaasen.rorysmod.util.NBTLaser;
-
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 public class RenderLaser extends Render {
 
 	private static ResourceLocation backup = new ResourceLocation(RorysMod.MODID, "textures/entity/bolt.png");
 	private ModelBase model;
-
-	private int textureId = -1;
 
 	public RenderLaser() {
 		model = new ModelLaser();
@@ -53,12 +51,10 @@ public class RenderLaser extends Render {
 		if (Settings.coloredLaser) {
 			if (entity instanceof EntityLaser) {
 				EntityLaser laser = (EntityLaser) entity;
-				if (laser.getNBT() != null) {
-					if (laser.getLaserData().getItemCount(NBTLaser.Items.Lens) > 0) {
-						int color = ColorUtils.getIntFromColor(Color.RED);
-						if (laser.getNBT().hasKey("color")) {
-							color = ColorUtils.getIntColorFromIntArray(laser.getNBT().getIntArray("color"));
-						}
+				NBTLaser data = laser.getLaserData();
+				if (data != null) {
+					if (data.hasLens()) {
+						int color = ColorUtils.getIntColorFromIntArray(data.getColor());
 						GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(color));
 					}
 				}
@@ -73,7 +69,6 @@ public class RenderLaser extends Render {
 	}
 
 	public int getTexture(Color color) {
-		if (textureId == -1) textureId = ColorUtils.loadTextureFromColour(color, 64, 32);
-		return textureId;
+		return ColorUtils.loadTextureFromColour(color, 64, 32);
 	}
 }

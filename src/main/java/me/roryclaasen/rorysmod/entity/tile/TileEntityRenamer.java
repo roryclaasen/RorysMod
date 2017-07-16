@@ -21,7 +21,7 @@ import cofh.api.energy.IEnergyReceiver;
 import cofh.api.tileentity.ITileInfo;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
-import me.roryclaasen.rorysmod.core.network.SyncTileEntityData;
+import me.roryclaasen.rorysmod.core.network.message.SyncTileEntityData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -182,7 +182,7 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 			if (StringUtils.isBlank(renamingName)) return;
 
 			tickSinceLastRename++;
-			if (tickSinceLastRename < 25) return;
+			if (tickSinceLastRename < 10) return;
 			ItemStack copy = input.copy();
 			copy.stackSize = 1;
 			copy.setStackDisplayName(renamingName);

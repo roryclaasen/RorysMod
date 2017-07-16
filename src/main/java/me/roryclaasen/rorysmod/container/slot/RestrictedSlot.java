@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.rorysmod.container;
+package me.roryclaasen.rorysmod.container.slot;
 
 import java.util.List;
 

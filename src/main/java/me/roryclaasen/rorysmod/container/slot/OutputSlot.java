@@ -1,4 +1,4 @@
-package me.roryclaasen.rorysmod.container;
+package me.roryclaasen.rorysmod.container.slot;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

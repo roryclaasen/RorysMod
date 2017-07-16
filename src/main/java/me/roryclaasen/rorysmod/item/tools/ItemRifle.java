@@ -14,6 +14,16 @@ package me.roryclaasen.rorysmod.item.tools;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
+import me.roryclaasen.rorysmod.core.network.message.SyncEntityLaserData;
+import me.roryclaasen.rorysmod.entity.EntityLaser;
+import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
+import me.roryclaasen.rorysmod.util.ColorUtils;
+import me.roryclaasen.rorysmod.util.NBTLaser;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,14 +33,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.core.Settings;
-import me.roryclaasen.rorysmod.entity.EntityLaser;
-import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
-import me.roryclaasen.rorysmod.util.ColorUtils;
-import me.roryclaasen.rorysmod.util.NBTLaser;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRifle extends ItemBaseEnergyContainer {
 
@@ -109,7 +111,10 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 	private void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
 		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
-		world.spawnEntityInWorld(new EntityLaser(world, player, itemStack));
+
+		EntityLaser laser = new EntityLaser(world, player, itemStack);
+		world.spawnEntityInWorld(laser);
+		PacketDispatcher.sendToAll(new SyncEntityLaserData(new NBTLaser(itemStack.stackTagCompound), laser.getEntityId()));
 	}
 
 	@Override

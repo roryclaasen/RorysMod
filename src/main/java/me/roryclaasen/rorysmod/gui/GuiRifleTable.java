@@ -153,7 +153,7 @@ public class GuiRifleTable extends GuiContainer {
 		save.visible = enable;
 	}
 
-	public Color getColorFromSlider() {
+	private Color getColorFromSlider() {
 		return new Color(colorR.getValueInt(), colorG.getValueInt(), colorB.getValueInt());
 	}
 

@@ -13,8 +13,8 @@
 package me.roryclaasen.rorysmod.util;
 
 import static org.lwjgl.opengl.GL11.GL_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_RGBA8;
+import static org.lwjgl.opengl.GL11.GL_RGB8;
+import static org.lwjgl.opengl.GL11.GL_RGB;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
@@ -51,34 +51,22 @@ public class ColorUtils {
 	}
 
 	public static int getIntFromColor(Color color) {
-		return getIntFromColor(color.getRed(), color.getGreen(), color.getBlue());
+		return color.getRGB();
 	}
 
-	public static int getIntFromColor(int Red, int Green, int Blue) {
-		Red = (Red << 16) & 0x00FF0000;
-		Green = (Green << 8) & 0x0000FF00;
-		Blue = Blue & 0x000000FF;
-
-		return 0xFF000000 | Red | Green | Blue;
+	public static int getIntFromColor(int red, int green, int blue) {
+		return getIntFromColor(new Color(red, green, blue));
 	}
 
 	public static int[] getIntArrayFromColor(int red, int green, int blue) {
-		return getIntArrayFromColor(red, green, blue, 255);
-	}
-
-	public static int[] getIntArrayFromColor(int red, int green, int blue, int alpha) {
 		return new int[] { red, green, blue };
 	}
 
 	public static int[] getIntArrayFromColor(Color color) {
-		return getIntArrayFromColor(color.getRed(), color.getBlue(), color.getGreen());
+		return getIntArrayFromColor(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
-	public static int[] getIntArrayFromColorWithAlpha(Color color) {
-		return getIntArrayFromColor(color.getRed(), color.getBlue(), color.getGreen(), color.getAlpha());
-	}
-
-	private static final int BYTES_PER_PIXEL = 4;
+	private static final int BYTES_PER_PIXEL = 3;
 
 	private static final int DEFULT_WIDTH = 64, DEFULT_HEIGHT = 32;
 
@@ -87,7 +75,7 @@ public class ColorUtils {
 	}
 
 	public static int loadTextureFromColour(Color color, int width, int height) {
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = image.createGraphics();
 		g2d.setColor(color);
 		g2d.fillRect(0, 0, width, height);
@@ -106,7 +94,6 @@ public class ColorUtils {
 				buffer.put((byte) ((pixel >> 16) & 0xFF));
 				buffer.put((byte) ((pixel >> 8) & 0xFF));
 				buffer.put((byte) (pixel & 0xFF));
-				buffer.put((byte) ((pixel >> 24) & 0xFF));
 			}
 		}
 
@@ -121,7 +108,7 @@ public class ColorUtils {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, image.getWidth(), image.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
 		return textureID;
 	}
