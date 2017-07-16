@@ -29,9 +29,11 @@ import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.item.ItemPoweredChest;
 import me.roryclaasen.rorysmod.util.RMLog;
 import me.roryclaasen.rorysmod.util.registry.BlockRegistry;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import ic2.api.item.IC2Items;
 
 public class ModBlocks implements ModInterface {
 
@@ -53,7 +55,7 @@ public class ModBlocks implements ModInterface {
 		bluePrint = new BlockBlueprint(Material.iron, "blockBluePrint");
 
 		poweredChest = new BlockPoweredChest(Material.wood, "blockChestPowered");
-		
+
 		renamer = new BlockMachineRenamer(Material.iron, "machineRenamer");
 	}
 
@@ -62,7 +64,7 @@ public class ModBlocks implements ModInterface {
 		Register.registerBlock(testingWall, MultiBlockHandler.class);
 		Register.registerBlock(upgradeTable);
 		Register.registerBlock(steelBlock);
-		
+
 		Register.registerBlock(bluePrint, MultiBlockHandler.class);
 
 		Register.registerDictionary("blockSteel", steelBlock);
@@ -95,9 +97,17 @@ public class ModBlocks implements ModInterface {
 		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 4), new Object[] { "   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
 		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[] { "d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
 
-		Register.addShapedRecipie(new ItemStack(poweredChest), new Object[] { "c", "r", 'c', Blocks.chest, 'r', Items.redstone });
+		Register.addShaplessRecipie(new ItemStack(poweredChest), new Object[] { Blocks.chest, Items.redstone, Blocks.tripwire_hook });
+
+		
+		Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', IC2Items.getItem("machine"), 'c', IC2Items.getItem("coil"), 's', "plateSteel" });
 	}
 
 	@Override
-	public void postinit(FMLPostInitializationEvent event) {}
+	public void postinit(FMLPostInitializationEvent event) {
+		if (Loader.isModLoaded("thermalexpansion")) {
+			// TODO fix this from not loading
+			Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', "thermalexpansion:machineframe", 'c', "gearCopper", 's', "plateSteel" });
+		}
+	}
 }

@@ -128,7 +128,7 @@ public class ModItems implements ModInterface {
 		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelPlate));
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelIngot)), null, new ItemStack(steelDust));
 		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(steelPlate)), null, new ItemStack(steelDust));
-
+		
 		// Circuit
 		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { "ir ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', "solderingIron" });
 		Register.addShapedChargedRecipie(new ItemStack(circuit), new Object[] { " ri", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget, 'i', "solderingIron" });
@@ -162,11 +162,11 @@ public class ModItems implements ModInterface {
 		Register.addShaplessRecipie(new ItemStack(rifle5), new Object[] { rifle4, new ItemStack(upgradePlate), new ItemStack(upgradePlate), IC2Items.getItem("energyCrystal") });
 
 		// Rifle upgrade
-		Register.addShapedRecipie(new ItemStack(upgradePlate, 2), new Object[] { "rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 's', "plateSteel" });
+		Register.addShapedRecipie(new ItemStack(upgradePlate, 2), new Object[] { "rir", "nsn", "rir", 'r', Items.redstone, 'i', "ingotIron", 'n', Items.gold_nugget, 'c', "cpu" });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade), new Object[] { "cuc", 'u', new ItemStack(upgradePlate), 'c', "circuitBasic" });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 1), new Object[] { "c", "b", 'b', new ItemStack(rifleUpgrade), 'c', IC2Items.getItem("reBattery") });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 2), new Object[] { "w", "b", 'b', new ItemStack(rifleUpgrade), 'w', IC2Items.getItem("waterCell") });
-		// Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 3), new Object[]{"l", "b", 'b', new ItemStack(rifleUpgrade), 'l', "lens"}));
+		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 3), new Object[] { "l", "b", 'b', new ItemStack(rifleUpgrade), 'l', "lens" });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 4), new Object[] { "f", "b", 'b', new ItemStack(rifleUpgrade), 'f', filament });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 5), new Object[] { "c", "b", 'b', new ItemStack(rifleUpgrade), 'c', cpu });
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 6), new Object[] { "t", "b", 'b', new ItemStack(rifleUpgrade), 't', Blocks.tnt });

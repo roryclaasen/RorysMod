@@ -7,11 +7,23 @@
 ? Broken or not sure about it
 ```
 
-# Version 1.3.1
+# Version 1.3.2
+(16/07/2017) RorysMod-1.7.10-1.3-2-universal.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.3.2)
 
 ```
 + Added an Auto Renamer (machine)
-* General bug fixes
+* Fixed custom modular laser colors
+* Lens module recipe added (again)
+* Changed recipe for upgrade plate
+* Changed recipe for powered chest
+* Color util fixes
+```
+
+# Version 1.3.1
+
+```
++ Added version checker
 ```
 
 # Version 1.3.0
