@@ -1,17 +1,14 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.render;
 
@@ -53,13 +50,13 @@ public class RenderLaser extends Render {
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTick - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTick, 0.0F, 0.0F, 1.0F);
 		bindTexture(backup);
-		if (entity instanceof EntityLaser) {
-			EntityLaser laser = (EntityLaser) entity;
-			if (Settings.coloredLaser) {
+		if (Settings.coloredLaser) {
+			if (entity instanceof EntityLaser) {
+				EntityLaser laser = (EntityLaser) entity;
 				if (laser.getNBT() != null) {
 					if (laser.getLaserData().getItemCount(NBTLaser.Items.Lens) > 0) {
 						int color = ColorUtils.getIntFromColor(Color.RED);
-						if(laser.getNBT().hasKey("color")){
+						if (laser.getNBT().hasKey("color")) {
 							color = ColorUtils.getIntColorFromIntArray(laser.getNBT().getIntArray("color"));
 						}
 						GL11.glBindTexture(GL11.GL_TEXTURE_2D, getTexture(color));

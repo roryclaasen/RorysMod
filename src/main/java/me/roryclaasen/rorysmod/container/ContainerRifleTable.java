@@ -57,19 +57,6 @@ public class ContainerRifleTable extends Container {
 		return tileEntity.isUseableByPlayer(player);
 	}
 
-	@Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
-		// for (int i = 0; i < this.inventorySlots.size(); ++i) {
-		// ItemStack itemstack = ((Slot) this.inventorySlots.get(i)).getStack();
-		// ItemStack itemstack1 = (ItemStack) this.inventoryItemStacks.get(i);
-		//
-		// if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
-		// tileEntity.writeToLaser();
-		// }
-		// }
-	}
-
 	private void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
 		for (int y = 0; y < 3; ++y) {
 			for (int x = 0; x < 9; ++x) {

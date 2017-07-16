@@ -94,8 +94,8 @@ public class TileEntityRifleTable extends TileEntityBase implements IInventory {
 				NBTLaser data = new NBTLaser(stack.stackTagCompound);
 				if (data.hasLens()) {
 					inv[1] = new ItemStack(RorysMod.items.rifleUpgrade, 1, 3);
+					laserColor = ColorUtils.getColorFromIntArray(data.getColor());
 					if (gui != null) {
-						laserColor = ColorUtils.getColorFromIntArray(data.getColor());
 						gui.setColorSlider(laserColor);
 					}
 				}
