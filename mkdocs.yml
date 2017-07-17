@@ -1,10 +1,11 @@
 site_name: Rory's Mod
-theme: readthedocs
-repo_url: https://github.com/GOGO98901/RorysMod/
 site_description: A forge mod for Minecraft 1.7.10
 site_author: Rory Claasen
 copyright: Copyright Rory Claasen (Apache 2.0)
 google_analytics: ['UA-45259414-3', 'mkdocs.org']
+repo_url: https://github.com/GOGO98901/RorysMod/
+theme: readthedocs
+docs_dir: docs
 
 pages:
     - Home: 'index.md'

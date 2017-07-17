@@ -84,6 +84,8 @@ message.rorysmod.sleeping.mobs=There are monsters near by. Be careful
 message.rorysmod.weight=Weight
 message.rorysmod.heat=Heat
 message.rorysmod.charge=Charge
+message.rorysmod.energyStored=Energy Stored
+message.rorysmod.custName=Custom Name
 
 message.rorysmod.holdShift1=Hold
 message.rorysmod.holdShift2=Shift

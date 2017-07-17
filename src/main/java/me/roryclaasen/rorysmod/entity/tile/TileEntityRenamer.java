@@ -29,14 +29,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityRenamer extends TileEntityBase implements ISidedInventory, IEnergyReceiver, ITileInfo {
 
+	public static final int ENERGY_STORAGE = 2000;
 	private ItemStack[] inv;
 
-	private EnergyStorage energy = new EnergyStorage(2000);
+	private EnergyStorage energy = new EnergyStorage(ENERGY_STORAGE);
 
 	private int tickSinceLastRename;
 
@@ -267,8 +269,8 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 
 	@Override
 	public void getTileInfo(List<IChatComponent> list, ForgeDirection direction, EntityPlayer player, boolean simulate) {
-		list.add(new ChatComponentText("Energy Stored : " + energy.getEnergyStored() + "/" + energy.getMaxEnergyStored() + " RF"));
-		list.add(new ChatComponentText("Custom Name : " + renamingName));
+		list.add(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.energyStored") + " : " + energy.getEnergyStored() + "/" + energy.getMaxEnergyStored() + " RF"));
+		list.add(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.custName") + " : " + renamingName));
 	}
 
 	@Override
