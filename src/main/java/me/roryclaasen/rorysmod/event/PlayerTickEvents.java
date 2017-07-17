@@ -17,9 +17,11 @@ import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.Version;
 import me.roryclaasen.rorysmod.util.UsefulFunctions;
 import net.minecraft.event.ClickEvent;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 public class PlayerTickEvents {
@@ -27,14 +29,33 @@ public class PlayerTickEvents {
 	@SubscribeEvent
 	public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
 		if (UsefulFunctions.isPlayer(event.entity) && event.world.isRemote) {
-			
 			Version version = RorysMod.instance.versionCheker;
 			if (!version.haveWarnedVersionOutOfDate && !version.isLatestVersion()) {
-				ClickEvent versionCheckChatClickEvent = new ClickEvent(ClickEvent.Action.OPEN_URL, "http://rorysmod.rtfd.io");
-				ChatStyle clickableChatStyle = new ChatStyle().setChatClickEvent(versionCheckChatClickEvent);
-				ChatComponentText versionWarningChatComponent = new ChatComponentText(EnumChatFormatting.GOLD + "[" + RorysMod.NAME + "]" + EnumChatFormatting.WHITE + " There is a new version avalible!" + EnumChatFormatting.GREEN + " Click here to update.");
-				versionWarningChatComponent.setChatStyle(clickableChatStyle);
-				UsefulFunctions.getPlayerFromEntity(event.entity).addChatMessage(versionWarningChatComponent);
+				ChatComponentText localChatComponentText = new ChatComponentText("");
+				ChatStyle localChatStyle;
+				IChatComponent modVersion = new ChatComponentText(EnumChatFormatting.AQUA + "Current Version: " + RorysMod.VERSION);
+
+				IChatComponent modName = new ChatComponentText(EnumChatFormatting.GOLD + "[" + RorysMod.NAME + "]" + EnumChatFormatting.WHITE);
+				localChatStyle = modName.getChatStyle();
+				localChatStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, modVersion));
+				localChatStyle.setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://rorysmod.rtfd.io"));
+				localChatComponentText.appendSibling(modName);
+
+				IChatComponent newVersion = new ChatComponentText(" There is a new version avalible!");
+				newVersion.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.WHITE + version.getLatest().getName())));
+				localChatComponentText.appendSibling(newVersion);
+				UsefulFunctions.getPlayerFromEntity(event.entity).addChatMessage(localChatComponentText);
+				localChatComponentText = new ChatComponentText("");
+
+				IChatComponent download = new ChatComponentText( EnumChatFormatting.GREEN + "Download");
+				download.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getUrl())).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.YELLOW + "Click here to download the latest version")));
+
+				IChatComponent update = new ChatComponentText("[");
+				update.appendSibling(download);
+				update.appendText(EnumChatFormatting.WHITE + "] " + EnumChatFormatting.GRAY + version.getLatest().getName());
+				update.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getUrl()));
+				localChatComponentText.appendSibling(update);
+				UsefulFunctions.getPlayerFromEntity(event.entity).addChatMessage(localChatComponentText);
 				version.haveWarnedVersionOutOfDate = true;
 			}
 		}

@@ -156,6 +156,7 @@ public class RorysMod {
 		RMLog.info("Registered " + Register.getRegisteredEntities() + " entity(s)");
 		RMLog.info("Registered " + Register.getRegisteredRecipies() + " recipie(s)");
 		RMLog.info("Registered " + Register.getRegisteredEvents() + " event(s)");
+		RMLog.info("Registered " + PacketDispatcher.getPacketId() + " packet(s)");
 
 		Thread check = new Thread(versionCheker, RorysMod.MODID + " Checkers");
 		check.start();

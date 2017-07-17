@@ -19,6 +19,8 @@ import me.roryclaasen.rorysmod.util.RMLog;
 public class Version implements Runnable {
 	private VersionCheck check;
 
+	private Release release;
+
 	private boolean latest;
 
 	public boolean haveWarnedVersionOutOfDate = false;
@@ -30,16 +32,19 @@ public class Version implements Runnable {
 	@Override
 	public void run() {
 		latest = check.isLatestRelease();
-
 		if (latest) {
 			RMLog.info("This is the latest release");
 		} else {
 			RMLog.info("This is not the latest release");
-			try {
-				Release release = check.getLatestVersion(false);
-				RMLog.info(release.getName() + " - " + release.getUrl());
-			} catch (Exception e) {}
 		}
+		try {
+			release = check.getLatestVersion(false);
+			RMLog.info(release.getName() + " - " + release.getUrl());
+		} catch (Exception e) {}
+	}
+
+	public Release getLatest() {
+		return release;
 	}
 
 	public boolean isLatestVersion() {

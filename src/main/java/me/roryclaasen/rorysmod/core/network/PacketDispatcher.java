@@ -102,4 +102,8 @@ public class PacketDispatcher {
 	public static final void sendToServer(IMessage message) {
 		PacketDispatcher.dispatcher.sendToServer(message);
 	}
+	
+	public static byte getPacketId() {
+		return packetId;
+	}
 }
