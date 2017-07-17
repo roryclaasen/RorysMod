@@ -36,7 +36,7 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 
 	private ItemStack[] inv;
 
-	private EnergyStorage energy = new EnergyStorage(10000);
+	private EnergyStorage energy = new EnergyStorage(2000);
 
 	private int tickSinceLastRename;
 
@@ -174,12 +174,12 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 
 		ItemStack input = inv[0];
 
-		if (input != null) {
-			if (energy.getEnergyStored() >= 40) {
-				energy.extractEnergy(40, false);
-			} else return;
+		if (StringUtils.isBlank(renamingName)) return;
 
-			if (StringUtils.isBlank(renamingName)) return;
+		if (input != null) {
+			if (energy.getEnergyStored() >= 40 + renamingName.length()) {
+				energy.extractEnergy(40 + renamingName.length(), false);
+			} else return;
 
 			tickSinceLastRename++;
 			if (tickSinceLastRename < 10) return;
@@ -270,11 +270,11 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 		list.add(new ChatComponentText("Energy Stored : " + energy.getEnergyStored() + "/" + energy.getMaxEnergyStored() + " RF"));
 		list.add(new ChatComponentText("Custom Name : " + renamingName));
 	}
-	
+
 	@Override
 	public void sync() {
-		super.sync();		
-		
+		super.sync();
+
 		NBTTagCompound tagCompount = new NBTTagCompound();
 		writeToNBT(tagCompount);
 		PacketDispatcher.sendToServer(new SyncTileEntityData(tagCompount));

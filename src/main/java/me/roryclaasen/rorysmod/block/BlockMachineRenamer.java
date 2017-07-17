@@ -39,7 +39,7 @@ public class BlockMachineRenamer extends BlockBaseContainer {
 	@Override
 	public void registerBlockIcons(IIconRegister reg) {
 		this.icons[0] = reg.registerIcon(RorysMod.MODID + ":machineTop");
-		this.icons[1] = reg.registerIcon(RorysMod.MODID + ":machineSide");
+		this.icons[1] = reg.registerIcon(RorysMod.MODID + ":machineRenamer");
 		this.icons[2] = reg.registerIcon(RorysMod.MODID + ":machineBottom");
 	}
 

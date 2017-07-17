@@ -1,8 +1,7 @@
 Current Version [![GitHub release](https://img.shields.io/github/release/GOGO98901/RorysMod.svg?style=flat-square)](https://github.com/GOGO98901/RorysMod/releases/latest)
 
-### Notice
-
-Backup your world! Especially if you are installing a development build or a pre release.
+!!! important "NOTICE"
+	Backup your world! Especially if you are installing a development build or a pre release.
 
 # Requirements
 

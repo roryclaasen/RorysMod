@@ -26,6 +26,7 @@ import me.roryclaasen.rorysmod.block.BlockRifleTable;
 import me.roryclaasen.rorysmod.block.BlockTestingWall;
 import me.roryclaasen.rorysmod.block.base.MultiBlockHandler;
 import me.roryclaasen.rorysmod.core.register.Register;
+import me.roryclaasen.rorysmod.item.ItemMachineRenamer;
 import me.roryclaasen.rorysmod.item.ItemPoweredChest;
 import me.roryclaasen.rorysmod.util.RMLog;
 import me.roryclaasen.rorysmod.util.registry.BlockRegistry;
@@ -77,7 +78,7 @@ public class ModBlocks implements ModInterface {
 
 		Register.registerBlock(poweredChest, ItemPoweredChest.class);
 
-		Register.registerBlock(renamer);
+		Register.registerBlock(renamer, ItemMachineRenamer.class);
 	}
 
 	@Override

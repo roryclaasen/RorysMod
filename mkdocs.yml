@@ -12,8 +12,32 @@ pages:
     - Change Log: 'changes.md'
     - Better Sleeping: 'bettersleeping.md'
     - Modular Lasers:
-        - Rifle Modules: 'modularlasers/riflemodules.md'
+        - Laser Rifle: 'content/items/tools/rifle.md'
+        - Upgrade Table: 'content/blocks/upgradetable.md'
+        - Rifle Modules: 'content/items/riflemodules.md'
+    - Content: 
+        - Blocks:
+            - Blue Print: 'content/blocks/blueprint.md'
+            - Testing Wall: 'content/blocks/testingwall.md'
+            - Powered Chest: 'content/blocks/powerchest.md'
+            - Auto Renamer: 'content/blocks/machinerenamer.md'
+        - Items:
+            - Tools:
+                - Soldering Iron: 'content/items/tools/solderingiron.md'
+                - Laser Rifle: 'content/items/tools/rifle.md'
+            - Rifle Modules: 'content/items/riflemodules.md'
+            - "Circuit's": 'content/items/circuit.md'
+            - Filament: 'content/items/filament.md'
+            - Lens: 'content/items/lens.md'
+            - Central Processing Unit: 'content/items/cpu.md'
     - License: 'license.md'
     - Developer:
         - Metrics: 'metrics.md'
         - Travis CI: 'buildstatus.md'
+        
+markdown_extensions:
+    - smarty
+    - toc:
+        permalink: True
+    - sane_lists
+    - admonition
