@@ -27,7 +27,6 @@ import me.roryclaasen.rorysmod.item.base.ItemBase;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.item.tools.ItemSolderingIron;
 import me.roryclaasen.rorysmod.util.RMLog;
-import me.roryclaasen.rorysmod.util.registry.ItemRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -36,7 +35,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ModItems implements ModInterface {
 
-	public ItemRegistry registry = new ItemRegistry();
 
 	public Item steelIngot, steelDust, steelPlate;
 	public Item carbonIngot;

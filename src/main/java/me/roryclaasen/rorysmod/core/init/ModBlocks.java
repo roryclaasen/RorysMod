@@ -12,16 +12,16 @@
  */
 package me.roryclaasen.rorysmod.core.init;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import ic2.api.item.IC2Items;
 import me.roryclaasen.rorysmod.block.BlockBaseMeta;
 import me.roryclaasen.rorysmod.block.BlockBlueprint;
 import me.roryclaasen.rorysmod.block.BlockIngot;
-import me.roryclaasen.rorysmod.block.BlockPoweredChest;
 import me.roryclaasen.rorysmod.block.BlockMachineRenamer;
+import me.roryclaasen.rorysmod.block.BlockPoweredChest;
 import me.roryclaasen.rorysmod.block.BlockRifleTable;
 import me.roryclaasen.rorysmod.block.BlockTestingWall;
 import me.roryclaasen.rorysmod.block.base.MultiBlockHandler;
@@ -29,16 +29,13 @@ import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.item.block.ItemMachineRenamer;
 import me.roryclaasen.rorysmod.item.block.ItemPoweredChest;
 import me.roryclaasen.rorysmod.util.RMLog;
-import me.roryclaasen.rorysmod.util.registry.BlockRegistry;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import ic2.api.item.IC2Items;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 public class ModBlocks implements ModInterface {
-
-	public BlockRegistry registry = new BlockRegistry();
 
 	public Block testingWall;
 	public Block upgradeTable;
