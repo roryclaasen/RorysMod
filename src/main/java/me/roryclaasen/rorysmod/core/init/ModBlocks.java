@@ -97,15 +97,13 @@ public class ModBlocks implements ModInterface {
 
 		Register.addShaplessRecipie(new ItemStack(poweredChest), new Object[] { Blocks.chest, Items.redstone, Blocks.tripwire_hook });
 
-		
 		Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', IC2Items.getItem("machine"), 'c', IC2Items.getItem("coil"), 's', "plateSteel" });
 	}
 
 	@Override
 	public void postinit(FMLPostInitializationEvent event) {
-		if (Loader.isModLoaded("thermalexpansion")) {
-			// TODO fix this from not loading
-			Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', "thermalexpansion:machineframe", 'c', "gearCopper", 's', "plateSteel" });
+		if (Loader.isModLoaded("ThermalExpansion")) {
+			Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', "thermalexpansion:machineFrame", 'c', "gearCopper", 's', "plateSteel" });
 		}
 	}
 }

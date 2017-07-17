@@ -31,7 +31,7 @@ public class WailaMachineRenamer extends BaseWailaDataProvider {
 			// EnergyStorage energy = renamer.getEnergy();
 			// currenttip.add(StatCollector.translateToLocal("message.rorysmod.energyStored") + " : " + energy.getEnergyStored() + "/" + energy.getMaxEnergyStored() + " RF");
 			
-			currenttip.add(StatCollector.translateToLocal("message.rorysmod.custName") + " : " + renamer.getCustomName());
+			currenttip.add(StatCollector.translateToLocal("message.rorysmod.custName") + ": " + renamer.getCustomName());
 		}
 		return currenttip;
 	}

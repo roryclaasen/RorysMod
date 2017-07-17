@@ -84,6 +84,8 @@ public class RestrictedSlot extends Slot {
 		if (current != null) {
 			if (current.stackSize >= limit) return false;
 		}
+		if (itemstack == null) return false;
+		if (itemstack.getItem() == null) return false;
 		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) {
 			if (tags) {

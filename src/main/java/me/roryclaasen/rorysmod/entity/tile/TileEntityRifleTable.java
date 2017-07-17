@@ -30,7 +30,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityRifleTable extends TileEntityBase implements IInventory {
+public class TileEntityRifleTable extends TileEntityBase implements IInventory{
 
 	private ItemStack[] inv;
 
