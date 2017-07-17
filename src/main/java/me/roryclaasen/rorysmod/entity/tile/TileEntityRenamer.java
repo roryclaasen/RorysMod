@@ -281,4 +281,8 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 		writeToNBT(tagCompount);
 		PacketDispatcher.sendToServer(new SyncTileEntityData(tagCompount));
 	}
+
+	public EnergyStorage getEnergy() {
+		return energy;
+	}
 }

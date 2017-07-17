@@ -108,7 +108,7 @@ public class RorysMod {
 
 		blocks.register(event);
 		items.register(event);
-		
+
 		PacketDispatcher.registerPackets();
 	}
 
@@ -158,7 +158,7 @@ public class RorysMod {
 		RMLog.info("Registered " + Register.getRegisteredEvents() + " event(s)");
 		RMLog.info("Registered " + PacketDispatcher.getPacketId() + " packet(s)");
 
-		Thread check = new Thread(versionCheker, RorysMod.MODID + " Checkers");
+		Thread check = new Thread(versionCheker, RorysMod.MODID + " Version Check");
 		check.start();
 	}
 }

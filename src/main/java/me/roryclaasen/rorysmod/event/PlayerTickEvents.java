@@ -48,12 +48,12 @@ public class PlayerTickEvents {
 				localChatComponentText = new ChatComponentText("");
 
 				IChatComponent download = new ChatComponentText( EnumChatFormatting.GREEN + "Download");
-				download.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getUrl())).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.YELLOW + "Click here to download the latest version")));
+				download.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getHtmlUrl())).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.YELLOW + "Click here to download the latest version")));
 
 				IChatComponent update = new ChatComponentText("[");
 				update.appendSibling(download);
 				update.appendText(EnumChatFormatting.WHITE + "] " + EnumChatFormatting.GRAY + version.getLatest().getName());
-				update.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getUrl()));
+				update.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getHtmlUrl()));
 				localChatComponentText.appendSibling(update);
 				UsefulFunctions.getPlayerFromEntity(event.entity).addChatMessage(localChatComponentText);
 				version.haveWarnedVersionOutOfDate = true;

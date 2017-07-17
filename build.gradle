@@ -40,7 +40,10 @@ repositories {
 		name = 'CodeChicken'
 		url = 'http://chickenbones.net/maven/'
 	}
-	
+	 maven {
+        name = "Mobius Repo"
+        url = "http://mobiusstrip.eu/maven"
+    }
 	maven { url 'https://jitpack.io' }
 }
 
@@ -61,10 +64,14 @@ configurations {
     compile.extendsFrom(embed)
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 10, 'minutes'
+}
+
 dependencies {
 	embed files("libs/javatuples-1.2.jar")
 	
-	embed "com.github.GOGO98901:version-checker:gson-SNAPSHOT"
+	embed 'me.roryclaasen:version-checker:gson1.2.2'
 	
     compile files("libs/CoFHLib-[1.7.10]1.2.1-185.jar")
     
@@ -73,6 +80,7 @@ dependencies {
     compile "codechicken:CodeChickenLib:${mc_version}-${chickenLib_version}:dev"
     compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
     compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
+    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}"
 
 }
 
@@ -132,12 +140,15 @@ jar {
 
 task deobfJar(type: Jar) {
 	from sourceSets.main.output
+	includeEmptyDirs = false
+    exclude "**/*.psd"
 	classifier = 'deobf'
 	manifest commonManifest
 }
 
 task srcJar(type: Jar) {
 	from sourceSets.main.allSource
+    exclude "**/*.psd"
 	classifier = 'sources'
 	manifest commonManifest
 }

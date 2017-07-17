@@ -7,8 +7,19 @@
 ? Broken or not sure about it
 ```
 
+# Version 1.3.3
+(17/07/2017) RorysMod-1.7.10-1.3-3-universal.jar<br>
+[Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.3.2)
+
+```
++ Added Waila plugin
+* Updated version checker
+* Changed version checker output
+* General bug fixes and work
+```
+
 # Version 1.3.2
-(16/07/2017) RorysMod-1.7.10-1.3-2-universal.jar<br>
+(17/07/2017) RorysMod-1.7.10-1.3-2-universal.jar<br>
 [Download here](https://github.com/GOGO98901/RorysMod/releases/tag/1.3.2)
 
 ```

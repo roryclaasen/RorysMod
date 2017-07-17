@@ -14,8 +14,10 @@ package me.roryclaasen.rorysmod.core.network.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.plugins.WailaConfig;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
@@ -51,6 +53,8 @@ public class ClientProxy extends CommonProxy {
 
 		render = new RenderPoweredChest();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPoweredChest.class, render);
+
+		FMLInterModComms.sendMessage("Waila", "register", WailaConfig.class.getName() + ".callbackRegister");
 	}
 
 	@Override
