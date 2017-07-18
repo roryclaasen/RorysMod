@@ -18,9 +18,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-/**
- * As I'm only using this slot for the rifle table, this may not work for anything else
- */
 public class RestrictedSlot extends Slot {
 
 	private List<ItemStack> allowedList, excludeList;
@@ -80,12 +77,9 @@ public class RestrictedSlot extends Slot {
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
-		ItemStack current = getStack();
-		if (current != null) {
-			if (current.stackSize >= limit) return false;
-		}
 		if (itemstack == null) return false;
 		if (itemstack.getItem() == null) return false;
+		if (itemstack.stackSize >= limit) return false;
 		if (isOnExcludeList(itemstack)) return false;
 		if (allowed != null) {
 			if (tags) {

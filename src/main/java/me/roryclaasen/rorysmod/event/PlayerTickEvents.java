@@ -22,6 +22,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 public class PlayerTickEvents {
@@ -33,7 +34,7 @@ public class PlayerTickEvents {
 			if (!version.haveWarnedVersionOutOfDate && !version.isLatestVersion()) {
 				ChatComponentText localChatComponentText = new ChatComponentText("");
 				ChatStyle localChatStyle;
-				IChatComponent modVersion = new ChatComponentText(EnumChatFormatting.AQUA + "Current Version: " + RorysMod.VERSION);
+				IChatComponent modVersion = new ChatComponentText(EnumChatFormatting.AQUA + StatCollector.translateToLocal("message.rorysmod.version.current") + ": " + RorysMod.VERSION);
 
 				IChatComponent modName = new ChatComponentText(EnumChatFormatting.GOLD + "[" + RorysMod.NAME + "]" + EnumChatFormatting.WHITE);
 				localChatStyle = modName.getChatStyle();
@@ -41,14 +42,14 @@ public class PlayerTickEvents {
 				localChatStyle.setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://rorysmod.rtfd.io"));
 				localChatComponentText.appendSibling(modName);
 
-				IChatComponent newVersion = new ChatComponentText(" There is a new version avalible!");
+				IChatComponent newVersion = new ChatComponentText(" " + StatCollector.translateToLocal("message.rorysmod.version.new"));
 				newVersion.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.WHITE + version.getLatest().getName())));
 				localChatComponentText.appendSibling(newVersion);
 				UsefulFunctions.getPlayerFromEntity(event.entity).addChatMessage(localChatComponentText);
 				localChatComponentText = new ChatComponentText("");
 
-				IChatComponent download = new ChatComponentText( EnumChatFormatting.GREEN + "Download");
-				download.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getHtmlUrl())).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.YELLOW + "Click here to download the latest version")));
+				IChatComponent download = new ChatComponentText(EnumChatFormatting.GREEN + StatCollector.translateToLocal("message.rorysmod.download"));
+				download.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, version.getLatest().getHtmlUrl())).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("message.rorysmod.version.download"))));
 
 				IChatComponent update = new ChatComponentText("[");
 				update.appendSibling(download);

@@ -91,6 +91,11 @@ message.rorysmod.holdShift1=Hold
 message.rorysmod.holdShift2=Shift
 message.rorysmod.holdShift3=for Details
 
+message.rorysmod.download=Download
+message.rorysmod.version.current=Current Version
+message.rorysmod.version.new=There is a new version available!
+message.rorysmod.version.download=Click here to download the latest version
+
 // -------------------{ GUI }-------------------
 rorysmod.gui.upgradeTable.title=Rifle Upgrade Table
 rorysmod.gui.upgradeTable.color=Laser Color
