@@ -64,7 +64,7 @@ public class EntityLaser extends EntityThrowable {
 		if (!worldObj.isRemote) {
 			if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 				if (Settings.setFireToBlocks) {
-					if (data.getItemCount(NBTLaser.Items.Igniter) > 0) {
+					if (data != null && data.getItemCount(NBTLaser.Items.Igniter) > 0) {
 						// int range = 1 + (int) Math.floor(data.getItemCount(NBTLaser.Items.Igniter) / 2);
 
 						// int minX = movingObjectPosition.blockX - range, maxX = movingObjectPosition.blockX + range;
@@ -81,8 +81,8 @@ public class EntityLaser extends EntityThrowable {
 				}
 			}
 			explode();
-			setDead();
 		}
+		setDead();
 	}
 
 	private void setBlockOnFire(int x, int y, int z, int side) {
