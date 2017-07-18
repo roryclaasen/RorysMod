@@ -64,10 +64,6 @@ configurations {
     compile.extendsFrom(embed)
 }
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 10, 'minutes'
-}
-
 dependencies {
 	embed files("libs/javatuples-1.2.jar")
 	
@@ -80,7 +76,7 @@ dependencies {
     compile "codechicken:CodeChickenLib:${mc_version}-${chickenLib_version}:dev"
     compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
     compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
-    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}"
+    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
 
 }
 
