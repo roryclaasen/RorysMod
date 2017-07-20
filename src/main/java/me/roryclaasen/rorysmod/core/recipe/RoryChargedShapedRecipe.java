@@ -10,73 +10,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.rorysmod.core.recipie;
+package me.roryclaasen.rorysmod.core.recipe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
-import codechicken.core.ReflectionManager;
 import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
-import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
-public class ShapedChargedOreRecipe extends ShapedOreRecipe {
+public class RoryChargedShapedRecipe extends RoryShapedRecipe {
 
-	// Added in for future ease of change, but hard coded for now.
-	private static final int MAX_CRAFT_GRID_WIDTH = 3;
-	private static final int MAX_CRAFT_GRID_HEIGHT = 3;
-
-	private boolean active = true;
-
-	private int width, height;
-	private boolean mirrored;
-	private Object[] input;
-
-	public ShapedChargedOreRecipe(Block result, Object... recipe) {
+	public RoryChargedShapedRecipe(Block result, Object... recipe) {
 		this(new ItemStack(result), recipe);
 	}
 
-	public ShapedChargedOreRecipe(Item result, Object... recipe) {
+	public RoryChargedShapedRecipe(Item result, Object... recipe) {
 		this(new ItemStack(result), recipe);
 	}
 
-	public ShapedChargedOreRecipe(ItemStack result, Object... recipe) {
+	public RoryChargedShapedRecipe(ItemStack result, Object... recipe) {
 		super(result, recipe);
-
-		try {
-			width = ((Integer) ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, this, 4)).intValue();
-			height = ((Integer) ReflectionManager.getField(ShapedOreRecipe.class, Integer.class, this, 5)).intValue();
-			mirrored = ((Boolean) ReflectionManager.getField(ShapedOreRecipe.class, Boolean.class, this, 6)).booleanValue();
-			input = ((Object[]) ReflectionManager.getField(ShapedOreRecipe.class, Object.class, this, 3));
-		} catch (Exception e) {
-			RMLog.error("Failed to retrive fields");
-			e.printStackTrace();
-			active = false;
-		}
 	}
 
-	@Override
-	public boolean matches(InventoryCrafting inv, World world) {
-		if (!active) return super.matches(inv, world);
-
-		for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++) {
-			for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y) {
-				if (checkMatch(inv, x, y, false)) return true;
-				if (mirrored && checkMatch(inv, x, y, true)) return true;
-			}
-		}
-
-		return false;
+	RoryChargedShapedRecipe(ShapedRecipes recipe, Map<ItemStack, String> replacements) {
+		super(recipe, replacements);
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean checkMatch(InventoryCrafting inv, int startX, int startY, boolean mirror) {
+	protected boolean checkMatch(InventoryCrafting inv, int startX, int startY, boolean mirror) {
 		for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++) {
 			for (int y = 0; y < MAX_CRAFT_GRID_HEIGHT; y++) {
 				int subX = x - startX;
@@ -110,9 +77,7 @@ public class ShapedChargedOreRecipe extends ShapedOreRecipe {
 						matched = OreDictionary.itemMatches(itr.next(), slot, false);
 					}
 					if (!matched) return false;
-				} else if (target == null && slot != null) {
-					return false;
-				}
+				} else if (target == null && slot != null) return false;
 			}
 		}
 		return true;

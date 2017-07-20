@@ -85,7 +85,7 @@ public class ModBlocks implements ModInterface {
 			ItemStack dye = new ItemStack(Items.dye, 1, 15 - id);
 			ItemStack currentBlock = new ItemStack(testingWall, 1, id);
 			Register.addShapedRecipie(currentBlock, new Object[] { " i ", "idi", " i ", 'i', "ingotSteel", 'd', dye });
-			Register.addShaplessRecipie(currentBlock, new Object[] { "testingWall", dye, dye, dye });
+			Register.addShapelessRecipie(currentBlock, new Object[] { "testingWall", dye, dye, dye });
 		}
 		Register.addShapedRecipie(new ItemStack(upgradeTable), new Object[] { "sss", "ici", "iti", 's', "plateSteel", 'i', "ingotIron", 'c', "cpu", 't', Blocks.crafting_table });
 		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[] { " l ", "lbl", " l ", 'b', "testingWall", 'l', new ItemStack(Items.dye, 1, 4) });
@@ -95,7 +95,7 @@ public class ModBlocks implements ModInterface {
 		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 4), new Object[] { "   ", " b ", "  d", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
 		Register.addShapedRecipie(new ItemStack(bluePrint, 1, 0), new Object[] { "d  ", " b ", "   ", 'b', "bluePrint", 'd', new ItemStack(Items.dye, 1, 15) });
 
-		Register.addShaplessRecipie(new ItemStack(poweredChest), new Object[] { Blocks.chest, Items.redstone, Blocks.tripwire_hook });
+		Register.addShapelessRecipie(new ItemStack(poweredChest), new Object[] { Blocks.chest, Items.redstone, Blocks.tripwire_hook });
 
 		Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', IC2Items.getItem("machine"), 'c', IC2Items.getItem("coil"), 's', "plateSteel" });
 	}

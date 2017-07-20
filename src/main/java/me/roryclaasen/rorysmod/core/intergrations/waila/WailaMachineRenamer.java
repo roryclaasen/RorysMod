@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.roryclaasen.rorysmod.core.plugins.waila;
+package me.roryclaasen.rorysmod.core.intergrations.waila;
 
 import java.util.List;
 

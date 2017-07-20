@@ -23,8 +23,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import me.roryclaasen.rorysmod.core.init.ModBlocks;
 import me.roryclaasen.rorysmod.core.init.ModItems;
+import me.roryclaasen.rorysmod.core.intergrations.MekanismPlugin;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
 import me.roryclaasen.rorysmod.core.network.proxy.CommonProxy;
+import me.roryclaasen.rorysmod.core.recipe.RoryChargedShapedRecipe;
+import me.roryclaasen.rorysmod.core.recipe.RoryShapedRecipe;
+import me.roryclaasen.rorysmod.core.recipe.RoryChargedShapelessRecipe;
+import me.roryclaasen.rorysmod.core.recipe.RoryShapelessRecipe;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
@@ -37,8 +42,9 @@ import me.roryclaasen.rorysmod.gui.GuiHandler;
 import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.oredict.RecipeSorter;
 
-@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, version = RorysMod.VERSION, dependencies = "after:CoFHCore;before:IC2;")
+@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, version = RorysMod.VERSION, dependencies = "after:CoFHCore;after:IC2;")
 public class RorysMod {
 
 	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.network.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.core.network.proxy.CommonProxy")
@@ -145,10 +151,21 @@ public class RorysMod {
 		Register.registerEventBus(new PlayerBedEventHandler());
 	}
 
+	private void registerRecipieSorter() {
+		RecipeSorter.register(RorysMod.MODID + ":shaped", RoryShapedRecipe.class, RecipeSorter.Category.SHAPED, "");
+		RecipeSorter.register(RorysMod.MODID + ":shapeless", RoryShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:" + RorysMod.MODID + ":shaped");
+		RecipeSorter.register(RorysMod.MODID + ":shapedCharge", RoryChargedShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:" + RorysMod.MODID + ":shapeless");
+		RecipeSorter.register(RorysMod.MODID + ":shapelessCharge", RoryChargedShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:" + RorysMod.MODID + ":shapedCharge");
+	}
+
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
 		blocks.postinit(event);
 		items.postinit(event);
+
+		registerRecipieSorter();
+		
+		MekanismPlugin.load();
 
 		RMLog.info("Registered " + Register.getRegisteredBlocks() + " block(s)");
 		RMLog.info("Registered " + Register.getRegisteredItems() + " item(s)");

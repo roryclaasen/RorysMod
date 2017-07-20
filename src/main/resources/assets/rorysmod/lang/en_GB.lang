@@ -55,9 +55,16 @@ item.rorysmod_rifleUpgrade_7.name=Rifle Upgrade (Igniter)
 item.rorysmod_lens.name=Lens
 item.rorysmod_circuit.name=Circuit
 item.rorysmod_advancedCircuit.name=Advanced Circuit
+item.rorysmod_blankCircuit.name=Blank Circuit
+item.rorysmod_blankAdvancedCircuit.name=Blank Advanced Circuit
 item.rorysmod_filament.name=Filament
 item.rorysmod_cpu.name=Central Processing Unit
 item.rorysmod_solderingIron.name=Soldering Iron
+item.rorysmod_ingotSolder.name=Solder Ingot
+item.rorysmod_dustSolder.name=Solder Dust
+item.rorysmod_plateSolder.name=Solder Plate
+item.rorysmod_wireSolder.name=Solder Wire
+item.rorysmod_coilSolder.name=Coil of Solder
 
 // ----------------{  Tooltip  }----------------
 item.rorysmod_rifleUpgrade_0.tooltip=A blank upgrade
@@ -102,3 +109,9 @@ rorysmod.gui.upgradeTable.color=Laser Color
 rorysmod.gui.poweredchest=Powerable Chest
 rorysmod.gui.machineRenamer=Auto Renamer
 
+// -----------------{ Recipie }-----------------
+recipie.rorysmod.shaped=Shaped
+recipie.rorysmod.shapeless=Shapeless
+
+//-------------------{ MISC }-------------------
+infuse.solder=Solder
