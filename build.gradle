@@ -42,7 +42,7 @@ repositories {
 	}
 	 maven {
         name = "Mobius Repo"
-        url = "http://mobiusstrip.eu/maven"
+        url = "http://mobiusstrip.eu/maven/"
     }
 	maven { url 'https://jitpack.io' }
 }
@@ -77,7 +77,6 @@ dependencies {
     compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
     compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
     compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
-
 }
 
 version = "${mod_version}"
