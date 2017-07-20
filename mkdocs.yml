@@ -20,8 +20,10 @@ pages:
         - Blocks:
             - Blue Print: 'content/blocks/blueprint.md'
             - Testing Wall: 'content/blocks/testingwall.md'
+            - Ingot Blocks: 'content/blocks/ingotblocks.md'
             - Powered Chest: 'content/blocks/powerchest.md'
             - Auto Renamer: 'content/blocks/machinerenamer.md'
+            - Upgrade Table: 'content/blocks/upgradetable.md'
         - Items:
             - Tools:
                 - Soldering Iron: 'content/items/tools/solderingiron.md'
