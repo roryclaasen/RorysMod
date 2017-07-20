@@ -65,10 +65,8 @@ public class RecipeUtils {
 	public static boolean hasEnergy(ItemStack itemStack) {
 		if (itemStack != null && itemStack.getItem() != null && itemStack.getItem() instanceof ItemBaseEnergyContainer) {
 			if (itemStack.getItemDamage() == itemStack.getMaxDamage()) return false;
-			else if (itemStack.getItemDamage() == 0) {
-				int energy = ((ItemBaseEnergyContainer) itemStack.getItem()).getEnergyStored(itemStack);
-				if (energy > 0) return true;
-			} else return true;
+			int energy = ((ItemBaseEnergyContainer) itemStack.getItem()).getEnergyStored(itemStack);
+			if (energy > 0) return true;
 		}
 		return false;
 	}

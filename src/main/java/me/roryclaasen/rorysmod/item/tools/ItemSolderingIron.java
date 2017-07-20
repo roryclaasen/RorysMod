@@ -29,7 +29,6 @@ public class ItemSolderingIron extends ItemBaseEnergyContainer implements IBoxab
 	public ItemSolderingIron(String unlocalizedName) {
 		super(unlocalizedName, 100, 2);
 		this.setMaxStackSize(1);
-		this.setMaxDamage(100);
 
 		this.canRepair = false;
 	}

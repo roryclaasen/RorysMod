@@ -33,6 +33,7 @@ public class ItemBaseEnergyContainer extends ItemEnergyContainer {
 		this.setUnlocalizedName(RorysMod.MODID + "_" + unlocalizedName);
 		this.setTextureName(RorysMod.MODID + ":" + unlocalizedName);
 		this.setCreativeTab(RorysMod.tab);
+		this.setMaxDamage(100);
 
 		this.internalName = unlocalizedName;
 		this.baseCapacity = capacity;
@@ -78,8 +79,11 @@ public class ItemBaseEnergyContainer extends ItemEnergyContainer {
 	}
 
 	protected void updateItemDamage(ItemStack itemstack) {
-		int percentage = (int) ((getEnergyStored(itemstack) / capacity) * (double) 100);
-		itemstack.setItemDamage(getMaxDamage() - percentage);
+		double energy = getEnergyStored(itemstack);
+		double capacity = getMaxEnergyStored(itemstack);
+
+		int percentage = (int) Math.round((energy / capacity) * 100.0D);
+		itemstack.setItemDamage(itemstack.getMaxDamage() - percentage);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

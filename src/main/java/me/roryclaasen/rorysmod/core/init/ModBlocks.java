@@ -25,6 +25,7 @@ import me.roryclaasen.rorysmod.block.BlockPoweredChest;
 import me.roryclaasen.rorysmod.block.BlockRifleTable;
 import me.roryclaasen.rorysmod.block.BlockTestingWall;
 import me.roryclaasen.rorysmod.block.base.MultiBlockHandler;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.item.block.ItemMachineRenamer;
 import me.roryclaasen.rorysmod.item.block.ItemPoweredChest;
@@ -70,7 +71,7 @@ public class ModBlocks implements ModInterface {
 
 		Register.registerBlock(renamer, ItemMachineRenamer.class);
 		Register.registerBlock(solderBlock);
-		
+
 		Register.registerDictionary("blockSteel", steelBlock);
 		for (int i = 0; i < ((BlockBaseMeta) testingWall).getMetaSize(); i++) {
 			Register.registerDictionary("testingWall", new ItemStack(testingWall, 1, i));
@@ -106,6 +107,8 @@ public class ModBlocks implements ModInterface {
 
 	@Override
 	public void postinit(FMLPostInitializationEvent event) {
+		Register.addPulverizerRecipe(2400, new ItemStack(steelBlock), new ItemStack(RorysMod.items.steelDust, 9));
+		Register.addPulverizerRecipe(2400, new ItemStack(solderBlock), new ItemStack(RorysMod.items.solderDust, 9));
 		if (Loader.isModLoaded("ThermalExpansion")) {
 			Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', "thermalexpansion:machineFrame", 'c', "gearCopper", 's', "plateSteel" });
 		}

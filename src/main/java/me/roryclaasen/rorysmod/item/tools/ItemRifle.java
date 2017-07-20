@@ -38,7 +38,6 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	public ItemRifle(String unlocalizedName, int tier) {
 		super(unlocalizedName, 1000 * (tier), 10, 50);
 		this.setMaxStackSize(1);
-		this.setMaxDamage(100);
 		this.setFull3D();
 		this.setTier(tier);
 	}

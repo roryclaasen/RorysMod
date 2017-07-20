@@ -23,7 +23,7 @@ public class ItemCoil extends ItemBase {
 
 	public ItemCoil(String unlocalizedName) {
 		super(unlocalizedName);
-		setMaxDamage(8);
+		setMaxDamage(7);
 		setMaxStackSize(1);
 	}
 
@@ -47,6 +47,6 @@ public class ItemCoil extends ItemBase {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		tooltip.add(StatCollector.translateToLocal("message.rorymod.useslesft") + (stack.getMaxDamage() - stack.getItemDamage()));
+		tooltip.add(StatCollector.translateToLocal("message.rorymod.useslesft") + (stack.getMaxDamage() - stack.getItemDamage() + 1));
 	}
 }

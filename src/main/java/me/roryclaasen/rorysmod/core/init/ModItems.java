@@ -157,7 +157,7 @@ public class ModItems implements ModInterface {
 		Register.addShapedRecipie(new ItemStack(blankCircuit), new Object[] { " r ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget });
 		Register.addShapelessChargedRecipie(new ItemStack(circuit), new Object[] { blankCircuit, "solder", toolSolderingIron });
 
-		Register.addShapedRecipie(new ItemStack(blankAdvancedCircuit), new Object[] { "rgr", "lcl", "rgr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
+		Register.addShapelessChargedRecipie(new ItemStack(blankAdvancedCircuit), new Object[] { blankCircuit, "cpu", "solder", toolSolderingIron });
 		Register.addShapelessChargedRecipie(new ItemStack(advancedCircuit), new Object[] { blankAdvancedCircuit, "solder", toolSolderingIron });
 
 		// Lens
@@ -192,7 +192,7 @@ public class ModItems implements ModInterface {
 		Register.addShapedRecipie(new ItemStack(rifleUpgrade, 1, 7), new Object[] { "f", "b", 'b', new ItemStack(rifleUpgrade), 'f', Items.flint_and_steel });
 
 		// Soldering Iron
-		Register.addShapedRecipie(new ItemStack(solderingIron), new Object[] { "  i", " i ", "c  ", 'i', "ingotIron", 'c', IC2Items.getItem("copperCableItem") });
+		Register.addShapedRecipie(new ItemStack(solderingIron), new Object[] { "  i", " i ", "c  ", 'i', "ingotIron", 'c', IC2Items.getItem("insulatedCopperCableItem") });
 
 		// Solder
 		Register.addShapelessRecipie(new ItemStack(solderDust, 5), new Object[] { "dustTin", "dustTin", "dustTin", "dustLead", "dustLead" });

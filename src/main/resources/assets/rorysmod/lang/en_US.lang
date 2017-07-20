@@ -29,6 +29,7 @@ tile.rorysmod_blockBluePrint_4.name=Blueprint Block
 tile.rorysmod_blockBluePrint_5.name=Blueprint Block
 tile.rorysmod_blockChestPowered.name=Powerable Chest
 tile.rorysmod_machineRenamer.name=Auto Renamer
+tile.rorysmod_blockStolder.name=Solder Block
 
 // ----------------{  Items  }----------------
 item.rorysmod_ingotSteel.name=Steel Ingot
