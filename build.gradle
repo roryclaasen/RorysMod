@@ -69,6 +69,7 @@ dependencies {
 	embed 'me.roryclaasen:version-checker:gson1.2.2'
 	
     compile files("libs/CoFHLib-[1.7.10]1.2.1-185.jar")
+    compile files("libs/MDK-1.7.10-9.1.0.281.jar")
     
     compile "net.industrial-craft:industrialcraft-2:${ic2_version}:dev"
     
