@@ -21,7 +21,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -65,16 +64,9 @@ public class RecipeUtils {
 
 	public static boolean hasEnergy(ItemStack itemStack) {
 		if (itemStack != null && itemStack.getItem() != null && itemStack.getItem() instanceof ItemBaseEnergyContainer) {
-			if (itemStack.getItemDamage() == 100) return false;
+			if (itemStack.getItemDamage() == itemStack.getMaxDamage()) return false;
 			else if (itemStack.getItemDamage() == 0) {
-				int energy = 0;
-
-				NBTTagCompound stackTag = itemStack.stackTagCompound;
-
-				if (stackTag != null) {
-					if (stackTag.hasKey("Energy")) energy = stackTag.getInteger("Energy");
-					else if (stackTag.hasKey("energy")) energy = stackTag.getInteger("energy");
-				}
+				int energy = ((ItemBaseEnergyContainer) itemStack.getItem()).getEnergyStored(itemStack);
 				if (energy > 0) return true;
 			} else return true;
 		}

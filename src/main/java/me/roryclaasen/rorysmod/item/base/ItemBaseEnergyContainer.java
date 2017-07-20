@@ -14,25 +14,28 @@ package me.roryclaasen.rorysmod.item.base;
 
 import java.util.List;
 
-import cofh.api.energy.IEnergyContainerItem;
+import cofh.api.energy.ItemEnergyContainer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
-public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContainerItem {
+public class ItemBaseEnergyContainer extends ItemEnergyContainer {
 
-	protected int capacity, baseCapacity;
-	protected int maxReceive;
-	protected int maxExtract;
+	private final String internalName;
+
+	protected int baseCapacity;
 	protected int tier = 1;
 
 	public ItemBaseEnergyContainer(String unlocalizedName, int capacity, int maxReceive, int maxExtract) {
-		super(unlocalizedName);
-		this.capacity = this.baseCapacity = capacity;
-		this.maxReceive = maxReceive;
-		this.maxExtract = maxExtract;
+		super(capacity, maxReceive, maxExtract);
+		this.setUnlocalizedName(RorysMod.MODID + "_" + unlocalizedName);
+		this.setTextureName(RorysMod.MODID + ":" + unlocalizedName);
+		this.setCreativeTab(RorysMod.tab);
+
+		this.internalName = unlocalizedName;
+		this.baseCapacity = capacity;
 	}
 
 	public ItemBaseEnergyContainer(String unlocalizedName, int capacity, int maxTransfer) {
@@ -41,11 +44,6 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 
 	public ItemBaseEnergyContainer(String unlocalizedName, int capacity) {
 		this(unlocalizedName, capacity, capacity, capacity);
-	}
-
-	public ItemBaseEnergyContainer setCapacity(int capacity) {
-		this.capacity = capacity;
-		return this;
 	}
 
 	public ItemBaseEnergyContainer setTier(int tier) {
@@ -57,79 +55,42 @@ public class ItemBaseEnergyContainer extends ItemBase implements IEnergyContaine
 		return this.tier;
 	}
 
-	public void setMaxTransfer(int maxTransfer) {
-		setMaxReceive(maxTransfer);
-		setMaxExtract(maxTransfer);
+	public boolean use(ItemStack container, boolean simulate) {
+		return extractEnergy(container, this.maxExtract, simulate) != 0;
 	}
 
-	public void setMaxReceive(int maxReceive) {
-		this.maxReceive = maxReceive;
-	}
-
-	public void setMaxExtract(int maxExtract) {
-		this.maxExtract = maxExtract;
-	}
-
-	public boolean use(ItemStack container, int maxExtract, boolean simulate) {
-		return extractEnergy(container, maxExtract, simulate) != 0;
-	}
-
-	public boolean use(ItemStack container, boolean sitmulate) {
-		return use(container, this.maxExtract, sitmulate);
+	public boolean use(ItemStack container, int energyAmount, boolean simulate) {
+		return extractEnergy(container, energyAmount, simulate) != 0;
 	}
 
 	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		if (container.stackTagCompound == null) container.stackTagCompound = new NBTTagCompound();
-		int energy = container.stackTagCompound.getInteger("Energy");
-		int energyRecived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
-		if (!simulate) {
-			energy += energyRecived;
-			container.stackTagCompound.setInteger("Energy", energy);
-			updateItemDamage(container);
-		}
-		return energyRecived;
+	public int receiveEnergy(ItemStack paramItemStack, int paramInt, boolean paramBoolean) {
+		int receiveEnergy = super.receiveEnergy(paramItemStack, paramInt, paramBoolean);
+		updateItemDamage(paramItemStack);
+		return receiveEnergy;
 	}
 
 	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
-		int energy = container.stackTagCompound.getInteger("Energy");
-		int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
-
-		if (!simulate) {
-			energy -= energyExtracted;
-			container.stackTagCompound.setInteger("Energy", energy);
-			updateItemDamage(container);
-		}
-		return energyExtracted;
-	}
-
-	@Override
-	public int getEnergyStored(ItemStack container) {
-		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
-		return container.stackTagCompound.getInteger("Energy");
-	}
-
-	@Override
-	public int getMaxEnergyStored(ItemStack container) {
-		return capacity;
+	public int extractEnergy(ItemStack paramItemStack, int paramInt, boolean paramBoolean) {
+		int extractEnergy = super.extractEnergy(paramItemStack, paramInt, paramBoolean);
+		updateItemDamage(paramItemStack);
+		return extractEnergy;
 	}
 
 	protected void updateItemDamage(ItemStack itemstack) {
-		if (itemstack.stackTagCompound.hasKey("Energy")) {
-			int energy = itemstack.stackTagCompound.getInteger("Energy");
-			int percentage = (int) (((double) energy / (double) this.capacity) * (double) 100);
-			itemstack.setItemDamage(getMaxDamage() - percentage);
-		}
+		int percentage = (int) ((getEnergyStored(itemstack) / capacity) * (double) 100);
+		itemstack.setItemDamage(getMaxDamage() - percentage);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		int energy = 0;
-		if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
-		tooltip.add(energy + "/" + this.capacity + "RF");
+	public void addInformation(ItemStack container, EntityPlayer player, List tooltip, boolean advanced) {
+		int energy = getEnergyStored(container);
+		tooltip.add(energy + "/" + capacity + "RF");
+	}
+
+	public String getName() {
+		return internalName;
 	}
 }

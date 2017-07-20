@@ -28,7 +28,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -46,6 +45,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
+		super.onCreated(itemStack, world, player);
 		updateNBT(itemStack);
 	}
 
@@ -93,11 +93,10 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 
 	public void updateNBT(ItemStack itemStack) {
 		NBTLaser data = new NBTLaser(itemStack.stackTagCompound);
-		this.maxReceive = 50 * this.tier;
-		this.maxReceive += 10 * data.getItemCount(NBTLaser.Items.Capacitor);
-
-		this.capacity = this.baseCapacity;
-		this.capacity += 150 * data.getItemCount(NBTLaser.Items.Capacitor);
+		maxReceive = 50 * this.tier;
+		maxReceive += 10 * data.getItemCount(NBTLaser.Items.Capacitor);
+		capacity = this.baseCapacity;
+		capacity += 150 * data.getItemCount(NBTLaser.Items.Capacitor);
 
 		int cooldown = 100;
 		cooldown += 10 * data.getItemCount(NBTLaser.Items.Overclock);
@@ -118,23 +117,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	}
 
 	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		if (container.stackTagCompound == null) container.stackTagCompound = new NBTTagCompound();
-		int energy = container.stackTagCompound.getInteger("Energy");
-		int energyRecived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
-		if (!simulate) {
-			energy += energyRecived;
-			container.stackTagCompound.setInteger("Energy", energy);
-			updateItemDamage(container);
-		}
-		return energyRecived;
-	}
-
-	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		if (container.stackTagCompound == null || !container.stackTagCompound.hasKey("Energy")) return 0;
-		int energy = container.stackTagCompound.getInteger("Energy");
-
 		NBTLaser data = new NBTLaser(container);
 
 		float energyCost = 50F;
@@ -143,13 +126,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 		energyCost += 50F * data.getItemCount(NBTLaser.Items.Overclock);
 		energyCost += 5F * data.getItemCount(NBTLaser.Items.Phaser);
 
-		if (!simulate) {
-			if (energyCost > energy) return 0;
-			energy -= energyCost;
-			container.stackTagCompound.setInteger("Energy", energy);
-			updateItemDamage(container);
-		}
-		return energy;
+		return super.extractEnergy(container, (int) Math.min(energyCost, maxExtract), simulate);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -183,9 +160,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 					else tooltip.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("message.rorysmod.weight") + " " + data.getWeight() + "/" + NBTLaser.getMaxWeight(this.tier));
 				}
 			} else tooltip.add(StatCollector.translateToLocal("message.rorysmod.holdShift1") + " " + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("message.rorysmod.holdShift2") + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + " " + StatCollector.translateToLocal("message.rorysmod.holdShift3"));
-			int energy = 0;
-			if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
-			tooltip.add(StatCollector.translateToLocal("message.rorysmod.charge") + ": " + energy + " / " + this.capacity + " RF");
+			tooltip.add(StatCollector.translateToLocal("message.rorysmod.charge") + ": " + getEnergyStored(stack) + " / " + getMaxEnergyStored(stack) + " RF");
 		}
 	}
 }

@@ -45,12 +45,8 @@ public class ItemSolderingIron extends ItemBaseEnergyContainer implements IBoxab
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		int energy = 0;
-		if (stack.stackTagCompound != null) {
-			if (stack.stackTagCompound.hasKey("Energy")) energy = stack.stackTagCompound.getInteger("Energy");
-		}
-		tooltip.add(StatCollector.translateToLocal("message.rorysmod.charge") + ": " + energy + " / " + this.capacity + " RF");
+	public void addInformation(ItemStack container, EntityPlayer playerIn, List tooltip, boolean advanced) {
+		tooltip.add(StatCollector.translateToLocal("message.rorysmod.charge") + ": " + getEnergyStored(container) + " / " + getMaxEnergyStored(container) + " RF");
 	}
 
 	@Override
