@@ -1,0 +1,119 @@
+// -------------{ Creative  Tab }-------------
+itemGroup.rorysMobTab=Rory's Mod
+
+// ----------------{ Blocks  }----------------
+tile.rorysmod_blockTest.name=Testing Wall
+tile.rorysmod_blockTest_0.name=White Testing Wall
+tile.rorysmod_blockTest_1.name=Orange Testing Wall
+tile.rorysmod_blockTest_2.name=Magenta Testing Wall
+tile.rorysmod_blockTest_3.name=Light Blue Testing Wall
+tile.rorysmod_blockTest_4.name=Yellow Testing Wall
+tile.rorysmod_blockTest_5.name=Light Green Testing Wall
+tile.rorysmod_blockTest_6.name=Pink Testing Wall
+tile.rorysmod_blockTest_7.name=Dark Grey Testing Wall
+tile.rorysmod_blockTest_8.name=Light Grey Testing Wall
+tile.rorysmod_blockTest_9.name=Cyan Testing Wall
+tile.rorysmod_blockTest_10.name=Purple Testing Wall
+tile.rorysmod_blockTest_11.name=Blue Testing Wall
+tile.rorysmod_blockTest_12.name=Brown Testing Wall
+tile.rorysmod_blockTest_13.name=Green Testing Wall
+tile.rorysmod_blockTest_14.name=Red Testing Wall
+tile.rorysmod_blockTest_15.name=Black Testing Wall
+tile.rorysmod_tableUpgrade.name=Rifle Table
+tile.rorysmod_blockSteel.name=Steel Block
+tile.rorysmod_blockBluePrint_0.name=Blueprint Block
+tile.rorysmod_blockBluePrint_1.name=Blueprint Block
+tile.rorysmod_blockBluePrint_2.name=Blueprint Block
+tile.rorysmod_blockBluePrint_3.name=Blueprint Block
+tile.rorysmod_blockBluePrint_4.name=Blueprint Block
+tile.rorysmod_blockBluePrint_5.name=Blueprint Block
+tile.rorysmod_blockChestPowered.name=Powerable Chest
+tile.rorysmod_machineRenamer.name=Auto Renamer
+
+// ----------------{  Items  }----------------
+item.rorysmod_ingotSteel.name=Steel Ingot
+item.rorysmod_dustSteel.name=Steel Dust
+item.rorysmod_plateSteel.name=Steel Plate
+item.rorysmod_ingotCarbon.name=Carbon Plated Iron Ingot
+item.rorysmod_plateUpgrade.name=Rifle Plate
+item.rorysmod_rifle1.name=Laser Rifle Tier 1
+item.rorysmod_rifle2.name=Laser Rifle Tier 2
+item.rorysmod_rifle3.name=Laser Rifle Tier 3
+item.rorysmod_rifle4.name=Laser Rifle Tier 4
+item.rorysmod_rifle5.name=Laser Rifle Tier 5
+item.rorysmod_rifleBarrel.name=Gun Barrel
+item.rorysmod_rifleTrigger.name=Gun Trigger
+item.rorysmod_laser.name=Laser Bolt
+item.rorysmod_rifleUpgrade_0.name=Rifle Upgrade
+item.rorysmod_rifleUpgrade_1.name=Rifle Upgrade (Capacitor)
+item.rorysmod_rifleUpgrade_2.name=Rifle Upgrade (Coolant)
+item.rorysmod_rifleUpgrade_3.name=Rifle Upgrade (Lens)
+item.rorysmod_rifleUpgrade_4.name=Rifle Upgrade (Phaser)
+item.rorysmod_rifleUpgrade_5.name=Rifle Upgrade (Overclock)
+item.rorysmod_rifleUpgrade_6.name=Rifle Upgrade (Explosion)
+item.rorysmod_rifleUpgrade_7.name=Rifle Upgrade (Igniter)
+item.rorysmod_lens.name=Lens
+item.rorysmod_circuit.name=Circuit
+item.rorysmod_advancedCircuit.name=Advanced Circuit
+item.rorysmod_blankCircuit.name=Blank Circuit
+item.rorysmod_blankAdvancedCircuit.name=Blank Advanced Circuit
+item.rorysmod_filament.name=Filament
+item.rorysmod_cpu.name=Central Processing Unit
+item.rorysmod_solderingIron.name=Soldering Iron
+item.rorysmod_ingotSolder.name=Solder Ingot
+item.rorysmod_dustSolder.name=Solder Dust
+item.rorysmod_plateSolder.name=Solder Plate
+item.rorysmod_wireSolder.name=Solder Wire
+item.rorysmod_coilSolder.name=Coil of Solder
+
+// ----------------{  Tooltip  }----------------
+item.rorysmod_rifleUpgrade_0.tooltip=A blank upgrade
+item.rorysmod_rifleUpgrade_1.tooltip=Increases power capacity
+item.rorysmod_rifleUpgrade_2.tooltip=Decreases cool down time
+item.rorysmod_rifleUpgrade_3.tooltip=Allows you to color the laser
+item.rorysmod_rifleUpgrade_4.tooltip=Makes the laser to damage
+item.rorysmod_rifleUpgrade_5.tooltip=Makes the laser more powerful
+item.rorysmod_rifleUpgrade_6.tooltip=Makes the laser create an explosion when hit
+item.rorysmod_rifleUpgrade_7.tooltip=Sets fire to entities or blocks when hit
+
+tile.rorysmod_blockChestPowered.tooltip=A redstone signal is required to open this chest
+
+// ----------------{  Message  }----------------
+message.rorysmod.rifle.discription=Fires a laser bolt 
+message.rorysmod.rifle.state.jammed=Your rifle is jammed and can not fire. Remove some modules
+message.rorysmod.rifle.state.overheat=Your rifle has overheated. Wait for it too cool down
+
+message.rorysmod.chest.state.locked=This chest is locked, it needs to be powered by redstone to be opened
+
+message.rorysmod.sleeping.daytime=Sleeping now won't have any effect till night
+message.rorysmod.sleeping.mobs=There are monsters near by. Be careful
+
+message.rorysmod.weight=Weight
+message.rorysmod.heat=Heat
+message.rorysmod.charge=Charge
+message.rorysmod.energyStored=Energy Stored
+message.rorysmod.custName=Custom Name
+
+message.rorysmod.holdShift1=Hold
+message.rorysmod.holdShift2=Shift
+message.rorysmod.holdShift3=for Details
+
+message.rorymod.useslesft=Uses left: 
+
+message.rorysmod.download=Download
+message.rorysmod.version.current=Current Version
+message.rorysmod.version.new=There is a new version available!
+message.rorysmod.version.download=Click here to download the latest version
+
+// -------------------{ GUI }-------------------
+rorysmod.gui.upgradeTable.title=Rifle Upgrade Table
+rorysmod.gui.upgradeTable.color=Laser Color
+rorysmod.gui.poweredchest=Powerable Chest
+rorysmod.gui.machineRenamer=Auto Renamer
+
+// -----------------{ Recipie }-----------------
+recipie.rorysmod.shaped=Shaped
+recipie.rorysmod.shapeless=Shapeless
+
+//-------------------{ MISC }-------------------
+infuse.solder=Solder
