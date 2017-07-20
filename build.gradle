@@ -52,7 +52,6 @@ apply plugin: 'forge'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-
 ext.repo = Grgit.open(project.file('.'))
 def gitHash = 'unknown'
 

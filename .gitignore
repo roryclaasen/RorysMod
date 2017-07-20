@@ -35,6 +35,3 @@
 
 # exclude any files from included folders
 *.psd
-
-# exclude api files
-src/api/java/mekanism/*
