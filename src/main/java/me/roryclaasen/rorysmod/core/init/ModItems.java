@@ -19,6 +19,7 @@ import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import me.roryclaasen.rorysmod.core.register.Register;
+import me.roryclaasen.rorysmod.item.ItemCoil;
 import me.roryclaasen.rorysmod.item.ItemDust;
 import me.roryclaasen.rorysmod.item.ItemIngot;
 import me.roryclaasen.rorysmod.item.ItemPlate;
@@ -74,7 +75,7 @@ public class ModItems implements ModInterface {
 		solderIngot = new ItemIngot("ingotSolder");
 		solderPlate = new ItemPlate("plateSolder");
 		solderWire = new ItemBase("wireSolder");
-		solderCoil = new ItemBase("coilSolder");
+		solderCoil = new ItemCoil("coilSolder");
 	}
 
 	public void register(FMLPreInitializationEvent event) {
@@ -121,7 +122,9 @@ public class ModItems implements ModInterface {
 		Register.registerDictionary("dustSolder", solderDust);
 		Register.registerDictionary("plateSolder", solderPlate);
 		Register.registerDictionary("wireSolder", solderWire);
-		Register.registerDictionary("coilSolder", solderCoil);
+		Register.registerDictionary("coilSolder", new ItemStack(solderCoil, 1, OreDictionary.WILDCARD_VALUE));
+		Register.registerDictionary("solder", solderWire);
+		Register.registerDictionary("solder", new ItemStack(solderCoil, 1, OreDictionary.WILDCARD_VALUE));
 
 		Register.registerDictionary("solderingIron", new ItemStack(solderingIron, 1, OreDictionary.WILDCARD_VALUE));
 	}
@@ -152,16 +155,16 @@ public class ModItems implements ModInterface {
 
 		// Circuit
 		Register.addShapedRecipie(new ItemStack(blankCircuit), new Object[] { " r ", "gsg", " r ", 'r', Items.redstone, 's', "plateSteel", 'g', Items.gold_nugget });
-		Register.addShapelessChargedRecipie(new ItemStack(circuit), new Object[] { blankCircuit, "wireSolder", toolSolderingIron });
+		Register.addShapelessChargedRecipie(new ItemStack(circuit), new Object[] { blankCircuit, "solder", toolSolderingIron });
 
 		Register.addShapedRecipie(new ItemStack(blankAdvancedCircuit), new Object[] { "rgr", "lcl", "rgr", 'l', new ItemStack(Items.dye, 1, 4), 'r', Items.redstone, 'g', Items.glowstone_dust, 'c', "cpu" });
-		Register.addShapelessChargedRecipie(new ItemStack(advancedCircuit), new Object[] { blankAdvancedCircuit, "wireSolder", toolSolderingIron });
+		Register.addShapelessChargedRecipie(new ItemStack(advancedCircuit), new Object[] { blankAdvancedCircuit, "solder", toolSolderingIron });
 
 		// Lens
 		Register.addShapedRecipie(new ItemStack(lens, 4), new Object[] { " g ", "g g", " g ", 'g', Blocks.glass });
 
 		// Filament
-		Register.addShapelessRecipie(new ItemStack(filament, 2), new Object[] { IC2Items.getItem("copperCableItem"), "wireSolder", toolSolderingIron });
+		Register.addShapelessRecipie(new ItemStack(filament, 2), new Object[] { IC2Items.getItem("copperCableItem"), "solder", toolSolderingIron });
 
 		// CPU
 		Register.addShapedChargedRecipie(new ItemStack(cpu), new Object[] { " r ", "rcr", " r ", 'r', Items.redstone, 'c', "circuitBasic" });

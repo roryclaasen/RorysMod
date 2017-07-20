@@ -15,14 +15,12 @@ package me.roryclaasen.rorysmod.core.recipe;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
 import me.roryclaasen.rorysmod.util.RecipeUtils;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class RoryChargedShapelessRecipe extends RoryShapelessRecipe {
 
@@ -77,22 +75,5 @@ public class RoryChargedShapelessRecipe extends RoryShapelessRecipe {
 		}
 
 		return required.isEmpty();
-	}
-
-	// TODO add this 
-	@SuppressWarnings("unused")
-	private boolean check(ItemStack slot) {
-		if (slot != null && slot.getItem() != null && slot.getItem() instanceof ItemBaseEnergyContainer) {
-			if (slot.getItemDamage() == 100) return false;
-			if (slot.getItemDamage() == OreDictionary.WILDCARD_VALUE) return true;
-
-			int energy = 0;
-			if (slot.stackTagCompound != null) {
-				if (slot.stackTagCompound.hasKey("Energy")) energy = slot.stackTagCompound.getInteger("Energy");
-				else if (slot.stackTagCompound.hasKey("energy")) energy = slot.stackTagCompound.getInteger("energy");
-			}
-			if (energy > 0) return true;
-		}
-		return false;
 	}
 }

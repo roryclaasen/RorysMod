@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
+import me.roryclaasen.rorysmod.util.RecipeUtils;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -57,16 +57,7 @@ public class RoryChargedShapedRecipe extends RoryShapedRecipe {
 
 				ItemStack slot = inv.getStackInRowAndColumn(x, y);
 
-				if (slot != null && slot.getItem() != null && slot.getItem() instanceof ItemBaseEnergyContainer) {
-					if (slot.getItemDamage() == 100) return false;
-					int energy = 0;
-					if (slot.stackTagCompound != null) {
-						if (slot.stackTagCompound.hasKey("Energy")) energy = slot.stackTagCompound.getInteger("Energy");
-						else if (slot.stackTagCompound.hasKey("energy")) energy = slot.stackTagCompound.getInteger("energy");
-					}
-					if (slot.getItemDamage() == OreDictionary.WILDCARD_VALUE) energy = 100;
-					if (energy <= 0) return false;
-				}
+				if (!RecipeUtils.hasEnergy(slot)) return false;
 
 				if (target instanceof ItemStack) {
 					if (!OreDictionary.itemMatches((ItemStack) target, slot, false)) return false;

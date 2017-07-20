@@ -36,10 +36,10 @@ public class ItemSolderingIron extends ItemBaseEnergyContainer implements IBoxab
 
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-		itemStack.stackTagCompound = new NBTTagCompound();
-		itemStack.stackTagCompound.setInteger("Energy", 0);
+		NBTTagCompound base = new NBTTagCompound();
+		base.setInteger("Energy", 0);
+		itemStack.writeToNBT(base);
 		this.updateItemDamage(itemStack);
-		itemStack.setItemDamage(100);
 	}
 
 	@SideOnly(Side.CLIENT)

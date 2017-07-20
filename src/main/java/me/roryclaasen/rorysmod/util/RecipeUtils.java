@@ -16,17 +16,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import me.roryclaasen.rorysmod.item.base.ItemBaseEnergyContainer;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeUtils {
 
-	public static boolean areItemsEqualForCrafting(ItemStack target, ItemStack input) {		
-		RMLog.info(target + " /=/ " +input);
+	public static boolean areItemsEqualForCrafting(ItemStack target, ItemStack input) {
 		if (target == null && input != null || target == null && input != null) {
 			return false;
 		} else if (target == null && input == null) {
@@ -39,6 +40,10 @@ public class RecipeUtils {
 
 		if (target.getItemDamage() != input.getItemDamage() && target.getItemDamage() != OreDictionary.WILDCARD_VALUE) {
 			return false;
+		}
+
+		if (target.getItem() instanceof ItemBaseEnergyContainer) {
+			if (!hasEnergy(input)) return false;
 		}
 
 		return true;
@@ -56,5 +61,23 @@ public class RecipeUtils {
 			}
 		}
 		return null;
+	}
+
+	public static boolean hasEnergy(ItemStack itemStack) {
+		if (itemStack != null && itemStack.getItem() != null && itemStack.getItem() instanceof ItemBaseEnergyContainer) {
+			if (itemStack.getItemDamage() == 100) return false;
+			else if (itemStack.getItemDamage() == 0) {
+				int energy = 0;
+
+				NBTTagCompound stackTag = itemStack.stackTagCompound;
+
+				if (stackTag != null) {
+					if (stackTag.hasKey("Energy")) energy = stackTag.getInteger("Energy");
+					else if (stackTag.hasKey("energy")) energy = stackTag.getInteger("energy");
+				}
+				if (energy > 0) return true;
+			} else return true;
+		}
+		return false;
 	}
 }
