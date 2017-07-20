@@ -197,7 +197,7 @@ public class ModItems implements ModInterface {
 		// Solder
 		Register.addShapelessRecipie(new ItemStack(solderDust, 5), new Object[] { "dustTin", "dustTin", "dustTin", "dustLead", "dustLead" });
 		Register.addSmeltingRecipie(new ItemStack(solderDust), new ItemStack(solderIngot), 0.1f);
-
+		Register.addShapelessRecipie(new ItemStack(solderIngot, 9), "blockSolder");
 		Recipes.metalformerRolling.addRecipe(new RecipeInputItemStack(new ItemStack(solderIngot)), null, new ItemStack(solderPlate));
 		Recipes.metalformerCutting.addRecipe(new RecipeInputItemStack(new ItemStack(solderPlate)), null, new ItemStack(solderWire, 3));
 		Recipes.metalformerExtruding.addRecipe(new RecipeInputItemStack(new ItemStack(solderIngot)), null, new ItemStack(solderWire, 3));

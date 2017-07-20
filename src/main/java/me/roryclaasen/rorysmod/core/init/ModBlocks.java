@@ -44,6 +44,7 @@ public class ModBlocks implements ModInterface {
 
 	public Block poweredChest;
 	public Block renamer;
+	public Block solderBlock;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -55,6 +56,7 @@ public class ModBlocks implements ModInterface {
 		poweredChest = new BlockPoweredChest(Material.wood, "blockChestPowered");
 
 		renamer = new BlockMachineRenamer(Material.iron, "machineRenamer");
+		solderBlock = new BlockIngot(Material.iron, "blockSolder");
 	}
 
 	public void register(FMLPreInitializationEvent event) {
@@ -64,7 +66,11 @@ public class ModBlocks implements ModInterface {
 		Register.registerBlock(steelBlock);
 
 		Register.registerBlock(bluePrint, MultiBlockHandler.class);
+		Register.registerBlock(poweredChest, ItemPoweredChest.class);
 
+		Register.registerBlock(renamer, ItemMachineRenamer.class);
+		Register.registerBlock(solderBlock);
+		
 		Register.registerDictionary("blockSteel", steelBlock);
 		for (int i = 0; i < ((BlockBaseMeta) testingWall).getMetaSize(); i++) {
 			Register.registerDictionary("testingWall", new ItemStack(testingWall, 1, i));
@@ -72,10 +78,7 @@ public class ModBlocks implements ModInterface {
 		for (int i = 0; i < ((BlockBaseMeta) bluePrint).getMetaSize(); i++) {
 			Register.registerDictionary("bluePrint", new ItemStack(bluePrint, 1, i));
 		}
-
-		Register.registerBlock(poweredChest, ItemPoweredChest.class);
-
-		Register.registerBlock(renamer, ItemMachineRenamer.class);
+		Register.registerDictionary("blockSolder", solderBlock);
 	}
 
 	@Override
@@ -98,6 +101,7 @@ public class ModBlocks implements ModInterface {
 		Register.addShapelessRecipie(new ItemStack(poweredChest), new Object[] { Blocks.chest, Items.redstone, Blocks.tripwire_hook });
 
 		Register.addShapedRecipie(new ItemStack(renamer), new Object[] { " n ", "gmg", "csc", 'n', Items.name_tag, 'g', "blockGlass", 'm', IC2Items.getItem("machine"), 'c', IC2Items.getItem("coil"), 's', "plateSteel" });
+		Register.addShapedRecipie(new ItemStack(solderBlock), new Object[] { "sss", "sss", "sss", 's', "ingotSolder" });
 	}
 
 	@Override
