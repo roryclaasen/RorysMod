@@ -51,5 +51,4 @@ public class SyncTileEntityData extends AbstractServerMessage<SyncTileEntityData
 			entity.readFromNBT(nbtCompound);
 		} 
 	}
-
 }

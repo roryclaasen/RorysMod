@@ -11,6 +11,6 @@
 	  "credits": "Thank you to redmechanic for correcting my many spelling mistakes throughout this project.",
 	  "logoFile": "assets/rorysmod/textures/logo.png",
 	  "screenshots": [],
-	  "dependencies": ["MinecraftForge", "CoFHCore, "IC2"]
+	  "dependencies": ["MinecraftForge", "CoFHCore", "IC2"]
 	}
 ]

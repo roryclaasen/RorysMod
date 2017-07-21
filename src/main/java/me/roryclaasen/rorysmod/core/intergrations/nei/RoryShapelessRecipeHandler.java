@@ -19,7 +19,6 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.ShapelessRecipeHandler;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.recipe.RoryShapelessRecipe;
-import me.roryclaasen.rorysmod.util.RMLog;
 import me.roryclaasen.rorysmod.util.RecipeUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -76,7 +75,6 @@ public class RoryShapelessRecipeHandler extends ShapelessRecipeHandler {
 			if (irecipe instanceof RoryShapelessRecipeHandler) {
 				RoryShapelessRecipe rorysmodRecipe = (RoryShapelessRecipe) irecipe;
 				CachedRoryShapelessRecipe recipe = new CachedRoryShapelessRecipe(rorysmodRecipe);
-				RMLog.info(ingredient + " -> " + recipe.ingredients);
 				if (recipe.contains(recipe.ingredients, ingredient)) {
 					recipe.setIngredientPermutation(recipe.ingredients, ingredient);
 					arecipes.add(recipe);

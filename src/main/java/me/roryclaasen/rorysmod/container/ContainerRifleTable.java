@@ -15,10 +15,10 @@ package me.roryclaasen.rorysmod.container;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.container.slot.RestrictedSlot;
 import me.roryclaasen.rorysmod.container.slot.RifleUpgradeSlot;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

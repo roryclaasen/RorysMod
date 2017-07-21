@@ -30,8 +30,8 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import me.roryclaasen.rorysmod.block.base.BlockBaseContainer;
+import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

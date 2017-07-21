@@ -68,11 +68,11 @@ dependencies {
 	
 	embed 'me.roryclaasen:version-checker:gson1.2.2'
 	
-    compile files("libs/CoFHLib-[1.7.10]1.2.1-185.jar")
+    compile files("libs/CoFHLib-[1.7.10]1.2.1-185-dev.jar")
     compile files("libs/MDK-1.7.10-9.1.0.281.jar")
     
+    compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
     compile "net.industrial-craft:industrialcraft-2:${ic2_version}:dev"
-    
     compile "codechicken:CodeChickenLib:${mc_version}-${chickenLib_version}:dev"
     compile "codechicken:CodeChickenCore:${mc_version}-${chickenCore_version}:dev"
     compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"

@@ -21,9 +21,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
 import me.roryclaasen.rorysmod.container.ContainerPoweredChest;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
 
 import org.lwjgl.opengl.GL11;
 

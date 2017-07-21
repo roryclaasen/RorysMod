@@ -12,93 +12,79 @@
  */
 package me.roryclaasen.rorysmod.gui;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
+import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.element.ElementBase;
+import cofh.lib.gui.element.ElementDualScaled;
+import cofh.lib.gui.element.ElementEnergyStored;
+import cofh.lib.gui.element.ElementTextField;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.container.ContainerMachineRenamer;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
-public class GuiMachineRenamer extends GuiContainer {
+public class GuiMachineRenamer extends GuiBase {
 
-	private ResourceLocation texture = new ResourceLocation(RorysMod.MODID, "textures/gui/renamer.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(RorysMod.MODID, "textures/gui/renamer.png");
 
-	private InventoryPlayer inventory;
 	private TileEntityRenamer tileEntity;
 
-	private GuiTextField renameField;
+	private ElementTextField renameField;
+	private ElementDualScaled progress;
 
 	public GuiMachineRenamer(TileEntityRenamer tileEntity, EntityPlayer player) {
-		super(new ContainerMachineRenamer(tileEntity, player));
-		this.inventory = player.inventory;
+		super(new ContainerMachineRenamer(tileEntity, player), TEXTURE);
 		this.tileEntity = tileEntity;
 	}
 
 	@Override
 	public void initGui() {
 		super.initGui();
-		Keyboard.enableRepeatEvents(true);
+		
+		this.tileEntity.sync();
+		
+		elements.add(new ElementEnergyStored(this, 8, 17, tileEntity.getEnergy()));
 
-		int i = (this.width - this.xSize) / 2;
-		int j = (this.height - this.ySize) / 2;
-		renameField = new GuiTextField(this.fontRendererObj, i + 35, j + 21, 103, 12);
+		renameField = new ElementTextField(this, 43, 20, 103, 12);
 		renameField.setText(this.tileEntity.getCustomName());
-		renameField.setEnableBackgroundDrawing(false);
-		renameField.setMaxStringLength(40);
-		renameField.setEnabled(true);
+		renameField.setMaxLength((short) 40);
+		renameField.backgroundColor = 0;
+		renameField.borderColor = 0;
+		elements.add(renameField);
+
+		this.progress = ((ElementDualScaled) addElement(new ElementDualScaled(this, 86, 46).setMode(1).setSize(24, 16).setTexture("cofh:textures/gui/elements/Progress_Arrow_Right.png", 64, 16)));
+		this.name = StatCollector.translateToLocal(tileEntity.getInventoryName());
 	}
 
 	@Override
-	public void onGuiClosed() {
-		super.onGuiClosed();
-		Keyboard.enableRepeatEvents(false);
-	}
-
-	@Override
-	protected void keyTyped(char character, int code) {
-		if (this.renameField.textboxKeyTyped(character, code)) {
-			this.tileEntity.setRenameName(this.renameField.getText());
-		} else {
-			super.keyTyped(character, code);
+	protected void keyTyped(char characterTyped, int keyPressed) {
+		for (int i = elements.size(); i-- > 0;) {
+			ElementBase c = elements.get(i);
+			if (!c.isVisible() || !c.isEnabled()) {
+				continue;
+			}
+			if (c.onKeyTyped(characterTyped, keyPressed)) {
+				if (c instanceof ElementTextField) {
+					tileEntity.setRenameName(((ElementTextField) c).getText());
+				}
+				return;
+			}
 		}
+		super.keyTyped(characterTyped, keyPressed);
 	}
 
 	@Override
-	protected void mouseClicked(int p_73864_1_, int p_73864_2_, int p_73864_3_) {
-		super.mouseClicked(p_73864_1_, p_73864_2_, p_73864_3_);
-		this.renameField.mouseClicked(p_73864_1_, p_73864_2_, p_73864_3_);
+	protected void mouseClicked(int paramInt1, int paramInt2, int paramInt3) {
+		super.mouseClicked(paramInt1, paramInt2, paramInt3);
+
+		this.tileEntity.setActive(!renameField.isFocused());
+		this.tileEntity.sendGUIUpdate();
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-
-		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString(I18n.format(tileEntity.getInventoryName()), 8, 6, 4210752, false);
-		fontRendererObj.drawString(I18n.format(inventory.getInventoryName()), 8, ySize - 96 + 2, 4210752);
-	}
-
-	@Override
-	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_) {
-		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
-		this.renameField.drawTextBox();
+	protected void updateElementInformation() {
+		super.updateElementInformation();
+		this.progress.setQuantity(this.tileEntity.getScaledProgress(24));
 	}
 }

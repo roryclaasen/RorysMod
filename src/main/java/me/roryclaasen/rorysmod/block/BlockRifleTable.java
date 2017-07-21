@@ -27,8 +27,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import me.roryclaasen.rorysmod.block.base.BlockBaseContainer;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 public class BlockRifleTable extends BlockBaseContainer {

@@ -18,13 +18,13 @@ package me.roryclaasen.rorysmod.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.container.ContainerMachineRenamer;
 import me.roryclaasen.rorysmod.container.ContainerPoweredChest;
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {

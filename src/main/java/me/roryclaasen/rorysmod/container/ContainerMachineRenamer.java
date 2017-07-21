@@ -12,8 +12,8 @@
  */
 package me.roryclaasen.rorysmod.container;
 
-import me.roryclaasen.rorysmod.container.slot.OutputSlot;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
+import cofh.lib.gui.slot.SlotRemoveOnly;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -27,8 +27,8 @@ public class ContainerMachineRenamer extends Container {
 		this.tileEntity = tileEntity;
 
 		// Custom Storage
-		addSlotToContainer(new Slot(tileEntity, 0, 26, 44));
-		addSlotToContainer(new OutputSlot(tileEntity, 1, 134, 44));
+		addSlotToContainer(new Slot(tileEntity, 0, 44, 44));
+		addSlotToContainer(new SlotRemoveOnly(tileEntity, 1, 131, 44));
 
 		bindPlayerInventory(player.inventory);
 	}

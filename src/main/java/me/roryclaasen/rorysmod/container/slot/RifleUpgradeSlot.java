@@ -2,7 +2,7 @@ package me.roryclaasen.rorysmod.container.slot;
 
 import java.util.List;
 
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRifleTable;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 

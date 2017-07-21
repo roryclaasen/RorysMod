@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import me.roryclaasen.rorysmod.block.base.BlockBaseContainer;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

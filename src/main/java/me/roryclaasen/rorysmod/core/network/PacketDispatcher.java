@@ -19,6 +19,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.network.message.SyncEntityLaserData;
+import me.roryclaasen.rorysmod.core.network.message.SyncRenamerInfo;
 import me.roryclaasen.rorysmod.core.network.message.SyncTileEntityData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -31,6 +32,7 @@ public class PacketDispatcher {
 	public static final void registerPackets() {
 		registerMessage(SyncTileEntityData.class);
 		registerMessage(SyncEntityLaserData.class);
+		registerMessage(SyncRenamerInfo.class);
 	}
 
 	/**

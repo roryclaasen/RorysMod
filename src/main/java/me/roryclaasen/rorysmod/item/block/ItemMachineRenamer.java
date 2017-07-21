@@ -15,7 +15,7 @@ package me.roryclaasen.rorysmod.item.block;
 import java.util.List;
 
 import cofh.api.energy.EnergyStorage;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;

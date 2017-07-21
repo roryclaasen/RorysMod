@@ -16,7 +16,7 @@ import java.util.List;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;

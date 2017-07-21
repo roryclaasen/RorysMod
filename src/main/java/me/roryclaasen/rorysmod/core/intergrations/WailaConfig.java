@@ -13,8 +13,8 @@
 package me.roryclaasen.rorysmod.core.intergrations;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
+import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.core.intergrations.waila.WailaMachineRenamer;
-import me.roryclaasen.rorysmod.entity.tile.TileEntityRenamer;
 
 public class WailaConfig {
 	public static void callbackRegister(IWailaRegistrar registrar) {

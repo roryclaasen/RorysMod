@@ -12,7 +12,7 @@
  */
 package me.roryclaasen.rorysmod.container;
 
-import me.roryclaasen.rorysmod.entity.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
