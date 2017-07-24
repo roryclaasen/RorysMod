@@ -292,7 +292,7 @@ public class TileEntityRenamer extends TileEntityBase implements ISidedInventory
 	}
 
 	public void sendGUIUpdate() {
-		super.sync();
+		sync();
 
 		PacketDispatcher.sendToAll(new SyncRenamerInfo(xCoord, yCoord, zCoord, active, tickSinceLastRename));
 	}

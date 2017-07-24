@@ -15,8 +15,8 @@ package me.roryclaasen.rorysmod.container;
 import java.util.ArrayList;
 import java.util.List;
 
+import cofh.lib.gui.slot.SlotSpecificItem;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
-import me.roryclaasen.rorysmod.container.slot.RestrictedSlot;
 import me.roryclaasen.rorysmod.container.slot.RifleUpgradeSlot;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,8 +40,8 @@ public class ContainerRifleTable extends Container {
 		rifles.add(new ItemStack(RorysMod.items.rifle4));
 		rifles.add(new ItemStack(RorysMod.items.rifle5));
 
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 0, 8, 8).setAllowedItemStack(rifles));
-		this.addSlotToContainer(new RestrictedSlot(tileEntity, 1, 134, 7).setAllowedItemStack(new ItemStack(RorysMod.items.rifleUpgrade, 1, 3)).setLimit(1).useTags());
+		this.addSlotToContainer(new SlotSpecificItem(tileEntity, 0, 8, 8, new ItemStack(RorysMod.items.rifle1)).setSlotStackLimit(1));
+		this.addSlotToContainer(new SlotSpecificItem(tileEntity, 1, 134, 7, new ItemStack(RorysMod.items.rifleUpgrade, 1, 3)).setSlotStackLimit(1));
 
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 2; x++) {

@@ -1,28 +1,23 @@
 /*
-Copyright 2016-2017 Rory Claasen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2016-2017 Rory Claasen
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package me.roryclaasen.rorysmod.gui;
 
 import java.awt.Color;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import org.lwjgl.opengl.GL11;
+
+import cofh.lib.gui.GuiBase;
+import cpw.mods.fml.client.config.GuiSlider;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
 import me.roryclaasen.rorysmod.core.RorysMod;
@@ -30,23 +25,24 @@ import me.roryclaasen.rorysmod.core.Settings;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.util.ColorUtils;
 import me.roryclaasen.rorysmod.util.NBTLaser;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.config.GuiSlider;
-
-public class GuiRifleTable extends GuiContainer {
+public class GuiRifleTable extends GuiBase {
 
 	private TileEntityRifleTable tileEntity;
 
-	private ResourceLocation empty = new ResourceLocation(RorysMod.MODID, "textures/gui/table-empty.png");
-	private ResourceLocation table = new ResourceLocation(RorysMod.MODID, "textures/gui/table.png");
+	private static ResourceLocation empty = new ResourceLocation(RorysMod.MODID, "textures/gui/table-empty.png");
+	private static ResourceLocation table = new ResourceLocation(RorysMod.MODID, "textures/gui/table.png");
 
 	private GuiSlider colorR, colorG, colorB;
 	private GuiButton save;
 
 	public GuiRifleTable(InventoryPlayer inventoryPlayer, TileEntityRifleTable tileEntity) {
-		super(new ContainerRifleTable(inventoryPlayer, tileEntity));
+		super(new ContainerRifleTable(inventoryPlayer, tileEntity), empty);
 		this.tileEntity = tileEntity;
 		this.tileEntity.setGuiRifleTable(this);
 
@@ -65,11 +61,15 @@ public class GuiRifleTable extends GuiContainer {
 		buttonList.add(colorG);
 		buttonList.add(colorB);
 		buttonList.add(save);
+
+		this.name = StatCollector.translateToLocal(RorysMod.GUIS.RILE_TABLE.getName() + ".title");
+		this.drawInventory = false;
+		this.drawTitle = false;
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-		fontRendererObj.drawString(StatCollector.translateToLocal((RorysMod.GUIS.RILE_TABLE.getName() + ".title")), 30, 8, 4210752);
+		super.drawGuiContainerForegroundLayer(param1, param2);
 		if (slidersEnabled()) fontRendererObj.drawString((StatCollector.translateToLocal(RorysMod.GUIS.RILE_TABLE.getName() + ".color")), -colorR.width + 10, 10, ColorUtils.getIntFromColor(getColorFromSlider()));
 		if (tileEntity.hasLaser()) {
 			NBTLaser nbt = new NBTLaser(tileEntity.getLaser());
@@ -81,22 +81,13 @@ public class GuiRifleTable extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture(empty);
-		if (tileEntity.hasLaser()) this.mc.renderEngine.bindTexture(table);
-		int x = (width - xSize) / 2;
-		int y = (height - ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 
 		if (Settings.showColorBox && slidersEnabled()) {
 			int id = ColorUtils.loadTextureFromColour(getColorFromSlider(), 64, 64);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
 			this.drawTexturedModalRect(colorB.xPosition + ((colorB.width - 32) / 2), colorB.yPosition + colorB.height + 10, 0, 0, 32, 32);
 		}
-	}
-
-	public void drawScreen(int par1, int par2, float par3) {
-		super.drawScreen(par1, par2, par3);
 	}
 
 	@Override
@@ -115,24 +106,27 @@ public class GuiRifleTable extends GuiContainer {
 		save.yPosition = colorB.yPosition + colorB.height + 10;
 
 		setSlidersEnabled(tileEntity.hasLens());
+
+		if (tileEntity.hasLaser()) this.texture = table;
+		else this.texture = empty;
 		super.updateScreen();
 	}
 
 	public void actionPerformed(GuiButton button) {
 		switch (button.id) {
-			case 1 :
+			case 1:
 				// tileEntity.setColor(getColorFromSlider());
 				break;
-			case 2 :
+			case 2:
 				// tileEntity.setColor(getColorFromSlider());
 				break;
-			case 3 :
+			case 3:
 				// tileEntity.setColor(getColorFromSlider());
 				break;
-			case 4 :
+			case 4:
 				tileEntity.setColor(getColorFromSlider());
 				break;
-			default :
+			default:
 				break;
 		}
 	}

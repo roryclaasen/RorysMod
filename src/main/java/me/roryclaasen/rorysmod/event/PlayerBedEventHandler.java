@@ -64,7 +64,7 @@ public class PlayerBedEventHandler {
 					event.result = EntityPlayer.EnumStatus.NOT_SAFE;
 					return;
 				} else {
-					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.mobsclose")));
+					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.mobs")));
 				}
 			}
 		}

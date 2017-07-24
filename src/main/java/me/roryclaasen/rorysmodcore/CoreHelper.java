@@ -12,9 +12,10 @@
  */
 package me.roryclaasen.rorysmodcore;
 
+import me.roryclaasen.rorysmod.core.Settings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import me.roryclaasen.rorysmod.core.Settings;
+import net.minecraft.world.WorldServer;
 
 public class CoreHelper {
 
@@ -31,5 +32,17 @@ public class CoreHelper {
 			if (world.isDaytime()) return true;
 		}
 		return false;
+	}
+
+	public static void notifyPlayers(WorldServer world) {
+		world.provider.resetRainAndThunder();
+		for (Object object : world.playerEntities) {
+			if (object instanceof EntityPlayer) {
+				@SuppressWarnings("unused")
+				EntityPlayer player = (EntityPlayer) object;
+				// player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup")));
+				// This will spam the user of messages till someone leaves a bed
+			}
+		}
 	}
 }

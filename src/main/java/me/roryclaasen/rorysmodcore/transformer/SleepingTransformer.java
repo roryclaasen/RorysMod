@@ -68,12 +68,10 @@ public class SleepingTransformer implements IClassTransformer {
 		needle.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		needle.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKEVIRTUAL, ASMNames.MD_WAKE_ALL_PLAYERS, false));
 
-		AbstractInsnNode aload = ASMHelper.findFirstNodeFromNeedle(method.instructions, needle);
 		AbstractInsnNode call = ASMHelper.findLastNodeFromNeedle(method.instructions, needle);
 
-		method.instructions.remove(aload);
-		method.instructions.remove(call);
-
+		method.instructions.set(call, ASMHelper.getMethodInsnNode(Opcodes.INVOKESTATIC, ASMNames.MD_RM_HELPER_NOTIFY, false));
+		
 		return ASMHelper.createBytes(clazz, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 	}
 }

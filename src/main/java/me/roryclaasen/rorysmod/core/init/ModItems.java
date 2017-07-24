@@ -24,6 +24,7 @@ import me.roryclaasen.rorysmod.item.ItemDust;
 import me.roryclaasen.rorysmod.item.ItemIngot;
 import me.roryclaasen.rorysmod.item.ItemPlate;
 import me.roryclaasen.rorysmod.item.ItemRifleUpgrade;
+import me.roryclaasen.rorysmod.item.ItemSolderArmor;
 import me.roryclaasen.rorysmod.item.base.ItemBase;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.item.tools.ItemSolderingIron;
@@ -46,6 +47,8 @@ public class ModItems implements ModInterface {
 	public Item lens, filament, cpu;
 	public Item solderingIron;
 	public Item solderDust, solderIngot, solderPlate, solderWire, solderCoil;
+
+	public Item solderHelm, solderChest, solderLegs, solderBoots;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -76,6 +79,11 @@ public class ModItems implements ModInterface {
 		solderPlate = new ItemPlate("plateSolder");
 		solderWire = new ItemBase("wireSolder");
 		solderCoil = new ItemCoil("coilSolder");
+
+		solderHelm = new ItemSolderArmor("solder_helmet", 0);
+		solderChest = new ItemSolderArmor("solder_chestplate", 1);
+		solderLegs = new ItemSolderArmor("solder_leggings", 2);
+		solderBoots = new ItemSolderArmor("solder_boots", 3);
 	}
 
 	public void register(FMLPreInitializationEvent event) {
@@ -108,6 +116,10 @@ public class ModItems implements ModInterface {
 		Register.registerItem(solderPlate);
 		Register.registerItem(solderWire);
 		Register.registerItem(solderCoil);
+		Register.registerItem(solderHelm);
+		Register.registerItem(solderChest);
+		Register.registerItem(solderLegs);
+		Register.registerItem(solderBoots);
 
 		Register.registerDictionary("ingotSteel", steelIngot);
 		Register.registerDictionary("dustSteel", steelDust);
@@ -209,6 +221,13 @@ public class ModItems implements ModInterface {
 
 		Recipes.metalformerCutting.addRecipe(new RecipeInputItemStack(new ItemStack(solderCoil)), null, new ItemStack(solderWire, 8));
 		Register.addShapelessRecipie(new ItemStack(solderWire, 8), "coilSolder", wireCutters);
+
+		// Solder Armor
+		Register.addShapedRecipie(new ItemStack(solderHelm), new Object[] { "sss", "s s", 's', "ingotSolder" });
+		Register.addShapedRecipie(new ItemStack(solderChest), new Object[] { "s s", "sss", "sss", 's', "ingotSolder" });
+		Register.addShapedRecipie(new ItemStack(solderLegs), new Object[] { "sss", "s s", "s s", 's', "ingotSolder" });
+		Register.addShapedRecipie(new ItemStack(solderBoots), new Object[] { "s s", "s s", 's', "ingotSolder" });
+
 	}
 
 	@Override

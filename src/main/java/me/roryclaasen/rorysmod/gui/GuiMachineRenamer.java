@@ -44,7 +44,7 @@ public class GuiMachineRenamer extends GuiBase {
 		
 		this.tileEntity.sync();
 		
-		elements.add(new ElementEnergyStored(this, 8, 17, tileEntity.getEnergy()));
+		elements.add(getEnergyStoredElement());
 
 		renameField = new ElementTextField(this, 43, 20, 103, 12);
 		renameField.setText(this.tileEntity.getCustomName());
@@ -86,5 +86,10 @@ public class GuiMachineRenamer extends GuiBase {
 	protected void updateElementInformation() {
 		super.updateElementInformation();
 		this.progress.setQuantity(this.tileEntity.getScaledProgress(24));
+		this.elements.set(0, getEnergyStoredElement());
+	}
+	
+	private ElementEnergyStored getEnergyStoredElement() {
+		return new ElementEnergyStored(this, 8, 17, this.tileEntity.getEnergy());
 	}
 }
