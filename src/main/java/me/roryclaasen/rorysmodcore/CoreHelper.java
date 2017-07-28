@@ -47,7 +47,7 @@ public class CoreHelper {
 				if (object instanceof EntityPlayer) {
 					EntityPlayer player = (EntityPlayer) object;
 
-					if (!player.getDisplayName().equals("redmechanic")) player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup"), EnumChatFormatting.AQUA + player.getDisplayName() + EnumChatFormatting.WHITE)));
+					if (!player.getDisplayName().equals("redmechanic_")) player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup"), EnumChatFormatting.AQUA + player.getDisplayName() + EnumChatFormatting.WHITE)));
 				}
 			}
 		} else return;
