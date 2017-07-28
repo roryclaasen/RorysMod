@@ -13,6 +13,7 @@
 package me.roryclaasen.rorysmod.event;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.Version;
 import me.roryclaasen.rorysmod.util.UsefulFunctions;
@@ -34,9 +35,9 @@ public class PlayerTickEvents {
 			if (!version.haveWarnedVersionOutOfDate && !version.isLatestVersion()) {
 				ChatComponentText localChatComponentText = new ChatComponentText("");
 				ChatStyle localChatStyle;
-				IChatComponent modVersion = new ChatComponentText(EnumChatFormatting.AQUA + StatCollector.translateToLocal("message.rorysmod.version.current") + ": " + RorysMod.VERSION);
+				IChatComponent modVersion = new ChatComponentText(EnumChatFormatting.AQUA + StatCollector.translateToLocal("message.rorysmod.version.current") + ": " + RorysGlobal.VERSION);
 
-				IChatComponent modName = new ChatComponentText(EnumChatFormatting.GOLD + "[" + RorysMod.NAME + "]" + EnumChatFormatting.WHITE);
+				IChatComponent modName = new ChatComponentText(EnumChatFormatting.GOLD + "[" + RorysGlobal.NAME + "]" + EnumChatFormatting.WHITE);
 				localChatStyle = modName.getChatStyle();
 				localChatStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, modVersion));
 				localChatStyle.setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://rorysmod.rtfd.io"));

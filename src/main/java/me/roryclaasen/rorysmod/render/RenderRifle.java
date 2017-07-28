@@ -15,6 +15,10 @@ limitations under the License.
  */
 package me.roryclaasen.rorysmod.render;
 
+import org.lwjgl.opengl.GL11;
+
+import me.roryclaasen.rorysmod.core.RorysGlobal;
+import me.roryclaasen.rorysmod.model.ModelRifle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -24,10 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.model.ModelRifle;
-
-import org.lwjgl.opengl.GL11;
 
 public class RenderRifle implements IItemRenderer {
 
@@ -68,7 +68,7 @@ public class RenderRifle implements IItemRenderer {
 		switch (type) {
 			case EQUIPPED : {
 				GL11.glPushMatrix();
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(RorysMod.MODID, "textures/models/laserRifle.png"));
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(RorysGlobal.MODID, "textures/models/laserRifle.png"));
 
 				GL11.glRotatef(80F, 1.0F, 0.0F, 0.0F);
 				GL11.glRotatef(25F, 0.0F, 1.0F, 0.0F);
@@ -85,7 +85,7 @@ public class RenderRifle implements IItemRenderer {
 			}
 			case EQUIPPED_FIRST_PERSON : {
 				GL11.glPushMatrix();
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(RorysMod.MODID, "textures/models/laserRifle.png"));
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(RorysGlobal.MODID, "textures/models/laserRifle.png"));
 
 				if (isFirstPerson) {
 					GL11.glRotatef(80F, 1.0F, 0.0F, 0.0F);

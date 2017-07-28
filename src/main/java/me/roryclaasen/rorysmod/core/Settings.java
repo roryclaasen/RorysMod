@@ -77,8 +77,8 @@ public class Settings {
 
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (RorysMod.MODID.equals(event.modID)) updateSettings();
-		if ((RorysMod.MODID + "core").equals(event.modID)) updateSettings();
+		if (RorysGlobal.MODID.equals(event.modID)) updateSettings();
+		if ((RorysGlobal.MODID + "core").equals(event.modID)) updateSettings();
 	}
 
 	public static Configuration getConfig() {

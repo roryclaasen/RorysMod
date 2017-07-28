@@ -17,12 +17,12 @@ package me.roryclaasen.rorysmod.item.base;
 
 import java.util.List;
 
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import me.roryclaasen.rorysmod.core.RorysMod;
 
 public class ItemBaseMeta extends ItemBase {
 
@@ -46,7 +46,7 @@ public class ItemBaseMeta extends ItemBase {
 	@Override
 	public void registerIcons(IIconRegister reg) {
 		for (int i = 0; i < icons.length; i++) {
-			this.icons[i] = reg.registerIcon(RorysMod.MODID + ":" + getName() + "_" + i);
+			this.icons[i] = reg.registerIcon(RorysGlobal.MODID + ":" + getName() + "_" + i);
 		}
 	}
 

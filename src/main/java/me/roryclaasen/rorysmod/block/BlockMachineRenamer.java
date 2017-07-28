@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import me.roryclaasen.rorysmod.block.base.BlockBaseContainer;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -79,9 +80,9 @@ public class BlockMachineRenamer extends BlockBaseContainer {
 
 	@Override
 	public void registerBlockIcons(IIconRegister reg) {
-		this.icons[0] = reg.registerIcon(RorysMod.MODID + ":machineTop");
-		this.icons[1] = reg.registerIcon(RorysMod.MODID + ":machineRenamer");
-		this.icons[2] = reg.registerIcon(RorysMod.MODID + ":machineBottom");
+		this.icons[0] = reg.registerIcon(RorysGlobal.MODID + ":machineTop");
+		this.icons[1] = reg.registerIcon(RorysGlobal.MODID + ":machineRenamer");
+		this.icons[2] = reg.registerIcon(RorysGlobal.MODID + ":machineBottom");
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.intergrations.nei.RoryShapedRecipeHandler;
 import me.roryclaasen.rorysmod.core.intergrations.nei.RoryShapelessRecipeHandler;
@@ -26,7 +27,7 @@ import net.minecraft.item.ItemStack;
 public class NEIRorysModConfig implements IConfigureNEI {
 	@Override
 	public void loadConfig() {
-		RMLog.info("Loading NEI for " + RorysMod.NAME);
+		RMLog.info("Loading NEI for " + RorysGlobal.NAME);
 		API.hideItem(new ItemStack(RorysMod.items.laserBolt));
 
 		API.registerRecipeHandler(new RoryShapelessRecipeHandler());
@@ -38,11 +39,11 @@ public class NEIRorysModConfig implements IConfigureNEI {
 
 	@Override
 	public String getName() {
-		return RorysMod.NAME + " NEI Plugin";
+		return RorysGlobal.NAME + " NEI Plugin";
 	}
 
 	@Override
 	public String getVersion() {
-		return RorysMod.VERSION;
+		return RorysGlobal.VERSION;
 	}
 }

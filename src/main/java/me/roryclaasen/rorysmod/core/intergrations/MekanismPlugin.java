@@ -13,6 +13,7 @@
 package me.roryclaasen.rorysmod.core.intergrations;
 
 import cpw.mods.fml.common.Loader;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.util.RMLog;
 import mekanism.api.infuse.InfuseObject;
@@ -20,6 +21,7 @@ import mekanism.api.infuse.InfuseRegistry;
 import mekanism.api.infuse.InfuseType;
 import mekanism.api.recipe.RecipeHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 @SuppressWarnings("deprecation")
 public class MekanismPlugin {
@@ -32,12 +34,15 @@ public class MekanismPlugin {
 	}
 
 	private static void intergrate() {
-		InfuseType solderInfuse = new InfuseType("SOLDER", RorysMod.MODID + ":infuse/solder").setUnlocalizedName("solder");
+		InfuseType solderInfuse = new InfuseType("SOLDER", RorysGlobal.MODID + ":infuse/solder").setUnlocalizedName("solder");
 		InfuseRegistry.registerInfuseType(solderInfuse);
-		InfuseRegistry.registerInfuseObject(new ItemStack(RorysMod.items.solderWire), new InfuseObject(solderInfuse, 1));
-		InfuseRegistry.registerInfuseObject(new ItemStack(RorysMod.items.solderCoil), new InfuseObject(solderInfuse, 8));
+		InfuseRegistry.registerInfuseObject(new ItemStack(RorysMod.items.solderWire), new InfuseObject(solderInfuse, 10));
+		InfuseRegistry.registerInfuseObject(new ItemStack(RorysMod.items.solderCoil), new InfuseObject(solderInfuse, 80));
 
-		RecipeHelper.addMetallurgicInfuserRecipe(solderInfuse, 1, new ItemStack(RorysMod.items.blankCircuit), new ItemStack(RorysMod.items.circuit));
-		RecipeHelper.addMetallurgicInfuserRecipe(solderInfuse, 1, new ItemStack(RorysMod.items.blankAdvancedCircuit), new ItemStack(RorysMod.items.advancedCircuit));
+		for (ItemStack ironDust : OreDictionary.getOres("dustIron")) {
+			RecipeHelper.addMetallurgicInfuserRecipe(InfuseRegistry.get("CARBON"), 100, ironDust, new ItemStack(RorysMod.items.steelDust));
+		}
+		RecipeHelper.addMetallurgicInfuserRecipe(solderInfuse, 10, new ItemStack(RorysMod.items.blankCircuit), new ItemStack(RorysMod.items.circuit));
+		RecipeHelper.addMetallurgicInfuserRecipe(solderInfuse, 10, new ItemStack(RorysMod.items.blankAdvancedCircuit), new ItemStack(RorysMod.items.advancedCircuit));
 	}
 }

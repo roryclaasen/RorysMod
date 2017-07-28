@@ -15,19 +15,19 @@ limitations under the License.
  */
 package me.roryclaasen.rorysmod.render;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
-import me.roryclaasen.rorysmod.core.RorysMod;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public class RenderPoweredChest extends TileEntitySpecialRenderer {
 
-	private ResourceLocation texture = new ResourceLocation(RorysMod.MODID + ":textures/models/chest.png");
+	private ResourceLocation texture = new ResourceLocation(RorysGlobal.MODID + ":textures/models/chest.png");
 
 	private ModelChest model;
 

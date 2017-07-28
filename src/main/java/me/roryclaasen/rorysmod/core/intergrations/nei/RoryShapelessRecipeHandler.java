@@ -17,7 +17,7 @@ import java.util.List;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.ShapelessRecipeHandler;
-import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.recipe.RoryShapelessRecipe;
 import me.roryclaasen.rorysmod.util.RecipeUtils;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ public class RoryShapelessRecipeHandler extends ShapelessRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return RorysMod.NAME + " " + StatCollector.translateToLocal("recipie.rorysmod.shapeless");
+		return RorysGlobal.NAME + " " + StatCollector.translateToLocal("recipie.rorysmod.shapeless");
 	}
 
 	@SuppressWarnings("unchecked")

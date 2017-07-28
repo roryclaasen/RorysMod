@@ -30,8 +30,8 @@ import me.roryclaasen.rorysmod.core.intergrations.MekanismPlugin;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
 import me.roryclaasen.rorysmod.core.network.proxy.CommonProxy;
 import me.roryclaasen.rorysmod.core.recipe.RoryChargedShapedRecipe;
-import me.roryclaasen.rorysmod.core.recipe.RoryShapedRecipe;
 import me.roryclaasen.rorysmod.core.recipe.RoryChargedShapelessRecipe;
+import me.roryclaasen.rorysmod.core.recipe.RoryShapedRecipe;
 import me.roryclaasen.rorysmod.core.recipe.RoryShapelessRecipe;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
@@ -44,19 +44,15 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.RecipeSorter;
 
-@Mod(modid = RorysMod.MODID, name = RorysMod.NAME, version = RorysMod.VERSION, dependencies = "after:CoFHCore;after:IC2;")
+@Mod(modid = RorysGlobal.MODID, name = RorysGlobal.NAME, version = RorysGlobal.VERSION, dependencies = "after:CoFHCore;after:IC2;")
 public class RorysMod {
 
 	@SidedProxy(clientSide = "me.roryclaasen.rorysmod.core.network.proxy.ClientProxy", serverSide = "me.roryclaasen.rorysmod.core.network.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static final String MODID = "rorysmod";
-	public static final String NAME = "Rory's Mod";
-	public static final String VERSION = "@version@";
-
 	public static Random random;
 
-	@Instance(MODID)
+	@Instance(RorysGlobal.MODID)
 	public static RorysMod instance;
 
 	public static enum GUIS {
@@ -82,7 +78,7 @@ public class RorysMod {
 	public static ModBlocks blocks;
 	public static ModItems items;
 
-	public static CreativeTabs tab;
+	public static CreativeTabs creativeTab;
 
 	public Version versionCheker;
 
@@ -97,12 +93,12 @@ public class RorysMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		instance = this;
 
-		versionCheker = new Version(RorysMod.VERSION);
+		versionCheker = new Version(RorysGlobal.VERSION);
 
 		settings = new Settings(event);
 		settings.load(event);
 
-		tab = new CreativeTabs("rorysMobTab") {
+		creativeTab = new CreativeTabs("rorysMobTab") {
 			@Override
 			public Item getTabIconItem() {
 				return RorysMod.items.rifle1;
@@ -152,10 +148,10 @@ public class RorysMod {
 	}
 
 	private void registerRecipieSorter() {
-		RecipeSorter.register(RorysMod.MODID + ":shaped", RoryShapedRecipe.class, RecipeSorter.Category.SHAPED, "");
-		RecipeSorter.register(RorysMod.MODID + ":shapeless", RoryShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:" + RorysMod.MODID + ":shaped");
-		RecipeSorter.register(RorysMod.MODID + ":shapedCharge", RoryChargedShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:" + RorysMod.MODID + ":shapeless");
-		RecipeSorter.register(RorysMod.MODID + ":shapelessCharge", RoryChargedShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:" + RorysMod.MODID + ":shapedCharge");
+		RecipeSorter.register(RorysGlobal.MODID + ":shaped", RoryShapedRecipe.class, RecipeSorter.Category.SHAPED, "");
+		RecipeSorter.register(RorysGlobal.MODID + ":shapeless", RoryShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:" + RorysGlobal.MODID + ":shaped");
+		RecipeSorter.register(RorysGlobal.MODID + ":shapedCharge", RoryChargedShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:" + RorysGlobal.MODID + ":shapeless");
+		RecipeSorter.register(RorysGlobal.MODID + ":shapelessCharge", RoryChargedShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:" + RorysGlobal.MODID + ":shapedCharge");
 	}
 
 	@EventHandler
@@ -175,7 +171,7 @@ public class RorysMod {
 		RMLog.info("Registered " + Register.getRegisteredEvents() + " event(s)");
 		RMLog.info("Registered " + PacketDispatcher.getPacketId() + " packet(s)");
 
-		Thread check = new Thread(versionCheker, RorysMod.MODID + " Version Check");
+		Thread check = new Thread(versionCheker, RorysGlobal.MODID + " Version Check");
 		check.start();
 	}
 }

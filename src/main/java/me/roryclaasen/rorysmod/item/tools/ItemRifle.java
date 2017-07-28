@@ -16,7 +16,7 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.Settings;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
 import me.roryclaasen.rorysmod.core.network.message.SyncEntityLaserData;
@@ -70,7 +70,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 					}
 				} else {
 					player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.rifle.state.jammed")));
-					world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun_fail", 0.5F, 1.0F);
+					world.playSoundAtEntity(player, RorysGlobal.MODID + ":laser_gun_fail", 0.5F, 1.0F);
 				}
 			}
 		}
@@ -108,7 +108,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	}
 
 	private void fireRifle(ItemStack itemStack, World world, EntityPlayer player) {
-		world.playSoundAtEntity(player, RorysMod.MODID + ":laser_gun", 0.5F, 1.0F);
+		world.playSoundAtEntity(player, RorysGlobal.MODID + ":laser_gun", 0.5F, 1.0F);
 
 		EntityLaser laser = new EntityLaser(world, player, itemStack);
 		world.spawnEntityInWorld(laser);

@@ -18,7 +18,7 @@ import java.util.List;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.ShapedRecipeHandler;
-import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.recipe.RoryShapedRecipe;
 import me.roryclaasen.rorysmod.util.RecipeUtils;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ import net.minecraft.util.StatCollector;
 public class RoryShapedRecipeHandler extends ShapedRecipeHandler {
 	@Override
 	public String getRecipeName() {
-		return RorysMod.NAME + " " + StatCollector.translateToLocal("recipie.rorysmod.shaped");
+		return RorysGlobal.NAME + " " + StatCollector.translateToLocal("recipie.rorysmod.shaped");
 	}
 
 	@SuppressWarnings("unchecked")

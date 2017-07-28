@@ -12,6 +12,7 @@
  */
 package me.roryclaasen.rorysmod.item.base;
 
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.item.Item;
 
@@ -21,9 +22,9 @@ public class ItemBase extends Item {
 
 	public ItemBase(String unlocalizedName) {
 		super();
-		this.setUnlocalizedName(RorysMod.MODID + "_" + unlocalizedName);
-		this.setTextureName(RorysMod.MODID + ":" + unlocalizedName);
-		this.setCreativeTab(RorysMod.tab);
+		this.setUnlocalizedName(RorysGlobal.MODID + "_" + unlocalizedName);
+		this.setTextureName(RorysGlobal.MODID + ":" + unlocalizedName);
+		this.setCreativeTab(RorysMod.creativeTab);
 
 		this.internalName = unlocalizedName;
 	}

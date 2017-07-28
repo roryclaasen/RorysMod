@@ -15,6 +15,7 @@ package me.roryclaasen.rorysmod.gui;
 import cofh.lib.gui.GuiBase;
 import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
 import me.roryclaasen.rorysmod.container.ContainerPoweredChest;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +24,7 @@ import net.minecraft.util.StatCollector;
 public class GuiPoweredChest extends GuiBase {
 
 	public GuiPoweredChest(TileEntityPoweredChest te, EntityPlayer player) {
-		super(new ContainerPoweredChest(te, player), new ResourceLocation(RorysMod.MODID, "textures/gui/chest.png"));
+		super(new ContainerPoweredChest(te, player), new ResourceLocation(RorysGlobal.MODID, "textures/gui/chest.png"));
 	}
 
 	@Override

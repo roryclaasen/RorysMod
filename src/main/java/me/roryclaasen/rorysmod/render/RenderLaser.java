@@ -16,7 +16,7 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
-import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.Settings;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.model.ModelLaser;
@@ -29,7 +29,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderLaser extends Render {
 
-	private static ResourceLocation backup = new ResourceLocation(RorysMod.MODID, "textures/entity/bolt.png");
+	private static ResourceLocation backup = new ResourceLocation(RorysGlobal.MODID, "textures/entity/bolt.png");
 	private ModelBase model;
 
 	public RenderLaser() {

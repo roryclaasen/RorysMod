@@ -15,17 +15,17 @@ limitations under the License.
  */
 package me.roryclaasen.rorysmod.render;
 
+import org.lwjgl.opengl.GL11;
+
+import me.roryclaasen.rorysmod.core.RorysGlobal;
+import me.roryclaasen.rorysmod.model.ModelRifleTable;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.model.ModelRifleTable;
-
-import org.lwjgl.opengl.GL11;
 
 public class RenderRifleTable extends TileEntitySpecialRenderer {
 
-	private ResourceLocation texture = new ResourceLocation(RorysMod.MODID + ":textures/models/table.png");
+	private ResourceLocation texture = new ResourceLocation(RorysGlobal.MODID + ":textures/models/table.png");
 
 	private ModelRifleTable model;
 

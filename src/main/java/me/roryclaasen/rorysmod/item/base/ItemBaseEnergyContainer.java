@@ -17,6 +17,7 @@ import java.util.List;
 import cofh.api.energy.ItemEnergyContainer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -30,9 +31,9 @@ public class ItemBaseEnergyContainer extends ItemEnergyContainer {
 
 	public ItemBaseEnergyContainer(String unlocalizedName, int capacity, int maxReceive, int maxExtract) {
 		super(capacity, maxReceive, maxExtract);
-		this.setUnlocalizedName(RorysMod.MODID + "_" + unlocalizedName);
-		this.setTextureName(RorysMod.MODID + ":" + unlocalizedName);
-		this.setCreativeTab(RorysMod.tab);
+		this.setUnlocalizedName(RorysGlobal.MODID + "_" + unlocalizedName);
+		this.setTextureName(RorysGlobal.MODID + ":" + unlocalizedName);
+		this.setCreativeTab(RorysMod.creativeTab);
 		this.setMaxDamage(100);
 
 		this.internalName = unlocalizedName;

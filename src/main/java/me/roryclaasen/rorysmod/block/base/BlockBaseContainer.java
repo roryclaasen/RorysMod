@@ -12,6 +12,7 @@
  */
 package me.roryclaasen.rorysmod.block.base;
 
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,9 +23,9 @@ public class BlockBaseContainer extends BlockContainer {
 
 	public BlockBaseContainer(Material material, String unlocalizedName) {
 		super(material);
-		this.setBlockName(RorysMod.MODID + "_" + unlocalizedName);
-		this.setBlockTextureName(RorysMod.MODID + ":" + unlocalizedName);
-		this.setCreativeTab(RorysMod.tab);
+		this.setBlockName(RorysGlobal.MODID + "_" + unlocalizedName);
+		this.setBlockTextureName(RorysGlobal.MODID + ":" + unlocalizedName);
+		this.setCreativeTab(RorysMod.creativeTab);
 	}
 
 	@Override

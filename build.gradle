@@ -89,7 +89,7 @@ minecraft {
     
     
 	replace '@version@', project.version
-    replaceIn "RorysMod.java"
+    replaceIn "RorysGlobal.java"
 }
 
 processResources {

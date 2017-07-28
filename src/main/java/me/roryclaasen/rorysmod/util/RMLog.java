@@ -18,7 +18,7 @@ package me.roryclaasen.rorysmod.util;
 import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
-import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 
 public class RMLog {
 
@@ -56,7 +56,7 @@ public class RMLog {
 
 	public static void log(Level level, Object object, boolean core) {
 		if (object == null) object = "null";
-		if (core) FMLLog.log(RorysMod.MODID + "core", level, object.toString());
-		else FMLLog.log(RorysMod.MODID, level, object.toString());
+		if (core) FMLLog.log(RorysGlobal.MODID + "core", level, object.toString());
+		else FMLLog.log(RorysGlobal.MODID, level, object.toString());
 	}
 }

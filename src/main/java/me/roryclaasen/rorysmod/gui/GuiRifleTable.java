@@ -20,6 +20,7 @@ import cofh.lib.gui.GuiBase;
 import cpw.mods.fml.client.config.GuiSlider;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.Settings;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
@@ -35,8 +36,8 @@ public class GuiRifleTable extends GuiBase {
 
 	private TileEntityRifleTable tileEntity;
 
-	private static ResourceLocation empty = new ResourceLocation(RorysMod.MODID, "textures/gui/table-empty.png");
-	private static ResourceLocation table = new ResourceLocation(RorysMod.MODID, "textures/gui/table.png");
+	private static ResourceLocation empty = new ResourceLocation(RorysGlobal.MODID, "textures/gui/table-empty.png");
+	private static ResourceLocation table = new ResourceLocation(RorysGlobal.MODID, "textures/gui/table.png");
 
 	private GuiSlider colorR, colorG, colorB;
 	private GuiButton save;

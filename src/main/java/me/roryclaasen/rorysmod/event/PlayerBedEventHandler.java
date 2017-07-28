@@ -109,6 +109,9 @@ public class PlayerBedEventHandler {
 		if (!worldObj.isRemote) {
 			worldObj.updateAllPlayersSleepingFlag();
 			if (worldObj.isDaytime()) player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.daytime")));
+			else {
+				// TODO msg x amount of player are sleeping
+			}
 		}
 		event.result = EntityPlayer.EnumStatus.OK;
 	}

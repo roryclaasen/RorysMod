@@ -12,6 +12,7 @@
  */
 package me.roryclaasen.rorysmod.item.base;
 
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
@@ -24,16 +25,16 @@ public class ItemBaseArmor extends ItemArmor {
 	public ItemBaseArmor(String unlocalizedName, ArmorMaterial material, int type) {
 		super(material, 0, type);
 
-		this.setUnlocalizedName(RorysMod.MODID + "_" + unlocalizedName);
-		this.setTextureName(RorysMod.MODID + ":" + unlocalizedName);
-		this.setCreativeTab(RorysMod.tab);
+		this.setUnlocalizedName(RorysGlobal.MODID + "_" + unlocalizedName);
+		this.setTextureName(RorysGlobal.MODID + ":" + unlocalizedName);
+		this.setCreativeTab(RorysMod.creativeTab);
 
 		this.internalName = unlocalizedName;
 	}
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-		return RorysMod.MODID + ":textures/models/armor/" + this.getArmorMaterial().name() + "_layer_" + (this.armorType == 2 ? "2" : "1") + ".png";
+		return RorysGlobal.MODID + ":textures/models/armor/" + this.getArmorMaterial().name() + "_layer_" + (this.armorType == 2 ? "2" : "1") + ".png";
 	}
 
 	public String getName() {

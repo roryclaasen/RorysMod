@@ -65,6 +65,7 @@ item.rorysmod_ingotSolder.name=Solder Ingot
 item.rorysmod_dustSolder.name=Solder Dust
 item.rorysmod_plateSolder.name=Solder Plate
 item.rorysmod_coilSolder.name=Coil of Solder
+item.rorysmod_wireSolder.name=Solder Wire
 item.rorysmod_solder_helmet.name=Solder Helmet
 item.rorysmod_solder_chestplate.name=Solder Chestplate
 item.rorysmod_solder_leggings.name=Solder Leggings
@@ -91,7 +92,7 @@ message.rorysmod.chest.state.locked=This chest is locked, it needs to be powered
 
 message.rorysmod.sleeping.daytime=Sleeping now won't have any effect till night
 message.rorysmod.sleeping.mobs=There are monsters near by. Be careful
-message.rorysmod.sleeping.wakeup=Good morning $1. It is time to get up now
+message.rorysmod.sleeping.wakeup=Good morning %s. It is time to get up now
 
 message.rorysmod.weight=Weight
 message.rorysmod.heat=Heat

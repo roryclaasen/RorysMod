@@ -19,14 +19,14 @@ import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementTextField;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.container.ContainerMachineRenamer;
-import me.roryclaasen.rorysmod.core.RorysMod;
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 public class GuiMachineRenamer extends GuiBase {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(RorysMod.MODID, "textures/gui/renamer.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(RorysGlobal.MODID, "textures/gui/renamer.png");
 
 	private TileEntityRenamer tileEntity;
 

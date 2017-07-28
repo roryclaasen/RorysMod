@@ -15,16 +15,17 @@ limitations under the License.
  */
 package me.roryclaasen.rorysmod.block.base;
 
+import me.roryclaasen.rorysmod.core.RorysGlobal;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import me.roryclaasen.rorysmod.core.RorysMod;
 
 public class BlockBase extends Block {
 
 	public BlockBase(Material material, String unlocalizedName) {
 		super(material);
-		this.setBlockName(RorysMod.MODID + "_" + unlocalizedName);
-		this.setBlockTextureName(RorysMod.MODID + ":" + unlocalizedName);
-		this.setCreativeTab(RorysMod.tab);
+		this.setBlockName(RorysGlobal.MODID + "_" + unlocalizedName);
+		this.setBlockTextureName(RorysGlobal.MODID + ":" + unlocalizedName);
+		this.setCreativeTab(RorysMod.creativeTab);
 	}
 }

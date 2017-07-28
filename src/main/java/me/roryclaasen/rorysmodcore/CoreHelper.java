@@ -12,8 +12,12 @@
  */
 package me.roryclaasen.rorysmodcore;
 
+import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.Settings;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -35,14 +39,17 @@ public class CoreHelper {
 	}
 
 	public static void notifyPlayers(WorldServer world) {
-		world.provider.resetRainAndThunder();
-		for (Object object : world.playerEntities) {
-			if (object instanceof EntityPlayer) {
-				@SuppressWarnings("unused")
-				EntityPlayer player = (EntityPlayer) object;
-				// player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup")));
-				// This will spam the user of messages till someone leaves a bed
+		// TODO wake all players if not enabled
+
+		if (world.getWorldTime() == RorysGlobal.BED_TICK_WAKEUP) {
+			world.provider.resetRainAndThunder();
+			for (Object object : world.playerEntities) {
+				if (object instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) object;
+
+					if (!player.getDisplayName().equals("redmechanic")) player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup"), EnumChatFormatting.AQUA + player.getDisplayName() + EnumChatFormatting.WHITE)));
+				}
 			}
-		}
+		} else return;
 	}
 }
