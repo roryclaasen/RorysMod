@@ -22,7 +22,7 @@ import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
 import me.roryclaasen.rorysmod.container.ContainerRifleTable;
 import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.core.RorysMod;
-import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.util.ColorUtils;
 import me.roryclaasen.rorysmod.util.NBTLaser;
@@ -84,7 +84,7 @@ public class GuiRifleTable extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 
-		if (Settings.showColorBox && slidersEnabled()) {
+		if (RorysConfig.showColorBox && slidersEnabled()) {
 			int id = ColorUtils.loadTextureFromColour(getColorFromSlider(), 64, 64);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
 			this.drawTexturedModalRect(colorB.xPosition + ((colorB.width - 32) / 2), colorB.yPosition + colorB.height + 10, 0, 0, 32, 32);

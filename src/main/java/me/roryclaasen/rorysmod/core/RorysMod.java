@@ -73,7 +73,7 @@ public class RorysMod {
 		}
 	}
 
-	private Settings settings;
+	private RorysConfig settings;
 
 	public static ModBlocks blocks;
 	public static ModItems items;
@@ -95,7 +95,7 @@ public class RorysMod {
 
 		versionCheker = new Version(RorysGlobal.VERSION);
 
-		settings = new Settings(event);
+		settings = new RorysConfig(event);
 		settings.load(event);
 
 		creativeTab = new CreativeTabs("rorysMobTab") {

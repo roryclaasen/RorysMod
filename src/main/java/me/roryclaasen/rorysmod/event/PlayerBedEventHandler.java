@@ -24,7 +24,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
-import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 
 public class PlayerBedEventHandler {
 
@@ -44,7 +44,7 @@ public class PlayerBedEventHandler {
 				return;
 			}
 
-			if (worldObj.isDaytime() && !Settings.enableSleepInDay) {
+			if (worldObj.isDaytime() && !RorysConfig.enableSleepInDay) {
 				event.result = EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
 				return;
 			}
@@ -60,7 +60,7 @@ public class PlayerBedEventHandler {
 			List list = worldObj.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.getBoundingBox((double) event.x - d0, (double) event.y - d1, (double) event.z - d0, (double) event.x + d0, (double) event.y + d1, (double) event.z + d0));
 
 			if (!list.isEmpty()) {
-				if (Settings.enableMobsNearByCheck) {
+				if (RorysConfig.enableMobsNearByCheck) {
 					event.result = EntityPlayer.EnumStatus.NOT_SAFE;
 					return;
 				} else {

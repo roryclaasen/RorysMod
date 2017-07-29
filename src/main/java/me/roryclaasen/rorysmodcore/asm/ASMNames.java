@@ -35,13 +35,16 @@ public final class ASMNames {
 	public static final String MD_WAKE_ALL_PLAYERS = "net/minecraft/world/WorldServer/wakeAllPlayers ()V";
 
 	public static final String MD_WORLD_TICK = "net/minecraft/world/WorldServer/tick ()V";
+	public static final String MD_WORLD_TIME_SET = "net/minecraft/world/storage/WorldInfo/setWorldTime (J)V";
 
 	public static final String MD_RM_HELPER_SLEEP = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow Z";
 	public static final String MD_RM_HELPER_SLEEP_PLAEYR = "me/roryclaasen/rorysmodcore/CoreHelper/shouldWakeUpNow (Lnet/minecraft/entity/player/EntityPlayer;)Z";
 	public static final String MD_RM_HELPER_NOTIFY = "me/roryclaasen/rorysmodcore/CoreHelper/notifyPlayers (Lnet/minecraft/world/WorldServer;)V";
+	public static final String MD_RM_WORLD_TICK_MORNING = "me/roryclaasen/rorysmodcore/CoreHelper/goodMorning (Lnet/minecraft/world/WorldServer;)V";
 
 	public static final String FD_PLAYER_WORLD_OBJ = "net/minecraft/entity/player/EntityPlayer/worldObj Lnet/minecraft/world/World;";
 	public static final String FD_WORLD_IS_REMOTE = "net/minecraft/world/World/isRemote Z";
+	public static final String FD_WORLD_INFO = "net/minecraft/world/WorldServer/worldInfo Lnet/minecraft/world/storage/WorldInfo;";
 
 	public static final String FD_PLAYER_ENUM_NOT_POSSIBLE = "net/minecraft/entity/player/EntityPlayer$EnumStatus/NOT_POSSIBLE_HERE Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;";
 	public static final String FD_PLAYER_ENUM_OK = "net/minecraft/entity/player/EntityPlayer$EnumStatus/OK Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;";
@@ -55,9 +58,11 @@ public final class ASMNames {
 		MAPPINGS.put(MD_WAKE_ALL_PLAYERS, "func_73053_d");
 
 		MAPPINGS.put(MD_WORLD_TICK, "func_72835_b");
+		MAPPINGS.put(MD_WORLD_TIME_SET, "func_76068_b");
 
 		MAPPINGS.put(FD_PLAYER_WORLD_OBJ, "field_70170_p");
 		MAPPINGS.put(FD_WORLD_IS_REMOTE, "field_72995_K");
+		MAPPINGS.put(FD_WORLD_INFO, "field_72986_A");
 
 		MAPPINGS.put(FD_PLAYER_ENUM_NOT_POSSIBLE, "field_72995_K");
 		MAPPINGS.put(FD_PLAYER_ENUM_OK, "field_72995_K");

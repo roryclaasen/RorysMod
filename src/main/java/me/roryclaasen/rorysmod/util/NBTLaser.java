@@ -14,7 +14,7 @@ package me.roryclaasen.rorysmod.util;
 
 import java.awt.Color;
 
-import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -167,13 +167,13 @@ public class NBTLaser {
 	}
 
 	public static int getMaxWeight(int tier) {
-		if (tier == 1) return Settings.rifleTier1;
-		if (tier == 2) return Settings.rifleTier2;
-		if (tier == 3) return Settings.rifleTier3;
-		if (tier == 4) return Settings.rifleTier4;
-		if (tier == 5) return Settings.rifleTier5;
+		if (tier == 1) return RorysConfig.rifleTier1;
+		if (tier == 2) return RorysConfig.rifleTier2;
+		if (tier == 3) return RorysConfig.rifleTier3;
+		if (tier == 4) return RorysConfig.rifleTier4;
+		if (tier == 5) return RorysConfig.rifleTier5;
 		// RMLog.warn("Unknown rifle tier");
-		return Settings.rifleTier1;
+		return RorysConfig.rifleTier1;
 	}
 
 	public String toString() {

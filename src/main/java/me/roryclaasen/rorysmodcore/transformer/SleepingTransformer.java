@@ -17,8 +17,10 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.LabelNode;
+import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
@@ -64,14 +66,28 @@ public class SleepingTransformer implements IClassTransformer {
 		ClassNode clazz = ASMHelper.createClassNode(bytes);
 		MethodNode method = ASMHelper.findMethod(clazz, ASMNames.MD_WORLD_TICK);
 
-		InsnList needle = new InsnList();
-		needle.add(new VarInsnNode(Opcodes.ALOAD, 0));
-		needle.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKEVIRTUAL, ASMNames.MD_WAKE_ALL_PLAYERS, false));
+		InsnList needleSetTime = new InsnList();
+		needleSetTime.add(ASMHelper.getFieldInsnNode(Opcodes.GETFIELD, ASMNames.FD_WORLD_INFO));
+		needleSetTime.add(new VarInsnNode(Opcodes.LLOAD, 1));
+		needleSetTime.add(new VarInsnNode(Opcodes.LLOAD, 1));
+		needleSetTime.add(new LdcInsnNode(24000L));
+		needleSetTime.add(new InsnNode(Opcodes.LREM));
+		needleSetTime.add(new InsnNode(Opcodes.LSUB));
+		needleSetTime.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKEVIRTUAL, ASMNames.MD_WORLD_TIME_SET, false));
 
-		AbstractInsnNode call = ASMHelper.findLastNodeFromNeedle(method.instructions, needle);
+		InsnList goodMorning = new InsnList();
+		goodMorning.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		goodMorning.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKESTATIC, ASMNames.MD_RM_WORLD_TICK_MORNING, false));
+		method.instructions.insert(ASMHelper.findLastNodeFromNeedle(method.instructions, needleSetTime), goodMorning);
+
+		InsnList needleWakeUp = new InsnList();
+		needleWakeUp.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		needleWakeUp.add(ASMHelper.getMethodInsnNode(Opcodes.INVOKEVIRTUAL, ASMNames.MD_WAKE_ALL_PLAYERS, false));
+
+		AbstractInsnNode call = ASMHelper.findLastNodeFromNeedle(method.instructions, needleWakeUp);
 
 		method.instructions.set(call, ASMHelper.getMethodInsnNode(Opcodes.INVOKESTATIC, ASMNames.MD_RM_HELPER_NOTIFY, false));
-		
+
 		return ASMHelper.createBytes(clazz, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 	}
 }

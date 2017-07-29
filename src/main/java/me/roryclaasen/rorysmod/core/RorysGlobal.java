@@ -24,11 +24,4 @@ public class RorysGlobal {
 	public static final String VERSION = "@version@";
 
 	public static final ArmorMaterial SOLDER_ARMOR = EnumHelper.addArmorMaterial("solder", 12, new int[] { 1, 4, 2, 1 }, 10);
-
-	/**
-	 * Beds can be used at this point.
-	 */
-	public static final long BED_TICK_SLEEP = 12516L;
-	
-	public static final long BED_TICK_WAKEUP = 24000L;
 }

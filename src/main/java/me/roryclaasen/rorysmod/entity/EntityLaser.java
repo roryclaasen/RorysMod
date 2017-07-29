@@ -12,7 +12,7 @@
  */
 package me.roryclaasen.rorysmod.entity;
 
-import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 import me.roryclaasen.rorysmod.util.NBTLaser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,7 +42,7 @@ public class EntityLaser extends EntityThrowable {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if (Settings.laserEmitsLight) addLight();
+		if (RorysConfig.laserEmitsLight) addLight();
 		if (ticksExisted > 60) {
 			setDead();
 		}
@@ -51,7 +51,7 @@ public class EntityLaser extends EntityThrowable {
 	@Override
 	public void setDead() {
 		super.setDead();
-		if (Settings.laserEmitsLight) this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ);
+		if (RorysConfig.laserEmitsLight) this.worldObj.updateLightByType(EnumSkyBlock.Block, (int) this.posX, (int) this.posY, (int) this.posZ);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class EntityLaser extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition movingObjectPosition) {
 		if (!worldObj.isRemote) {
 			if (movingObjectPosition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				if (Settings.setFireToBlocks) {
+				if (RorysConfig.setFireToBlocks) {
 					if (data != null && data.getItemCount(NBTLaser.Items.Igniter) > 0) {
 						// int range = 1 + (int) Math.floor(data.getItemCount(NBTLaser.Items.Igniter) / 2);
 

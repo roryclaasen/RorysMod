@@ -12,10 +12,13 @@
  */
 package me.roryclaasen.rorysmod.item;
 
+import java.util.List;
+
 import me.roryclaasen.rorysmod.core.RorysGlobal;
 import me.roryclaasen.rorysmod.item.base.ItemBaseArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemSolderArmor extends ItemBaseArmor {
@@ -27,7 +30,13 @@ public class ItemSolderArmor extends ItemBaseArmor {
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		super.onArmorTick(world, player, itemStack);
-		
+
 		// TODO add achievement
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+		tooltip.add(StatCollector.translateToLocal("message.rorysmod.strong"));
 	}
 }

@@ -12,8 +12,12 @@
  */
 package me.roryclaasen.rorysmodcore;
 
-import me.roryclaasen.rorysmod.core.RorysGlobal;
-import me.roryclaasen.rorysmod.core.Settings;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+
+import cpw.mods.fml.relauncher.ReflectionHelper;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -26,30 +30,46 @@ public class CoreHelper {
 	private CoreHelper() {}
 
 	public static boolean shouldWakeUpNow() {
-		return !Settings.enableSleepInDay;
+		return !RorysConfig.enableSleepInDay;
 	}
 
 	public static boolean shouldWakeUpNow(EntityPlayer player) {
 		World world = player.worldObj;
 		if (!world.isRemote) {
-			if (Settings.enableSleepInDay) return false;
+			if (RorysConfig.enableSleepInDay) return false;
 			if (world.isDaytime()) return true;
 		}
 		return false;
 	}
 
+	public static void goodMorning(WorldServer world) {
+		if (!world.isRemote) {
+			if (RorysConfig.enableSleepInDay) {
+				// TODO FIX THIS
+				// world.setWorldTime(RorysConfig.sleepDayTime);
+			} // else do nothing
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
 	public static void notifyPlayers(WorldServer world) {
-		// TODO wake all players if not enabled
+		if (RorysConfig.enableSleepInDay) {
+			if (world.getWorldTime() == RorysConfig.sleepDayTime) {
+				world.provider.resetRainAndThunder();
 
-		if (world.getWorldTime() == RorysGlobal.BED_TICK_WAKEUP) {
-			world.provider.resetRainAndThunder();
-			for (Object object : world.playerEntities) {
-				if (object instanceof EntityPlayer) {
-					EntityPlayer player = (EntityPlayer) object;
-
-					if (!player.getDisplayName().equals("redmechanic_")) player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup"), EnumChatFormatting.AQUA + player.getDisplayName() + EnumChatFormatting.WHITE)));
+				Iterator iterator = world.playerEntities.iterator();
+				while (iterator.hasNext()) {
+					EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+					entityplayer.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("message.rorysmod.sleeping.wakeup"), EnumChatFormatting.AQUA + entityplayer.getDisplayName() + EnumChatFormatting.WHITE)));
 				}
 			}
-		} else return;
+		} else {
+			Method wakeAllPlayers = ReflectionHelper.findMethod(WorldServer.class, world, new String[] { "wakeAllPlayers", "func_73053_d" });
+			try {
+				wakeAllPlayers.invoke(world, new Object[] {});
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

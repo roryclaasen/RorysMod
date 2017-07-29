@@ -18,14 +18,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import me.roryclaasen.rorysmod.util.RMLog;
 import net.minecraftforge.common.config.Configuration;
 
-public class Settings {
+public class RorysConfig {
 
 	public static boolean enableMobsNearByCheck;
 	public static boolean enableSleepInDay;
 	public static boolean enableStayInBed;
+	public static long sleepDayTime;
+	
 	public static boolean showColorBox;
 	public static boolean laserEmitsLight;
-
 	public static boolean coloredLaser;
 	public static boolean laserTooltip;
 	public static int rifleTier1;
@@ -37,7 +38,7 @@ public class Settings {
 
 	private static Configuration config;
 
-	public Settings(FMLPreInitializationEvent event) {
+	public RorysConfig(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 	}
 
@@ -53,7 +54,8 @@ public class Settings {
 		enableMobsNearByCheck = config.get("sleeping", "enableMobsNearByCheck", false, "If enabled then you can't sleep with monsters near by").getBoolean(false);
 		enableSleepInDay = config.get("sleeping", "enableSleepInDay", true, "If enabled then you can sleep in the day").getBoolean(true);
 		// enableStayInBed = config.get("sleeping", "stayInBed", true, "You will not get kicked out of the bed in daytime").getBoolean(true);
-
+		sleepDayTime = config.get("sleeping", "wakeUpTime", 24000, "If sleep in day enabled, this is the time you wake up").getInt(24000);
+		
 		// modular lasers
 		coloredLaser = config.get("modular-lasers", "allowColouredLasers", true).getBoolean(true);
 		laserTooltip = config.get("modular-lasers", "showLaserTooltips", true, "Allow modules to be shown under the rifle tooltip").getBoolean(true);

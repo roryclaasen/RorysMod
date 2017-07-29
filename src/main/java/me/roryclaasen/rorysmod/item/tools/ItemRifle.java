@@ -17,7 +17,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import me.roryclaasen.rorysmod.core.RorysGlobal;
-import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
 import me.roryclaasen.rorysmod.core.network.message.SyncEntityLaserData;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
@@ -134,7 +134,7 @@ public class ItemRifle extends ItemBaseEnergyContainer {
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		if (!NBTLaser.hasKeys(stack.stackTagCompound)) onCreated(stack, playerIn.worldObj, playerIn);
 		NBTLaser data = new NBTLaser(stack.stackTagCompound);
-		if (Settings.laserTooltip) {
+		if (RorysConfig.laserTooltip) {
 			// tooltip.add("Tier " + this.tier);
 			if (GuiScreen.isShiftKeyDown()) {
 				tooltip.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("message.rorysmod.rifle.discription"));

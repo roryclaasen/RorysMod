@@ -17,7 +17,7 @@ import java.awt.Color;
 import org.lwjgl.opengl.GL11;
 
 import me.roryclaasen.rorysmod.core.RorysGlobal;
-import me.roryclaasen.rorysmod.core.Settings;
+import me.roryclaasen.rorysmod.core.RorysConfig;
 import me.roryclaasen.rorysmod.entity.EntityLaser;
 import me.roryclaasen.rorysmod.model.ModelLaser;
 import me.roryclaasen.rorysmod.util.ColorUtils;
@@ -48,7 +48,7 @@ public class RenderLaser extends Render {
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTick - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTick, 0.0F, 0.0F, 1.0F);
 		bindTexture(backup);
-		if (Settings.coloredLaser) {
+		if (RorysConfig.coloredLaser) {
 			if (entity instanceof EntityLaser) {
 				EntityLaser laser = (EntityLaser) entity;
 				NBTLaser data = laser.getLaserData();
