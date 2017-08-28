@@ -15,6 +15,7 @@ package me.roryclaasen.rorysmod.item;
 import java.util.List;
 
 import me.roryclaasen.rorysmod.core.RorysGlobal;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.item.base.ItemBaseArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,7 +32,25 @@ public class ItemSolderArmor extends ItemBaseArmor {
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		super.onArmorTick(world, player, itemStack);
 
-		// TODO add achievement
+		ItemStack[] armor = player.inventory.armorInventory;
+
+		boolean all = true;
+
+		for (ItemStack item : armor) {
+			if (item == null) {
+				all = false;
+				continue;
+			}
+			if (!(item.getItem() instanceof ItemSolderArmor)) {
+				all = false;
+				continue;
+			}
+			player.triggerAchievement(RorysMod.achievements.solderArmor);
+		}
+
+		if (all) {
+			player.triggerAchievement(RorysMod.achievements.solderArmorFull);
+		}
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

@@ -14,11 +14,17 @@ package me.roryclaasen.rorysmod.core.network.proxy;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.Achievement;
 
 public class CommonProxy {
 
-	public void init(FMLInitializationEvent e) {}
+	public void init(FMLInitializationEvent e) {
+		for (Achievement achi : RorysMod.achievements.getAllAchivements()) {
+			achi.registerStat();
+		}
+	}
 
 	public EntityPlayer getPlayerEntity(MessageContext ctx) {
 		return ctx.getServerHandler().playerEntity;

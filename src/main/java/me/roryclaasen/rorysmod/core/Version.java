@@ -25,8 +25,8 @@ public class Version implements Runnable {
 
 	public boolean haveWarnedVersionOutOfDate = false;
 
-	public Version(String version) {
-		check = new VersionCheck("GOGO98901", "RorysMod", version);
+	public Version() {
+		check = new VersionCheck("GOGO98901", "RorysMod", RorysGlobal.VERSION);
 	}
 
 	@Override

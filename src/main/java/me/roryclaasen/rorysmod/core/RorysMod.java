@@ -21,10 +21,13 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import me.roryclaasen.rorysmod.block.tile.TileEntityPoweredChest;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRenamer;
 import me.roryclaasen.rorysmod.block.tile.TileEntityRifleTable;
+import me.roryclaasen.rorysmod.core.init.ModAchievements;
 import me.roryclaasen.rorysmod.core.init.ModBlocks;
+import me.roryclaasen.rorysmod.core.init.ModCommands;
 import me.roryclaasen.rorysmod.core.init.ModItems;
 import me.roryclaasen.rorysmod.core.intergrations.MekanismPlugin;
 import me.roryclaasen.rorysmod.core.network.PacketDispatcher;
@@ -77,6 +80,8 @@ public class RorysMod {
 
 	public static ModBlocks blocks;
 	public static ModItems items;
+	public static ModAchievements achievements;
+	private static ModCommands commands;
 
 	public static CreativeTabs creativeTab;
 
@@ -87,13 +92,15 @@ public class RorysMod {
 
 		blocks = new ModBlocks();
 		items = new ModItems();
+		achievements = new ModAchievements();
+		commands = new ModCommands();
 	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		instance = this;
 
-		versionCheker = new Version(RorysGlobal.VERSION);
+		versionCheker = new Version();
 
 		settings = new RorysConfig(event);
 		settings.load(event);
@@ -107,6 +114,7 @@ public class RorysMod {
 
 		blocks.preInit(event);
 		items.preInit(event);
+		achievements.preInit(event);
 
 		blocks.register(event);
 		items.register(event);
@@ -119,6 +127,7 @@ public class RorysMod {
 		RMLog.info("Registering Recipes");
 		blocks.init(event);
 		items.init(event);
+		achievements.init(event);
 
 		RMLog.info("Registering everything else");
 
@@ -158,9 +167,10 @@ public class RorysMod {
 	public void postinit(FMLPostInitializationEvent event) {
 		blocks.postinit(event);
 		items.postinit(event);
+		achievements.postinit(event);
 
 		registerRecipieSorter();
-		
+
 		MekanismPlugin.load();
 
 		RMLog.info("Registered " + Register.getRegisteredBlocks() + " block(s)");
@@ -173,5 +183,10 @@ public class RorysMod {
 
 		Thread check = new Thread(versionCheker, RorysGlobal.MODID + " Version Check");
 		check.start();
+	}
+
+	@EventHandler
+	public void serverLoad(FMLServerStartingEvent event) {
+		commands.serverLoad(event);
 	}
 }

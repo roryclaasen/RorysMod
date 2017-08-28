@@ -18,6 +18,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
+import me.roryclaasen.rorysmod.core.RorysMod;
 import me.roryclaasen.rorysmod.core.register.Register;
 import me.roryclaasen.rorysmod.item.ItemCoil;
 import me.roryclaasen.rorysmod.item.ItemDust;
@@ -29,10 +30,12 @@ import me.roryclaasen.rorysmod.item.base.ItemBase;
 import me.roryclaasen.rorysmod.item.tools.ItemRifle;
 import me.roryclaasen.rorysmod.item.tools.ItemSolderingIron;
 import me.roryclaasen.rorysmod.util.RMLog;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ModItems implements ModInterface {
@@ -74,7 +77,12 @@ public class ModItems implements ModInterface {
 		filament = new ItemBase("filament");
 		cpu = new ItemBase("cpu");
 		solderingIron = new ItemSolderingIron("solderingIron");
-		solderDust = new ItemDust("dustSolder");
+		solderDust = new ItemDust("dustSolder") {
+			public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
+				super.onCreated(itemStack, world, player);
+				player.triggerAchievement(RorysMod.achievements.solderDust);
+			}
+		};
 		solderIngot = new ItemIngot("ingotSolder");
 		solderPlate = new ItemPlate("plateSolder");
 		solderWire = new ItemBase("wireSolder");

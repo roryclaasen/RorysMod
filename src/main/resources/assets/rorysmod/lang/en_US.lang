@@ -125,3 +125,13 @@ recipie.rorysmod.shapeless=Shapeless
 
 //-------------------{ MISC }-------------------
 infuse.solder=Solder
+
+//---------------{ Achievements }---------------
+achievement.solder_dust=Smashing up and mixing some metal award
+achievement.solder_dust.desc=White Powder... its not cocaine
+
+achievement.solder_arm=A piece of armour 
+achievement.solder_arm.desc=Even Gold would be better than this
+
+achievement.solder_armFull=Why Have you done this
+achievement.solder_armFull.desc=Create A full set of solder armour 

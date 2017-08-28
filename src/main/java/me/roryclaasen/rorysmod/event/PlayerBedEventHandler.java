@@ -34,6 +34,7 @@ public class PlayerBedEventHandler {
 		World worldObj = player.worldObj;
 
 		if (!worldObj.isRemote) {
+			player.getDisplayName();
 			if (player.isPlayerSleeping() || !player.isEntityAlive()) {
 				event.result = EntityPlayer.EnumStatus.OTHER_PROBLEM;
 				return;
